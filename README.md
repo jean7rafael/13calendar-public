@@ -28,6 +28,8 @@ always returns directly to the original website.
   Italian, Spanish, Russian, Arabic, Hindi, Simplified Chinese, Japanese and
   Korean.
 - Shares light/dark theme and language preferences across the experience.
+- Ends with a localized transparency footer covering sources, privacy and data
+  limitations.
 - Includes documented audit scripts for dates, weekday rules, calendar-13
   adaptation, official sources, translations, merges and emojis.
 
@@ -36,7 +38,8 @@ always returns directly to the original website.
 Holiday translations are loaded on demand for the selected country instead of
 being included in the first JavaScript download. The public repository and
 deployment intentionally exclude local conversation archives, credentials and
-the adapted copy of the reference website.
+the adapted copy of the reference website. No account is required, and the
+interface preferences remain in the visitor's browser.
 
 ## Development
 

@@ -48,6 +48,26 @@ export default {
       "Cette page reprend la même famille de couleurs, de contrastes, de bordures et de formes que le projet de référence, sans modifier l’écran principal de l’application.",
   },
 
+  footer: {
+    ariaLabel: 'Pied de page informatif',
+    title: 'Les dates méritent leur contexte',
+    description: 'Comparez les calendriers avec des sources transparentes et des limites clairement indiquées.',
+    sourcesTitle: 'Sources',
+    sourcesText:
+      'Les jours fériés associent la base date-holidays à des sources officielles vérifiées. Les phases de la Lune et les conversions de dates sont calculées localement.',
+    privacyTitle: 'Confidentialité',
+    privacyText:
+      'Aucun compte n’est requis. Vos préférences de langue, de thème et de pays restent dans ce navigateur.',
+    limitationsTitle: 'Limites des données',
+    limitationsText:
+      'La couverture des jours fériés officiels varie selon le pays et l’année. L’application signale les années sans dates officielles confirmées.',
+    disclaimer:
+      'Complément indépendant pour le Calendrier fixe international. Sans affiliation avec 13months.net ni aucun organisme de normalisation.',
+    linksLabel: 'Liens du pied de page',
+    dataSourcesLink: 'Sources des données',
+    sourceCodeLink: 'Code source',
+  },
+
   navigation: {
     menu: 'Menu',
     backToHome: "Retourner à la page d'accueil",

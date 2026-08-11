@@ -35,6 +35,25 @@ export default {
       '此页面沿用参考项目的色彩、对比度、边框和形状体系，同时不改变应用程序的主界面。',
   },
 
+  footer: {
+    ariaLabel: '信息页脚',
+    title: '日期需要语境',
+    description: '通过透明的数据来源和明确的限制说明比较不同日历。',
+    sourcesTitle: '数据来源',
+    sourcesText:
+      '节假日数据结合了 date-holidays 与经审核的官方来源。月相和日期转换均在本地计算。',
+    privacyTitle: '隐私',
+    privacyText: '无需账户。您的语言、主题和国家偏好仅保存在此浏览器中。',
+    limitationsTitle: '数据限制',
+    limitationsText:
+      '政府节假日的覆盖范围因国家和年份而异。应用会标记尚无已确认官方日期的年份。',
+    disclaimer:
+      '国际固定历的独立辅助工具，与 13months.net 及任何标准化机构均无隶属关系。',
+    linksLabel: '页脚链接',
+    dataSourcesLink: '数据来源',
+    sourceCodeLink: '源代码',
+  },
+
   navigation: {
     menu: '菜单',
     backToHome: '返回首页',

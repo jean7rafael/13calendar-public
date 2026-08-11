@@ -48,6 +48,26 @@ export default {
       'Esta página experimenta a mesma família de cores, contraste, bordas e formas do projeto de referência sem alterar a tela principal do aplicativo.',
   },
 
+  footer: {
+    ariaLabel: 'Rodapé informativo',
+    title: 'Datas merecem contexto',
+    description: 'Compare calendários com fontes transparentes e limites claramente informados.',
+    sourcesTitle: 'Fontes',
+    sourcesText:
+      'Os feriados combinam a base date-holidays com fontes oficiais revisadas. As fases da Lua e as conversões de datas são calculadas localmente.',
+    privacyTitle: 'Privacidade',
+    privacyText:
+      'Nenhuma conta é necessária. Suas preferências de idioma, tema e país permanecem neste navegador.',
+    limitationsTitle: 'Limitações dos dados',
+    limitationsText:
+      'A cobertura de feriados governamentais varia por país e ano. O aplicativo identifica anos sem datas oficiais confirmadas.',
+    disclaimer:
+      'Complemento independente para o Calendário Fixo Internacional. Sem afiliação com o 13months.net ou qualquer organismo de padronização.',
+    linksLabel: 'Links do rodapé',
+    dataSourcesLink: 'Fontes dos dados',
+    sourceCodeLink: 'Código-fonte',
+  },
+
   navigation: {
     menu: 'Menu',
     backToHome: 'Voltar para a página inicial',

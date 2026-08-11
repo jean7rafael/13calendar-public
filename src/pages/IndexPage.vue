@@ -71,6 +71,9 @@
         />
       </div>
     </div>
+
+    <!-- Rodapé comum com fontes, privacidade e limites dos dados. -->
+    <AppFooter />
   </q-page>
 </template>
 
@@ -83,6 +86,7 @@ import Feriados13Calendario from 'src/components/Feriados13Calendario.vue';
 import Fases12Lua from 'src/components/Fases12Lua.vue';
 import Fases13Lua from 'src/components/Fases13Lua.vue';
 import MoonPhaseLegend from 'src/components/MoonPhaseLegend.vue';
+import AppFooter from 'src/components/AppFooter.vue';
 import { converterPara13Meses, converterParaGregoriano } from 'src/utils/conversorDatas';
 import { useTodayNavigation } from 'src/composables/useTodayNavigation';
 

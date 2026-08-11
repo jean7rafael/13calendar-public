@@ -48,6 +48,26 @@ export default {
       "This page explores the same family of colors, contrast, borders, and shapes as the reference project without changing the application's main screen.",
   },
 
+  footer: {
+    ariaLabel: 'Information footer',
+    title: 'Dates deserve context',
+    description: 'Compare calendars with transparent sources and clearly stated limitations.',
+    sourcesTitle: 'Sources',
+    sourcesText:
+      'Holiday data combines date-holidays with reviewed official sources. Moon phases and date conversions are calculated locally.',
+    privacyTitle: 'Privacy',
+    privacyText:
+      'No account is required. Your language, theme, and country preferences stay in this browser.',
+    limitationsTitle: 'Data limitations',
+    limitationsText:
+      'Government holiday coverage varies by country and year. The app identifies years without confirmed official dates.',
+    disclaimer:
+      'An independent companion for the International Fixed Calendar. Not affiliated with 13months.net or any standards body.',
+    linksLabel: 'Footer links',
+    dataSourcesLink: 'Data sources',
+    sourceCodeLink: 'Source code',
+  },
+
   navigation: {
     menu: 'Menu',
     backToHome: 'Back to the home page',

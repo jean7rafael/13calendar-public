@@ -62,7 +62,9 @@
                   class="special-day-moon"
                   aria-hidden="true"
                 >
-                  {{ getMoonPhaseEmoji(moonPhaseFor(1, 13, year).fase) }}
+                  <span class="moon-emoji-glyph">
+                    {{ getMoonPhaseEmoji(moonPhaseFor(1, 13, year).fase) }}
+                  </span>
                 </span>
 
                 <q-tooltip v-if="moonPhaseFor(1, 13, year)">
@@ -97,7 +99,9 @@
                   class="special-day-moon"
                   aria-hidden="true"
                 >
-                  {{ getMoonPhaseEmoji(moonPhaseFor(2, 13, year).fase) }}
+                  <span class="moon-emoji-glyph">
+                    {{ getMoonPhaseEmoji(moonPhaseFor(2, 13, year).fase) }}
+                  </span>
                 </span>
 
                 <q-tooltip v-if="moonPhaseFor(2, 13, year)">
@@ -157,7 +161,9 @@
                   class="calendar-moon-emoji"
                   aria-hidden="true"
                 >
-                  {{ getMoonPhaseEmoji(moonPhaseFor(day, monthNumber - 1, year).fase) }}
+                  <span class="moon-emoji-glyph">
+                    {{ getMoonPhaseEmoji(moonPhaseFor(day, monthNumber - 1, year).fase) }}
+                  </span>
                 </span>
 
                 <q-tooltip v-if="moonPhaseFor(day, monthNumber - 1, year)">
@@ -374,14 +380,13 @@ function isSelected(day, month, year) {
   bottom: 7px;
   width: 10px;
   height: 10px;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   background: var(--moon-emoji-ring-background);
   border: 0.5px solid var(--moon-emoji-ring);
   border-radius: 50%;
-  font-size: 7px;
-  line-height: 1;
-  filter: var(--moon-emoji-outline);
   pointer-events: none;
 }
 
@@ -533,14 +538,37 @@ body.body--dark .special-day-card--inactive .special-day-description {
   bottom: 4px;
   width: 8px;
   height: 8px;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   background: var(--moon-emoji-ring-background);
   border: 0.5px solid var(--moon-emoji-ring);
   border-radius: 50%;
-  font-size: 5px;
-  line-height: 1;
-  filter: var(--moon-emoji-outline);
   pointer-events: none;
+}
+
+/* O Safari pode desenhar Apple Color Emoji acima do tamanho de
+   fonte solicitado. O glifo parte de uma caixa conhecida e é
+   reduzido por transformação, mantendo-o dentro do contorno. */
+.moon-emoji-glyph {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  display: block;
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+  font-size: 10px;
+  line-height: 10px;
+  text-align: center;
+  filter: var(--moon-emoji-outline);
+  transform: scale(0.5);
+  transform-origin: center;
+  -webkit-transform: scale(0.5);
+  -webkit-transform-origin: center;
+}
+
+.special-day-moon .moon-emoji-glyph {
+  transform: scale(0.7);
+  -webkit-transform: scale(0.7);
 }
 </style>

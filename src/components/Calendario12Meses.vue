@@ -403,19 +403,32 @@ function navegacaoCalendario({ year, month }) {
   left: auto;
   width: 8px;
   height: 8px;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   background: var(--moon-emoji-ring-background) !important;
   border: 0.5px solid var(--moon-emoji-ring);
   border-radius: 50%;
   transform: none;
-  font-size: 5px;
-  line-height: 1;
+  font-size: 0;
+  line-height: 0;
 }
 
 .calendar-date :deep(.q-date__event::before) {
   display: block;
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+  font-size: 10px;
+  line-height: 10px;
+  text-align: center;
   filter: var(--moon-emoji-outline);
+  transform: scale(0.5);
+  transform-origin: center;
+  -webkit-transform: scale(0.5);
+  -webkit-transform-origin: center;
 }
 
 .calendar-date :deep(.q-date__event.bg-moon-new::before) {

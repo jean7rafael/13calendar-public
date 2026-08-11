@@ -48,6 +48,26 @@ export default {
       'Diese Seite verwendet dieselbe Familie von Farben, Kontrasten, Rahmen und Formen wie das Referenzprojekt, ohne den Hauptbildschirm der Anwendung zu verändern.',
   },
 
+  footer: {
+    ariaLabel: 'Informationsfußzeile',
+    title: 'Daten brauchen Kontext',
+    description: 'Vergleichen Sie Kalender mit transparenten Quellen und klar benannten Einschränkungen.',
+    sourcesTitle: 'Quellen',
+    sourcesText:
+      'Die Feiertagsdaten verbinden date-holidays mit geprüften amtlichen Quellen. Mondphasen und Datumsumrechnungen werden lokal berechnet.',
+    privacyTitle: 'Datenschutz',
+    privacyText:
+      'Es ist kein Konto erforderlich. Ihre Sprach-, Design- und Ländereinstellungen bleiben in diesem Browser.',
+    limitationsTitle: 'Dateneinschränkungen',
+    limitationsText:
+      'Die Abdeckung staatlicher Feiertage unterscheidet sich je nach Land und Jahr. Die App kennzeichnet Jahre ohne bestätigte amtliche Daten.',
+    disclaimer:
+      'Unabhängige Ergänzung zum Internationalen Fixkalender. Keine Verbindung zu 13months.net oder einer Normungsorganisation.',
+    linksLabel: 'Links in der Fußzeile',
+    dataSourcesLink: 'Datenquellen',
+    sourceCodeLink: 'Quellcode',
+  },
+
   navigation: {
     menu: 'Menü',
     backToHome: 'Zurück zur Startseite',

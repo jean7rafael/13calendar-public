@@ -35,6 +35,26 @@ export default {
       'このページでは、アプリのメイン画面を変えることなく、参照プロジェクトと同じ系統の配色、コントラスト、境界線、形状を取り入れています。',
   },
 
+  footer: {
+    ariaLabel: '情報フッター',
+    title: '日付には文脈が必要です',
+    description: '透明な出典と明確なデータの制限とともにカレンダーを比較できます。',
+    sourcesTitle: '出典',
+    sourcesText:
+      '祝日データは date-holidays と確認済みの公式情報を組み合わせています。月相と日付変換はローカルで計算されます。',
+    privacyTitle: 'プライバシー',
+    privacyText:
+      'アカウントは不要です。言語、テーマ、国の設定はこのブラウザ内に保存されます。',
+    limitationsTitle: 'データの制限',
+    limitationsText:
+      '政府の祝日データの収録範囲は国と年によって異なります。公式日付が確認できない年はアプリ内で表示されます。',
+    disclaimer:
+      '国際固定暦の独立した補助ツールです。13months.net または標準化団体との提携関係はありません。',
+    linksLabel: 'フッターリンク',
+    dataSourcesLink: 'データ出典',
+    sourceCodeLink: 'ソースコード',
+  },
+
   navigation: {
     menu: 'メニュー',
     backToHome: 'ホームページに戻る',

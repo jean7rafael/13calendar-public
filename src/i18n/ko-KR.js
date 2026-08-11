@@ -35,6 +35,26 @@ export default {
       '이 페이지는 애플리케이션의 기본 화면을 변경하지 않으면서 참조 프로젝트와 같은 계열의 색상, 대비, 테두리, 형태를 사용합니다.',
   },
 
+  footer: {
+    ariaLabel: '정보 푸터',
+    title: '날짜에는 맥락이 필요합니다',
+    description: '투명한 출처와 명확히 안내된 한계와 함께 달력을 비교하세요.',
+    sourcesTitle: '출처',
+    sourcesText:
+      '공휴일 데이터는 date-holidays와 검토된 공식 출처를 결합합니다. 달의 위상과 날짜 변환은 로컬에서 계산됩니다.',
+    privacyTitle: '개인정보 보호',
+    privacyText:
+      '계정이 필요하지 않습니다. 언어, 테마, 국가 설정은 이 브라우저에만 저장됩니다.',
+    limitationsTitle: '데이터 한계',
+    limitationsText:
+      '정부 공휴일 제공 범위는 국가와 연도에 따라 다릅니다. 공식 날짜가 확인되지 않은 연도는 앱에서 표시합니다.',
+    disclaimer:
+      '국제 고정력을 위한 독립적인 보조 도구입니다. 13months.net 또는 표준화 기관과 관련이 없습니다.',
+    linksLabel: '푸터 링크',
+    dataSourcesLink: '데이터 출처',
+    sourceCodeLink: '소스 코드',
+  },
+
   navigation: {
     menu: '메뉴',
     backToHome: '홈페이지로 돌아가기',

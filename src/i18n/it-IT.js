@@ -48,6 +48,26 @@ export default {
       "Questa pagina riprende la stessa famiglia di colori, contrasti, bordi e forme del progetto di riferimento senza modificare la schermata principale dell'applicazione.",
   },
 
+  footer: {
+    ariaLabel: 'Piè di pagina informativo',
+    title: 'Le date meritano un contesto',
+    description: 'Confronta i calendari con fonti trasparenti e limiti dichiarati chiaramente.',
+    sourcesTitle: 'Fonti',
+    sourcesText:
+      'I dati festivi combinano date-holidays con fonti ufficiali verificate. Le fasi lunari e le conversioni delle date sono calcolate localmente.',
+    privacyTitle: 'Privacy',
+    privacyText:
+      'Non è richiesto alcun account. Le preferenze di lingua, tema e paese restano in questo browser.',
+    limitationsTitle: 'Limiti dei dati',
+    limitationsText:
+      "La copertura delle festività governative varia in base al paese e all'anno. L'app segnala gli anni senza date ufficiali confermate.",
+    disclaimer:
+      'Complemento indipendente per il Calendario fisso internazionale. Non affiliato a 13months.net o ad alcun organismo di normazione.',
+    linksLabel: 'Link del piè di pagina',
+    dataSourcesLink: 'Fonti dei dati',
+    sourceCodeLink: 'Codice sorgente',
+  },
+
   navigation: {
     menu: 'Menu',
     backToHome: 'Torna alla pagina iniziale',
