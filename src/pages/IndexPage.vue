@@ -175,8 +175,10 @@ function containCardWheel(event) {
 
   const scrollContainer = findVerticalScrollContainer(target, card);
 
+  /* Sem transbordamento interno, a roda pertence à página.
+     Bloquear esse caso faria os grandes cards parecerem uma área
+     morta mesmo quando não existe nada para rolar dentro deles. */
   if (!scrollContainer) {
-    event.preventDefault();
     return;
   }
 

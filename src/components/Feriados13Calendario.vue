@@ -235,7 +235,12 @@ watch(
     const requestId = ++holidayRequestId;
 
     try {
-      await loadHolidayTranslations(country);
+      /* O catálogo astronômico é separado do país para que
+         as estações também acompanhem o idioma da interface. */
+      await Promise.all([
+        loadHolidayTranslations(country),
+        loadHolidayTranslations('SEASONS'),
+      ]);
 
       const nextHolidays = getThirteenMonthHolidaysForMonth({
         country,
