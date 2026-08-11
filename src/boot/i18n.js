@@ -21,7 +21,7 @@ import messages from 'src/i18n';
    CONFIGURAÇÃO DOS IDIOMAS SUPORTADOS
 =========================================================== */
 
-const DEFAULT_LOCALE = 'pt-BR';
+const DEFAULT_LOCALE = 'en-US';
 const STORAGE_KEY = 'calendar-app-locale';
 
 const languagePacks = {
@@ -89,7 +89,7 @@ function normalizeLocale(locale) {
    ESCOLHA DO IDIOMA INICIAL
 
    Prioridade: preferência salva, idioma do navegador e,
-   por último, português do Brasil.
+   por último, inglês dos Estados Unidos.
 =========================================================== */
 
 function getInitialLocale() {

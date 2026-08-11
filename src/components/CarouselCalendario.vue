@@ -322,9 +322,45 @@ function isSelected(day, month, year) {
 
 .special-days-panel {
   width: min(100%, var(--calendar-grid-width, 336px));
+  height: 100%;
+  max-height: 100%;
   margin: 0 auto;
+  padding: 0 2px 4px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
   color: var(--app-text);
   font-family: var(--calendar-date-font-family);
+}
+
+/* A barra permanece invisível quando o painel cabe por inteiro.
+   Se o Safari ou o zoom exigirem mais altura, ela aparece somente
+   durante a interação, sem cortar os textos e o total do ano. */
+.special-days-panel {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.special-days-panel:hover {
+  scrollbar-color: rgb(148 163 184 / 45%) transparent;
+}
+
+.special-days-panel::-webkit-scrollbar {
+  width: 5px;
+}
+
+.special-days-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.special-days-panel::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.special-days-panel:hover::-webkit-scrollbar-thumb {
+  background: rgb(148 163 184 / 45%);
 }
 
 .special-days-title {

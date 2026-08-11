@@ -1,5 +1,5 @@
 <template>
-  <q-page class="calendar-page">
+  <q-page class="calendar-page" @wheel.capture="containCardWheel">
     <!-- Apresentação preservada da antiga prévia visual. -->
     <section class="calendar-introduction">
       <p class="calendar-introduction__eyebrow">
@@ -126,6 +126,68 @@ const ano13Fases = ref(Number(dataConvertida.value.split('-')[0]));
 =========================================================== */
 
 const { todayRequest } = useTodayNavigation();
+
+/* ===========================================================
+   CONTENÇÃO DA ROLAGEM DENTRO DOS ENCARTES
+
+   O Safari nem sempre respeita o overscroll-behavior quando
+   existem carrosséis aninhados. Esta proteção permite a
+   rolagem interna, mas impede que o mesmo gesto passe a mover
+   a página ao chegar ao início ou ao fim do encarte.
+=========================================================== */
+
+const containedCardSelector = '.calendar-card, .custom-calendar, .fases-lua';
+
+function findVerticalScrollContainer(startElement, cardElement) {
+  let element = startElement;
+
+  while (element) {
+    const styles = window.getComputedStyle(element);
+    const allowsVerticalScroll = ['auto', 'scroll', 'overlay'].includes(styles.overflowY);
+
+    if (allowsVerticalScroll && element.scrollHeight > element.clientHeight + 1) {
+      return element;
+    }
+
+    if (element === cardElement) {
+      break;
+    }
+
+    element = element.parentElement;
+  }
+
+  return null;
+}
+
+function containCardWheel(event) {
+  /* Preserva o gesto de zoom do navegador, normalmente
+     representado por Ctrl + roda ou pelo gesto de pinça. */
+  if (event.ctrlKey || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) {
+    return;
+  }
+
+  const target = event.target instanceof Element ? event.target : null;
+  const card = target?.closest(containedCardSelector);
+
+  if (!card) {
+    return;
+  }
+
+  const scrollContainer = findVerticalScrollContainer(target, card);
+
+  if (!scrollContainer) {
+    event.preventDefault();
+    return;
+  }
+
+  const reachedTop = scrollContainer.scrollTop <= 0;
+  const reachedBottom =
+    scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - 1;
+
+  if ((event.deltaY < 0 && reachedTop) || (event.deltaY > 0 && reachedBottom)) {
+    event.preventDefault();
+  }
+}
 
 /* ===========================================================
    CONVERSÃO DO GREGORIANO PARA O CALENDÁRIO DE 13 MESES
@@ -279,6 +341,15 @@ watch(todayRequest, () => {
   border: 1px solid var(--app-border);
   border-radius: 18px;
   box-shadow: var(--app-card-shadow);
+}
+
+/* Os calendários tornam-se roláveis somente quando o zoom ou
+   uma fonte com métricas maiores fizer o conteúdo exceder o card. */
+.calendar-page :deep(.calendar-card),
+.calendar-page :deep(.custom-calendar),
+.calendar-page :deep(.fases-lua) {
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
 }
 
 .calendar-page :deep(.q-carousel),
