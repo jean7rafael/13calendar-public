@@ -251,7 +251,7 @@ watch(todayRequest, () => {
   --calendar-grid-width: 350px;
   --calendar-cell-gap: 5px;
   --calendar-cell-radius: 9px;
-  --calendar-main-card-height: 470px;
+  --calendar-main-card-height: 520px;
 
   width: min(100%, 1180px);
   min-height: 100%;
