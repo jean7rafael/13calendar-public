@@ -148,6 +148,10 @@ export default {
     gregorian: 'グレゴリオ暦',
     today: '今日',
     goToToday: '今日へ移動',
+    gregorianTitle: '現在の暦 — グレゴリオ暦',
+    fixedCalendarTitle: '国際固定暦',
+    daysThisMonth: '今月は{count}日',
+    daysEveryMonth: 'すべての月が28日',
 
     weekDaysShort: ['日', '月', '火', '水', '木', '金', '土'],
 

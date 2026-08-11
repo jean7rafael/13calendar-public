@@ -1,5 +1,9 @@
 <template>
   <q-card class="q-pa-md calendar-card calendar-card--gregorian">
+    <div class="calendar-card-title">
+      {{ $t('calendar.gregorianTitle') }}
+    </div>
+
     <div ref="calendarRootRef" class="calendar-date-wrapper">
       <q-date
         v-model="dataInterna"
@@ -14,8 +18,14 @@
         @navigation="navegacaoCalendario"
       >
         <template v-slot:default>
-          <div class="calendar-selected-date q-mt-md text-center">
-            {{ $t('calendar.selectedDate') }}: {{ dataInterna }}
+          <div class="calendar-selected-summary q-mt-md text-center">
+            <div class="calendar-selected-date">
+              {{ $t('calendar.selectedDate') }}: {{ dataInterna }}
+            </div>
+
+            <div class="calendar-month-length">
+              {{ $t('calendar.daysThisMonth', { count: displayedMonthDays }) }}
+            </div>
           </div>
         </template>
       </q-date>
@@ -33,7 +43,7 @@
 </template>
 
 <script setup>
-import { nextTick, onMounted, onUpdated, ref, shallowRef, watch } from 'vue';
+import { computed, nextTick, onMounted, onUpdated, ref, shallowRef, watch } from 'vue';
 import { obterFasesLuaDoAno } from 'src/utils/fasesLua';
 import { useCalendarTranslations } from 'src/composables/useCalendarTranslations';
 import {
@@ -57,6 +67,11 @@ const emit = defineEmits(['update:modelValue', 'update:mes12', 'update:ano12']);
 const dataInterna = ref(props.modelValue.replace(/-/g, '/'));
 const displayedYear = ref(Number(dataInterna.value.slice(0, 4)));
 const displayedMonth = ref(Number(dataInterna.value.slice(5, 7)));
+
+/* Quantidade de dias do mês gregoriano atualmente visível. */
+const displayedMonthDays = computed(() =>
+  new Date(displayedYear.value, displayedMonth.value, 0).getDate(),
+);
 
 /* ===========================================================
    FASES LUNARES INDICADAS NO CALENDÁRIO
@@ -229,11 +244,25 @@ function navegacaoCalendario({ year, month }) {
   max-width: var(--calendar-card-max-width, 520px);
   height: var(--calendar-main-card-height, 430px);
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-card-title {
+  flex: 0 0 auto;
+  margin-bottom: 8px;
+  color: var(--app-text);
+  font-family: var(--calendar-date-font-family);
+  font-size: var(--calendar-date-font-size);
+  font-weight: 600;
+  line-height: var(--calendar-date-line-height);
+  text-align: center;
 }
 
 .calendar-date-wrapper {
   width: 100%;
-  height: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
 }
 
 .q-date {
@@ -370,6 +399,15 @@ function navegacaoCalendario({ year, month }) {
   font-size: var(--calendar-date-font-size);
   font-weight: var(--calendar-date-font-weight);
   line-height: var(--calendar-date-line-height);
+}
+
+.calendar-month-length {
+  margin-top: 2px;
+  color: var(--app-text-muted);
+  font-family: var(--calendar-date-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
 }
 
 .calendar-date :deep(.q-date__calendar-days .q-date__calendar-item > button:not(.bg-primary):hover) {

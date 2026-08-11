@@ -147,6 +147,10 @@ export default {
     gregorian: '公历',
     today: '今天',
     goToToday: '转到今天',
+    gregorianTitle: '当前历法 — 公历',
+    fixedCalendarTitle: '国际固定历',
+    daysThisMonth: '本月 {count} 天',
+    daysEveryMonth: '每个月 28 天',
 
     weekDaysShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
 

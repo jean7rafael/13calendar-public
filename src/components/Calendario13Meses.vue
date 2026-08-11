@@ -1,5 +1,9 @@
 <template>
   <q-card class="q-pa-md custom-calendar">
+    <div class="calendar-card-title">
+      {{ $t('calendar.fixedCalendarTitle') }}
+    </div>
+
     <div class="calendar-main-area">
       <!-- Calendário normal -->
       <template v-if="selectorMode === null">
@@ -104,6 +108,10 @@
     <!-- Bloco 6: Data Selecionada -->
     <div class="selected-date text-center">
       {{ $t('calendar.selectedDate') }}: {{ formattedDate }}
+    </div>
+
+    <div v-if="currentMonth < 13" class="calendar-month-length text-center">
+      {{ $t('calendar.daysEveryMonth') }}
     </div>
 
     <!-- Bloco 7: Bottom (em branco) -->
@@ -316,6 +324,17 @@ export default {
   color: var(--app-text);
 }
 
+.calendar-card-title {
+  flex: 0 0 auto;
+  margin-bottom: 8px;
+  color: var(--app-text);
+  font-family: var(--calendar-date-font-family);
+  font-size: var(--calendar-date-font-size);
+  font-weight: 600;
+  line-height: var(--calendar-date-line-height);
+  text-align: center;
+}
+
 .calendar-main-area {
   width: 100%;
   height: 330px;
@@ -428,6 +447,16 @@ export default {
   color: var(--app-text);
   margin-top: auto;
   flex-shrink: 0;
+}
+
+.calendar-month-length {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--app-text-muted);
+  font-family: var(--calendar-date-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
 }
 
 /* ===========================================================

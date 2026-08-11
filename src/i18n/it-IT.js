@@ -164,6 +164,10 @@ export default {
     gregorian: 'Gregoriano',
     today: 'Oggi',
     goToToday: 'Vai alla data di oggi',
+    gregorianTitle: 'Calendario attuale — Gregoriano',
+    fixedCalendarTitle: 'Calendario fisso internazionale',
+    daysThisMonth: '{count} giorni questo mese',
+    daysEveryMonth: '28 giorni ogni mese',
 
     weekDaysShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
 

@@ -165,6 +165,10 @@ export default {
     gregorian: 'Григорианский',
     today: 'Сегодня',
     goToToday: 'Перейти к сегодняшней дате',
+    gregorianTitle: 'Текущий календарь — Григорианский',
+    fixedCalendarTitle: 'Международный фиксированный календарь',
+    daysThisMonth: '{count} дней в этом месяце',
+    daysEveryMonth: '28 дней в каждом месяце',
 
     weekDaysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
 

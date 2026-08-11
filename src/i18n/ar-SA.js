@@ -164,6 +164,10 @@ export default {
     gregorian: 'غريغوري',
     today: 'اليوم',
     goToToday: 'الانتقال إلى اليوم',
+    gregorianTitle: 'التقويم الحالي — الغريغوري',
+    fixedCalendarTitle: 'التقويم الثابت الدولي',
+    daysThisMonth: '{count} يومًا في هذا الشهر',
+    daysEveryMonth: '28 يومًا في كل شهر',
 
     weekDaysShort: ['أحد', 'إثن', 'ثلا', 'أرب', 'خمي', 'جمع', 'سبت'],
 

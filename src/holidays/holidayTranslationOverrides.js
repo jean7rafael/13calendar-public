@@ -9,6 +9,12 @@
 =========================================================== */
 
 export const holidayTranslationOverrides = Object.freeze({
+  SEASONS: Object.freeze({
+    it: Object.freeze({
+      autumnBegins: "Inizio dell'autunno",
+    }),
+  }),
+
   /*
     RU: Object.freeze({
       pt: Object.freeze({
