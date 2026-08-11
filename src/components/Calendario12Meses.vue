@@ -24,7 +24,13 @@
             </div>
 
             <div class="calendar-month-length">
-              {{ $t('calendar.daysThisMonth', { count: displayedMonthDays }) }}
+              <i18n-t keypath="calendar.daysThisMonth" tag="span">
+                <template #count>
+                  <span class="calendar-month-length__number">
+                    {{ displayedMonthDays }}
+                  </span>
+                </template>
+              </i18n-t>
             </div>
           </div>
         </template>
@@ -251,12 +257,14 @@ function navegacaoCalendario({ year, month }) {
 .calendar-card-title {
   flex: 0 0 auto;
   margin-bottom: 8px;
-  color: var(--app-text);
+  color: var(--calendar-current-title);
   font-family: var(--calendar-date-font-family);
   font-size: var(--calendar-date-font-size);
   font-weight: 600;
   line-height: var(--calendar-date-line-height);
+  letter-spacing: 0.1em;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .calendar-date-wrapper {
@@ -393,8 +401,20 @@ function navegacaoCalendario({ year, month }) {
   line-height: var(--calendar-date-line-height);
 }
 
+/* O resumo ocupa todo o espaço inferior. A descrição
+   fica centralizada entre a data selecionada e a base do card. */
+.calendar-selected-summary {
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  /* Compensa o espaço interno que o QDate reserva abaixo do
+     slot e alinha o resumo ao calendário construído manualmente. */
+  transform: translateY(16px);
+}
+
 /* Data completa exibida na base do calendário. */
 .calendar-selected-date {
+  flex: 0 0 auto;
   font-family: var(--calendar-date-font-family);
   font-size: var(--calendar-date-font-size);
   font-weight: var(--calendar-date-font-weight);
@@ -402,12 +422,22 @@ function navegacaoCalendario({ year, month }) {
 }
 
 .calendar-month-length {
-  margin-top: 2px;
-  color: var(--app-text-muted);
+  min-height: 0;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  color: var(--calendar-current-summary);
   font-family: var(--calendar-date-font-family);
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
+}
+
+.calendar-month-length__number {
+  color: var(--calendar-current-summary-number);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 .calendar-date :deep(.q-date__calendar-days .q-date__calendar-item > button:not(.bg-primary):hover) {

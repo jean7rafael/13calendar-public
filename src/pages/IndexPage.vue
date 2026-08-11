@@ -130,13 +130,14 @@ const { todayRequest } = useTodayNavigation();
 /* ===========================================================
    CONTENÇÃO DA ROLAGEM DENTRO DOS ENCARTES
 
-   O Safari nem sempre respeita o overscroll-behavior quando
-   existem carrosséis aninhados. Esta proteção permite a
-   rolagem interna, mas impede que o mesmo gesto passe a mover
-   a página ao chegar ao início ou ao fim do encarte.
+   A contenção só entra em ação quando existe transbordamento
+   vertical real. Assim, um card sem barra nunca intercepta a
+   rolagem normal da página; um card rolável preserva o gesto
+   ao atingir o primeiro ou o último item.
 =========================================================== */
 
 const containedCardSelector = '.calendar-card, .custom-calendar, .fases-lua';
+const minimumScrollOverflow = 8;
 
 function findVerticalScrollContainer(startElement, cardElement) {
   let element = startElement;
@@ -145,7 +146,9 @@ function findVerticalScrollContainer(startElement, cardElement) {
     const styles = window.getComputedStyle(element);
     const allowsVerticalScroll = ['auto', 'scroll', 'overlay'].includes(styles.overflowY);
 
-    if (allowsVerticalScroll && element.scrollHeight > element.clientHeight + 1) {
+    const verticalOverflow = element.scrollHeight - element.clientHeight;
+
+    if (allowsVerticalScroll && verticalOverflow > minimumScrollOverflow) {
       return element;
     }
 
@@ -351,7 +354,6 @@ watch(todayRequest, () => {
 .calendar-page :deep(.custom-calendar),
 .calendar-page :deep(.fases-lua) {
   overflow-y: auto;
-  overscroll-behavior-y: contain;
 }
 
 .calendar-page :deep(.q-carousel),
@@ -430,9 +432,6 @@ watch(todayRequest, () => {
      ocupem duas ou mais linhas. Sem transbordamento, o navegador
      não desenha nenhuma barra. */
   overflow-y: auto !important;
-  /* Ao chegar ao primeiro ou ao último item, a roda do mouse
-     permanece pertencendo ao encarte e não movimenta a página. */
-  overscroll-behavior: contain;
 }
 
 .calendar-page :deep(.fases-lua .fase-wrapper--scrollable) {

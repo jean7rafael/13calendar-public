@@ -102,20 +102,20 @@
       </div>
     </div>
 
-    <!-- Bloco 5: Espaço em branco -->
-    <div class="calendar-space"></div>
+    <!-- Bloco 5: Resumo da data e da duração do mês -->
+    <div class="calendar-selected-summary text-center">
+      <div class="selected-date">
+        {{ $t('calendar.selectedDate') }}: {{ formattedDate }}
+      </div>
 
-    <!-- Bloco 6: Data Selecionada -->
-    <div class="selected-date text-center">
-      {{ $t('calendar.selectedDate') }}: {{ formattedDate }}
+      <div v-if="currentMonth < 13" class="calendar-month-length">
+        <i18n-t keypath="calendar.daysEveryMonth" tag="span">
+          <template #count>
+            <span class="calendar-month-length__number">28</span>
+          </template>
+        </i18n-t>
+      </div>
     </div>
-
-    <div v-if="currentMonth < 13" class="calendar-month-length text-center">
-      {{ $t('calendar.daysEveryMonth') }}
-    </div>
-
-    <!-- Bloco 7: Bottom (em branco) -->
-    <div class="calendar-bottom-space"></div>
   </q-card>
 </template>
 
@@ -327,12 +327,14 @@ export default {
 .calendar-card-title {
   flex: 0 0 auto;
   margin-bottom: 8px;
-  color: var(--app-text);
+  color: var(--calendar-fixed-title);
   font-family: var(--calendar-date-font-family);
   font-size: var(--calendar-date-font-size);
   font-weight: 600;
   line-height: var(--calendar-date-line-height);
+  letter-spacing: 0.1em;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .calendar-main-area {
@@ -430,41 +432,42 @@ export default {
 }
 
 /* ===========================================================
-  BLOCO 5 - Espaço em branco
+  BLOCO 5 - RESUMO INFERIOR
 =========================================================== */
-.calendar-space {
-  height: 0px;
+.calendar-selected-summary {
+  height: 70px;
+  display: flex;
+  flex: 0 0 70px;
+  flex-direction: column;
+  margin-top: auto;
 }
 
-/* ===========================================================
-  BLOCO 6 - Data Selecionada
-=========================================================== */
 .selected-date {
+  flex: 0 0 auto;
   font-family: var(--calendar-date-font-family);
   font-size: var(--calendar-date-font-size);
   font-weight: var(--calendar-date-font-weight);
   line-height: var(--calendar-date-line-height);
   color: var(--app-text);
-  margin-top: auto;
-  flex-shrink: 0;
 }
 
 .calendar-month-length {
-  flex-shrink: 0;
-  margin-top: 2px;
-  color: var(--app-text-muted);
+  min-height: 0;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  color: var(--calendar-fixed-summary);
   font-family: var(--calendar-date-font-family);
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
 }
 
-/* ===========================================================
-  BLOCO 7 - Bottom (em branco)
-=========================================================== */
-.calendar-bottom-space {
-  height: 16px;
-  margin-bottom: 0;
+.calendar-month-length__number {
+  color: var(--calendar-fixed-summary-number);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ===========================================================

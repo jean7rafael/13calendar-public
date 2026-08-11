@@ -148,10 +148,10 @@ export default {
     gregorian: '그레고리력',
     today: '오늘',
     goToToday: '오늘로 이동',
-    gregorianTitle: '현재 달력 — 그레고리력',
+    gregorianTitle: '내 달력',
     fixedCalendarTitle: '국제 고정 달력',
     daysThisMonth: '이번 달 {count}일',
-    daysEveryMonth: '모든 달은 28일',
+    daysEveryMonth: '모든 달은 {count}일',
 
     weekDaysShort: ['일', '월', '화', '수', '목', '금', '토'],
 

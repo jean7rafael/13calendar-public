@@ -165,10 +165,10 @@ export default {
     gregorian: 'ग्रेगोरियन',
     today: 'आज',
     goToToday: 'आज की तिथि पर जाएँ',
-    gregorianTitle: 'वर्तमान कैलेंडर — ग्रेगोरियन',
+    gregorianTitle: 'आपका कैलेंडर',
     fixedCalendarTitle: 'अंतर्राष्ट्रीय स्थायी कैलेंडर',
     daysThisMonth: 'इस महीने {count} दिन',
-    daysEveryMonth: 'हर महीने 28 दिन',
+    daysEveryMonth: 'हर महीने {count} दिन',
 
     weekDaysShort: ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि'],
 

@@ -25,6 +25,12 @@
   --calendar-weekend-text: #6366f1;
   --calendar-cell-hover: #e7e5e4;
   --calendar-selection-border: rgb(199 210 254 / 92%);
+  --calendar-current-title: #94a3b8;
+  --calendar-fixed-title: #6366f1;
+  --calendar-current-summary: #94a3b8;
+  --calendar-current-summary-number: #475569;
+  --calendar-fixed-summary: #818cf8;
+  --calendar-fixed-summary-number: #6366f1;
   --calendar-date-font-family: Inter, system-ui, sans-serif;
   --calendar-date-font-size: 14px;
   --calendar-date-font-weight: 400;
@@ -61,6 +67,12 @@ body.body--dark {
   --calendar-weekend-text: rgb(129 140 248 / 70%);
   --calendar-cell-hover: rgb(255 255 255 / 8%);
   --calendar-selection-border: rgb(165 180 252 / 74%);
+  --calendar-current-title: #64748b;
+  --calendar-fixed-title: #818cf8;
+  --calendar-current-summary: #64748b;
+  --calendar-current-summary-number: #cbd5e1;
+  --calendar-fixed-summary: rgb(129 140 248 / 70%);
+  --calendar-fixed-summary-number: #a5b4fc;
   --moon-emoji-outline: drop-shadow(0.6px 0 0 rgb(248 250 252 / 82%))
     drop-shadow(-0.6px 0 0 rgb(248 250 252 / 82%))
     drop-shadow(0 0.6px 0 rgb(248 250 252 / 82%))

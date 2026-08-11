@@ -329,7 +329,6 @@ function isSelected(day, month, year) {
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
-  overscroll-behavior-y: contain;
   color: var(--app-text);
   font-family: var(--calendar-date-font-family);
 }
