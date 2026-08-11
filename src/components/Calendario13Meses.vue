@@ -16,7 +16,10 @@
           @open-year-selector="toggleYearSelector"
         />
 
-        <div class="calendar-grid week-days">
+        <div
+          class="calendar-grid week-days"
+          :class="{ 'week-days--special': currentMonth === 13 }"
+        >
           <div
             v-for="day in weekDays"
             :key="day"
@@ -369,6 +372,14 @@ export default {
   grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: var(--calendar-cell-gap, 5px);
   justify-items: center;
+}
+
+/* Dias Especiais não exibem cabeçalhos semanais. A linha
+   transparente devolve espaço ao resumo para compensar as
+   métricas de fonte maiores utilizadas pelo Safari. */
+.calendar-grid.week-days.week-days--special {
+  height: 16px;
+  margin-top: 0;
 }
 .calendar-day-header {
   opacity: 1;

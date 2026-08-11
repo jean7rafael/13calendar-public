@@ -183,6 +183,11 @@ const countryNameTranslationSources = Object.freeze({
     'Firma de los Acuerdos de Paz': 'Signing of the Peace Accords',
   }),
   TN: Object.freeze({
+    'Fête de la Révolution et de la Jeunesse': 'Tunisian Revolution and Youth Day',
+    "Fête de l'Indépendance": 'Tunisian Independence Day',
+    'Fête des Martyrs': "Tunisian Martyrs' Day",
+    'Fête de la République': 'Tunisian Republic Day',
+    'Fête de la Femme': "Tunisian Women's Day",
     'عيد الإستقلال': 'Tunisian Independence Day',
     'عيد الثورة و الشباب': 'Tunisian Revolution and Youth Day',
     'عيد الجلاء': 'Tunisian Evacuation Day',

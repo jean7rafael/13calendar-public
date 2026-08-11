@@ -6,6 +6,8 @@ import { resolveInternationalHolidayEmojiDetails } from 'src/holidays/holidayEmo
 
 import { resolveHolidayTranslationSource } from 'src/holidays/holidayTranslationContexts';
 
+import { resolveCanonicalProviderHolidayName } from 'src/holidays/holidayCanonicalName';
+
 import { consolidateSubstituteHolidays } from 'src/holidays/holidaySubstitution';
 
 import { applyHolidayCountryExtensions } from 'src/holidays/holidayCountryExtensions';
@@ -133,10 +135,15 @@ export function getDateHolidaysForYear({ country, year, locale, filters }) {
       const date = String(holiday.date || '').slice(0, 10);
       const ruleId = hashRule(holiday.rule || `${date}-${index}`);
       const nameId = `dateHolidays.${ruleId}`;
+      const providerDefinition = provider.holidays?.[holiday.rule];
+      const providerCanonicalName = resolveCanonicalProviderHolidayName({
+        definition: providerDefinition,
+        localizedName: holiday.name,
+      });
       const contextualName = resolveHolidayTranslationSource({
         country: countryCode,
         rule: holiday.rule,
-        name: holiday.name,
+        name: providerCanonicalName,
       });
       const canonicalName = contextualName;
       const emojiDetails = resolveInternationalHolidayEmojiDetails({
@@ -146,7 +153,7 @@ export function getDateHolidaysForYear({ country, year, locale, filters }) {
         type,
         substitute: holiday.substitute === true,
       });
-      const providerRuleTokens = provider.holidays?.[holiday.rule]?.fn?.rules || null;
+      const providerRuleTokens = providerDefinition?.fn?.rules || null;
 
       return {
         id: `${countryCode}_DH_${ruleId}_${date}`,
@@ -161,9 +168,7 @@ export function getDateHolidaysForYear({ country, year, locale, filters }) {
         occurrenceKind: holiday.occurrenceKind || 'holiday',
         observedForDate: holiday.observedForDate || null,
         date,
-        movedFromDate: holiday.movedFromDate
-          ? String(holiday.movedFromDate).slice(0, 10)
-          : null,
+        movedFromDate: holiday.movedFromDate ? String(holiday.movedFromDate).slice(0, 10) : null,
         canonicalName,
         concept: emojiDetails.concept,
         providerRule: holiday.rule || null,

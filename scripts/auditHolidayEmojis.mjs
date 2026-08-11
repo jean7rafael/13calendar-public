@@ -2,6 +2,8 @@ import { readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import Holidays from 'date-holidays-parser';
+
 import { brazilHolidayDefinitions } from '../src/holidays/countries/BR.js';
 import { germanyHolidayDefinitions } from '../src/holidays/countries/DE.js';
 import { spainHolidayDefinitions } from '../src/holidays/countries/ES.js';
@@ -12,6 +14,8 @@ import {
   DEFAULT_HOLIDAY_EMOJI_BY_TYPE,
   resolveInternationalHolidayEmojiDetails,
 } from '../src/holidays/holidayEmojiResolver.js';
+import { resolveCanonicalProviderHolidayName } from '../src/holidays/holidayCanonicalName.js';
+import { resolveHolidayTranslationSource } from '../src/holidays/holidayTranslationContexts.js';
 import { brazilHolidayNames } from '../src/holidays/names/BR.js';
 import { germanyHolidayNames } from '../src/holidays/names/DE.js';
 import { spainHolidayNames } from '../src/holidays/names/ES.js';
@@ -32,6 +36,10 @@ const translationFile = resolve(
 const countryMetadataFile = resolve(
   projectDirectory,
   'src/holidays/generated/holidayCountries.json',
+);
+const internationalHolidayDataFile = resolve(
+  projectDirectory,
+  'src/holidays/generated/dateHolidays.json',
 );
 
 const editorialCountries = Object.freeze([
@@ -130,6 +138,7 @@ const maximumUnresolvedRatio = 0.06;
 
 const translationCache = JSON.parse(await readFile(translationFile, 'utf8'));
 const countryMetadata = JSON.parse(await readFile(countryMetadataFile, 'utf8'));
+const internationalHolidayData = JSON.parse(await readFile(internationalHolidayDataFile, 'utf8'));
 
 /* ===========================================================
    DATA REPRESENTATIVA DAS REGRAS EDITORIAIS
@@ -286,6 +295,124 @@ requiredNamedEmojis.forEach(({ country, name, emoji }) => {
 });
 
 /* ===========================================================
+   ESTABILIDADE DOS EMOJIS ENTRE OS IDIOMAS DA INTERFACE
+
+   O parser devolve o nome já localizado. A escolha semântica
+   deve partir do nome canônico da definição, caso contrário um
+   mesmo feriado pode virar alfinete, bandeira ou calendário ao
+   trocar o idioma. A auditoria reproduz as doze interfaces no
+   ano central e compara cada ocorrência com a versão inglesa.
+=========================================================== */
+
+const applicationLanguages = Object.freeze([
+  'en',
+  'ar',
+  'de',
+  'es',
+  'fr',
+  'hi',
+  'it',
+  'ja',
+  'ko',
+  'pt',
+  'ru',
+  'zh',
+]);
+const runtimeEmojiByOccurrence = new Map();
+let runtimeOccurrenceCount = 0;
+let christmasEveCount = 0;
+let newYearsEveCount = 0;
+
+function normalizeRuntimeType(holiday) {
+  if (holiday.substitute === true) {
+    return 'substitute';
+  }
+
+  const supportedTypes = ['public', 'bank', 'school', 'optional', 'observance', 'commercial'];
+
+  return supportedTypes.includes(holiday.type) ? holiday.type : 'observance';
+}
+
+internationalCountryCodes.forEach((countryCode) => {
+  const provider = new Holidays(internationalHolidayData);
+
+  if (!provider.init(countryCode)) {
+    errors.push(`${countryCode}: falha ao iniciar o parser durante a auditoria multilíngue.`);
+    return;
+  }
+
+  applicationLanguages.forEach((language) => {
+    provider.getHolidays(2026, language).forEach((holiday) => {
+      const date = String(holiday.date || '').slice(0, 10);
+      const type = normalizeRuntimeType(holiday);
+      const providerDefinition = provider.holidays?.[holiday.rule];
+      const providerCanonicalName = resolveCanonicalProviderHolidayName({
+        definition: providerDefinition,
+        localizedName: holiday.name,
+      });
+      const canonicalName = resolveHolidayTranslationSource({
+        country: countryCode,
+        rule: holiday.rule,
+        name: providerCanonicalName,
+      });
+      const resolved = resolveInternationalHolidayEmojiDetails({
+        country: countryCode,
+        date,
+        canonicalName,
+        type,
+        substitute: holiday.substitute === true,
+      });
+      const occurrenceKey = [
+        countryCode,
+        holiday.rule,
+        date,
+        type,
+        holiday.substitute === true,
+      ].join('|');
+      const baseline = runtimeEmojiByOccurrence.get(occurrenceKey);
+
+      runtimeOccurrenceCount += 1;
+
+      if (!baseline) {
+        runtimeEmojiByOccurrence.set(occurrenceKey, resolved);
+      } else if (baseline.emoji !== resolved.emoji || baseline.concept !== resolved.concept) {
+        errors.push(
+          `${countryCode}/${holiday.rule}/${language}: emoji variável por idioma ` +
+            `(${baseline.emoji}/${baseline.concept} → ${resolved.emoji}/${resolved.concept}).`,
+        );
+      }
+
+      if (providerCanonicalName === 'Christmas Eve') {
+        christmasEveCount += 1;
+
+        if (resolved.emoji !== '🎄') {
+          errors.push(
+            `${countryCode}/Christmas Eve/${language}: esperado 🎄; encontrado ${resolved.emoji}.`,
+          );
+        }
+      }
+
+      if (providerCanonicalName === "New Year's Eve") {
+        newYearsEveCount += 1;
+
+        if (resolved.emoji !== '🎆') {
+          errors.push(
+            `${countryCode}/New Year's Eve/${language}: esperado 🎆; encontrado ${resolved.emoji}.`,
+          );
+        }
+      }
+    });
+  });
+});
+
+if (christmasEveCount === 0 || newYearsEveCount === 0) {
+  errors.push(
+    `Vésperas ausentes na auditoria multilíngue: Natal=${christmasEveCount}, ` +
+      `Ano-Novo=${newYearsEveCount}.`,
+  );
+}
+
+/* ===========================================================
    LIMITE DOS ÚLTIMOS RECURSOS GENÉRICOS
 =========================================================== */
 
@@ -333,6 +460,8 @@ console.log(
     `Regras: ${records.length + editorialRuleCount}.`,
     `Sem genérico visível: ${records.length - visiblePublicGenerics.length}/${records.length}.`,
     `Últimos recursos semânticos: ${unresolvedRecords.length} (${(unresolvedRatio * 100).toFixed(1)}%).`,
+    `Ocorrências multilíngues estáveis: ${runtimeOccurrenceCount}.`,
+    `Vésperas: Natal=${christmasEveCount}, Ano-Novo=${newYearsEveCount}.`,
     `Equivalências: ${equivalenceSummary}.`,
   ].join(' '),
 );

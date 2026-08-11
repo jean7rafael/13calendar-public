@@ -13,7 +13,7 @@ import {
    CONFIGURAÇÕES DE ARMAZENAMENTO
 =========================================================== */
 
-const DEFAULT_COUNTRY = 'BR';
+const DEFAULT_COUNTRY = 'US';
 
 const COUNTRY_STORAGE_KEY = 'calendar-app-holiday-country';
 
@@ -67,7 +67,78 @@ function getInitialCountry() {
 
   const countryConfig = findHolidayCountryConfig(savedCountry);
 
-  return countryConfig?.code || DEFAULT_COUNTRY;
+  if (countryConfig) {
+    return countryConfig.code;
+  }
+
+  return getBrowserCountry() || DEFAULT_COUNTRY;
+}
+
+/* ===========================================================
+   DETECÇÃO PRIVADA DO PAÍS PELO NAVEGADOR
+
+   A região do idioma é utilizada somente na primeira visita.
+   Não há geolocalização, consulta por IP nem permissão. Uma
+   escolha manual salva sempre continua tendo prioridade.
+=========================================================== */
+
+function getBrowserLocales() {
+  if (typeof navigator === 'undefined') {
+    return [];
+  }
+
+  const locales = Array.isArray(navigator.languages) ? navigator.languages : [];
+
+  return [...new Set([...locales, navigator.language].filter(Boolean))];
+}
+
+function getExplicitLocaleRegion(locale) {
+  const localeParts = String(locale).replace(/_/g, '-').split('-').slice(1);
+  const region = localeParts.find((part) => /^[A-Za-z]{2}$/.test(part));
+
+  return region?.toUpperCase() || null;
+}
+
+function getLikelyLocaleRegion(locale) {
+  if (typeof Intl === 'undefined' || typeof Intl.Locale !== 'function') {
+    return null;
+  }
+
+  try {
+    return new Intl.Locale(locale).maximize().region?.toUpperCase() || null;
+  } catch {
+    return null;
+  }
+}
+
+function getRegisteredCountryCode(region) {
+  return findHolidayCountryConfig(region)?.code || null;
+}
+
+function getBrowserCountry() {
+  const browserLocales = getBrowserLocales();
+
+  /* Regiões declaradas explicitamente, como BR, GB ou MX,
+     prevalecem sobre qualquer inferência baseada só no idioma. */
+  for (const locale of browserLocales) {
+    const countryCode = getRegisteredCountryCode(getExplicitLocaleRegion(locale));
+
+    if (countryCode) {
+      return countryCode;
+    }
+  }
+
+  /* Idiomas sem região, como "en" ou "pt", usam a região
+     mais provável definida pelo padrão internacional do navegador. */
+  for (const locale of browserLocales) {
+    const countryCode = getRegisteredCountryCode(getLikelyLocaleRegion(locale));
+
+    if (countryCode) {
+      return countryCode;
+    }
+  }
+
+  return null;
 }
 
 /* ===========================================================
