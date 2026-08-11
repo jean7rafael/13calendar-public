@@ -1,0 +1,5237 @@
+{
+  "schemaVersion": 1,
+  "database": "date-holidays",
+  "databaseVersion": "2026-08-10",
+  "officialHolidayAppendix": "officialHolidayAppendix.json",
+  "geographyDatabase": "world-countries",
+  "countries": [
+    {
+      "code": "AD",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southern Europe",
+      "latitude": 42.5,
+      "longitude": 1.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Andorra"
+        }
+      ]
+    },
+    {
+      "code": "AE",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 24,
+      "longitude": 54,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_United_Arab_Emirates"
+        }
+      ]
+    },
+    {
+      "code": "AF",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Southern Asia",
+      "latitude": 33,
+      "longitude": 65,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "AG",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 17.05,
+      "longitude": -61.8,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.ab.gov.ag/detail_page.php?page=4"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.laws.gov.ag/acts/2005/a2005-8.pdf"
+        }
+      ]
+    },
+    {
+      "code": "AI",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 18.25,
+      "longitude": -63.16666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.gov.ai/holiday.php"
+        }
+      ]
+    },
+    {
+      "code": "AL",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southeast Europe",
+      "latitude": 41,
+      "longitude": 20,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Albania"
+        }
+      ]
+    },
+    {
+      "code": "AM",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 40,
+      "longitude": 45,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.parliament.am/legislation.php?sel=show&ID=1274&lang=arm"
+        }
+      ]
+    },
+    {
+      "code": "AO",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Middle Africa",
+      "latitude": -12.5,
+      "longitude": 18.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://pt.wikipedia.org/wiki/Feriados_em_Angola"
+        }
+      ]
+    },
+    {
+      "code": "AQ",
+      "continent": "antarctica",
+      "hemisphere": "south",
+      "region": "Antarctic",
+      "subregion": "",
+      "latitude": -90,
+      "longitude": 0,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "AR",
+      "continent": "americas",
+      "hemisphere": "south",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": -34,
+      "longitude": -64,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/feriados"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/jefatura/feriados-nacionales-2026"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-21329-65453/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-1584-2010-174389/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26085-114811/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-22769-65454/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-901-1984-65455"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-25370-65442/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26110-117507/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-297-2020-335741/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://biblioteca.afip.gob.ar/dcp/LEY_C_023555_1988_04_28"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-27258-262574"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-12361-232587/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24023-422/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24445-782/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-12387-231841/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24360-756/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-52-2017-271094/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-27399-281835/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-521-2011-181754/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-22655-140416/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-25442-67888/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-1932-2002-78207/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26416-145231/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-2226-2015-253971"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-615-2010-166825/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26721-191835/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26763-201915/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26840-207258/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26837-207405/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-842-2022-376857/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-164-2025-421799"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/ley-22307-202349"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-788-1991-6092"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-1154-2001-68781/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-1159-2010-173748/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-42-2022-360018/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-1585-2010-174391/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-1768-2013-222021"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-923-2017-287145/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-717-2019-330204/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-947-2020-344620/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-789-2021-356678/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-764-2022-375264/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-106-2023-395689/texto"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-1027-2024-406417/texto"
+        }
+      ]
+    },
+    {
+      "code": "AS",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Polynesia",
+      "latitude": -14.33333333,
+      "longitude": -170,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.anz.com/americansamoa/en/about-us/anz-american-samoa/country-information/public-holidays/"
+        }
+      ]
+    },
+    {
+      "code": "AT",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Central Europe",
+      "latitude": 47.33333333,
+      "longitude": 13.33333333,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://de.wikipedia.org/wiki/Feiertage_in_%C3%96sterreich"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2019_I_22/BGBLA_2019_I_22.pdfsig"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.arbeiterkammer.at/beratung/arbeitundrecht/Arbeitszeit/ArbeitszeitundRuhepausen/Persoenlicher_Feiertag.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://kurier.at/chronik/niederoesterreich/leopoldi-alle-feiern-nicht-alle-haben-frei/400673546"
+        }
+      ]
+    },
+    {
+      "code": "AU",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Australia and New Zealand",
+      "latitude": -27,
+      "longitude": 133,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Australia"
+        },
+        {
+          "kind": "source",
+          "url": "https://info.australia.gov.au/about-australia/special-dates-and-events/public-holidays"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.reuters.com/world/australia-hold-day-mourning-queen-elizabeth-sept-22-2022-09-11/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.legislation.act.gov.au/a/1958-19"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.legislation.nsw.gov.au/view/whole/html/inforce/current/act-2010-115"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.legislation.nsw.gov.au/view/whole/html/inforce/current/sl-2011-0081"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.legislation.nt.gov.au/en/Legislation/PUBLIC-HOLIDAYS-ACT-1981"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.legislation.nt.gov.au/en/Bills/Public-Holidays-Amendment-Bill-2023-S-86"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.legislation.qld.gov.au/view/html/inforce/current/act-1983-018"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.legislation.sa.gov.au/lz?path=%2FC%2FA%2FPublic%20Holidays%20Act%202023"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.legislation.tas.gov.au/view/html/inforce/current/act-2000-096"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.legislation.vic.gov.au/search?q=holidays&page=1&sort%5B_score%5D=desc&sort%5Btitle_az%5D=asc&queryType=title"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.gazette.vic.gov.au/gazette/Gazettes2015"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.legislation.wa.gov.au/legislation/statutes.nsf/law_a639.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.legislation.wa.gov.au/legislation/statutes.nsf/law_a147326.html"
+        }
+      ]
+    },
+    {
+      "code": "AW",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 12.5,
+      "longitude": -69.96666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.ea.aw/pa/calender/vakantie-di-scol"
+        },
+        {
+          "kind": "source",
+          "url": "http://daoaruba.com/pdf/Dia%20nan%20di%20fiesta2016_PAP.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.gobierno.aw/informacion-tocante-servicio/vakantie-di-scol-inclusivo-e-dianan-di-fiesta_42938/"
+        }
+      ]
+    },
+    {
+      "code": "AX",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 60.116667,
+      "longitude": 19.9,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.sparhallen.ax/oppettider"
+        }
+      ]
+    },
+    {
+      "code": "AZ",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 40.5,
+      "longitude": 47.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.president.az/pages/7/print"
+        }
+      ]
+    },
+    {
+      "code": "BA",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southeast Europe",
+      "latitude": 44,
+      "longitude": 18,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.mhrr.gov.ba/PDF/LjudskaPrava/The%20Fourt%20Report%20of%20BH%20on%20implementation%20of%20the%20ESCR.pdf"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Bosnia_and_Herzegovina"
+        }
+      ]
+    },
+    {
+      "code": "BB",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 13.16666666,
+      "longitude": -59.53333333,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://labour.gov.bb/Holidays"
+        }
+      ]
+    },
+    {
+      "code": "BD",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Southern Asia",
+      "latitude": 24,
+      "longitude": 90,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Bangladesh"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Bengali_calendars"
+        }
+      ]
+    },
+    {
+      "code": "BE",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Western Europe",
+      "latitude": 50.83333333,
+      "longitude": 4,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.emploi.belgique.be/fr/themes/international/detachement/conditions-de-travail-respecter-en-cas-de-detachement-en-2"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.werk.belgie.be/nl/themas/internationaal/detachering/na-te-leven-arbeidsvoorwaarden-geval-van-detachering-naar-3"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Feestdagen_in_Belgi%C3%AB"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Belgium"
+        }
+      ]
+    },
+    {
+      "code": "BF",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 13,
+      "longitude": -2,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/Burkina_Faso#F%C3%AAtes_et_jours_f%C3%A9ri%C3%A9s"
+        },
+        {
+          "kind": "source",
+          "url": "https://ambaburkina-sn.org/content/jours-f%C3%A9ri%C3%A9s"
+        }
+      ]
+    },
+    {
+      "code": "BG",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southeast Europe",
+      "latitude": 43,
+      "longitude": 25,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Bulgaria"
+        }
+      ]
+    },
+    {
+      "code": "BH",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 26,
+      "longitude": 50.55,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Bahrain"
+        }
+      ]
+    },
+    {
+      "code": "BI",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -3.5,
+      "longitude": 30,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/Burundi"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.burundi.gov.bi/IMG/pdf/decret_211.pdf"
+        }
+      ]
+    },
+    {
+      "code": "BJ",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 9.5,
+      "longitude": 2.25,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/B%C3%A9nin#F%C3%AAtes_et_jours_f%C3%A9ri%C3%A9s"
+        }
+      ]
+    },
+    {
+      "code": "BL",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 18.5,
+      "longitude": -63.41666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Saint_Barth%C3%A9lemy#Festivals_and_holidays"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.legisocial.fr/jours-feries.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://publicholidays.la/saint-barthelemy/fr/2020-dates/"
+        }
+      ]
+    },
+    {
+      "code": "BM",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "North America",
+      "latitude": 32.33333333,
+      "longitude": -64.75,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Bermuda"
+        }
+      ]
+    },
+    {
+      "code": "BN",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "South-Eastern Asia",
+      "latitude": 4.5,
+      "longitude": 114.66666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Brunei"
+        }
+      ]
+    },
+    {
+      "code": "BO",
+      "continent": "americas",
+      "hemisphere": "south",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": -17,
+      "longitude": -65,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Bolivia"
+        },
+        {
+          "kind": "source",
+          "url": "http://gacetaoficialdebolivia.gob.bo/normas/buscar/5019"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.embajadadebolivia.es/informacion-general/"
+        }
+      ]
+    },
+    {
+      "code": "BQ",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 12.18,
+      "longitude": -68.25,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.bonairegov.nl/nl/onderwijs/primair/vakantierooster"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Feestdagen_in_Nederland"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.infobonaire.com/annual-events/"
+        }
+      ]
+    },
+    {
+      "code": "BR",
+      "continent": "americas",
+      "hemisphere": "south",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": -10,
+      "longitude": -55,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Brazil"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://pt.wikipedia.org/wiki/Feriados_no_Brasil"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolu%C3%A7%C3%A3o%20CMN&numero=4880"
+        },
+        {
+          "kind": "source",
+          "url": "https://g1.globo.com/es/espirito-santo/noticia/2025/04/26/saiba-o-que-funciona-e-nao-funciona-no-feriado-de-nossa-senhora-da-penha-no-es.ghtml"
+        },
+        {
+          "kind": "source",
+          "url": "https://goias.gov.br/juceg/feriado-municipal-devido-ao-dia-de-nossa-senhora-auxiliadora-padroeira-do-municipio-de-goiania/"
+        }
+      ]
+    },
+    {
+      "code": "BS",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 24.25,
+      "longitude": -76,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_Bahamas"
+        },
+        {
+          "kind": "source",
+          "url": "http://laws.bahamas.gov.bs/cms/images/LEGISLATION/PRINCIPAL/1938/1938-0015/PublicHolidaysAct_1.pdf"
+        }
+      ]
+    },
+    {
+      "code": "BT",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Southern Asia",
+      "latitude": 27.5,
+      "longitude": 90.5,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "BV",
+      "continent": "antarctica",
+      "hemisphere": "south",
+      "region": "Antarctic",
+      "subregion": "",
+      "latitude": -54.43333333,
+      "longitude": 3.4,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "BW",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Southern Africa",
+      "latitude": -22,
+      "longitude": 24,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.ilo.org/dyn/travail/docs/1766/Public%20Holidays%20Act.pdf"
+        }
+      ]
+    },
+    {
+      "code": "BY",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Eastern Europe",
+      "latitude": 53,
+      "longitude": 28,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Belarus"
+        }
+      ]
+    },
+    {
+      "code": "BZ",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Central America",
+      "latitude": 17.25,
+      "longitude": -88.75,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Belize"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.pressoffice.gov.bz/public-and-bank-holidays-2026/"
+        }
+      ]
+    },
+    {
+      "code": "CA",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "North America",
+      "latitude": 60,
+      "longitude": -95,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://de.wikipedia.org/wiki/Kanada#Feiertage"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Canada"
+        },
+        {
+          "kind": "source",
+          "url": "http://manpages.ubuntu.com/manpages/wily/man3/DateTime::TimeZone::Catalog.3pm.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://educaloi.qc.ca/en/capsules/public-holidays/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.canada.ca/en/canadian-heritage/campaigns/national-day-truth-reconciliation.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://goldblattpartners.com/unsolicited-blog/canadas-new-public-holiday-the-national-day-for-truth-and-reconciliation/"
+        },
+        {
+          "kind": "source",
+          "url": "https://news.gov.bc.ca/releases/2018PREM0018-000188"
+        },
+        {
+          "kind": "source",
+          "url": "https://globalnews.ca/news/4017192/b-c-s-family-day-moved-3rd-week-february-2019/"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Family_Day_(Canada)"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.cnesst.gouv.qc.ca/en/working-conditions/leave/statutory-holidays/statutory-holidays"
+        }
+      ]
+    },
+    {
+      "code": "CC",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Australia and New Zealand",
+      "latitude": -12.5,
+      "longitude": 96.83333333,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://regional.gov.au/territories/indian_ocean/iot_gazette/index.aspx"
+        },
+        {
+          "kind": "source",
+          "url": "http://regional.gov.au/territories/indian_ocean/iot_bulletins/2017/A31-2017-Cocos-Keeling-Island-Public-Holidays-2018.aspx"
+        }
+      ]
+    },
+    {
+      "code": "CD",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Middle Africa",
+      "latitude": 0,
+      "longitude": 25,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.ilo.org/dyn/natlex/docs/ELECTRONIC/101405/122159/F1802609849/COD-101405.pdf"
+        }
+      ]
+    },
+    {
+      "code": "CF",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Middle Africa",
+      "latitude": 7,
+      "longitude": 21,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/R%C3%A9publique_centrafricaine#F.C3.AAtes_et_jours_f.C3.A9ri.C3.A9s"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_Central_African_Republic"
+        }
+      ]
+    },
+    {
+      "code": "CG",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Middle Africa",
+      "latitude": -1,
+      "longitude": 15,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/R%C3%A9publique_du_Congo"
+        }
+      ]
+    },
+    {
+      "code": "CH",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Western Europe",
+      "latitude": 47,
+      "longitude": 8,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.datumsrechner.de/FeiertageSchweiz.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.ch.ch/de/ferien-und-feiertage/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.ejpd.admin.ch/dam/data/bj/publiservice/service/zivilprozessrecht/kant-feiertage.pdf"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/Jours_f%C3%A9ri%C3%A9s_en_Suisse"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://de.wikipedia.org/wiki/Feiertage_in_der_Schweiz"
+        },
+        {
+          "kind": "source",
+          "url": "https://fr.wikipedia.org/wiki/Berchtoldstag"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.vs.ch/fr/web/srh/plan-de-travail"
+        }
+      ]
+    },
+    {
+      "code": "CI",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 8,
+      "longitude": -5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Ivory_Coast"
+        }
+      ]
+    },
+    {
+      "code": "CK",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Polynesia",
+      "latitude": -21.23333333,
+      "longitude": -159.76666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_Cook_Islands"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.cookislands.org.uk/gospelday.html"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.cookislands.org.uk/calendar"
+        },
+        {
+          "kind": "source",
+          "url": "https://web.archive.org/web/20090326003301/http://www.stats.gov.ck/NewsEvents/PublicHolidays.pdf"
+        }
+      ]
+    },
+    {
+      "code": "CL",
+      "continent": "americas",
+      "hemisphere": "south",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": -30,
+      "longitude": -71,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Chile"
+        }
+      ]
+    },
+    {
+      "code": "CM",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Middle Africa",
+      "latitude": 6,
+      "longitude": 12,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/Cameroun"
+        }
+      ]
+    },
+    {
+      "code": "CN",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Eastern Asia",
+      "latitude": 35,
+      "longitude": 105,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_China"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.gov.cn/zhengce/content/2020-11/25/content_5564127.htm"
+        }
+      ]
+    },
+    {
+      "code": "CO",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": 4,
+      "longitude": -72,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://es.wikipedia.org/wiki/Anexo:Dís_festivos_en_Colombia"
+        },
+        {
+          "kind": "source",
+          "url": "https://lector.ramajudicial.gov.co/SIDN/NORMATIVA/TEXTOS_COMPLETOS/7_LEYES/LEYES%202026/Ley%202578%20de%202026.pdf"
+        }
+      ]
+    },
+    {
+      "code": "CR",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Central America",
+      "latitude": 10,
+      "longitude": -84,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Costa_Rica"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.tse.go.cr/pdf/normativa/codigodetrabajo.pdf  ARTICULO 148"
+        }
+      ]
+    },
+    {
+      "code": "CU",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 21.5,
+      "longitude": -80,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Cuba"
+        }
+      ]
+    },
+    {
+      "code": "CV",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 16,
+      "longitude": -24,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://pt.wikipedia.org/wiki/Cabo_Verde#Feriados"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.governo.cv/documents/dia_do_municpio_da_praia.pdf"
+        }
+      ]
+    },
+    {
+      "code": "CW",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 12.116667,
+      "longitude": -68.933333,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://loketdigital.gobiernu.cw/Loket/prodcat/products/getProductDetailsAction.do?id=437"
+        }
+      ]
+    },
+    {
+      "code": "CX",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Australia and New Zealand",
+      "latitude": -10.5,
+      "longitude": 105.66666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Christmas_Island"
+        }
+      ]
+    },
+    {
+      "code": "CY",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southern Europe",
+      "latitude": 35,
+      "longitude": 33,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Cyprus"
+        }
+      ]
+    },
+    {
+      "code": "CZ",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Central Europe",
+      "latitude": 49.75,
+      "longitude": 15.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_Czech_Republic"
+        }
+      ]
+    },
+    {
+      "code": "DE",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Western Europe",
+      "latitude": 51,
+      "longitude": 9,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://de.wikipedia.org/wiki/Feiertage_in_Deutschland"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.gesetze-bayern.de/Content/Document/BayFTG-1"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.rv.hessenrecht.hessen.de/bshe/document/jlr-FeiertGHE1952rahmen"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.dokumentation.landtag-mv.de/parldok/dokument/52063/viertes_gesetz_zur_aenderung_des_feiertagsgesetzes_mecklenburg_vorpommern.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.thueringer-landtag.de/service/presse/pressemitteilungen/weltkindertag-am-20-september-wird-gesetzlicher-feiertag/"
+        }
+      ]
+    },
+    {
+      "code": "DJ",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": 11.5,
+      "longitude": 43,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Djibouti"
+        },
+        {
+          "kind": "source",
+          "url": "http://joursferies-fr.blogspot.com/2019/05/jours-feries-en-djibouti-2020-et-2021.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://publicholidays.africa/djibouti/fr/2021-dates/"
+        }
+      ]
+    },
+    {
+      "code": "DK",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 56,
+      "longitude": 10,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://da.wikipedia.org/wiki/Danske_helligdage"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Denmark"
+        },
+        {
+          "kind": "source",
+          "url": "https://cphpost.dk/2025-05-01/life-in-denmark/what-happens-on-the-1st-of-may/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.retsinformation.dk/eli/lta/2019/515"
+        }
+      ]
+    },
+    {
+      "code": "DM",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 15.41666666,
+      "longitude": -61.33333333,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.dominica.gov.dm/about-dominica/public-holidays"
+        }
+      ]
+    },
+    {
+      "code": "DO",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 19,
+      "longitude": -70.66666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_Dominican_Republic"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.ministeriodetrabajo.gob.do/index.php/noticias/item/ministerio-de-trabajo-publica-calendario-de-dias-feriados-del-ano-2016"
+        },
+        {
+          "kind": "source",
+          "url": "http://docs.republica-dominicana.justia.com/nacionales/leyes/ley-139-97.pdf"
+        }
+      ]
+    },
+    {
+      "code": "DZ",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Northern Africa",
+      "latitude": 28,
+      "longitude": 3,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Algeria"
+        }
+      ]
+    },
+    {
+      "code": "EC",
+      "continent": "americas",
+      "hemisphere": "south",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": -2,
+      "longitude": -77.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Ecuador"
+        }
+      ]
+    },
+    {
+      "code": "EE",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 59,
+      "longitude": 26,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Estonia"
+        }
+      ]
+    },
+    {
+      "code": "EG",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Northern Africa",
+      "latitude": 27,
+      "longitude": 30,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Egypt"
+        }
+      ]
+    },
+    {
+      "code": "EH",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Northern Africa",
+      "latitude": 24.5,
+      "longitude": -13,
+      "hasHolidayData": true,
+      "sources": []
+    },
+    {
+      "code": "ER",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": 15,
+      "longitude": 39,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Eritrea"
+        }
+      ]
+    },
+    {
+      "code": "ES",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southern Europe",
+      "latitude": 40,
+      "longitude": -4,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://es.wikipedia.org/wiki/Calendario_laboral"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.boe.es/boe/dias/2018/10/20/pdfs/BOE-A-2018-14369.pdf (2019)"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.boe.es/boe/dias/2019/10/11/pdfs/BOE-A-2019-14552.pdf (2020)"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.boe.es/boe/dias/2020/11/02/pdfs/BOE-A-2020-13343.pdf (2021)"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.boe.es/boe/dias/2021/10/21/pdfs/BOE-A-2021-17113.pdf (2022)"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.boe.es/boe/dias/2022/10/14/pdfs/BOE-A-2022-16755.pdf (2023)"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.boe.es/boe/dias/2023/10/27/pdfs/BOE-A-2023-22014.pdf (2024)"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.boe.es/boe/dias/2024/10/18/pdfs/BOE-A-2024-21316.pdf (2025)"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.boe.es/boe/dias/2025/10/28/pdfs/BOE-A-2025-21667.pdf (2026)"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2021-17113"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1983-20906#art45"
+        }
+      ]
+    },
+    {
+      "code": "ET",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": 8,
+      "longitude": 38,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Ethiopia"
+        },
+        {
+          "kind": "source",
+          "url": "http://holidays.ertale.com/"
+        }
+      ]
+    },
+    {
+      "code": "FI",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 64,
+      "longitude": 26,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Finland"
+        }
+      ]
+    },
+    {
+      "code": "FJ",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Melanesia",
+      "latitude": -18,
+      "longitude": 175,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.fiji.gov.fj/Media-Centre/News/GOVERNMENT-APPROVES-2021-PUBLIC-HOLIDAYS"
+        }
+      ]
+    },
+    {
+      "code": "FK",
+      "continent": "americas",
+      "hemisphere": "south",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": -51.75,
+      "longitude": -59,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "FM",
+      "continent": "oceania",
+      "hemisphere": "north",
+      "region": "Oceania",
+      "subregion": "Micronesia",
+      "latitude": 6.91666666,
+      "longitude": 158.25,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "FO",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 62,
+      "longitude": -7,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Faroe_Islands#Public_holidays"
+        }
+      ]
+    },
+    {
+      "code": "FR",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Western Europe",
+      "latitude": 46,
+      "longitude": 2,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/Jour_f%C3%A9ri%C3%A9#France"
+        }
+      ]
+    },
+    {
+      "code": "GA",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Middle Africa",
+      "latitude": -1,
+      "longitude": 11.75,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Gabon"
+        }
+      ]
+    },
+    {
+      "code": "GB",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 54,
+      "longitude": -2,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.gov.uk/bank-holidays"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_United_Kingdom"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.itv.com/news/channel/2019-07-19/guernsey-will-have-a-bank-holiday-on-friday-8-may-2020/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.itv.com/news/channel/2019-06-13/extra-bank-holiday-proposed-for-ve-day-75-in-jersey/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.gov.uk/government/news/extra-bank-holiday-to-mark-the-queens-platinum-jubilee-in-2022"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.gov.uk/government/news/bank-holiday-announced-for-her-majesty-queen-elizabeth-iis-state-funeral-on-monday-19-september"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.gov.uk/government/news/bank-holiday-proclaimed-in-honour-of-the-coronation-of-his-majesty-king-charles-iii"
+        }
+      ]
+    },
+    {
+      "code": "GD",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 12.11666666,
+      "longitude": -61.66666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.gov.gd/holiday_events.html"
+        }
+      ]
+    },
+    {
+      "code": "GE",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 42,
+      "longitude": 43.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Georgia_(country)"
+        }
+      ]
+    },
+    {
+      "code": "GF",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": 4,
+      "longitude": -53,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.joursferies.fr/pays/guyane.php"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.public-holidays.us/FR_FR_2021_Guyane"
+        }
+      ]
+    },
+    {
+      "code": "GG",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 49.46666666,
+      "longitude": -2.58333333,
+      "hasHolidayData": true,
+      "sources": []
+    },
+    {
+      "code": "GH",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 8,
+      "longitude": -2,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Ghana"
+        }
+      ]
+    },
+    {
+      "code": "GI",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southern Europe",
+      "latitude": 36.13333333,
+      "longitude": -5.35,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.gibraltar.gov.gi/new/bank-public-holidays-2015"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.gibraltar.gov.gi/new/bank-public-holidays-2016"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.gibraltar.gov.gi/new/bank-holidays-2017"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.gibraltar.gov.gi/press-releases/additional-bank-holiday-in-2020-to-mark-the-anniversary-of-ve-day-7602019-5366"
+        }
+      ]
+    },
+    {
+      "code": "GL",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "North America",
+      "latitude": 72,
+      "longitude": -40,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Greenland"
+        }
+      ]
+    },
+    {
+      "code": "GM",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 13.46666666,
+      "longitude": -16.56666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_Gambia"
+        }
+      ]
+    },
+    {
+      "code": "GN",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 11,
+      "longitude": -10,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://gn.usembassy.gov/fr/holiday-calendar-fr/"
+        },
+        {
+          "kind": "source",
+          "url": "https://publicholidays.africa/guinea/fr/2020-dates/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.ilo.org/dyn/natlex/docs/SERIAL/22289/22600/F1945683402/GIN-22289.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.zakweli.com/jours-feries-en-guinee/"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/Guin%C3%A9e#Jours_f%C3%A9ri%C3%A9s"
+        }
+      ]
+    },
+    {
+      "code": "GP",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 16.25,
+      "longitude": -61.583333,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.guadeloupe.gouv.fr/layout/set/print/Outils/Liens-utiles/Folder/Professionnels-Toutes-les-demarches#!/particuliers/page/F2405"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/Guadeloupe#C%C3%A9l%C3%A9brations,_festivit%C3%A9s_et_jours_f%C3%A9ri%C3%A9s"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.public-holidays.us/FR_FR_2021_Guadeloupe"
+        }
+      ]
+    },
+    {
+      "code": "GQ",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Middle Africa",
+      "latitude": 2,
+      "longitude": 10,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Equatorial_Guinea"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://es.wikipedia.org/wiki/Guinea_Ecuatorial"
+        },
+        {
+          "kind": "source",
+          "url": "https://leydeguinea.files.wordpress.com/2014/08/013_boletin-oficial-del-estado-2.pdf"
+        }
+      ]
+    },
+    {
+      "code": "GR",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southern Europe",
+      "latitude": 39,
+      "longitude": 22,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://el.wikipedia.org/wiki/Επίσημες_αργίες_στην_Ελλάδα"
+        }
+      ]
+    },
+    {
+      "code": "GS",
+      "continent": "antarctica",
+      "hemisphere": "south",
+      "region": "Antarctic",
+      "subregion": "",
+      "latitude": -54.5,
+      "longitude": -37,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "GT",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Central America",
+      "latitude": 15.5,
+      "longitude": -90.25,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://ww2.oj.gob.gt/estadisticalaboral/Leyes%20en%20Materia%20de%20Trabajo%20y%20Prevision%20Social/Leyes%20Nacionales%20en%20Materia%20de%20Trabajo%20y%20Prevision%20Social/63298%20DECRETO%20DEL%20CONGRESO%2042-2010%20Ley%20que%20Promueve%20el%20Turismo%20Interno.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "http://ww2.oj.gob.gt/es/QueEsOJ/EstructuraOJ/UnidadesAdministrativas/CentroAnalisisDocumentacionJudicial/cds/CDs%20codigos/CODIGO_TRABAJO/codigo.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.sib.gob.gt/web/sib/entidades_supervisadas/calendario-de-asuetos"
+        }
+      ]
+    },
+    {
+      "code": "GU",
+      "continent": "oceania",
+      "hemisphere": "north",
+      "region": "Oceania",
+      "subregion": "Micronesia",
+      "latitude": 13.46666666,
+      "longitude": 144.78333333,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States#Guam"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Guam"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.guamtax.com/help/holidays.html"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.guamcourts.org/CompilerofLaws/GCA/01gca/1gc010.PDF"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.guamcourts.org/Holidays-and-Hours/JOG-Holidays-and-Hours.html"
+        }
+      ]
+    },
+    {
+      "code": "GW",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 12,
+      "longitude": -15,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Guinea-Bissau"
+        }
+      ]
+    },
+    {
+      "code": "GY",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": 5,
+      "longitude": -59,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://mops.gov.gy"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.moha.gov.gy/images/mediaadvisories/national%20holidays%202015.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "http://mops.gov.gy/wp-content/uploads/2017/05/NationalHolidays2017.pdf.pdf"
+        }
+      ]
+    },
+    {
+      "code": "HK",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Eastern Asia",
+      "latitude": 22.267,
+      "longitude": 114.188,
+      "hasHolidayData": true,
+      "sources": []
+    },
+    {
+      "code": "HM",
+      "continent": "antarctica",
+      "hemisphere": "south",
+      "region": "Antarctic",
+      "subregion": "",
+      "latitude": -53.1,
+      "longitude": 72.51666666,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "HN",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Central America",
+      "latitude": 15,
+      "longitude": -86.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.trabajo.gob.hn/transparencia/regulacion/decretos-y-acuerdos-1/resoluciones-2011/REGLAMENTO%20INTERNO%20DE%20TRABAJO%20DE%20%20RESUELVA%20DE%20HONDURAS.pdf ARTICULO 24"
+        }
+      ]
+    },
+    {
+      "code": "HR",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southeast Europe",
+      "latitude": 45.16666666,
+      "longitude": 15.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Croatia"
+        }
+      ]
+    },
+    {
+      "code": "HT",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 19,
+      "longitude": -72.41666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Haiti"
+        }
+      ]
+    },
+    {
+      "code": "HU",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Central Europe",
+      "latitude": 47,
+      "longitude": 20,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Hungary"
+        }
+      ]
+    },
+    {
+      "code": "IC",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Northern Africa",
+      "latitude": 28.2916,
+      "longitude": -16.6291,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.gobiernodecanarias.org/boc/2019/107/003.html"
+        }
+      ]
+    },
+    {
+      "code": "ID",
+      "continent": "asia",
+      "hemisphere": "south",
+      "region": "Asia",
+      "subregion": "South-Eastern Asia",
+      "latitude": -5,
+      "longitude": 120,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://id.wikipedia.org/wiki/Hari_libur_nasional_di_Indonesia"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Indonesia"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Nyepi"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Vesak#Dates_of_observance"
+        }
+      ]
+    },
+    {
+      "code": "IE",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 53,
+      "longitude": -8,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.citizensinformation.ie/en/employment/employment_rights_and_conditions/leave_and_holidays/public_holidays_in_ireland.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.bpfi.ie/wp-content/uploads/2017/10/Bank20Holidays202017-20.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://personalbanking.bankofireland.com/app/uploads/2018/11/OMI021897-CHRISTMAS-2018-CAMPAIGN-Opening-Hours-A1-Generic_v3.v2-compressed.pdf"
+        }
+      ]
+    },
+    {
+      "code": "IL",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 31.47,
+      "longitude": 35.13,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Israel"
+        }
+      ]
+    },
+    {
+      "code": "IM",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 54.25,
+      "longitude": -4.5,
+      "hasHolidayData": true,
+      "sources": []
+    },
+    {
+      "code": "IN",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Southern Asia",
+      "latitude": 20,
+      "longitude": 77,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_India"
+        }
+      ]
+    },
+    {
+      "code": "IO",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -6,
+      "longitude": 71.5,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "IQ",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 33,
+      "longitude": 44,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "IR",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Southern Asia",
+      "latitude": 32,
+      "longitude": 53,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Iran"
+        }
+      ]
+    },
+    {
+      "code": "IS",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 65,
+      "longitude": -18,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://github.com/gudmundur/holidays/blob/master/index.js"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://de.wikipedia.org/wiki/Feiertage_in_Island"
+        }
+      ]
+    },
+    {
+      "code": "IT",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southern Europe",
+      "latitude": 42.83333333,
+      "longitude": 12.83333333,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://de.wikipedia.org/wiki/Feiertage_in_Italien"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.quirinale.it/elementi/141022"
+        },
+        {
+          "kind": "source",
+          "url": "https://en.wikipedia.org/wiki/Turin"
+        },
+        {
+          "kind": "source",
+          "url": "https://it.wikipedia.org/wiki/Festa_di_santa_Rosalia"
+        }
+      ]
+    },
+    {
+      "code": "JE",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 49.25,
+      "longitude": -2.16666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.gov.je/leisure/events/whatson/pages/bankholidaydates.aspx"
+        }
+      ]
+    },
+    {
+      "code": "JM",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 18.25,
+      "longitude": -77.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Jamaica"
+        }
+      ]
+    },
+    {
+      "code": "JO",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 31,
+      "longitude": 36,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "JP",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Eastern Asia",
+      "latitude": 36,
+      "longitude": 138,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://eco.mtk.nao.ac.jp/koyomi/yoko/index.html.en"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://ja.wikipedia.org/wiki/%E5%9B%BD%E6%B0%91%E3%81%AE%E7%A5%9D%E6%97%A5"
+        }
+      ]
+    },
+    {
+      "code": "KE",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": 1,
+      "longitude": 38,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.kenyalaw.org/kl/fileadmin/pdfdownloads/Acts/PublicHolidaysActCap110.pdf"
+        }
+      ]
+    },
+    {
+      "code": "KG",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Central Asia",
+      "latitude": 41,
+      "longitude": 75,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "KH",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "South-Eastern Asia",
+      "latitude": 13,
+      "longitude": 105,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "KI",
+      "continent": "oceania",
+      "hemisphere": "north",
+      "region": "Oceania",
+      "subregion": "Micronesia",
+      "latitude": 1.41666666,
+      "longitude": 173,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "KM",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -12.16666666,
+      "longitude": 44.25,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.zakweli.com/jours-feries-aux-comores/"
+        },
+        {
+          "kind": "source",
+          "url": "https://mg.usembassy.gov/fr/holiday-calendar-fr/"
+        },
+        {
+          "kind": "source",
+          "url": "https://publicholidays.africa/comoros/fr/2021-dates/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.timeanddate.com/holidays/comores/"
+        }
+      ]
+    },
+    {
+      "code": "KN",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 17.33333333,
+      "longitude": -62.75,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Saint_Kitts_and_Nevis"
+        }
+      ]
+    },
+    {
+      "code": "KP",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Eastern Asia",
+      "latitude": 40,
+      "longitude": 127,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "KR",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Eastern Asia",
+      "latitude": 37,
+      "longitude": 127.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/List_of_public_holidays_in_South_Korea"
+        }
+      ]
+    },
+    {
+      "code": "KW",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 29.5,
+      "longitude": 45.75,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "KY",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 19.5,
+      "longitude": -80.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.gov.ky/calendar/public-holidays"
+        }
+      ]
+    },
+    {
+      "code": "KZ",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Central Asia",
+      "latitude": 48,
+      "longitude": 68,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Kazakhstan"
+        },
+        {
+          "kind": "source",
+          "url": "https://egov.kz/cms/en/articles/holidays-calend"
+        }
+      ]
+    },
+    {
+      "code": "LA",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "South-Eastern Asia",
+      "latitude": 18,
+      "longitude": 105,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "LB",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 33.83333333,
+      "longitude": 35.83333333,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "LC",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 13.88333333,
+      "longitude": -60.96666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Saint_Lucia"
+        }
+      ]
+    },
+    {
+      "code": "LI",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Western Europe",
+      "latitude": 47.26666666,
+      "longitude": 9.53333333,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://de.wikipedia.org/wiki/Feiertage_in_Liechtenstein#Gesetzliche_Feiertage"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.llv.li/files/apo/Feiertage-und-dienstfreie-Tage-LLV.pdf"
+        }
+      ]
+    },
+    {
+      "code": "LK",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Southern Asia",
+      "latitude": 7,
+      "longitude": 81,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Sri_Lanka"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.moha.gov.lk/ (State Ministry of Home Affairs, Sri Lanka)"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.documents.gov.lk/ (Department of Government Printing, Sri Lanka)"
+        }
+      ]
+    },
+    {
+      "code": "LR",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 6.5,
+      "longitude": -9.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Liberia"
+        }
+      ]
+    },
+    {
+      "code": "LS",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Southern Africa",
+      "latitude": -29.5,
+      "longitude": 28.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Lesotho"
+        }
+      ]
+    },
+    {
+      "code": "LT",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 56,
+      "longitude": 24,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Lithuania"
+        }
+      ]
+    },
+    {
+      "code": "LU",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Western Europe",
+      "latitude": 49.75,
+      "longitude": 6.16666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://legilux.public.lu/eli/etat/leg/loi/2019/04/25/a271/jo"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.legilux.public.lu/leg/textescoordonnes/codes/code_travail/ - Art. L. 232-2."
+        },
+        {
+          "kind": "source",
+          "url": "https://legilux.public.lu/eli/etat/leg/loi/1892/02/16/n2/jo"
+        },
+        {
+          "kind": "source",
+          "url": "https://legilux.public.lu/eli/etat/leg/agd/1946/04/23/n1/jo"
+        },
+        {
+          "kind": "source",
+          "url": "https://legilux.public.lu/eli/etat/leg/agd/1947/08/08/n1/jo"
+        },
+        {
+          "kind": "source",
+          "url": "https://legilux.public.lu/eli/etat/leg/agd/1961/12/23/n2/jo"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://lb.wikipedia.org/wiki/Gesetzlech_Feierdeeg_zu_L%C3%ABtzebuerg"
+        }
+      ]
+    },
+    {
+      "code": "LV",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 57,
+      "longitude": 25,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Latvia"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.apollo.lv/7784364/oficiali-29-maijs-ir-brivdiena"
+        }
+      ]
+    },
+    {
+      "code": "LY",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Northern Africa",
+      "latitude": 25,
+      "longitude": 17,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Libya"
+        }
+      ]
+    },
+    {
+      "code": "MA",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Northern Africa",
+      "latitude": 32,
+      "longitude": -5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.mmsp.gov.ma/fr/pratiques.aspx?id=38"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.amb-maroc.fr/_maroc/fetes_Nationales_j_feries.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://publicholidays.africa/morocco/fr/2020-dates/"
+        },
+        {
+          "kind": "source",
+          "url": "https://maroc-diplomatique.net/le-calendrier-des-jours-feries-au-maroc-en-2020/"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/F%C3%AAtes_et_jours_f%C3%A9ri%C3%A9s_au_Maroc"
+        }
+      ]
+    },
+    {
+      "code": "MC",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Western Europe",
+      "latitude": 43.73333333,
+      "longitude": 7.4,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Monaco"
+        }
+      ]
+    },
+    {
+      "code": "MD",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Eastern Europe",
+      "latitude": 47,
+      "longitude": 29,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://lex.justice.md/index.php?action=view&view=doc&id=306859"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.romania.mfa.md/sarbatori-oficiale/"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://ro.wikipedia.org/wiki/Republica_Moldova"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://ro.wikipedia.org/wiki/Ziua_vinului_(Republica_Moldova)"
+        }
+      ]
+    },
+    {
+      "code": "ME",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southeast Europe",
+      "latitude": 42.5,
+      "longitude": 19.3,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Montenegro"
+        }
+      ]
+    },
+    {
+      "code": "MF",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 18.08333333,
+      "longitude": -63.95,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.legisocial.fr/jours-feries.html"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.saint-barth-saint-martin.gouv.fr/Vous-etes/Passeport?spl_f=N0/N19810/N103/N360#!/particuliers/page/F2405"
+        }
+      ]
+    },
+    {
+      "code": "MG",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -20,
+      "longitude": 47,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://agoramada.com/t/jours-feries-a-madagascar-pour-2021/737"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.comptoir.fr/guide/madagascar/quand-partir-a-madagascar/les-jours-feries-a-madagascar/4594"
+        },
+        {
+          "kind": "source",
+          "url": "https://publicholidays.africa/madagascar/fr/2021-dates/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.madagascar-services.com/blog/post/2021/03/26/les-jours-feries-de-2021-a-madagascar"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.joursferies.fr/pays/madagascar.php"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/Madagascar"
+        }
+      ]
+    },
+    {
+      "code": "MH",
+      "continent": "oceania",
+      "hemisphere": "north",
+      "region": "Oceania",
+      "subregion": "Micronesia",
+      "latitude": 9,
+      "longitude": 168,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "MK",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southeast Europe",
+      "latitude": 41.83333333,
+      "longitude": 22,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.mtsp.gov.mk/WBStorage/Files/zakon_praznici.pdf"
+        }
+      ]
+    },
+    {
+      "code": "ML",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 17,
+      "longitude": -4,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://publicholidays.africa/mali/fr/2020-dates/"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.zakweli.com/jours-feries-au-mali/"
+        },
+        {
+          "kind": "source",
+          "url": "https://ml.usembassy.gov/fr/education-culture-fr/le-centre-culturel-americain/jours-feries/"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/Jour_f%C3%A9ri%C3%A9#Mali"
+        }
+      ]
+    },
+    {
+      "code": "MM",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "South-Eastern Asia",
+      "latitude": 22,
+      "longitude": 98,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "MN",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Eastern Asia",
+      "latitude": 46,
+      "longitude": 105,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "MO",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Eastern Asia",
+      "latitude": 22.16666666,
+      "longitude": 113.55,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "MP",
+      "continent": "oceania",
+      "hemisphere": "north",
+      "region": "Oceania",
+      "subregion": "Micronesia",
+      "latitude": 15.2,
+      "longitude": 145.75,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "MQ",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 14.666667,
+      "longitude": -61,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.martinique.gouv.fr/Vous-etes/Association#!/particuliers/page/F2405"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.public-holidays.us/FR_FR_2021_Martinique"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.joursferies.fr/pays/martinique.php"
+        }
+      ]
+    },
+    {
+      "code": "MR",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 20,
+      "longitude": -12,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Mauritania"
+        }
+      ]
+    },
+    {
+      "code": "MS",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 16.75,
+      "longitude": -62.2,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Montserrat"
+        },
+        {
+          "kind": "source",
+          "url": "http://agc.gov.ms/wp-content/uploads/2011/10/Act-No.-3-of-2017-Public-Holidays-Amendment-Act-20171.pdf"
+        }
+      ]
+    },
+    {
+      "code": "MT",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southern Europe",
+      "latitude": 35.83333333,
+      "longitude": 14.58333333,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Malta"
+        }
+      ]
+    },
+    {
+      "code": "MU",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -20.28333333,
+      "longitude": 57.55,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Mauritius"
+        },
+        {
+          "kind": "source",
+          "url": "https://pmo.govmu.org/Communique/Notice-Public_Holidays_2025.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://pmo.govmu.org/Communique/GN_No._1195-Public_Holidays_2026.pdf"
+        }
+      ]
+    },
+    {
+      "code": "MV",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Southern Asia",
+      "latitude": 3.25,
+      "longitude": 73,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "MW",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -13.5,
+      "longitude": 34,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.malawilii.org/mw/consolidatedlegislation/1805/public_holidays_act_pdf_49780.pdf"
+        }
+      ]
+    },
+    {
+      "code": "MX",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "North America",
+      "latitude": 23,
+      "longitude": -102,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Mexico"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.dof.gob.mx/nota_detalle.php?codigo=5466056&fecha=20/12/2016"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.dof.gob.mx/nota_detalle.php?codigo=5508103&fecha=18/12/2017"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.dof.gob.mx/nota_detalle.php?codigo=5546178&fecha=11/12/2018"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.banxico.org.mx/financial-system/d/%7B78042524-F8E9-89EB-9A8E-FD40D0CBCF40%7D.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.gob.mx/cms/uploads/attachment/file/156203/1044_Ley_Federal_del_Trabajo.pdf"
+        }
+      ]
+    },
+    {
+      "code": "MY",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "South-Eastern Asia",
+      "latitude": 2.5,
+      "longitude": 112.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://publicholidays.com.my/2022-dates/"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Malaysia"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.drikpanchang.com/festivals/buddha-purnima/buddha-purnima-date-time.html?year=2021"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Vesak"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.drikpanchang.com/festivals/thaipusam/tamil-thaipusam-date.html?year=2016"
+        }
+      ]
+    },
+    {
+      "code": "MZ",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -18.25,
+      "longitude": 35,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://pt.wikipedia.org/wiki/Mo%C3%A7ambique#Feriados"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.ilo.org/wcmsp5/groups/public/---ed_protect/---protrav/---ilo_aids/documents/legaldocument/wcms_127550.pdf"
+        }
+      ]
+    },
+    {
+      "code": "NA",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Southern Africa",
+      "latitude": -22,
+      "longitude": 17,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Namibia"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.un.int/namibia/namibia/national-holidays"
+        }
+      ]
+    },
+    {
+      "code": "NC",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Melanesia",
+      "latitude": -21.5,
+      "longitude": 165.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/Jour_f%C3%A9ri%C3%A9#France"
+        },
+        {
+          "kind": "source",
+          "url": "https://cpme.nc/informez-vous/calendriers-jours-feries"
+        }
+      ]
+    },
+    {
+      "code": "NE",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 16,
+      "longitude": 8,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.fedee.com/fr/kb/niger-public-holidays-2021/"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.mfpt.gouv.ne/images/BIBLIOTHEQUE/CONVENTION_COLLECTIVE.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.qppstudio.net/publicholidays2025/niger.htm"
+        },
+        {
+          "kind": "source",
+          "url": "https://wageindicator.org/documents/decentworkcheck/africa/niger-french.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://publicholidays.africa/niger/fr/2021-dates/"
+        },
+        {
+          "kind": "source",
+          "url": "http://dniwolne.eu/fr-Afrique-Jours-F%C3%A9ri%C3%A9s-Niger.html"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/Niger"
+        }
+      ]
+    },
+    {
+      "code": "NF",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Australia and New Zealand",
+      "latitude": -29.03333333,
+      "longitude": 167.95,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.norfolkisland.gov.nf/sites/default/files/docs/NIRC/Gazettes/2017/2017_09_29%20Gazette%20No.%2099.pdf 2018"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.norfolkisland.gov.nf/sites/default/files/docs/NIRC/Gazettes/2018_06_29%20Gazette%20No.%2026.pdf 2019"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.norfolkisland.gov.nf/sites/default/files/docs/NIRC/Gazettes/2019_07_05%20Gazette%20No.%2030.pdf 2020"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.norfolkislander.com/images/2020_07_31_Gazette_No._35.pdf 2021"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.norfolkisland.gov.nf/sites/default/files/docs/NIRC/Gazettes/2021_07_09%20Gazette%20No.%2029.pdf 2022"
+        }
+      ]
+    },
+    {
+      "code": "NG",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 10,
+      "longitude": 8,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://thenigerianinfo.com/national-public-holidays-in-nigeria/"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Nigeria"
+        }
+      ]
+    },
+    {
+      "code": "NI",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Central America",
+      "latitude": 13,
+      "longitude": -85,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.mitrab.gob.ni/documentos/leyes/Ley185Nic.pdf/at_download/file artículos 66"
+        }
+      ]
+    },
+    {
+      "code": "NL",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Western Europe",
+      "latitude": 52.5,
+      "longitude": 5.75,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_Netherlands"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Feestdagen_in_Nederland"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.rijksoverheid.nl/onderwerpen/arbeidsovereenkomst-en-cao/vraag-en-antwoord/officiele-feestdagen"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.government.nl/topics/working-hours/question-and-answer/public-holidays-in-the-netherlands"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.government.nl/topics/school-holidays/question-and-answer/on-which-public-holidays-are-schools-closed-in-the-netherlands"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.rijksoverheid.nl/onderwerpen/arbeidsovereenkomst-en-cao/vraag-en-antwoord/goede-vrijdag-vrije-dag"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.rijksoverheid.nl/onderwerpen/arbeidsovereenkomst-en-cao/vraag-en-antwoord/koningsdag-27-april-vrije-dag"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Koningsdag_(Nederland)"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Koninginnedag"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Nationale_Dodenherdenking"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.rijksoverheid.nl/onderwerpen/arbeidsovereenkomst-en-cao/vraag-en-antwoord/bevrijdingsdag-5-mei-vrije-dag"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Bevrijdingsdag"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Moederdag"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.rijksoverheid.nl/onderwerpen/arbeidsovereenkomst-en-cao/vraag-en-antwoord/hemelvaartsdag-vrije-dag"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Hemelvaartsdag"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.rijksoverheid.nl/onderwerpen/arbeidsovereenkomst-en-cao/vraag-en-antwoord/is-tweede-pinksterdag-een-vrije-dag"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Tweede_Pinksterdag"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Vaderdag"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Prinsessedag"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Prinsjesdag"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Sinterklaasfeest"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Koninkrijksdag"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Gronings_Ontzet"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Alkmaars_Ontzet"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Inname_van_Den_Briel"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://nl.wikipedia.org/wiki/Leids_Ontzet"
+        }
+      ]
+    },
+    {
+      "code": "NO",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 62,
+      "longitude": 10,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Norway"
+        },
+        {
+          "kind": "source",
+          "url": "https://no.wikipedia.org/wiki/Arbeidernes_internasjonale_kampdag"
+        },
+        {
+          "kind": "source",
+          "url": "https://no.wikipedia.org/wiki/17._mai_(grunnlovsdag)"
+        },
+        {
+          "kind": "source",
+          "url": "https://no.wikipedia.org/wiki/P%C3%A5skeaften"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.timeanddate.com/holidays/norway/2023"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://no.wikipedia.org/wiki/Norges_offisielle_flaggdager"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://no.wikipedia.org/wiki/Allehelgensaften"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://no.wikipedia.org/wiki/Advent"
+        }
+      ]
+    },
+    {
+      "code": "NP",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Southern Asia",
+      "latitude": 28,
+      "longitude": 84,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "NR",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Micronesia",
+      "latitude": -0.53333333,
+      "longitude": 166.91666666,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "NU",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Polynesia",
+      "latitude": -19.03333333,
+      "longitude": -169.86666666,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "NZ",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Australia and New Zealand",
+      "latitude": -41,
+      "longitude": 174,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_New_Zealand"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.govt.nz/browse/work/public-holidays-and-work/public-holidays-and-anniversary-dates"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.govt.nz/browse/work/public-holidays-and-work/public-holidays-and-anniversary-dates/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.mbie.govt.nz/assets/matariki-dates-2022-to-2052-matariki-advisory-group.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.beehive.govt.nz/release/public-holiday-26-september-mark-passing-queen-elizabeth-ii#:~:text=New%20Zealand%20will%20mark%20the,Minister%20Jacinda%20Ardern%20has%20announced."
+        }
+      ]
+    },
+    {
+      "code": "OM",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 21,
+      "longitude": 57,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "PA",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Central America",
+      "latitude": 9,
+      "longitude": -80,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Panama"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://es.wikipedia.org/wiki/Anexo:Festividades_y_celebraciones#Panam.C3.A1"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.legalinfo-panama.com/legislacion/laboral/codtrabA1.pdf"
+        }
+      ]
+    },
+    {
+      "code": "PE",
+      "continent": "americas",
+      "hemisphere": "south",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": -10,
+      "longitude": -76,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Peru"
+        }
+      ]
+    },
+    {
+      "code": "PF",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Polynesia",
+      "latitude": -15,
+      "longitude": -140,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_French_Polynesia"
+        }
+      ]
+    },
+    {
+      "code": "PG",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Melanesia",
+      "latitude": -6,
+      "longitude": 147,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "PH",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "South-Eastern Asia",
+      "latitude": 13,
+      "longitude": 122,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_Philippines"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/People_Power_Revolution#Commemoration"
+        }
+      ]
+    },
+    {
+      "code": "PK",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Southern Asia",
+      "latitude": 30,
+      "longitude": 70,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Pakistan"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://ur.wikipedia.org/wiki/%D8%AA%D8%B9%D8%B7%DB%8C%D9%84%D8%A7%D8%AA_%D9%BE%D8%A7%DA%A9%D8%B3%D8%AA%D8%A7%D9%86"
+        }
+      ]
+    },
+    {
+      "code": "PL",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Central Europe",
+      "latitude": 52,
+      "longitude": 20,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://de.wikipedia.org/wiki/Feiertage_in_Polen"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Poland"
+        }
+      ]
+    },
+    {
+      "code": "PM",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "North America",
+      "latitude": 46.83333333,
+      "longitude": -56.33333333,
+      "hasHolidayData": true,
+      "sources": []
+    },
+    {
+      "code": "PN",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Polynesia",
+      "latitude": -25.06666666,
+      "longitude": -130.1,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "PR",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 18.25,
+      "longitude": -66.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Puerto_Rico"
+        }
+      ]
+    },
+    {
+      "code": "PS",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 31.9,
+      "longitude": 35.2,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "PT",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southern Europe",
+      "latitude": 39.5,
+      "longitude": -8,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://de.wikipedia.org/wiki/Portugal#Feiertage"
+        }
+      ]
+    },
+    {
+      "code": "PW",
+      "continent": "oceania",
+      "hemisphere": "north",
+      "region": "Oceania",
+      "subregion": "Micronesia",
+      "latitude": 7.5,
+      "longitude": 134.5,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "PY",
+      "continent": "americas",
+      "hemisphere": "south",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": -23,
+      "longitude": -58,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Paraguay"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.ultimahora.com/establecen-traslados-feriados-el-2017-n1042098.html"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.gacetaoficial.gov.py/index/detalle_publicacion/61071"
+        },
+        {
+          "kind": "source",
+          "url": "https://as.com/futbol/mundial/festivo-nacional-en-paraguay-tras-eliminar-a-alemania-f202606-n/"
+        }
+      ]
+    },
+    {
+      "code": "QA",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 25.5,
+      "longitude": 51.25,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "RE",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -21.15,
+      "longitude": 55.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.joursferies.fr/pays/reunion.php"
+        }
+      ]
+    },
+    {
+      "code": "RO",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southeast Europe",
+      "latitude": 46,
+      "longitude": 25,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://de.wikipedia.org/wiki/Feiertage_in_Rum%C3%A4nien"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Romania"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.dreptonline.ro/legislatie/codul_muncii.php"
+        }
+      ]
+    },
+    {
+      "code": "RS",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southeast Europe",
+      "latitude": 44,
+      "longitude": 21,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Serbia"
+        }
+      ]
+    },
+    {
+      "code": "RU",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Eastern Europe",
+      "latitude": 60,
+      "longitude": 100,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Russia"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B0%D0%B7%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8"
+        },
+        {
+          "kind": "source",
+          "url": "http://government.ru/docs/43282/"
+        }
+      ]
+    },
+    {
+      "code": "RW",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -2,
+      "longitude": 30,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.gov.rw/home/official_holidays/"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/Jours_f%C3%A9ri%C3%A9s_au_Rwanda"
+        }
+      ]
+    },
+    {
+      "code": "SA",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 25,
+      "longitude": 45,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.hrsd.gov.sa/sites/default/files/2025-02/%D8%A7%D9%84%D9%84%D8%A7%D8%A6%D8%AD%D8%A9%20%D8%A7%D9%84%D8%AA%D9%86%D9%81%D9%8A%D8%B0%D9%8A%D8%A9%20%D9%84%D9%86%D8%B8%D8%A7%D9%85%20%D8%A7%D9%84%D8%B9%D9%85%D9%84%20%D9%88%D9%85%D9%84%D8%AD%D9%82%D8%A7%D8%AA%D9%87%D8%A7.pdf"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Saudi_Founding_Day"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Saudi_National_Day"
+        },
+        {
+          "kind": "source",
+          "url": "https://al-ain.com/article/eid-al-fitr-2021-in-saudi-arabia"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.okaz.com.sa/news/local/2075063"
+        },
+        {
+          "kind": "source",
+          "url": "https://ajel.sa/local/human-resources-announces-eid-al-fitr-vacation-dates-for-the-private-and-non-profit-sectors"
+        },
+        {
+          "kind": "source",
+          "url": "https://ajel.sa/thehour/eid-al-adha-holidays-2022-learn-about-the-bank-holiday-and-the-date-of-return-to-work"
+        },
+        {
+          "kind": "source",
+          "url": "https://ajel.sa/local/9pu448axfr"
+        },
+        {
+          "kind": "source",
+          "url": "https://ajel.sa/local/siaxfw5hmo"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.okaz.com.sa/news/local/2158038"
+        },
+        {
+          "kind": "source",
+          "url": "https://sahmnews.com.sa/2024/06/09/%D8%A7%D9%84%D9%85%D9%88%D8%A7%D8%B1%D8%AF-%D8%A7%D9%84%D8%A8%D8%B4%D8%B1%D9%8A%D8%A9-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9-%D8%AA%D8%B9%D9%84%D9%86-%D9%85%D9%88%D8%B9%D8%AF-%D8%A5%D8%AC/"
+        },
+        {
+          "kind": "source",
+          "url": "https://sahmnews.com.sa/2025/03/11/%D8%A7%D9%84%D9%85%D9%88%D8%A7%D8%B1%D8%AF-%D8%A7%D9%84%D8%A8%D8%B4%D8%B1%D9%8A%D8%A9-%D8%AA%D8%B9%D9%84%D9%86-%D8%A5%D8%AC%D8%A7%D8%B2%D8%A9-%D8%B9%D9%8A%D8%AF-%D8%A7%D9%84%D9%81%D8%B7%D8%B1-%D9%84/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.dostor.org/5096235"
+        }
+      ]
+    },
+    {
+      "code": "SB",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Melanesia",
+      "latitude": -8,
+      "longitude": 159,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "SC",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -4.58333333,
+      "longitude": 55.66666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://publicholidays.africa/seychelles/fr/2020-dates/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.comptoir.fr/guide/seychelles/quand-partir-aux-seychelles/les-jours-feries-aux-seychelles/2874"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.jours-feries.com/country/Seychelles_154.htm"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.seyvillas.com/fr/guide/at-a-glance/festivals-and-celebrations"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.seychelles.travel/fr/plan-your-visit/travellers-essentials/6032-public-holidays"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/Seychelles"
+        }
+      ]
+    },
+    {
+      "code": "SD",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Northern Africa",
+      "latitude": 15,
+      "longitude": 30,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Sudan"
+        }
+      ]
+    },
+    {
+      "code": "SE",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 62,
+      "longitude": 15,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://de.wikipedia.org/wiki/Feiertage_in_Schweden"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://sv.wikipedia.org/wiki/Helgdagar_i_Sverige"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-1989253-om-allmanna-helgdagar_sfs-1989-253/"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://sv.wikipedia.org/wiki/Sveriges_nationaldag#Svenska_flaggans_dag"
+        }
+      ]
+    },
+    {
+      "code": "SG",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "South-Eastern Asia",
+      "latitude": 1.36666666,
+      "longitude": 103.8,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Singapore"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.mom.gov.sg/newsroom/press-releases/2022/0408-public-holidays-for-2023"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.humanresourcesonline.net/singapore-s-revised-public-holiday-list-for-2022-new-dates-for-hari-raya-puasa-and-haji"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Vesak"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.mom.gov.sg/newsroom/press-releases/2022/0929-revised-date-for-vesak-day-2023#:~:text=Revised%20Date%20for%20Vesak%20Day%20in%202023&text=1%20Following%20the%20Singapore%20Buddhist,public%20holiday%20for%20Vesak%20Day ."
+        },
+        {
+          "kind": "source",
+          "url": "https://www.eld.gov.sg/faq_voters.html"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/2023_Singaporean_presidential_election"
+        }
+      ]
+    },
+    {
+      "code": "SH",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": -15.95,
+      "longitude": -5.72,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Saint_Helena,_Ascension_and_Tristan_da_Cunha"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.tristandc.com/newsratting.php"
+        }
+      ]
+    },
+    {
+      "code": "SI",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Central Europe",
+      "latitude": 46.11666666,
+      "longitude": 14.81666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Slovenia"
+        }
+      ]
+    },
+    {
+      "code": "SJ",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Northern Europe",
+      "latitude": 78,
+      "longitude": 20,
+      "hasHolidayData": true,
+      "sources": []
+    },
+    {
+      "code": "SK",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Central Europe",
+      "latitude": 48.66666666,
+      "longitude": 19.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://nbs.sk/o-narodnej-banke/sviatky-v-sr/"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://cs.wikipedia.org/wiki/St%C3%A1tn%C3%AD_sv%C3%A1tky_Slovenska"
+        }
+      ]
+    },
+    {
+      "code": "SL",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 8.5,
+      "longitude": -11.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Sierra_Leone"
+        }
+      ]
+    },
+    {
+      "code": "SM",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southern Europe",
+      "latitude": 43.76666666,
+      "longitude": 12.41666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.sanmarino.sm/on-line/home/san-marino/feste-nazionali.html"
+        }
+      ]
+    },
+    {
+      "code": "SN",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 14,
+      "longitude": -14,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.joursferies.fr/pays/senegal.php"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.ilo.org/dyn/natlex/docs/ELECTRONIC/97260/115332/F792726416/SEN-97260.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.au-senegal.com/les-fetes-et-jours-feries,056.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://lepetitjournal.com/dakar/les-jours-feries-au-senegal-en-2021-295473"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.seneweb.com/news/Societe/ce-que-dit-la-loi-sur-les-jours-feries_n_113705.html"
+        }
+      ]
+    },
+    {
+      "code": "SO",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": 10,
+      "longitude": 49,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Somalia"
+        }
+      ]
+    },
+    {
+      "code": "SR",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": 4,
+      "longitude": -56,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Suriname#National_holidays"
+        }
+      ]
+    },
+    {
+      "code": "SS",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Middle Africa",
+      "latitude": 7,
+      "longitude": 30,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_South_Sudan"
+        }
+      ]
+    },
+    {
+      "code": "ST",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Middle Africa",
+      "latitude": 1,
+      "longitude": 7,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_S%C3%A3o_Tom%C3%A9_and_Pr%C3%ADncipe"
+        }
+      ]
+    },
+    {
+      "code": "SV",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Central America",
+      "latitude": 13.83333333,
+      "longitude": -88.91666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.tusalario.org/elsalvador/Portada/derechos-laborales/vacaciones/trabajo-en-feriado-y-dias-de-descanso"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.asamblea.gob.sv/eparlamento/indice-legislativo/buscador-de-documentos-legislativos/ley-de-asuetos-vacaciones-y-licencias-de-los-empleados-publicos/archivo_documento_legislativo"
+        }
+      ]
+    },
+    {
+      "code": "SX",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 18.033333,
+      "longitude": -63.05,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Sint_Maarten"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.sintmaartengov.org/government/VSA/labour/Pages/Public-Holiday-Schedule.aspx"
+        }
+      ]
+    },
+    {
+      "code": "SY",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 35,
+      "longitude": 38,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "SZ",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Southern Africa",
+      "latitude": -26.5,
+      "longitude": 31.5,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Eswatini"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.thekingdomofeswatini.com/eswatini-experiences/events/incwala-festival/"
+        }
+      ]
+    },
+    {
+      "code": "TC",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 21.75,
+      "longitude": -71.58333333,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_Turks_and_Caicos_Islands"
+        }
+      ]
+    },
+    {
+      "code": "TD",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Middle Africa",
+      "latitude": 15,
+      "longitude": 19,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.ilo.org/dyn/natlex/docs/ELECTRONIC/97323/115433/F-316075167/TCD-97323.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://publicholidays.africa/chad/fr/2021-dates/"
+        }
+      ]
+    },
+    {
+      "code": "TF",
+      "continent": "antarctica",
+      "hemisphere": "south",
+      "region": "Antarctic",
+      "subregion": "",
+      "latitude": -49.25,
+      "longitude": 69.167,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "TG",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Western Africa",
+      "latitude": 8,
+      "longitude": 1.16666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Togo"
+        }
+      ]
+    },
+    {
+      "code": "TH",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "South-Eastern Asia",
+      "latitude": 15,
+      "longitude": 100,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Thailand"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.timeanddate.com/holidays/thailand/makha-bucha"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.drikpanchang.com/festivals/buddha-purnima/buddha-purnima-date-time.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.timeanddate.com/holidays/thailand/asalha-bucha"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.timeanddate.com/holidays/thailand/buddhist-lent-day"
+        }
+      ]
+    },
+    {
+      "code": "TJ",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Central Asia",
+      "latitude": 39,
+      "longitude": 71,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "TK",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Polynesia",
+      "latitude": -9,
+      "longitude": -172,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "TL",
+      "continent": "asia",
+      "hemisphere": "south",
+      "region": "Asia",
+      "subregion": "South-Eastern Asia",
+      "latitude": -8.83333333,
+      "longitude": 125.91666666,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "TM",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Central Asia",
+      "latitude": 40,
+      "longitude": 60,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "TN",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Northern Africa",
+      "latitude": 34,
+      "longitude": 9,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://fr.wikipedia.org/wiki/F%C3%AAtes_et_jours_f%C3%A9ri%C3%A9s_en_Tunisie"
+        }
+      ]
+    },
+    {
+      "code": "TO",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Polynesia",
+      "latitude": -20,
+      "longitude": -175,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.mic.gov.to/news-today/press-releases/7066-tonga-public-holidays-for-2018-"
+        }
+      ]
+    },
+    {
+      "code": "TR",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 39,
+      "longitude": 35,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Turkey"
+        }
+      ]
+    },
+    {
+      "code": "TT",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 11,
+      "longitude": -61,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Trinidad_and_Tobago"
+        }
+      ]
+    },
+    {
+      "code": "TV",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Polynesia",
+      "latitude": -8,
+      "longitude": 178,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "TW",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Eastern Asia",
+      "latitude": 23.5,
+      "longitude": 121,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Taiwan"
+        }
+      ]
+    },
+    {
+      "code": "TZ",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -6,
+      "longitude": 35,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.ilo.org/dyn/travail/docs/2234/Public%20Holidays%20Ordinance%20-%201966%20Amendment.pdf"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Tanzania"
+        }
+      ]
+    },
+    {
+      "code": "UA",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Eastern Europe",
+      "latitude": 49,
+      "longitude": 32,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://ukurier.gov.ua/uk/news/v-ukrayini-zyavivsya-she-odin-vihidnij-14-zhovtnya/"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Ukraine"
+        }
+      ]
+    },
+    {
+      "code": "UG",
+      "continent": "africa",
+      "hemisphere": "north",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": 1,
+      "longitude": 32,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Uganda"
+        }
+      ]
+    },
+    {
+      "code": "UM",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "North America",
+      "latitude": 19.3,
+      "longitude": 166.633333,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "US",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "North America",
+      "latitude": 38,
+      "longitude": -97,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States"
+        },
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Washington%27s_Birthday"
+        },
+        {
+          "kind": "source",
+          "url": "https://www4.law.cornell.edu/uscode/html/uscode05/usc_sec_05_00006103----000-.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://uscode.house.gov/view.xhtml?edition=prelim&req=granuleid%3AUSC-prelim-title5-section6103&f=treesort&num=0"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.congress.gov/bill/117th-congress/senate-bill/475"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.federalreserve.gov/aboutthefed/k8.htm"
+        },
+        {
+          "kind": "source",
+          "url": "https://gov.alaska.gov/Walker/press-room/full-proclamation.html?pr=7296"
+        },
+        {
+          "kind": "source",
+          "url": "http://time.com/4070797/alaska-indigenous-peoples-day/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.alaskapublic.org/2017/06/28/governor-walker-signs-law-recognizing-indigenous-peoples-day-in-alaska/"
+        },
+        {
+          "kind": "source",
+          "url": "http://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=6700."
+        },
+        {
+          "kind": "source",
+          "url": "http://www.calhr.ca.gov/employees/pages/state-holidays.aspx"
+        },
+        {
+          "kind": "source",
+          "url": "https://dos.fl.gov/communications/press-releases/2026/icymi-governor-ron-desantis-announces-statewide-commemoration-of-america-s-250th-birthday"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.ajc.com/blog/politics/why-monday-longer-confederate-memorial-day-georgia/55scplUOZWOIbAzmMKZnXM/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.cnn.com/2015/08/09/us/georgia-confederate-memorial-holiday-feat/index.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://dbhdd.georgia.gov/documents/state-holidays-2012"
+        },
+        {
+          "kind": "source",
+          "url": "https://ga.gsu.edu/2013/06/11/state-holidays/"
+        },
+        {
+          "kind": "source",
+          "url": "http://team.georgia.gov/wp-content/uploads/2014/08/2015-GA-State-Holidays.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "http://team.georgia.gov/wp-content/uploads/2011/06/2016-State-Holidays.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "http://team.georgia.gov/wp-content/uploads/2016/08/2017-State-Holidays.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "http://team.georgia.gov/wp-content/uploads/2017/07/2018-State-Holidays-memo-07.12.17.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "http://team.georgia.gov/wp-content/uploads/2018/10/2019-State-Holidays-Memo-07.18.18.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "http://dhrd.hawaii.gov/state-observed-holidays/"
+        },
+        {
+          "kind": "source",
+          "url": "https://dhrd.hawaii.gov/wp-content/uploads/2012/10/State-Holidays-2016-2017.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.aol.com/article/lifestyle/2017/10/09/here-are-some-of-the-states-and-cities-celebrating-indigenous-peoples-day-instead-of-columbus-day/23237097/"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.reviewjournal.com/news/2017-legislature/nevada-may-soon-recognize-indigenous-peoples-day/"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.rld.state.nm.us/uploads/files/FID%20NEW%20MEXICO%20BANK%20HOLIDAYS%202018.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.argusleader.com/story/davidmontgomery/2014/10/13/native-american-day/17194651/"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.hr.sao.state.tx.us/compensation/Holidays2015.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.hr.sao.state.tx.us/compensation/Holidays2016_2017.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.vpr.org/post/gov-scott-proclaim-oct-9-indigenous-peoples-day-year"
+        }
+      ]
+    },
+    {
+      "code": "UY",
+      "continent": "americas",
+      "hemisphere": "south",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": -33,
+      "longitude": -56,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://www.parlamento.gub.uy/leyes/AccesoTextoLey.asp?Ley=14977"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.parlamento.gub.uy/leyes/AccesoTextoLey.asp?Ley=16805"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.parlamento.gub.uy/leyes/AccesoTextoLey.asp?Ley=17414"
+        }
+      ]
+    },
+    {
+      "code": "UZ",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Central Asia",
+      "latitude": 41,
+      "longitude": 64,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "VA",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southern Europe",
+      "latitude": 41.9,
+      "longitude": 12.45,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Vatican_City"
+        }
+      ]
+    },
+    {
+      "code": "VC",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 13.25,
+      "longitude": -61.2,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Saint_Vincent_and_the_Grenadines"
+        }
+      ]
+    },
+    {
+      "code": "VE",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "South America",
+      "latitude": 8,
+      "longitude": -66,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Venezuela"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.lottt.gob.ve/ley-del-trabajo/titulo-iii/#capituloviii"
+        },
+        {
+          "kind": "source",
+          "url": "http://venciclopedia.com/index.php?title=Ley_de_Fiestas_Nacionales"
+        }
+      ]
+    },
+    {
+      "code": "VG",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 18.431383,
+      "longitude": -64.62305,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "http://bvi.gov.vg/media-centre/2015-public-holidays"
+        },
+        {
+          "kind": "source",
+          "url": "http://bvi.gov.vg/media-centre/2016-public-holidays"
+        },
+        {
+          "kind": "source",
+          "url": "http://bvi.gov.vg/media-centre/2017-public-holidays"
+        },
+        {
+          "kind": "source",
+          "url": "http://bvi.gov.vg/media-centre/2018-public-holidays"
+        },
+        {
+          "kind": "source",
+          "url": "http://bvi.gov.vg/media-centre/2019-public-holidays"
+        },
+        {
+          "kind": "source",
+          "url": "http://bvi.gov.vg/media-centre/2020-public-holidays"
+        },
+        {
+          "kind": "source",
+          "url": "http://bvi.gov.vg/media-centre/2021-public-holidays"
+        },
+        {
+          "kind": "source",
+          "url": "https://bvi.gov.vg/sites/default/files/649_-_2021_public_holidays.pdf"
+        }
+      ]
+    },
+    {
+      "code": "VI",
+      "continent": "americas",
+      "hemisphere": "north",
+      "region": "Americas",
+      "subregion": "Caribbean",
+      "latitude": 18.35,
+      "longitude": -64.933333,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_the_United_States_Virgin_Islands"
+        }
+      ]
+    },
+    {
+      "code": "VN",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "South-Eastern Asia",
+      "latitude": 16.16666666,
+      "longitude": 107.83333333,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Vietnam"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.moj.gov.vn/vbpq/Lists/Vn%20bn%20php%20lut/View_Detail.aspx?ItemID=27800 Article 115 Labour Code"
+        }
+      ]
+    },
+    {
+      "code": "VU",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Melanesia",
+      "latitude": -16,
+      "longitude": 167,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://psc.gov.vu/index.php/fr/jours-feries"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.jours-feries.com/country/Vanuatu_184.htm"
+        },
+        {
+          "kind": "source",
+          "url": "http://joursferies-fr.blogspot.com/2019/02/jours-feries-vanuatu.html"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.vfsc.vu/wp-content/uploads/2021/01/Public-Holidays-2021.pdf"
+        }
+      ]
+    },
+    {
+      "code": "WF",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Polynesia",
+      "latitude": -13.3,
+      "longitude": -176.2,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Wallis_and_Futuna"
+        }
+      ]
+    },
+    {
+      "code": "WS",
+      "continent": "oceania",
+      "hemisphere": "south",
+      "region": "Oceania",
+      "subregion": "Polynesia",
+      "latitude": -13.58333333,
+      "longitude": -172.33333333,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "XK",
+      "continent": "europe",
+      "hemisphere": "north",
+      "region": "Europe",
+      "subregion": "Southeast Europe",
+      "latitude": 42.666667,
+      "longitude": 21.166667,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.rks-gov.net/sq-AL/vegeza/Pages/FestatZyrtare.aspx"
+        }
+      ]
+    },
+    {
+      "code": "YE",
+      "continent": "asia",
+      "hemisphere": "north",
+      "region": "Asia",
+      "subregion": "Western Asia",
+      "latitude": 15,
+      "longitude": 48,
+      "hasHolidayData": false,
+      "sources": []
+    },
+    {
+      "code": "YT",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -12.83333333,
+      "longitude": 45.16666666,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "source",
+          "url": "https://www.joursferies.fr/pays/mayotte.php"
+        }
+      ]
+    },
+    {
+      "code": "ZA",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Southern Africa",
+      "latitude": -29,
+      "longitude": 24,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_South_Africa"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.gov.za/about-sa/public-holidays"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.info.gov.za/acts/1994/a36-94.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.gov.za/documents/notices/public-holidays-act-declaration-15th-day-december-2023-public-holiday-28-nov-2023"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.sanews.gov.za/south-africa/president-ramaphosa-declares-15-december-public-holiday"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.thepresidency.gov.za/president-proclaims-election-date-and-public-holiday"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.gov.za/documents/notices/public-holidays-act-declaration-29-may-2024-public-holiday-23-feb-2024"
+        }
+      ]
+    },
+    {
+      "code": "ZM",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -15,
+      "longitude": 30,
+      "hasHolidayData": true,
+      "sources": [
+        {
+          "kind": "attribution",
+          "url": "https://en.wikipedia.org/wiki/Public_holidays_in_Zambia"
+        },
+        {
+          "kind": "source",
+          "url": "http://www.parliament.gov.zm/sites/default/files/documents/acts/Public%20Holidays%20Act.pdf"
+        },
+        {
+          "kind": "source",
+          "url": "https://www.lusakatimes.com/2021/07/07/april-28-declared-holiday-in-honour-of-the-late-dr-kaunda/"
+        }
+      ]
+    },
+    {
+      "code": "ZW",
+      "continent": "africa",
+      "hemisphere": "south",
+      "region": "Africa",
+      "subregion": "Eastern Africa",
+      "latitude": -20,
+      "longitude": 30,
+      "hasHolidayData": true,
+      "sources": []
+    }
+  ]
+}

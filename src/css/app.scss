@@ -1,0 +1,190 @@
+/* ===========================================================
+   IDENTIDADE VISUAL COMPARTILHADA
+
+   A paleta aproxima o aplicativo do 13months.net: superfícies
+   discretas, azul-escuro, índigo e bordas de baixo contraste.
+=========================================================== */
+
+:root {
+  --app-page: #f5f5f4;
+  --app-page-gradient: linear-gradient(180deg, #f5f5f4 0%, #fafaf9 50%, #f5f5f4 100%);
+  --app-surface: #fafaf9;
+  --app-surface-raised: #ffffff;
+  --app-header: rgb(250 250 249 / 92%);
+  --app-border: #e7e5e4;
+  --app-border-strong: #d6d3d1;
+  --app-text: #0f172a;
+  --app-text-muted: #64748b;
+  --app-text-faint: #94a3b8;
+  --app-hover: #e7e5e4;
+  --app-primary-soft: #eef2ff;
+  --app-primary-text: #4338ca;
+  --app-card-shadow: 0 12px 32px rgb(15 23 42 / 7%);
+  --calendar-weekday-cell: #f7f7f6;
+  --calendar-weekend-cell: #eef2ff;
+  --calendar-weekend-text: #6366f1;
+  --calendar-cell-hover: #e7e5e4;
+  --calendar-selection-border: rgb(199 210 254 / 92%);
+  --calendar-date-font-family: Inter, system-ui, sans-serif;
+  --calendar-date-font-size: 14px;
+  --calendar-date-font-weight: 400;
+  --calendar-date-line-height: 20px;
+  --calendar-weekday-font-size: 12px;
+  --calendar-weekday-font-weight: 500;
+  --calendar-weekday-line-height: 16px;
+  --moon-emoji-outline: drop-shadow(0.5px 0 0 rgb(15 23 42 / 38%))
+    drop-shadow(-0.5px 0 0 rgb(15 23 42 / 38%))
+    drop-shadow(0 0.5px 0 rgb(15 23 42 / 38%))
+    drop-shadow(0 -0.5px 0 rgb(15 23 42 / 38%));
+  --moon-emoji-ring: rgb(15 23 42 / 28%);
+  --moon-emoji-ring-background: rgb(255 255 255 / 45%);
+  color-scheme: light;
+}
+
+body.body--dark {
+  --app-page: #020617;
+  --app-page-gradient: linear-gradient(180deg, #020617 0%, #0f172a 50%, #020617 100%);
+  --app-surface: #0f172a;
+  --app-surface-raised: #111a2e;
+  --app-header: rgb(15 23 42 / 90%);
+  --app-border: rgb(255 255 255 / 8%);
+  --app-border-strong: rgb(255 255 255 / 14%);
+  --app-text: #f8fafc;
+  --app-text-muted: #94a3b8;
+  --app-text-faint: #64748b;
+  --app-hover: rgb(255 255 255 / 7%);
+  --app-primary-soft: rgb(99 102 241 / 16%);
+  --app-primary-text: #a5b4fc;
+  --app-card-shadow: 0 18px 46px rgb(0 0 0 / 24%);
+  --calendar-weekday-cell: rgb(255 255 255 / 2.5%);
+  --calendar-weekend-cell: rgb(99 102 241 / 5%);
+  --calendar-weekend-text: rgb(129 140 248 / 70%);
+  --calendar-cell-hover: rgb(255 255 255 / 8%);
+  --calendar-selection-border: rgb(165 180 252 / 74%);
+  --moon-emoji-outline: drop-shadow(0.6px 0 0 rgb(248 250 252 / 82%))
+    drop-shadow(-0.6px 0 0 rgb(248 250 252 / 82%))
+    drop-shadow(0 0.6px 0 rgb(248 250 252 / 82%))
+    drop-shadow(0 -0.6px 0 rgb(248 250 252 / 82%));
+  --moon-emoji-ring: rgb(248 250 252 / 52%);
+  --moon-emoji-ring-background: rgb(248 250 252 / 8%);
+  color-scheme: dark;
+}
+
+/* ===========================================================
+   BASE DA PÁGINA E TRANSIÇÃO ENTRE TEMAS
+=========================================================== */
+
+html,
+body,
+#q-app {
+  min-height: 100%;
+  background: var(--app-page);
+}
+
+body {
+  color: var(--app-text);
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body,
+.q-layout,
+.q-page-container,
+.q-page,
+.q-card,
+.q-drawer,
+.q-header,
+.q-dialog__inner > div {
+  transition:
+    color 500ms ease,
+    background-color 500ms ease,
+    border-color 500ms ease,
+    box-shadow 500ms ease;
+}
+
+.q-layout {
+  background: var(--app-page);
+}
+
+/* O degradê vertical reproduz a transição sutil utilizada
+   entre as seções claras e escuras do site de referência. */
+.q-page-container {
+  background: var(--app-page-gradient);
+}
+
+.q-page {
+  background: transparent;
+}
+
+/* ===========================================================
+   SUPERFÍCIES QUASAR
+=========================================================== */
+
+.q-card,
+.q-date,
+.q-carousel,
+.q-drawer,
+.q-menu,
+.q-dialog__inner > .q-card {
+  color: var(--app-text);
+  background: var(--app-surface);
+}
+
+.q-separator {
+  background: var(--app-border);
+}
+
+/* Tooltips mantêm o texto centralizado mesmo quando a largura
+   disponível provoca quebra em duas ou mais linhas. */
+.q-tooltip {
+  text-align: center;
+}
+
+.q-item__label--caption,
+.text-grey-7,
+.body--dark .text-grey-4 {
+  color: var(--app-text-muted) !important;
+}
+
+/* ===========================================================
+   MENU, SELETORES E ESTADOS INTERATIVOS
+=========================================================== */
+
+body .language-active,
+body .holiday-country-active {
+  color: var(--app-primary-text);
+  background: var(--app-primary-soft);
+}
+
+.selector-trigger:hover,
+.selector-trigger:focus-visible {
+  background: var(--app-hover) !important;
+}
+
+/* Barra fina: aparece ao apontar para listas roláveis. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+*:hover {
+  scrollbar-color: var(--app-text-faint) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  background: var(--app-text-faint);
+}

@@ -1,0 +1,491 @@
+{
+  "schemaVersion": 1,
+  "lastReviewed": "2026-08-09",
+  "automation": {
+    "months": [12, 1],
+    "reviewRequired": true,
+    "notes": "A varredura cria candidatos; nenhuma data nova é publicada sem revisão."
+  },
+  "countries": {
+    "AF": {
+      "status": "partial-2026",
+      "sources": [{ "title": "Afghanistan Ministry of Foreign Affairs — Holidays", "url": "https://abudhabi.mfa.gov.af/visiting-hours-and-holidays/" }]
+    },
+    "AQ": { "status": "not-applicable", "sources": [] },
+    "BT": {
+      "status": "partial-official-source",
+      "sources": [{ "title": "Royal Government of Bhutan — PHPA-II holiday list", "url": "https://phpa2.gov.bt/holiday-list/" }]
+    },
+    "BV": { "status": "not-applicable", "sources": [] },
+    "FK": {
+      "status": "verified-2026",
+      "sources": [{ "title": "Falkland Islands Government — Public Holidays", "url": "https://www.gov.fk/?p=33" }]
+    },
+    "FM": {
+      "status": "official-portal-located",
+      "sources": [{ "title": "Federated States of Micronesia Government", "url": "https://gov.fm/" }]
+    },
+    "GS": { "status": "not-applicable", "sources": [] },
+    "HM": { "status": "not-applicable", "sources": [] },
+    "IO": {
+      "status": "official-law-located",
+      "sources": [{ "title": "British Indian Ocean Territory — Interpretation Ordinance", "url": "https://www.biot.gov.io/wp-content/uploads/The-Interpretation-Gen-Provisions-Ord-1993-A.7.pdf" }]
+    },
+    "IQ": {
+      "status": "official-law-located",
+      "sources": [{ "title": "Iraq Ministry of Justice — Official Holidays Law", "url": "https://www.moj.gov.iq/upload/pdf/%D9%82%D8%A7%D9%86%D9%88%D9%86%20%D8%A7%D9%84%D8%B9%D8%B7%D9%84%20%D8%A7%D9%84%D8%B1%D8%B3%D9%85%D9%8A%D8%A9%20-%20Copy%20-%20Copy_396.pdf" }]
+    },
+    "JO": {
+      "status": "verified-2026",
+      "sources": [{ "title": "Jordan Ministry of Foreign Affairs — Public Holidays", "url": "https://www.mfa.gov.jo/content/public-holidays" }]
+    },
+    "KG": {
+      "status": "official-portal-located",
+      "sources": [{ "title": "Kyrgyz Republic Ministry of Labour", "url": "https://mlsp.gov.kg/" }]
+    },
+    "KH": {
+      "status": "verified-2026",
+      "sources": [{ "title": "Cambodia Ministry of Economy and Finance — Public Holiday 2026", "url": "https://mef.gov.kh/public-holiday-2026/" }]
+    },
+    "KI": {
+      "status": "verified-2026",
+      "sources": [{ "title": "Kiribati Public Service Office — Public Holidays 2026", "url": "https://www.pso.gov.ki/wp-content/uploads/2025/12/Public-Holidays-for-2026.pdf" }]
+    },
+    "KP": { "status": "official-source-pending", "sources": [] },
+    "KW": {
+      "status": "official-announcements-located",
+      "sources": [{ "title": "Kuwait Government Online — Official announcements", "url": "https://www.e.gov.kw/sites/kgoenglish/Pages/ApplicationPages/NewsDetail.aspx?nid=34686884" }]
+    },
+    "LA": {
+      "status": "verified-2026",
+      "sources": [{ "title": "Lao eVisa — Official public holidays", "url": "https://laoevisa.gov.la/info" }]
+    },
+    "LB": {
+      "status": "verified-2026",
+      "sources": [{ "title": "Lebanese Government — Directorate General of Local Administrations", "url": "https://www.dglac.gov.lb/en/web/guest/about-us" }]
+    },
+    "MH": {
+      "status": "official-rules-located",
+      "sources": [{ "title": "Marshall Islands Parliament — Important Public Holidays", "url": "https://rmiparliament.org/cms/?catid=87&id=130%3Aimportant-public-holidays&view=article" }]
+    },
+    "MM": {
+      "status": "official-calendar-located",
+      "sources": [{ "title": "Myanmar Ministry of Foreign Affairs — Public Holidays", "url": "https://www.mofa.gov.mm/about-myanmar/public-holidays/" }]
+    },
+    "MN": {
+      "status": "official-announcements-located",
+      "sources": [{ "title": "Mongolia Government — Calendar", "url": "https://www.gov.mn/foreigner/calendar" }]
+    },
+    "MO": {
+      "status": "verified-2026",
+      "sources": [{ "title": "Macao SAR Government — Public Holidays 2026", "url": "https://www.gov.mo/en/public-holidays/year-2026/" }]
+    },
+    "MP": {
+      "status": "verified-2026",
+      "sources": [{ "title": "CNMI Department of Finance — Forms and Legal Holidays", "url": "https://finance.gov.mp/forms.php" }]
+    },
+    "MV": {
+      "status": "official-calendar-located",
+      "sources": [{ "title": "Maldives Ministry of Education — Academic Calendar", "url": "https://www.moe.gov.mv/en/academic-calendar" }]
+    },
+    "NP": {
+      "status": "official-portal-located",
+      "sources": [{ "title": "Nepal Ministry of Home Affairs", "url": "https://www.moha.gov.np/" }]
+    },
+    "NR": {
+      "status": "verified-2026",
+      "sources": [{ "title": "Republic of Nauru — Government Gazette 07-26", "url": "https://www.nauru.gov.nr/media/218544/gazette_07-26.pdf" }]
+    },
+    "NU": {
+      "status": "partial-official-source",
+      "sources": [{ "title": "Government of Niue — Public Service Circulars", "url": "https://gov.nu/public-service-circulars" }]
+    },
+    "OM": {
+      "status": "partial-2026",
+      "sources": [{ "title": "Oman News Agency — Official holidays", "url": "https://omannews.gov.om/topics/en/79/show/126213/" }]
+    },
+    "PG": {
+      "status": "official-portal-located",
+      "sources": [{ "title": "Papua New Guinea Prime Minister and NEC", "url": "https://www.pmnec.gov.pg/" }]
+    },
+    "PN": {
+      "status": "official-policy-located",
+      "sources": [{ "title": "Pitcairn Islands Government — Policies", "url": "https://www.government.pn/government/policies-annexes-and-forms" }]
+    },
+    "PS": {
+      "status": "official-decision-located",
+      "sources": [{ "title": "Palestinian Official Gazette Registry", "url": "https://mjr.ogb.gov.ps/" }]
+    },
+    "PW": {
+      "status": "official-rules-located",
+      "sources": [{ "title": "Republic of Palau — Government Documents", "url": "https://www.palaugov.pw/documents/" }]
+    },
+    "QA": {
+      "status": "official-announcements-located",
+      "sources": [{ "title": "Qatar Amiri Diwan — General Statements", "url": "https://www.diwan.gov.qa/Briefing-Room/News/General/Statements" }]
+    },
+    "SB": {
+      "status": "official-calendar-located",
+      "sources": [{ "title": "Solomon Islands Government — Public Holidays", "url": "https://solomons.gov.sb/wp-content/uploads/2025/04/2025-public-Holidays-calendar_.pdf" }]
+    },
+    "SY": {
+      "status": "official-calendar-located",
+      "sources": [{ "title": "Syrian Civil Aviation — Holiday Calendar", "url": "https://www.eaip.gaca.gov.sy/section/58/pdf" }]
+    },
+    "TF": { "status": "not-applicable", "sources": [] },
+    "TJ": {
+      "status": "official-calendar-located",
+      "sources": [{ "title": "Tajikistan Ministry of Labour — 2026 Calendar", "url": "https://mehnat.tj/tg/news/dt/17409287-0c68-401b-abd1-62845700aa36" }]
+    },
+    "TK": {
+      "status": "official-source-located",
+      "sources": [{ "title": "Government of Tokelau", "url": "https://www.tokelau.org.nz/" }]
+    },
+    "TL": {
+      "status": "verified-2026",
+      "sources": [{ "title": "Government of Timor-Leste — National Holidays 2026", "url": "https://timor-leste.gov.tl/?lang=en&p=46595" }]
+    },
+    "TM": {
+      "status": "verified-2026",
+      "sources": [{ "title": "Turkmenistan Government — 2026 Production Calendar", "url": "https://turkmenhemrasy.gov.tm/en/news/1700" }]
+    },
+    "TV": {
+      "status": "official-rules-located",
+      "sources": [{ "title": "Tuvalu Public Service Commission — General Administrative Orders", "url": "https://psc.gov.tv/wp-content/uploads/2024/05/GeneralAdministrativeOrder2016.pdf" }]
+    },
+    "UM": { "status": "not-applicable", "sources": [] },
+    "UZ": {
+      "status": "verified-2026",
+      "sources": [{ "title": "Uzbekistan Government Portal — Days Off", "url": "https://my.gov.uz/en/day-off" }]
+    },
+    "WS": {
+      "status": "verified-2025-2027",
+      "sources": [{ "title": "Samoa Ministry of Commerce — Public Holidays Calendar", "url": "https://mcil.gov.ws/public-holidays-calendar/" }]
+    },
+    "YE": {
+      "status": "official-law-located",
+      "sources": [{ "title": "Yemen Attorney General — Official Holidays Law", "url": "https://agoye.gov.ye/page.php?id=394&lng=arabic" }]
+    }
+  },
+  "occurrences": {
+    "AF": {
+      "2026": [
+        { "id": "liberationDay", "date": "2026-02-15", "name": "Liberation Day of Afghanistan" },
+        { "id": "nowruz1", "date": "2026-03-20", "name": "Nowruz Holiday" },
+        { "id": "nowruz2", "date": "2026-03-21", "name": "Nowruz" },
+        { "id": "nowruz3", "date": "2026-03-22", "name": "Nowruz Holiday" },
+        { "id": "mujahideenVictory", "date": "2026-04-28", "name": "Mujahideen Victory Day" },
+        { "id": "workersDay", "date": "2026-05-01", "name": "International Workers' Day" },
+        { "id": "victoryDay", "date": "2026-08-15", "name": "Victory Day of Afghanistan" },
+        { "id": "independenceDay", "date": "2026-08-19", "name": "Afghanistan Independence Day" },
+        { "id": "departureDay", "date": "2026-08-31", "name": "Foreign Forces Departure Day" }
+      ]
+    },
+    "FK": {
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "New Year's Day" },
+        { "id": "goodFriday", "date": "2026-04-03", "name": "Good Friday" },
+        { "id": "liberationDayObserved", "date": "2026-06-15", "name": "Liberation Day" },
+        { "id": "peatCuttingMonday", "date": "2026-10-05", "name": "Peat Cutting Monday" },
+        { "id": "kingsBirthday", "date": "2026-11-16", "name": "King's Birthday" },
+        { "id": "battleDay", "date": "2026-12-08", "name": "Battle Day" },
+        { "id": "christmas", "date": "2026-12-25", "name": "Christmas Day" },
+        { "id": "boxingDayObserved", "date": "2026-12-28", "name": "Boxing Day" },
+        { "id": "christmasHoliday", "date": "2026-12-29", "name": "Christmas Holiday" }
+      ]
+    },
+    "KH": {
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "International New Year's Day" },
+        { "id": "victoryDay", "date": "2026-01-07", "name": "Victory over Genocide Day" },
+        { "id": "womensDay", "date": "2026-03-08", "name": "International Women's Day" },
+        { "id": "khmerNewYear1", "date": "2026-04-14", "name": "Khmer New Year" },
+        { "id": "khmerNewYear2", "date": "2026-04-15", "name": "Khmer New Year Holiday" },
+        { "id": "khmerNewYear3", "date": "2026-04-16", "name": "Khmer New Year Holiday" },
+        { "id": "labourDay", "date": "2026-05-01", "name": "International Labour Day" },
+        { "id": "visakBochea", "date": "2026-05-05", "name": "Visak Bochea Day" },
+        { "id": "kingsBirthday", "date": "2026-05-14", "name": "King Norodom Sihamoni's Birthday" },
+        { "id": "queenMothersBirthday", "date": "2026-06-18", "name": "Queen Mother's Birthday" },
+        { "id": "constitutionDay", "date": "2026-09-24", "name": "Constitution Day" },
+        { "id": "pchumBen1", "date": "2026-10-10", "name": "Pchum Ben Festival" },
+        { "id": "pchumBen2", "date": "2026-10-11", "name": "Pchum Ben Festival Holiday" },
+        { "id": "pchumBen3", "date": "2026-10-12", "name": "Pchum Ben Festival Holiday" },
+        { "id": "kingFatherCommemoration", "date": "2026-10-15", "name": "Commemoration Day of King Father Norodom Sihanouk" },
+        { "id": "coronationDay", "date": "2026-10-29", "name": "King Norodom Sihamoni's Coronation Day" },
+        { "id": "independenceDay", "date": "2026-11-09", "name": "Independence Day" },
+        { "id": "waterFestival1", "date": "2026-11-23", "name": "Water Festival" },
+        { "id": "waterFestival2", "date": "2026-11-24", "name": "Water Festival Holiday" },
+        { "id": "waterFestival3", "date": "2026-11-25", "name": "Water Festival Holiday" },
+        { "id": "peaceDay", "date": "2026-12-29", "name": "Peace Day in Cambodia" }
+      ]
+    },
+    "KI": {
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "New Year's Day" },
+        { "id": "kiribatiHolidayJanuary", "date": "2026-01-02", "name": "Kiribati New Year Holiday" },
+        { "id": "womensDay", "date": "2026-03-09", "name": "International Women's Day" },
+        { "id": "goodFriday", "date": "2026-04-03", "name": "Good Friday" },
+        { "id": "easterMonday", "date": "2026-04-06", "name": "Easter Monday" },
+        { "id": "healthDay", "date": "2026-04-07", "name": "National Health Day" },
+        { "id": "labourDay", "date": "2026-05-01", "name": "International Labour Day" },
+        { "id": "policeDay", "date": "2026-06-22", "name": "National Police Day" },
+        { "id": "gospelDay", "date": "2026-07-10", "name": "Gospel Day" },
+        { "id": "nationalDay", "date": "2026-07-13", "name": "Kiribati National Day" },
+        { "id": "cultureSeniorCitizens", "date": "2026-07-14", "name": "Culture and Senior Citizens Day" },
+        { "id": "kiribatiSpecialDay", "date": "2026-07-15", "name": "Kiribati Special Day" },
+        { "id": "youthChildrenDay", "date": "2026-08-03", "name": "National Youth and Children's Day" },
+        { "id": "teachersDay", "date": "2026-10-05", "name": "World Teachers' Day" },
+        { "id": "humanRightsDay", "date": "2026-12-11", "name": "Human Rights Day" },
+        { "id": "christmas", "date": "2026-12-25", "name": "Christmas Day" },
+        { "id": "boxingDay", "date": "2026-12-26", "name": "Boxing Day" },
+        { "id": "boxingDayObserved", "date": "2026-12-28", "name": "Boxing Day", "occurrenceKind": "observed", "observedForDate": "2026-12-26" },
+        { "id": "kiribatiHolidayDecember1", "date": "2026-12-29", "name": "Kiribati Year-End Holiday" },
+        { "id": "kiribatiHolidayDecember2", "date": "2026-12-30", "name": "Kiribati Year-End Holiday" },
+        { "id": "kiribatiHolidayDecember3", "date": "2026-12-31", "name": "Kiribati Year-End Holiday" }
+      ]
+    },
+    "LA": {
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "International New Year's Day" },
+        { "id": "womensDay", "date": "2026-03-08", "name": "International Women's Day" },
+        { "id": "womensDayObserved", "date": "2026-03-09", "name": "International Women's Day", "occurrenceKind": "observed", "observedForDate": "2026-03-08" },
+        { "id": "laoNewYear1", "date": "2026-04-14", "name": "Lao New Year" },
+        { "id": "laoNewYear2", "date": "2026-04-15", "name": "Lao New Year Holiday" },
+        { "id": "laoNewYear3", "date": "2026-04-16", "name": "Lao New Year Holiday" },
+        { "id": "labourDay", "date": "2026-05-01", "name": "International Labour Day" },
+        { "id": "womensUnionDay", "date": "2026-07-20", "name": "Lao Women's Union Day" },
+        { "id": "nationalDay", "date": "2026-12-02", "name": "Lao National Day" }
+      ]
+    },
+    "TL": {
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "New Year's Day" },
+        { "id": "veteransDay", "date": "2026-03-03", "name": "Veterans Day" },
+        { "id": "eidFitr", "date": "2026-03-20", "name": "Eid al-Fitr" },
+        { "id": "goodFriday", "date": "2026-04-03", "name": "Good Friday" },
+        { "id": "labourDay", "date": "2026-05-01", "name": "International Labour Day" },
+        { "id": "restorationIndependence", "date": "2026-05-20", "name": "Restoration of Independence Day" },
+        { "id": "eidAdha", "date": "2026-05-27", "name": "Eid al-Adha" },
+        { "id": "corpusChristi", "date": "2026-06-04", "name": "Corpus Christi" },
+        { "id": "popularConsultation", "date": "2026-08-30", "name": "Popular Consultation Day" },
+        { "id": "allSaints", "date": "2026-11-01", "name": "All Saints' Day" },
+        { "id": "allSouls", "date": "2026-11-02", "name": "All Souls' Day" },
+        { "id": "womensDay", "date": "2026-11-03", "name": "National Women's Day" },
+        { "id": "youthDay", "date": "2026-11-12", "name": "National Youth Day" },
+        { "id": "proclamationIndependence", "date": "2026-11-28", "name": "Proclamation of Independence Day" },
+        { "id": "memorialDay", "date": "2026-12-07", "name": "National Heroes Memorial Day" },
+        { "id": "immaculateConception", "date": "2026-12-08", "name": "Immaculate Conception and Patroness of Timor-Leste" },
+        { "id": "christmas", "date": "2026-12-25", "name": "Christmas Day" },
+        { "id": "nationalHeroes", "date": "2026-12-31", "name": "National Heroes Day" }
+      ]
+    },
+    "NR": {
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "New Year's Day" },
+        { "id": "independenceDay", "date": "2026-01-31", "name": "Independence Day" },
+        { "id": "dayAfterIndependence", "date": "2026-02-01", "name": "Day after Independence Day" },
+        { "id": "womensDay", "date": "2026-03-08", "name": "International Women's Day" },
+        { "id": "goodFriday", "date": "2026-04-03", "name": "Good Friday" },
+        { "id": "easterMonday", "date": "2026-04-06", "name": "Easter Monday" },
+        { "id": "easterTuesday", "date": "2026-04-07", "name": "Easter Tuesday" },
+        { "id": "constitutionDay", "date": "2026-05-17", "name": "Constitution Day" },
+        { "id": "eigiguDay", "date": "2026-06-26", "name": "Eigigu Day" },
+        { "id": "remembranceDay", "date": "2026-06-29", "name": "Remembrance Day" },
+        { "id": "ronphosHandover", "date": "2026-07-01", "name": "RONPHOS Handover Day" },
+        { "id": "judicialWellbeing", "date": "2026-07-25", "name": "Judicial Well-Being Day" },
+        { "id": "ibuminEaroeni", "date": "2026-08-19", "name": "Ibumin Earoeni Day" },
+        { "id": "deroburtDay", "date": "2026-09-25", "name": "Sir Hammer DeRoburt Day" },
+        { "id": "angamDay", "date": "2026-10-26", "name": "Angam Day" },
+        { "id": "christmas", "date": "2026-12-25", "name": "Christmas Day" },
+        { "id": "dayAfterChristmas", "date": "2026-12-26", "name": "Day after Christmas" }
+      ]
+    },
+    "JO": {
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "New Year's Day" },
+        { "id": "eidFitr1", "date": "2026-03-19", "name": "Eid al-Fitr Holiday" },
+        { "id": "eidFitr2", "date": "2026-03-20", "name": "Eid al-Fitr" },
+        { "id": "eidFitr3", "date": "2026-03-21", "name": "Eid al-Fitr Holiday" },
+        { "id": "eidFitr4", "date": "2026-03-22", "name": "Eid al-Fitr Holiday" },
+        { "id": "labourDay", "date": "2026-05-01", "name": "Labour Day" },
+        { "id": "independenceDay", "date": "2026-05-25", "name": "Independence Day" },
+        { "id": "eidAdha1", "date": "2026-05-26", "name": "Eid al-Adha Holiday" },
+        { "id": "eidAdha2", "date": "2026-05-27", "name": "Eid al-Adha" },
+        { "id": "eidAdha3", "date": "2026-05-28", "name": "Eid al-Adha Holiday" },
+        { "id": "eidAdha4", "date": "2026-05-29", "name": "Eid al-Adha Holiday" },
+        { "id": "eidAdha5", "date": "2026-05-30", "name": "Eid al-Adha Holiday" },
+        { "id": "islamicNewYear", "date": "2026-06-16", "name": "Islamic New Year" },
+        { "id": "prophetsBirthday", "date": "2026-08-25", "name": "Prophet Muhammad's Birthday" },
+        { "id": "christmas", "date": "2026-12-25", "name": "Christmas Day" }
+      ]
+    },
+    "LB": {
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "New Year's Day" },
+        { "id": "armenianChristmas", "date": "2026-01-06", "name": "Armenian Christmas Day" },
+        { "id": "stMaron", "date": "2026-02-09", "name": "Saint Maroun's Day" },
+        { "id": "annunciation", "date": "2026-03-25", "name": "Annunciation Day" },
+        { "id": "goodFridayWestern", "date": "2026-04-03", "name": "Good Friday" },
+        { "id": "easterWestern", "date": "2026-04-05", "name": "Easter Sunday" },
+        { "id": "goodFridayEastern", "date": "2026-04-10", "name": "Orthodox Good Friday" },
+        { "id": "easterEastern", "date": "2026-04-12", "name": "Orthodox Easter Sunday" },
+        { "id": "eidFitr", "date": "2026-03-20", "name": "Eid al-Fitr" },
+        { "id": "labourDay", "date": "2026-05-01", "name": "Labour Day" },
+        { "id": "martyrsDay", "date": "2026-05-06", "name": "Martyrs' Day" },
+        { "id": "resistanceLiberation", "date": "2026-05-25", "name": "Resistance and Liberation Day" },
+        { "id": "eidAdha", "date": "2026-05-27", "name": "Eid al-Adha" },
+        { "id": "islamicNewYear", "date": "2026-06-16", "name": "Islamic New Year" },
+        { "id": "ashura", "date": "2026-06-25", "name": "Ashura" },
+        { "id": "assumption", "date": "2026-08-15", "name": "Assumption of Mary" },
+        { "id": "prophetsBirthday", "date": "2026-08-25", "name": "Prophet Muhammad's Birthday" },
+        { "id": "independenceDay", "date": "2026-11-22", "name": "Independence Day" },
+        { "id": "christmas", "date": "2026-12-25", "name": "Christmas Day" }
+      ]
+    },
+    "MO": {
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "New Year's Day" },
+        { "id": "lunarNewYear1", "date": "2026-02-17", "name": "Lunar New Year's Day" },
+        { "id": "lunarNewYear2", "date": "2026-02-18", "name": "Second Day of the Lunar New Year" },
+        { "id": "lunarNewYear3", "date": "2026-02-19", "name": "Third Day of the Lunar New Year" },
+        { "id": "goodFriday", "date": "2026-04-03", "name": "Good Friday" },
+        { "id": "dayBeforeEaster", "date": "2026-04-04", "name": "Day before Easter" },
+        { "id": "chengMing", "date": "2026-04-05", "name": "Cheng Ming Festival" },
+        { "id": "labourDay", "date": "2026-05-01", "name": "Labour Day" },
+        { "id": "buddhasBirthday", "date": "2026-05-24", "name": "Buddha's Birthday" },
+        { "id": "dragonBoatFestival", "date": "2026-06-19", "name": "Dragon Boat Festival" },
+        { "id": "midAutumnFollowingDay", "date": "2026-09-26", "name": "Day after the Mid-Autumn Festival" },
+        { "id": "chinaNationalDay", "date": "2026-10-01", "name": "National Day of the People's Republic of China" },
+        { "id": "chinaNationalDayFollowing", "date": "2026-10-02", "name": "Day after China's National Day" },
+        { "id": "chongYeung", "date": "2026-10-18", "name": "Chong Yeung Festival" },
+        { "id": "allSouls", "date": "2026-11-02", "name": "All Souls' Day" },
+        { "id": "immaculateConception", "date": "2026-12-08", "name": "Immaculate Conception" },
+        { "id": "macaoEstablishment", "date": "2026-12-20", "name": "Macao SAR Establishment Day" },
+        { "id": "winterSolstice", "date": "2026-12-22", "name": "Winter Solstice" },
+        { "id": "christmasEve", "date": "2026-12-24", "name": "Christmas Eve" },
+        { "id": "christmas", "date": "2026-12-25", "name": "Christmas Day" }
+      ]
+    },
+    "MP": {
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "New Year's Day" },
+        { "id": "martinLutherKing", "date": "2026-01-19", "name": "Martin Luther King Jr. Day" },
+        { "id": "presidentsDay", "date": "2026-02-16", "name": "Presidents' Day" },
+        { "id": "covenantDay", "date": "2026-03-24", "name": "Commonwealth Covenant Day" },
+        { "id": "goodFriday", "date": "2026-04-03", "name": "Good Friday" },
+        { "id": "memorialDay", "date": "2026-05-25", "name": "Memorial Day" },
+        { "id": "juneteenth", "date": "2026-06-19", "name": "Juneteenth" },
+        { "id": "independenceObserved", "date": "2026-07-03", "name": "Independence Day", "occurrenceKind": "observed", "observedForDate": "2026-07-04" },
+        { "id": "independenceDay", "date": "2026-07-04", "name": "Independence Day" },
+        { "id": "laborDay", "date": "2026-09-07", "name": "Labor Day" },
+        { "id": "culturalDay", "date": "2026-10-12", "name": "Commonwealth Cultural Day" },
+        { "id": "citizenshipDay", "date": "2026-11-04", "name": "Citizenship Day" },
+        { "id": "veteransDay", "date": "2026-11-11", "name": "Veterans Day" },
+        { "id": "thanksgiving", "date": "2026-11-26", "name": "Thanksgiving Day" },
+        { "id": "constitutionDay", "date": "2026-12-08", "name": "Constitution Day" },
+        { "id": "christmas", "date": "2026-12-25", "name": "Christmas Day" }
+      ]
+    },
+    "NU": {
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "New Year's Day" },
+        { "id": "newYearPublicServiceHoliday", "date": "2026-01-02", "name": "New Year Public Service Holiday", "scope": "government" },
+        { "id": "saniLakataniStateFuneral", "date": "2026-01-30", "name": "State Funeral of Former Premier Sani Lakatani" },
+        { "id": "goodFriday", "date": "2026-04-03", "name": "Good Friday" },
+        { "id": "easterMonday", "date": "2026-04-06", "name": "Easter Monday" },
+        { "id": "kingsBirthday", "date": "2026-06-01", "name": "King Charles III's Official Birthday" }
+      ]
+    },
+    "OM": {
+      "2026": [
+        { "id": "accessionDay", "date": "2026-01-15", "name": "Sultan's Accession Day" },
+        { "id": "israMiraj", "date": "2026-01-18", "name": "Al-Isra and Al-Mi'raj" },
+        { "id": "eidFitr1", "date": "2026-03-19", "name": "Eid al-Fitr Holiday" },
+        { "id": "eidFitr2", "date": "2026-03-20", "name": "Eid al-Fitr" },
+        { "id": "eidFitr3", "date": "2026-03-21", "name": "Eid al-Fitr Holiday" },
+        { "id": "eidFitr4", "date": "2026-03-22", "name": "Eid al-Fitr Holiday" },
+        { "id": "eidFitr5", "date": "2026-03-23", "name": "Eid al-Fitr Holiday" },
+        { "id": "hijriNewYear", "date": "2026-06-18", "name": "Islamic New Year" },
+        { "id": "prophetsBirthday", "date": "2026-08-27", "name": "Prophet Muhammad's Birthday" },
+        { "id": "nationalDay1", "date": "2026-11-25", "name": "Oman National Day" },
+        { "id": "nationalDay2", "date": "2026-11-26", "name": "Oman National Day Holiday" }
+      ]
+    },
+    "TM": {
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "New Year's Day" },
+        { "id": "womensDay", "date": "2026-03-08", "name": "International Women's Day" },
+        { "id": "eidFitr", "date": "2026-03-20", "name": "Eid al-Fitr" },
+        { "id": "springDay1", "date": "2026-03-21", "name": "National Spring Holiday" },
+        { "id": "springDay2", "date": "2026-03-22", "name": "National Spring Holiday" },
+        { "id": "constitutionFlag", "date": "2026-05-18", "name": "Constitution and State Flag Day" },
+        { "id": "eidAdha1", "date": "2026-05-27", "name": "Eid al-Adha" },
+        { "id": "eidAdha2", "date": "2026-05-28", "name": "Eid al-Adha Holiday" },
+        { "id": "eidAdha3", "date": "2026-05-29", "name": "Eid al-Adha Holiday" },
+        { "id": "independenceDay", "date": "2026-09-27", "name": "Independence Day" },
+        { "id": "remembranceDay", "date": "2026-10-06", "name": "Remembrance Day" },
+        { "id": "neutralityDay", "date": "2026-12-12", "name": "International Day of Neutrality" }
+      ]
+    },
+    "UZ": {
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "New Year's Day" },
+        { "id": "womensDay", "date": "2026-03-08", "name": "International Women's Day" },
+        { "id": "womensDayObserved", "date": "2026-03-09", "name": "International Women's Day", "occurrenceKind": "observed", "observedForDate": "2026-03-08" },
+        { "id": "eidFitr", "date": "2026-03-20", "name": "Eid al-Fitr" },
+        { "id": "navruz", "date": "2026-03-21", "name": "Navruz" },
+        { "id": "remembranceDay", "date": "2026-05-09", "name": "Day of Remembrance and Honour" },
+        { "id": "remembranceObserved", "date": "2026-05-11", "name": "Day of Remembrance and Honour", "occurrenceKind": "observed", "observedForDate": "2026-05-09" },
+        { "id": "eidAdha", "date": "2026-05-27", "name": "Eid al-Adha" },
+        { "id": "independenceDay", "date": "2026-09-01", "name": "Independence Day" },
+        { "id": "teachersDay", "date": "2026-10-01", "name": "Teachers' and Mentors' Day" },
+        { "id": "constitutionDay", "date": "2026-12-08", "name": "Constitution Day" }
+      ]
+    },
+    "WS": {
+      "2025": [
+        { "id": "newYear", "date": "2025-01-01", "name": "New Year's Day" },
+        { "id": "dayAfterNewYear", "date": "2025-01-02", "name": "Day after New Year's Day" },
+        { "id": "goodFriday", "date": "2025-04-18", "name": "Good Friday" },
+        { "id": "dayAfterGoodFriday", "date": "2025-04-19", "name": "Day after Good Friday" },
+        { "id": "easterMonday", "date": "2025-04-21", "name": "Easter Monday" },
+        { "id": "mothersDay", "date": "2025-05-12", "name": "Mother's Day" },
+        { "id": "independenceDay", "date": "2025-06-01", "name": "Samoa Independence Day" },
+        { "id": "independenceObserved", "date": "2025-06-02", "name": "Samoa Independence Day", "occurrenceKind": "observed", "observedForDate": "2025-06-01" },
+        { "id": "fathersDay", "date": "2025-08-11", "name": "Father's Day" },
+        { "id": "electionDay1", "date": "2025-08-28", "name": "Samoa General Election" },
+        { "id": "electionDay2", "date": "2025-08-29", "name": "Samoa General Election Holiday" },
+        { "id": "whiteSunday", "date": "2025-10-13", "name": "White Sunday" },
+        { "id": "christmas", "date": "2025-12-25", "name": "Christmas Day" },
+        { "id": "boxingDay", "date": "2025-12-26", "name": "Boxing Day" }
+      ],
+      "2026": [
+        { "id": "newYear", "date": "2026-01-01", "name": "New Year's Day" },
+        { "id": "dayAfterNewYear", "date": "2026-01-02", "name": "Day after New Year's Day" },
+        { "id": "goodFriday", "date": "2026-04-03", "name": "Good Friday" },
+        { "id": "dayAfterGoodFriday", "date": "2026-04-04", "name": "Day after Good Friday" },
+        { "id": "easterMonday", "date": "2026-04-06", "name": "Easter Monday" },
+        { "id": "mothersDay", "date": "2026-05-11", "name": "Mother's Day" },
+        { "id": "independenceDay", "date": "2026-06-01", "name": "Samoa Independence Day" },
+        { "id": "fathersDay", "date": "2026-08-10", "name": "Father's Day" },
+        { "id": "whiteSunday", "date": "2026-10-12", "name": "White Sunday" },
+        { "id": "christmas", "date": "2026-12-25", "name": "Christmas Day" },
+        { "id": "boxingDay", "date": "2026-12-26", "name": "Boxing Day" }
+      ],
+      "2027": [
+        { "id": "newYear", "date": "2027-01-01", "name": "New Year's Day" },
+        { "id": "dayAfterNewYear", "date": "2027-01-02", "name": "Day after New Year's Day" },
+        { "id": "goodFriday", "date": "2027-03-26", "name": "Good Friday" },
+        { "id": "dayAfterGoodFriday", "date": "2027-03-27", "name": "Day after Good Friday" },
+        { "id": "easterMonday", "date": "2027-03-29", "name": "Easter Monday" },
+        { "id": "mothersDay", "date": "2027-05-10", "name": "Mother's Day" },
+        { "id": "independenceDay", "date": "2027-06-01", "name": "Samoa Independence Day" },
+        { "id": "fathersDay", "date": "2027-08-09", "name": "Father's Day" },
+        { "id": "whiteSunday", "date": "2027-10-11", "name": "White Sunday" },
+        { "id": "christmas", "date": "2027-12-25", "name": "Christmas Day" },
+        { "id": "boxingDay", "date": "2027-12-26", "name": "Boxing Day" },
+        { "id": "boxingDayObserved", "date": "2027-12-27", "name": "Boxing Day", "occurrenceKind": "observed", "observedForDate": "2027-12-26" }
+      ]
+    }
+  }
+}

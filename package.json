@@ -1,0 +1,62 @@
+{
+  "name": "13calendar",
+  "version": "0.0.1",
+  "description": "13 months calendar",
+  "productName": "calendar 13",
+  "author": "Jean Rafael Martins <jean7rafael@icloud.com>",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint -c ./eslint.config.js \"./src*/**/*.{ts,js,cjs,mjs,vue}\" \"./scripts/**/*.{js,cjs,mjs}\"",
+    "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
+    "conversation:export": "node scripts/exportCodexConversation.mjs",
+    "holidays:data": "node scripts/generateHolidayData.mjs",
+    "holidays:runtime": "node scripts/generateHolidayRuntimeData.mjs",
+    "holidays:audit": "node scripts/auditHolidayCountries.mjs",
+    "holidays:weekday:audit": "node scripts/auditHolidayWeekdayRules.mjs",
+    "holidays:calendar13:audit": "node scripts/auditCalendar13HolidayRules.mjs",
+    "holidays:merge:audit": "node scripts/auditHolidayMerge.mjs",
+    "holidays:emoji:audit": "node scripts/auditHolidayEmojis.mjs",
+    "holidays:translation:audit": "node scripts/auditHolidayTranslations.mjs",
+    "holidays:official:audit": "node scripts/auditOfficialHolidayAppendix.mjs",
+    "holidays:official:refresh": "node scripts/refreshOfficialHolidaySources.mjs",
+    "holidays:translate": "node scripts/generateHolidayTranslations.mjs --export-manual",
+    "holidays:translate:check": "node scripts/generateHolidayTranslations.mjs --check",
+    "holidays:translate:export": "node scripts/generateHolidayTranslations.mjs --export-manual",
+    "holidays:translate:google-free": "node scripts/translateHolidayFilesWithGoogle.mjs",
+    "holidays:translate:ollama": "node scripts/translateHolidayFilesWithOllama.mjs",
+    "holidays:translate:import": "node scripts/generateHolidayTranslations.mjs --import-manual",
+    "holidays:translate:plan": "node scripts/generateHolidayTranslations.mjs --plan",
+    "dev": "quasar dev",
+    "prebuild": "npm run holidays:runtime",
+    "build": "quasar build",
+    "postinstall": "quasar prepare"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.16.4",
+    "astronomy-engine": "^2.1.19",
+    "date-holidays-parser": "^3.4.7",
+    "quasar": "^2.16.0",
+    "vue": "^3.4.18",
+    "vue-i18n": "^11.4.8",
+    "vue-router": "^4.0.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.14.0",
+    "@quasar/app-vite": "2.5.1",
+    "@vue/eslint-config-prettier": "^10.1.0",
+    "autoprefixer": "^10.4.2",
+    "date-holidays": "^3.33.0",
+    "eslint": "^9.14.0",
+    "eslint-plugin-vue": "^9.30.0",
+    "globals": "^15.12.0",
+    "prettier": "^3.3.3",
+    "typescript-eslint": "^8.66.0",
+    "world-countries": "^5.1.0"
+  },
+  "engines": {
+    "node": "^28 || ^26 || ^24 || ^22 || ^20 || ^18",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
+}
