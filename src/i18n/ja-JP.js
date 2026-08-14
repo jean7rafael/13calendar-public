@@ -26,6 +26,7 @@ const months12Short = [...months12Long];
 export default {
   app: {
     title: '日付変換：グレゴリオ暦 – 国際固定暦',
+    browserTitle: '13 Calendar — 日付変換',
   },
 
   introduction: {

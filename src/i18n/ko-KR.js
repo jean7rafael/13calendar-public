@@ -26,6 +26,7 @@ const months12Short = [...months12Long];
 export default {
   app: {
     title: '날짜 변환: 그레고리력 – 국제 고정력',
+    browserTitle: '13 Calendar — 날짜 변환기',
   },
 
   introduction: {

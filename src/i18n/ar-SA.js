@@ -39,6 +39,7 @@ const months12Short = [
 export default {
   app: {
     title: 'تحويل التواريخ: التقويم الغريغوري – التقويم الثابت الدولي',
+    browserTitle: '13 Calendar — محوّل التواريخ',
   },
 
   introduction: {

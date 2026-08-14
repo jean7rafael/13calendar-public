@@ -39,6 +39,7 @@ const months12Short = [
 export default {
   app: {
     title: 'तिथि रूपांतरण: ग्रेगोरियन कैलेंडर – अंतरराष्ट्रीय स्थिर कैलेंडर',
+    browserTitle: '13 Calendar — तारीख परिवर्तक',
   },
 
   introduction: {

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="13 Calendar">
+  <defs>
+    <linearGradient id="brand-gradient" x1="18" y1="12" x2="112" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4f46e5" />
+      <stop offset="1" stop-color="#7c3aed" />
+    </linearGradient>
+  </defs>
+
+  <rect width="128" height="128" rx="34" fill="url(#brand-gradient)" />
+  <text
+    x="64"
+    y="85"
+    fill="#ffffff"
+    font-family="Inter, Arial, Helvetica, sans-serif"
+    font-size="62"
+    font-weight="800"
+    letter-spacing="-4"
+    text-anchor="middle"
+  >13</text>
+</svg>

@@ -180,7 +180,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useQuasar } from 'quasar';
+import { useMeta, useQuasar } from 'quasar';
 import { setAppLanguage } from 'src/boot/i18n';
 import { setAppDarkMode } from 'src/boot/theme';
 import { useTodayNavigation } from 'src/composables/useTodayNavigation';
@@ -323,6 +323,17 @@ const quasar = useQuasar();
 const { t, locale } = useI18n({
   useScope: 'global',
 });
+
+/* ===========================================================
+   TÍTULO LOCALIZADO DA ABA DO NAVEGADOR
+
+   O nome da marca permanece estável, enquanto a descrição
+   acompanha imediatamente o idioma escolhido na interface.
+=========================================================== */
+
+useMeta(() => ({
+  title: t('app.browserTitle'),
+}));
 
 /* ===========================================================
    ROTA DA PÁGINA INICIAL DE REFERÊNCIA

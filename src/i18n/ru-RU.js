@@ -39,6 +39,7 @@ const months12Short = [
 export default {
   app: {
     title: 'Преобразование дат: григорианский календарь – Международный фиксированный календарь',
+    browserTitle: '13 Calendar — Конвертер дат',
   },
 
   introduction: {

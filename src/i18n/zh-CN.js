@@ -26,6 +26,7 @@ const months12Short = [...months12Long];
 export default {
   app: {
     title: '日期转换：公历 – 国际固定历',
+    browserTitle: '13 Calendar — 日期转换器',
   },
 
   introduction: {

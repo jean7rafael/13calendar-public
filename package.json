@@ -1,8 +1,8 @@
 {
   "name": "13calendar",
   "version": "0.0.1",
-  "description": "13 months calendar",
-  "productName": "calendar 13",
+  "description": "Date conversion, holidays and Moon phases for the Gregorian and International Fixed calendars",
+  "productName": "13 Calendar — Date Converter",
   "author": "Jean Rafael Martins <jean7rafael@icloud.com>",
   "type": "module",
   "private": true,

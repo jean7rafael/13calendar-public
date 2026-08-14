@@ -39,6 +39,7 @@ const months12Short = [
 export default {
   app: {
     title: 'Conversión de fechas: calendario gregoriano – calendario fijo internacional',
+    browserTitle: '13 Calendar — Conversor de fechas',
   },
 
   introduction: {
