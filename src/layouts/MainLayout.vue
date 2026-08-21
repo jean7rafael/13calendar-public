@@ -151,6 +151,10 @@
           </q-item-section>
         </q-item>
 
+        <!-- Respiro final da lista de idiomas. Ele só alcança a
+             área fixa depois que o último idioma passa por ela. -->
+        <div class="drawer-language-spacer" aria-hidden="true"></div>
+
         <!-- Seleção permanente do país dos feriados. -->
         <q-separator spaced />
 
@@ -566,11 +570,21 @@ function closeHolidayCountryDialog() {
   background: var(--app-surface);
 }
 
+/* O respiro pertence ao fim da lista de idiomas. Ao chegar à
+   seleção ativa, ele permanece preso e não passa por trás dela. */
+.drawer-language-spacer {
+  position: sticky;
+  top: 100px;
+  z-index: 5;
+  height: 52px;
+  background: var(--app-surface);
+}
+
 /* Quando os idiomas terminam de passar por trás da seleção,
-   o cabeçalho dos países ocupa a faixa imediatamente abaixo. */
+   o cabeçalho dos países preserva o respiro de uma linha. */
 .drawer-country-header {
   position: sticky;
-  top: 96px;
+  top: 152px;
   z-index: 4;
   margin: 0;
   background: var(--app-surface);
