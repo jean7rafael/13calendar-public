@@ -1,5 +1,8 @@
 <template>
-  <div class="holiday-country-selector">
+  <div
+    class="holiday-country-selector"
+    :class="{ 'holiday-country-selector--drawer': props.drawerMode }"
+  >
     <!-- Filtro compacto por região geográfica. -->
     <div class="region-filter">
       <q-select
@@ -368,6 +371,29 @@ function selectCountry(countryCode) {
 .country-list--drawer {
   max-height: none;
   overflow: visible;
+}
+
+/* O seletor integra a faixa fixa da gaveta. Somente os títulos
+   regionais e os países continuam no fluxo de rolagem. */
+.holiday-country-selector--drawer .region-filter {
+  position: sticky;
+  top: 200px;
+  z-index: 4;
+  min-height: 52px;
+  background: var(--app-surface);
+}
+
+/* Na gaveta, a região atual acompanha a leitura da lista.
+   O próximo título a substitui ao alcançar a mesma faixa. */
+.country-list--drawer .country-region-header {
+  position: sticky;
+  top: 252px;
+  z-index: 3;
+  margin: 0;
+  color: var(--app-text-muted);
+  background: var(--app-surface);
+  opacity: 1;
+  box-shadow: 0 7px 10px -10px rgb(15 23 42 / 28%);
 }
 
 .country-list::-webkit-scrollbar {
