@@ -58,6 +58,7 @@ export default {
 
   navigation: {
     menu: '메뉴',
+    closeMenu: '메뉴 닫기',
     backToHome: '홈페이지로 돌아가기',
   },
 

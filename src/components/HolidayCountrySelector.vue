@@ -16,7 +16,7 @@
     </div>
 
     <!-- Países da região selecionada. -->
-    <div class="country-list">
+    <div class="country-list" :class="{ 'country-list--drawer': props.drawerMode }">
       <template v-for="country in countryOptions" :key="country.code">
         <q-item-label v-if="country.startsRegion" header class="country-region-header">
           {{ t(`holidaySettings.regions.${country.holidayRegion}`) }}
@@ -77,6 +77,13 @@ import { useHolidaySettings } from 'src/composables/useHolidaySettings';
 =========================================================== */
 
 const emit = defineEmits(['select']);
+
+const props = defineProps({
+  drawerMode: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 /* ===========================================================
    IDIOMA ATUAL DA INTERFACE
@@ -354,6 +361,13 @@ function selectCountry(countryCode) {
   max-height: min(52vh, 420px);
   overflow-y: auto;
   scrollbar-width: thin;
+}
+
+/* Na gaveta, a lista integra a única rolagem vertical. No popup
+   ela continua limitada para não extrapolar o card de diálogo. */
+.country-list--drawer {
+  max-height: none;
+  overflow: visible;
 }
 
 .country-list::-webkit-scrollbar {

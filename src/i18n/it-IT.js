@@ -71,6 +71,7 @@ export default {
 
   navigation: {
     menu: 'Menu',
+    closeMenu: 'Chiudi menu',
     backToHome: 'Torna alla pagina iniziale',
   },
 

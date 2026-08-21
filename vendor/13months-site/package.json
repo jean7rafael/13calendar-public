@@ -1,0 +1,31 @@
+{
+  "name": "app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "i18n:generate": "node scripts/generateSiteTranslations.mjs",
+    "i18n:generate:local": "node scripts/generateSiteTranslations.mjs --ollama",
+    "i18n:extract": "node scripts/generateSiteTranslations.mjs --extract-only"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.36.2",
+    "solid-js": "^1.9.10"
+  },
+  "overrides": {
+    "seroval": "^1.6.2",
+    "seroval-plugins": "^1.6.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/node": "^24.10.1",
+    "@vercel/node": "^5.6.3",
+    "tailwindcss": "^4.1.18",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1",
+    "vite-plugin-solid": "^2.11.10"
+  }
+}

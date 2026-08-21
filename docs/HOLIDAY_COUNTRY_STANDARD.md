@@ -247,9 +247,9 @@ Natal` ou `Dia de Santo Estêvão`. O emoji pode continuar compartilhado.
   `Europe de l'Ouest` e `Tutte le Regioni`.
 - O seletor segue obrigatoriamente esta ordem:
   1. América do Norte, América Central, Caribe e América do Sul;
-  2. África do Norte, Ocidental, Central, Oriental e Austral;
-  3. Europa Nórdica, Ocidental, Meridional e Leste Europeu;
-  4. Oriente Médio, Ásia Central, Meridional, Oriental e Sudeste Asiático;
+  2. Europa Nórdica, Ocidental, Meridional e Leste Europeu;
+  3. Oriente Médio, Ásia Central, Meridional, Oriental e Sudeste Asiático;
+  4. África do Norte, Ocidental, Central, Oriental e Austral;
   5. Oceania;
   6. Antártida.
 - Canadá, Estados Unidos e México aparecem primeiro na América do Norte.
