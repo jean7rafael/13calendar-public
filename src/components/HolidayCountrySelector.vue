@@ -19,7 +19,11 @@
     </div>
 
     <!-- Países da região selecionada. -->
-    <div class="country-list" :class="{ 'country-list--drawer': props.drawerMode }">
+    <div
+      ref="countryListElement"
+      class="country-list"
+      :class="{ 'country-list--drawer': props.drawerMode }"
+    >
       <section
         v-for="regionGroup in countryGroups"
         :key="regionGroup.holidayRegion"
@@ -68,7 +72,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 import { useI18n } from 'vue-i18n';
 
@@ -85,7 +89,7 @@ import { useHolidaySettings } from 'src/composables/useHolidaySettings';
    EVENTO EMITIDO APÓS A SELEÇÃO
 =========================================================== */
 
-const emit = defineEmits(['select']);
+const emit = defineEmits(['select', 'fit-change']);
 
 const props = defineProps({
   drawerMode: {
@@ -93,6 +97,8 @@ const props = defineProps({
     default: false,
   },
 });
+
+const countryListElement = ref(null);
 
 /* ===========================================================
    IDIOMA ATUAL DA INTERFACE
@@ -352,6 +358,53 @@ const countryGroups = computed(() =>
     return groups;
   }, []),
 );
+
+/* ===========================================================
+   AJUSTE RESPONSIVO DA BARRA DA GAVETA
+
+   A medição usa as dimensões reais já renderizadas. Regiões
+   curtas ocultam a barra ao chegar ao fim; listas longas e a
+   opção com todas as regiões continuam indicando rolagem.
+=========================================================== */
+
+async function reportCountryListFit() {
+  await nextTick();
+
+  if (!props.drawerMode || countryGroups.value.length !== 1 || !countryListElement.value) {
+    emit('fit-change', false);
+    return;
+  }
+
+  const regionGroup = countryListElement.value.querySelector('.country-region-group');
+  const countryRows = regionGroup?.querySelectorAll('.country-row') || [];
+  const lastCountryRow = countryRows[countryRows.length - 1];
+
+  if (!regionGroup || !lastCountryRow) {
+    emit('fit-change', true);
+    return;
+  }
+
+  const groupBounds = regionGroup.getBoundingClientRect();
+  const lastRowBounds = lastCountryRow.getBoundingClientRect();
+  const requiredHeight = lastRowBounds.bottom - groupBounds.top;
+  const availableHeight = window.innerHeight - 252;
+
+  emit('fit-change', requiredHeight <= availableHeight + 1);
+}
+
+watch(countryGroups, reportCountryListFit, {
+  immediate: true,
+  flush: 'post',
+});
+
+onMounted(() => {
+  window.addEventListener('resize', reportCountryListFit);
+  void reportCountryListFit();
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', reportCountryListFit);
+});
 
 /* ===========================================================
    SELEÇÃO DO PAÍS
