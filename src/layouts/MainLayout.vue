@@ -99,17 +99,34 @@
     <!-- Menu lateral com os idiomas e países disponíveis. -->
     <q-drawer v-model="leftDrawerOpen" overlay bordered :width="280" class="app-drawer">
       <q-list padding class="drawer-menu-list">
-        <!-- Seleção do idioma da interface. -->
-        <q-item-label header class="text-weight-bold">
-          {{ t('language.title') }}
-        </q-item-label>
+        <!-- Cabeçalho fixo durante a navegação dos idiomas e países. -->
+        <div class="drawer-language-header">
+          <q-item-label header class="text-weight-bold">
+            {{ t('language.title') }}
+          </q-item-label>
+
+          <q-btn
+            flat
+            dense
+            round
+            icon="close"
+            class="drawer-close-button"
+            :aria-label="t('navigation.closeMenu')"
+            @click="closeLeftDrawer"
+          >
+            <q-tooltip>
+              {{ t('navigation.closeMenu') }}
+            </q-tooltip>
+          </q-btn>
+        </div>
 
         <q-item
-          v-for="language in languages"
+          v-for="language in orderedLanguages"
           :key="language.locale"
           clickable
           v-ripple
           :active="isCurrentLanguage(language.locale)"
+          :class="{ 'drawer-current-language': isCurrentLanguage(language.locale) }"
           active-class="language-active"
           @click="changeLanguage(language.locale)"
         >
@@ -134,14 +151,22 @@
           </q-item-section>
         </q-item>
 
+        <!-- Respiro final da lista de idiomas. Ele só alcança a
+             área fixa depois que o último idioma passa por ela. -->
+        <div class="drawer-language-spacer" aria-hidden="true"></div>
+
         <!-- Seleção permanente do país dos feriados. -->
         <q-separator spaced />
 
-        <q-item-label header class="text-weight-bold">
+        <q-item-label header class="text-weight-bold drawer-country-header">
           {{ t('holidaySettings.countryTitle') }}
         </q-item-label>
 
-        <HolidayCountrySelector class="drawer-country-selector" @select="closeLeftDrawer" />
+        <HolidayCountrySelector
+          drawer-mode
+          class="drawer-country-selector"
+          @select="closeLeftDrawer"
+        />
       </q-list>
     </q-drawer>
 
@@ -178,7 +203,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useMeta, useQuasar } from 'quasar';
 import { setAppLanguage } from 'src/boot/i18n';
@@ -313,6 +338,19 @@ const languages: LanguageOption[] = [
 ];
 
 /* ===========================================================
+   IDIOMA ATIVO NO INÍCIO DA LISTA
+
+   O item atual permanece como o primeiro e também recebe
+   posição fixa durante a rolagem. Assim, os demais idiomas
+   desaparecem sob ele sem ocultar a escolha em uso.
+=========================================================== */
+
+const orderedLanguages = computed(() => [
+  ...languages.filter((language) => isCurrentLanguage(language.locale)),
+  ...languages.filter((language) => !isCurrentLanguage(language.locale)),
+]);
+
+/* ===========================================================
    SERVIÇOS COMPARTILHADOS DA INTERFACE
 =========================================================== */
 
@@ -369,6 +407,31 @@ function toggleLeftDrawer() {
 function closeLeftDrawer() {
   leftDrawerOpen.value = false;
 }
+
+/* ===========================================================
+   BLOQUEIO DA ROLAGEM DA PÁGINA COM A GAVETA ABERTA
+
+   A gaveta conserva sua própria barra de rolagem. O documento
+   por trás dela permanece imóvel para que o gesto de navegação
+   não desloque acidentalmente o conteúdo principal.
+=========================================================== */
+
+function setPageScrollLocked(locked: boolean) {
+  if (typeof document === 'undefined') {
+    return;
+  }
+
+  document.documentElement.classList.toggle('drawer-page-scroll-locked', locked);
+  document.body.classList.toggle('drawer-page-scroll-locked', locked);
+}
+
+watch(leftDrawerOpen, (isOpen) => {
+  setPageScrollLocked(isOpen);
+});
+
+onBeforeUnmount(() => {
+  setPageScrollLocked(false);
+});
 
 /* ===========================================================
    TROCA DO IDIOMA DA INTERFACE
@@ -463,6 +526,78 @@ function closeHolidayCountryDialog() {
   background: var(--app-primary-soft);
 }
 
+/* Cabeçalho e idioma escolhido acompanham a rolagem da gaveta.
+   A lista de países passa sob estas duas faixas, mantendo a
+   escolha da interface sempre identificável. */
+.drawer-language-header {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 0 6px 0 4px;
+  background: var(--app-surface);
+}
+
+.drawer-language-header :deep(.q-item__label--header) {
+  min-height: auto;
+  padding: 0 8px;
+}
+
+.drawer-close-button {
+  color: var(--app-text-muted);
+}
+
+.drawer-current-language {
+  position: sticky;
+  top: 48px;
+  z-index: 5;
+  isolation: isolate;
+  background: var(--app-primary-soft-solid) !important;
+  box-shadow: 0 7px 10px -10px rgb(15 23 42 / 55%);
+}
+
+/* O item mantém suas margens arredondadas, mas uma superfície
+   opaca preenche todo o entorno. Nenhum país selecionado ou
+   ripple pode aparecer pelas frestas enquanto passa por trás. */
+.drawer-current-language::before {
+  position: absolute;
+  z-index: -1;
+  inset: -2px -8px;
+  content: '';
+  background: var(--app-surface);
+}
+
+/* O respiro pertence ao fim da lista de idiomas. Ao chegar à
+   seleção ativa, ele permanece preso e não passa por trás dela. */
+.drawer-language-spacer {
+  position: sticky;
+  top: 100px;
+  z-index: 5;
+  height: 52px;
+  background: var(--app-surface);
+}
+
+/* Quando os idiomas terminam de passar por trás da seleção,
+   o cabeçalho dos países preserva o respiro de uma linha. */
+.drawer-country-header {
+  position: sticky;
+  top: 152px;
+  z-index: 4;
+  margin: 0;
+  background: var(--app-surface);
+  box-shadow: 0 7px 10px -10px rgb(15 23 42 / 35%);
+}
+
+/* Reserva inferior independente da quantidade de países.
+   Mesmo uma região curta pode continuar rolando até que o
+   cabeçalho dos feriados encoste no idioma selecionado. */
+.drawer-country-selector {
+  min-height: calc(100dvh - 144px);
+}
+
 /* Limites do popup de seleção do país. */
 .holiday-country-dialog {
   width: 360px;
@@ -476,7 +611,9 @@ function closeHolidayCountryDialog() {
    A lista de países mantém sua própria rolagem compacta. */
 .drawer-menu-list {
   height: 100%;
+  padding-block: 0 !important;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .drawer-menu-list :deep(.q-item) {
@@ -487,6 +624,16 @@ function closeHolidayCountryDialog() {
 .drawer-menu-list :deep(.q-item__label--header) {
   color: var(--app-text-muted);
   letter-spacing: 0.02em;
+}
+
+.app-drawer :deep(.q-drawer__content) {
+  overscroll-behavior: contain;
+}
+
+:global(html.drawer-page-scroll-locked),
+:global(body.drawer-page-scroll-locked) {
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 @media (max-width: 600px) {

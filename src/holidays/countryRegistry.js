@@ -49,6 +49,14 @@ export const HOLIDAY_REGION_GROUPS = Object.freeze([
     ]),
   }),
   Object.freeze({
+    continent: 'europe',
+    regions: Object.freeze(['europeNorth', 'europeWest', 'europeSouth', 'europeEast']),
+  }),
+  Object.freeze({
+    continent: 'asia',
+    regions: Object.freeze(['asiaWest', 'asiaCentral', 'asiaSouth', 'asiaEast', 'asiaSoutheast']),
+  }),
+  Object.freeze({
     continent: 'africa',
     regions: Object.freeze([
       'africaNorth',
@@ -57,14 +65,6 @@ export const HOLIDAY_REGION_GROUPS = Object.freeze([
       'africaEast',
       'africaSouthern',
     ]),
-  }),
-  Object.freeze({
-    continent: 'europe',
-    regions: Object.freeze(['europeNorth', 'europeWest', 'europeSouth', 'europeEast']),
-  }),
-  Object.freeze({
-    continent: 'asia',
-    regions: Object.freeze(['asiaWest', 'asiaCentral', 'asiaSouth', 'asiaEast', 'asiaSoutheast']),
   }),
   Object.freeze({
     continent: 'oceania',

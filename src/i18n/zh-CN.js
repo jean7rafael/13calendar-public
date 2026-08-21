@@ -57,6 +57,7 @@ export default {
 
   navigation: {
     menu: '菜单',
+    closeMenu: '关闭菜单',
     backToHome: '返回首页',
   },
 
