@@ -20,12 +20,18 @@
 
     <!-- Países da região selecionada. -->
     <div class="country-list" :class="{ 'country-list--drawer': props.drawerMode }">
-      <template v-for="country in countryOptions" :key="country.code">
-        <q-item-label v-if="country.startsRegion" header class="country-region-header">
-          {{ t(`holidaySettings.regions.${country.holidayRegion}`) }}
+      <section
+        v-for="regionGroup in countryGroups"
+        :key="regionGroup.holidayRegion"
+        class="country-region-group"
+      >
+        <q-item-label header class="country-region-header">
+          {{ t(`holidaySettings.regions.${regionGroup.holidayRegion}`) }}
         </q-item-label>
 
         <q-item
+          v-for="country in regionGroup.countries"
+          :key="country.code"
           clickable
           dense
           v-ripple
@@ -56,7 +62,7 @@
             />
           </q-item-section>
         </q-item>
-      </template>
+      </section>
     </div>
   </div>
 </template>
@@ -320,12 +326,32 @@ const countryOptions = computed(() => {
       }
 
       return collator.compare(first.name, second.name);
-    })
-    .map((country, index, countries) => ({
-      ...country,
-      startsRegion: index === 0 || country.holidayRegion !== countries[index - 1].holidayRegion,
-    }));
+    });
 });
+
+/* ===========================================================
+   AGRUPAMENTO VISUAL POR REGIÃO
+
+   O último grupo pode preencher o restante da gaveta sem
+   deixar seus países desaparecerem no fim da rolagem.
+=========================================================== */
+
+const countryGroups = computed(() =>
+  countryOptions.value.reduce((groups, country) => {
+    let currentGroup = groups[groups.length - 1];
+
+    if (!currentGroup || currentGroup.holidayRegion !== country.holidayRegion) {
+      currentGroup = {
+        holidayRegion: country.holidayRegion,
+        countries: [],
+      };
+      groups.push(currentGroup);
+    }
+
+    currentGroup.countries.push(country);
+    return groups;
+  }, []),
+);
 
 /* ===========================================================
    SELEÇÃO DO PAÍS
@@ -394,6 +420,12 @@ function selectCountry(countryCode) {
   background: var(--app-surface);
   opacity: 1;
   box-shadow: 0 7px 10px -10px rgb(15 23 42 / 28%);
+}
+
+/* O último bloco preenche a área restante. A rolagem termina
+   com o título fixo e todos os seus países ainda visíveis. */
+.country-list--drawer .country-region-group:last-child {
+  min-height: calc(100dvh - 252px);
 }
 
 .country-list::-webkit-scrollbar {
