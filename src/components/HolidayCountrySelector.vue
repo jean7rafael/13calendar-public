@@ -370,6 +370,19 @@ function selectCountry(countryCode) {
   overflow: visible;
 }
 
+/* Na gaveta, a região atual acompanha a leitura da lista.
+   O próximo título a substitui ao alcançar a mesma faixa. */
+.country-list--drawer .country-region-header {
+  position: sticky;
+  top: 200px;
+  z-index: 3;
+  margin: 0;
+  color: var(--app-text-muted);
+  background: var(--app-surface);
+  opacity: 1;
+  box-shadow: 0 7px 10px -10px rgb(15 23 42 / 28%);
+}
+
 .country-list::-webkit-scrollbar {
   width: 5px;
 }
