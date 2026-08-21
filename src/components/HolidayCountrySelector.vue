@@ -57,6 +57,10 @@
           </q-item-section>
         </q-item>
       </template>
+
+      <!-- Curso final para que a última região também alcance
+           a posição aderente abaixo do seletor. -->
+      <div v-if="props.drawerMode" class="country-list-spacer" aria-hidden="true"></div>
     </div>
   </div>
 </template>
@@ -394,6 +398,13 @@ function selectCountry(countryCode) {
   background: var(--app-surface);
   opacity: 1;
   box-shadow: 0 7px 10px -10px rgb(15 23 42 / 28%);
+}
+
+/* A última região não possui outra seção para empurrá-la.
+   Esta reserva permite que Antártida alcance a mesma trava. */
+.country-list-spacer {
+  min-height: max(320px, calc(100dvh - 280px));
+  background: var(--app-surface);
 }
 
 .country-list::-webkit-scrollbar {
