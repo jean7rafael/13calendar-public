@@ -98,7 +98,15 @@
 
     <!-- Menu lateral com os idiomas e países disponíveis. -->
     <q-drawer v-model="leftDrawerOpen" overlay bordered :width="280" class="app-drawer">
-      <q-list padding class="drawer-menu-list">
+      <q-list
+        ref="drawerMenuList"
+        padding
+        class="drawer-menu-list"
+        :class="{
+          'drawer-menu-list--country-fits': drawerCountryListFits && drawerMenuAtEnd,
+        }"
+        @scroll.passive="handleDrawerMenuScroll"
+      >
         <!-- Cabeçalho fixo durante a navegação dos idiomas e países. -->
         <div class="drawer-language-header">
           <q-item-label header class="text-weight-bold">
@@ -166,6 +174,7 @@
           drawer-mode
           class="drawer-country-selector"
           @select="closeLeftDrawer"
+          @fit-change="setDrawerCountryListFits"
         />
       </q-list>
     </q-drawer>
@@ -203,7 +212,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useMeta, useQuasar } from 'quasar';
 import { setAppLanguage } from 'src/boot/i18n';
@@ -242,6 +251,9 @@ interface LanguageOption {
 
 const leftDrawerOpen = ref(false);
 const holidayCountryDialogOpen = ref(false);
+const drawerMenuList = ref(null);
+const drawerCountryListFits = ref(false);
+const drawerMenuAtEnd = ref(false);
 
 /* ===========================================================
    IDIOMAS EXIBIDOS NO MENU
@@ -425,8 +437,13 @@ function setPageScrollLocked(locked: boolean) {
   document.body.classList.toggle('drawer-page-scroll-locked', locked);
 }
 
-watch(leftDrawerOpen, (isOpen) => {
+watch(leftDrawerOpen, async (isOpen) => {
   setPageScrollLocked(isOpen);
+
+  if (isOpen) {
+    await nextTick();
+    updateDrawerMenuEndState();
+  }
 });
 
 onBeforeUnmount(() => {
@@ -453,6 +470,38 @@ function changeLanguage(language: AppLocale) {
 
 function closeHolidayCountryDialog() {
   holidayCountryDialogOpen.value = false;
+}
+
+/* ===========================================================
+   VISIBILIDADE RESPONSIVA DA BARRA DA GAVETA
+
+   A barra some no fim somente quando a região selecionada cabe
+   inteira. Ela reaparece ao voltar para os idiomas ou quando a
+   lista de países exige rolagem.
+=========================================================== */
+
+function getDrawerMenuElement() {
+  return drawerMenuList.value?.$el || drawerMenuList.value;
+}
+
+function updateDrawerMenuEndState(menuElement = getDrawerMenuElement()) {
+  if (!menuElement) {
+    drawerMenuAtEnd.value = false;
+    return;
+  }
+
+  const remainingScroll = menuElement.scrollHeight - menuElement.clientHeight - menuElement.scrollTop;
+  drawerMenuAtEnd.value = remainingScroll <= 1;
+}
+
+function handleDrawerMenuScroll(event) {
+  updateDrawerMenuEndState(event.currentTarget);
+}
+
+async function setDrawerCountryListFits(countryListFits) {
+  drawerCountryListFits.value = countryListFits;
+  await nextTick();
+  updateDrawerMenuEndState();
 }
 </script>
 
@@ -595,13 +644,6 @@ function closeHolidayCountryDialog() {
   box-shadow: 0 7px 10px -10px rgb(15 23 42 / 35%);
 }
 
-/* Reserva inferior independente da quantidade de países.
-   Mesmo uma região curta pode continuar rolando até que o
-   cabeçalho dos feriados encoste no idioma selecionado. */
-.drawer-country-selector {
-  min-height: calc(100dvh - 144px);
-}
-
 /* Limites do popup de seleção do país. */
 .holiday-country-dialog {
   width: 360px;
@@ -618,6 +660,18 @@ function closeHolidayCountryDialog() {
   padding-block: 0 !important;
   overflow-y: auto;
   overscroll-behavior: contain;
+}
+
+/* No fim de uma região curta não existe conteúdo a revelar.
+   A rolagem para voltar aos idiomas continua disponível, mas
+   o indicador deixa de sugerir uma continuação inexistente. */
+.drawer-menu-list--country-fits {
+  scrollbar-width: none;
+}
+
+.drawer-menu-list--country-fits::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .drawer-menu-list :deep(.q-item) {
