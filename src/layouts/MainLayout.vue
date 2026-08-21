@@ -586,6 +586,10 @@ function closeHolidayCountryDialog() {
   position: sticky;
   top: 152px;
   z-index: 4;
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding-block: 0;
   margin: 0;
   background: var(--app-surface);
   box-shadow: 0 7px 10px -10px rgb(15 23 42 / 35%);
