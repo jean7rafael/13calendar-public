@@ -1,0 +1,134 @@
+/* ===========================================================
+   TEXTOS DA PÁGINA COMUNITÁRIA
+
+   Este catálogo isolado mantém a nova área fácil de revisar
+   sem ampliar novamente cada arquivo principal de idioma.
+=========================================================== */
+
+export const communityMessages = {
+  'pt-BR': {
+    openButton: 'Veja quantos nós somos',
+    backToCalendars: 'Voltar aos calendários',
+    browserTitle: '13 Calendar — Nossa comunidade',
+    eyebrow: 'Nossa comunidade',
+    title: 'Veja quantos nós somos',
+    description:
+      'Um retrato coletivo de quem também tem curiosidade por calendários de 13 meses, conversão de datas e ciclos da Lua.',
+    scopeWorld: 'Mundo inteiro',
+    scopeLabel: 'Ver comunidade',
+    estimatedVisits: 'Visitas estimadas',
+    pageViews: 'Páginas vistas',
+    countries: 'Países alcançados',
+    selectedCountry: 'No país escolhido',
+    noCountryData: 'Ainda sem visitas registradas neste país',
+    period: 'Período analisado',
+    activityTitle: 'Atividade da comunidade',
+    activityDescription: 'Cada quadrado representa um dia de interesse compartilhado.',
+    less: 'Menos',
+    more: 'Mais',
+    geographyTitle: 'Onde estamos',
+    geographyDescription: 'Países com mais visitas no período.',
+    interestsTitle: 'O que estamos explorando',
+    interestsDescription: 'Páginas mais visitadas do projeto.',
+    originsTitle: 'Como chegamos aqui',
+    originsDescription: 'Principais origens das visitas.',
+    devicesTitle: 'Como acessamos',
+    devicesDescription: 'Tipos de dispositivo usados pela comunidade.',
+    waitingTitle: 'A comunidade está começando a ser contada',
+    waitingDescription:
+      'A página já está pronta para receber os dados agregados da Cloudflare. Os números aparecerão aqui depois que a coleta segura for ativada.',
+    unavailableTitle: 'Não foi possível atualizar os números',
+    unavailableDescription: 'Os últimos dados publicados continuam preservados para uma nova tentativa.',
+    empty: 'Ainda não há dados suficientes para este gráfico.',
+    updatedAt: 'Atualizado em {date}',
+    dataSource: 'Fonte: Cloudflare Web Analytics',
+    privacyTitle: 'Uma contagem coletiva, não um cadastro',
+    privacyDescription:
+      'Os gráficos usam somente totais agregados. Não exibimos nomes, endereços, localização precisa nem perfis individuais.',
+    approximateNote:
+      'Visitas não equivalem necessariamente a pessoas únicas; os números são uma aproximação do tamanho da comunidade.',
+    rank: '{position}º lugar',
+    visits: '{count} visitas',
+  },
+  'en-US': {
+    openButton: 'See how many of us there are',
+    backToCalendars: 'Back to the calendars',
+    browserTitle: '13 Calendar — Our community',
+    eyebrow: 'Our community',
+    title: 'See how many of us there are',
+    description:
+      'A collective portrait of people who are also curious about 13-month calendars, date conversion, and Moon cycles.',
+    scopeWorld: 'Whole world',
+    scopeLabel: 'View community',
+    estimatedVisits: 'Estimated visits',
+    pageViews: 'Page views',
+    countries: 'Countries reached',
+    selectedCountry: 'In the selected country',
+    noCountryData: 'No visits recorded in this country yet',
+    period: 'Period analyzed',
+    activityTitle: 'Community activity',
+    activityDescription: 'Each square represents one day of shared interest.',
+    less: 'Less',
+    more: 'More',
+    geographyTitle: 'Where we are',
+    geographyDescription: 'Countries with the most visits during the period.',
+    interestsTitle: 'What we are exploring',
+    interestsDescription: 'The project pages visited most often.',
+    originsTitle: 'How we got here',
+    originsDescription: 'The main sources of visits.',
+    devicesTitle: 'How we connect',
+    devicesDescription: 'Device types used by the community.',
+    waitingTitle: 'The community is beginning to be counted',
+    waitingDescription:
+      'This page is ready to receive aggregated Cloudflare data. The figures will appear here after secure collection is enabled.',
+    unavailableTitle: 'The figures could not be updated',
+    unavailableDescription: 'The latest published data remains available for another attempt.',
+    empty: 'There is not enough data for this chart yet.',
+    updatedAt: 'Updated on {date}',
+    dataSource: 'Source: Cloudflare Web Analytics',
+    privacyTitle: 'A collective count, not a registry',
+    privacyDescription:
+      'The charts use aggregated totals only. We do not display names, addresses, precise locations, or individual profiles.',
+    approximateNote:
+      'Visits do not necessarily equal unique people; the figures are an approximation of the community size.',
+    rank: 'Rank {position}',
+    visits: '{count} visits',
+  },
+  'es-ES': {
+    openButton: 'Mira cuántos somos',
+    backToCalendars: 'Volver a los calendarios',
+    browserTitle: '13 Calendar — Nuestra comunidad',
+    eyebrow: 'Nuestra comunidad',
+    title: 'Mira cuántos somos',
+    description: 'Un retrato colectivo de quienes comparten interés por los calendarios de 13 meses, la conversión de fechas y los ciclos de la Luna.',
+    scopeWorld: 'Todo el mundo', scopeLabel: 'Ver comunidad', estimatedVisits: 'Visitas estimadas', pageViews: 'Páginas vistas', countries: 'Países alcanzados', selectedCountry: 'En el país elegido', noCountryData: 'Aún no hay visitas registradas en este país', period: 'Período analizado', activityTitle: 'Actividad de la comunidad', activityDescription: 'Cada cuadrado representa un día de interés compartido.', less: 'Menos', more: 'Más', geographyTitle: 'Dónde estamos', geographyDescription: 'Países con más visitas durante el período.', interestsTitle: 'Qué estamos explorando', interestsDescription: 'Las páginas más visitadas del proyecto.', originsTitle: 'Cómo llegamos aquí', originsDescription: 'Principales orígenes de las visitas.', devicesTitle: 'Cómo accedemos', devicesDescription: 'Tipos de dispositivo usados por la comunidad.', waitingTitle: 'La comunidad está empezando a contarse', waitingDescription: 'La página ya está preparada para recibir datos agregados de Cloudflare. Las cifras aparecerán cuando se active la recopilación segura.', unavailableTitle: 'No se pudieron actualizar las cifras', unavailableDescription: 'Los últimos datos publicados quedan preservados para un nuevo intento.', empty: 'Todavía no hay datos suficientes para este gráfico.', updatedAt: 'Actualizado el {date}', dataSource: 'Fuente: Cloudflare Web Analytics', privacyTitle: 'Un recuento colectivo, no un registro', privacyDescription: 'Los gráficos usan solo totales agregados. No mostramos nombres, direcciones, ubicaciones precisas ni perfiles individuales.', approximateNote: 'Las visitas no equivalen necesariamente a personas únicas; las cifras son una aproximación al tamaño de la comunidad.', rank: 'Puesto {position}', visits: '{count} visitas',
+  },
+  'fr-FR': {
+    openButton: 'Découvrez combien nous sommes', backToCalendars: 'Retour aux calendriers', browserTitle: '13 Calendar — Notre communauté', eyebrow: 'Notre communauté', title: 'Découvrez combien nous sommes', description: 'Un portrait collectif de celles et ceux qui partagent un intérêt pour les calendriers de 13 mois, la conversion des dates et les cycles de la Lune.', scopeWorld: 'Monde entier', scopeLabel: 'Voir la communauté', estimatedVisits: 'Visites estimées', pageViews: 'Pages vues', countries: 'Pays atteints', selectedCountry: 'Dans le pays choisi', noCountryData: 'Aucune visite enregistrée dans ce pays pour le moment', period: 'Période analysée', activityTitle: 'Activité de la communauté', activityDescription: 'Chaque carré représente une journée d’intérêt partagé.', less: 'Moins', more: 'Plus', geographyTitle: 'Où nous sommes', geographyDescription: 'Pays comptant le plus de visites pendant la période.', interestsTitle: 'Ce que nous explorons', interestsDescription: 'Pages du projet les plus visitées.', originsTitle: 'Comment nous sommes arrivés ici', originsDescription: 'Principales origines des visites.', devicesTitle: 'Comment nous nous connectons', devicesDescription: 'Types d’appareils utilisés par la communauté.', waitingTitle: 'La communauté commence à être comptée', waitingDescription: 'Cette page est prête à recevoir les données agrégées de Cloudflare. Les chiffres apparaîtront après l’activation de la collecte sécurisée.', unavailableTitle: 'Impossible de mettre les chiffres à jour', unavailableDescription: 'Les dernières données publiées sont conservées pour une nouvelle tentative.', empty: 'Il n’y a pas encore assez de données pour ce graphique.', updatedAt: 'Mis à jour le {date}', dataSource: 'Source : Cloudflare Web Analytics', privacyTitle: 'Un décompte collectif, pas un registre', privacyDescription: 'Les graphiques utilisent uniquement des totaux agrégés. Nous n’affichons ni noms, ni adresses, ni localisations précises, ni profils individuels.', approximateNote: 'Les visites ne correspondent pas nécessairement à des personnes uniques ; les chiffres donnent une estimation de la taille de la communauté.', rank: '{position}e place', visits: '{count} visites',
+  },
+  'de-DE': {
+    openButton: 'Sieh, wie viele wir sind', backToCalendars: 'Zurück zu den Kalendern', browserTitle: '13 Calendar — Unsere Gemeinschaft', eyebrow: 'Unsere Gemeinschaft', title: 'Sieh, wie viele wir sind', description: 'Ein gemeinsames Bild der Menschen, die sich ebenfalls für 13-Monats-Kalender, Datumsumrechnung und Mondzyklen interessieren.', scopeWorld: 'Ganze Welt', scopeLabel: 'Gemeinschaft anzeigen', estimatedVisits: 'Geschätzte Besuche', pageViews: 'Seitenaufrufe', countries: 'Erreichte Länder', selectedCountry: 'Im ausgewählten Land', noCountryData: 'In diesem Land wurden noch keine Besuche erfasst', period: 'Analysezeitraum', activityTitle: 'Aktivität der Gemeinschaft', activityDescription: 'Jedes Quadrat steht für einen Tag gemeinsamen Interesses.', less: 'Weniger', more: 'Mehr', geographyTitle: 'Wo wir sind', geographyDescription: 'Länder mit den meisten Besuchen im Zeitraum.', interestsTitle: 'Was wir erkunden', interestsDescription: 'Die meistbesuchten Seiten des Projekts.', originsTitle: 'Wie wir hierher kamen', originsDescription: 'Die wichtigsten Herkunftsquellen der Besuche.', devicesTitle: 'Wie wir zugreifen', devicesDescription: 'Von der Gemeinschaft verwendete Gerätetypen.', waitingTitle: 'Die Gemeinschaft wird erstmals gezählt', waitingDescription: 'Diese Seite ist bereit für aggregierte Cloudflare-Daten. Die Zahlen erscheinen, sobald die sichere Erfassung aktiviert ist.', unavailableTitle: 'Die Zahlen konnten nicht aktualisiert werden', unavailableDescription: 'Die zuletzt veröffentlichten Daten bleiben für einen neuen Versuch erhalten.', empty: 'Für dieses Diagramm liegen noch nicht genügend Daten vor.', updatedAt: 'Aktualisiert am {date}', dataSource: 'Quelle: Cloudflare Web Analytics', privacyTitle: 'Eine gemeinsame Zählung, kein Register', privacyDescription: 'Die Diagramme verwenden nur aggregierte Summen. Namen, Adressen, genaue Standorte oder persönliche Profile werden nicht angezeigt.', approximateNote: 'Besuche entsprechen nicht unbedingt einzelnen Personen; die Zahlen sind eine Annäherung an die Größe der Gemeinschaft.', rank: 'Platz {position}', visits: '{count} Besuche',
+  },
+  'it-IT': {
+    openButton: 'Scopri quanti siamo', backToCalendars: 'Torna ai calendari', browserTitle: '13 Calendar — La nostra comunità', eyebrow: 'La nostra comunità', title: 'Scopri quanti siamo', description: 'Un ritratto collettivo di chi condivide l’interesse per i calendari di 13 mesi, la conversione delle date e i cicli della Luna.', scopeWorld: 'Tutto il mondo', scopeLabel: 'Visualizza comunità', estimatedVisits: 'Visite stimate', pageViews: 'Pagine viste', countries: 'Paesi raggiunti', selectedCountry: 'Nel Paese scelto', noCountryData: 'Nessuna visita registrata in questo Paese', period: 'Periodo analizzato', activityTitle: 'Attività della comunità', activityDescription: 'Ogni quadrato rappresenta un giorno di interesse condiviso.', less: 'Meno', more: 'Più', geographyTitle: 'Dove siamo', geographyDescription: 'Paesi con più visite nel periodo.', interestsTitle: 'Cosa stiamo esplorando', interestsDescription: 'Le pagine più visitate del progetto.', originsTitle: 'Come siamo arrivati qui', originsDescription: 'Principali provenienze delle visite.', devicesTitle: 'Come accediamo', devicesDescription: 'Tipi di dispositivo usati dalla comunità.', waitingTitle: 'La comunità sta iniziando a essere contata', waitingDescription: 'La pagina è pronta a ricevere i dati aggregati di Cloudflare. I numeri appariranno quando sarà attivata la raccolta sicura.', unavailableTitle: 'Impossibile aggiornare i numeri', unavailableDescription: 'Gli ultimi dati pubblicati restano disponibili per un nuovo tentativo.', empty: 'Non ci sono ancora dati sufficienti per questo grafico.', updatedAt: 'Aggiornato il {date}', dataSource: 'Fonte: Cloudflare Web Analytics', privacyTitle: 'Un conteggio collettivo, non un registro', privacyDescription: 'I grafici usano soltanto totali aggregati. Non mostriamo nomi, indirizzi, posizioni precise o profili individuali.', approximateNote: 'Le visite non corrispondono necessariamente a persone uniche; i numeri sono una stima delle dimensioni della comunità.', rank: '{position}º posto', visits: '{count} visite',
+  },
+  'ru-RU': {
+    openButton: 'Посмотрите, сколько нас', backToCalendars: 'Вернуться к календарям', browserTitle: '13 Calendar — Наше сообщество', eyebrow: 'Наше сообщество', title: 'Посмотрите, сколько нас', description: 'Общий портрет людей, которым также интересны 13-месячные календари, преобразование дат и лунные циклы.', scopeWorld: 'Весь мир', scopeLabel: 'Показать сообщество', estimatedVisits: 'Примерные посещения', pageViews: 'Просмотры страниц', countries: 'Охваченные страны', selectedCountry: 'В выбранной стране', noCountryData: 'В этой стране пока нет зарегистрированных посещений', period: 'Период анализа', activityTitle: 'Активность сообщества', activityDescription: 'Каждый квадрат — один день общего интереса.', less: 'Меньше', more: 'Больше', geographyTitle: 'Где мы находимся', geographyDescription: 'Страны с наибольшим числом посещений за период.', interestsTitle: 'Что мы изучаем', interestsDescription: 'Самые посещаемые страницы проекта.', originsTitle: 'Как мы сюда пришли', originsDescription: 'Основные источники посещений.', devicesTitle: 'Как мы заходим', devicesDescription: 'Типы устройств, используемых сообществом.', waitingTitle: 'Мы начинаем считать сообщество', waitingDescription: 'Страница готова получать агрегированные данные Cloudflare. Цифры появятся после включения безопасного сбора.', unavailableTitle: 'Не удалось обновить данные', unavailableDescription: 'Последние опубликованные данные сохранены для новой попытки.', empty: 'Для этого графика пока недостаточно данных.', updatedAt: 'Обновлено: {date}', dataSource: 'Источник: Cloudflare Web Analytics', privacyTitle: 'Общий подсчёт, а не реестр', privacyDescription: 'Графики используют только агрегированные итоги. Мы не показываем имена, адреса, точное местоположение или индивидуальные профили.', approximateNote: 'Посещения не обязательно равны уникальным людям; цифры приблизительно отражают размер сообщества.', rank: '{position}-е место', visits: '{count} посещений',
+  },
+  'ar-SA': {
+    openButton: 'اكتشف كم عددنا', backToCalendars: 'العودة إلى التقويمات', browserTitle: '13 Calendar — مجتمعنا', eyebrow: 'مجتمعنا', title: 'اكتشف كم عددنا', description: 'صورة جماعية لمن يشاركون الاهتمام بتقاويم الأشهر الثلاثة عشر وتحويل التواريخ ودورات القمر.', scopeWorld: 'العالم كله', scopeLabel: 'عرض المجتمع', estimatedVisits: 'الزيارات التقديرية', pageViews: 'مشاهدات الصفحات', countries: 'البلدان التي وصلنا إليها', selectedCountry: 'في البلد المختار', noCountryData: 'لا توجد زيارات مسجلة في هذا البلد بعد', period: 'الفترة المحللة', activityTitle: 'نشاط المجتمع', activityDescription: 'يمثل كل مربع يوماً من الاهتمام المشترك.', less: 'أقل', more: 'أكثر', geographyTitle: 'أين نحن', geographyDescription: 'البلدان ذات الزيارات الأكثر خلال الفترة.', interestsTitle: 'ما الذي نستكشفه', interestsDescription: 'صفحات المشروع الأكثر زيارة.', originsTitle: 'كيف وصلنا إلى هنا', originsDescription: 'أهم مصادر الزيارات.', devicesTitle: 'كيف نتصل', devicesDescription: 'أنواع الأجهزة التي يستخدمها المجتمع.', waitingTitle: 'بدأنا في إحصاء المجتمع', waitingDescription: 'الصفحة جاهزة لاستقبال بيانات Cloudflare المجمعة. ستظهر الأرقام بعد تفعيل الجمع الآمن.', unavailableTitle: 'تعذر تحديث الأرقام', unavailableDescription: 'تظل آخر البيانات المنشورة محفوظة لمحاولة جديدة.', empty: 'لا توجد بيانات كافية لهذا الرسم بعد.', updatedAt: 'آخر تحديث في {date}', dataSource: 'المصدر: Cloudflare Web Analytics', privacyTitle: 'إحصاء جماعي وليس سجلاً', privacyDescription: 'تستخدم الرسوم إجماليات مجمعة فقط. لا نعرض أسماء أو عناوين أو مواقع دقيقة أو ملفات شخصية.', approximateNote: 'لا تعادل الزيارات بالضرورة أشخاصاً فريدين؛ الأرقام تقدير لحجم المجتمع.', rank: 'المرتبة {position}', visits: '{count} زيارة',
+  },
+  'hi-IN': {
+    openButton: 'देखें हम कितने हैं', backToCalendars: 'कैलेंडर पर वापस जाएँ', browserTitle: '13 Calendar — हमारा समुदाय', eyebrow: 'हमारा समुदाय', title: 'देखें हम कितने हैं', description: '13-महीने के कैलेंडर, तारीख रूपांतरण और चंद्र चक्रों में रुचि रखने वाले लोगों की सामूहिक झलक।', scopeWorld: 'पूरी दुनिया', scopeLabel: 'समुदाय देखें', estimatedVisits: 'अनुमानित विज़िट', pageViews: 'पेज व्यू', countries: 'पहुँचे हुए देश', selectedCountry: 'चुने गए देश में', noCountryData: 'इस देश में अभी कोई विज़िट दर्ज नहीं हुई', period: 'विश्लेषित अवधि', activityTitle: 'समुदाय की गतिविधि', activityDescription: 'हर वर्ग साझा रुचि के एक दिन को दर्शाता है।', less: 'कम', more: 'अधिक', geographyTitle: 'हम कहाँ हैं', geographyDescription: 'इस अवधि में सबसे अधिक विज़िट वाले देश।', interestsTitle: 'हम क्या देख रहे हैं', interestsDescription: 'परियोजना के सबसे अधिक देखे गए पेज।', originsTitle: 'हम यहाँ कैसे पहुँचे', originsDescription: 'विज़िट के मुख्य स्रोत।', devicesTitle: 'हम कैसे जुड़ते हैं', devicesDescription: 'समुदाय द्वारा उपयोग किए गए उपकरणों के प्रकार।', waitingTitle: 'समुदाय की गिनती शुरू हो रही है', waitingDescription: 'यह पेज Cloudflare के समेकित आँकड़े पाने के लिए तैयार है। सुरक्षित संग्रह चालू होने के बाद संख्याएँ दिखाई देंगी।', unavailableTitle: 'संख्याएँ अपडेट नहीं हो सकीं', unavailableDescription: 'नए प्रयास के लिए अंतिम प्रकाशित आँकड़े सुरक्षित हैं।', empty: 'इस ग्राफ़ के लिए अभी पर्याप्त डेटा नहीं है।', updatedAt: '{date} को अपडेट किया गया', dataSource: 'स्रोत: Cloudflare Web Analytics', privacyTitle: 'सामूहिक गिनती, कोई रजिस्टर नहीं', privacyDescription: 'ग्राफ़ केवल समेकित योग का उपयोग करते हैं। हम नाम, पते, सटीक स्थान या व्यक्तिगत प्रोफ़ाइल नहीं दिखाते।', approximateNote: 'विज़िट का अर्थ हमेशा अलग-अलग व्यक्ति नहीं होता; संख्याएँ समुदाय के आकार का अनुमान हैं।', rank: 'स्थान {position}', visits: '{count} विज़िट',
+  },
+  'zh-CN': {
+    openButton: '看看我们有多少人', backToCalendars: '返回日历', browserTitle: '13 Calendar — 我们的社群', eyebrow: '我们的社群', title: '看看我们有多少人', description: '共同关注十三月历、日期转换与月相周期的人们的集体缩影。', scopeWorld: '全世界', scopeLabel: '查看社群', estimatedVisits: '估算访问量', pageViews: '页面浏览量', countries: '覆盖国家', selectedCountry: '所选国家', noCountryData: '该国家尚无访问记录', period: '统计周期', activityTitle: '社群活跃度', activityDescription: '每个方格代表一天的共同关注。', less: '较少', more: '较多', geographyTitle: '我们在哪里', geographyDescription: '统计周期内访问量最多的国家。', interestsTitle: '我们在探索什么', interestsDescription: '项目中访问量最高的页面。', originsTitle: '我们如何来到这里', originsDescription: '访问的主要来源。', devicesTitle: '我们如何访问', devicesDescription: '社群使用的设备类型。', waitingTitle: '社群统计即将开始', waitingDescription: '此页面已准备接收 Cloudflare 聚合数据。启用安全采集后，这里将显示统计数字。', unavailableTitle: '无法更新统计数字', unavailableDescription: '已保留最近发布的数据，以便再次尝试。', empty: '目前还没有足够的数据生成此图表。', updatedAt: '更新于 {date}', dataSource: '数据来源：Cloudflare Web Analytics', privacyTitle: '集体统计，而非个人登记', privacyDescription: '图表仅使用聚合总数。我们不会显示姓名、地址、精确位置或个人资料。', approximateNote: '访问次数不一定等于独立人数；这些数字是对社群规模的估算。', rank: '第 {position} 位', visits: '{count} 次访问',
+  },
+  'ja-JP': {
+    openButton: '仲間が何人いるか見てみよう', backToCalendars: 'カレンダーに戻る', browserTitle: '13 Calendar — 私たちのコミュニティ', eyebrow: '私たちのコミュニティ', title: '仲間が何人いるか見てみよう', description: '13か月暦、日付変換、月の満ち欠けに関心を持つ人たちの集合的な姿です。', scopeWorld: '世界全体', scopeLabel: 'コミュニティを表示', estimatedVisits: '推定訪問数', pageViews: 'ページ閲覧数', countries: '到達した国', selectedCountry: '選択した国', noCountryData: 'この国からの訪問はまだ記録されていません', period: '分析期間', activityTitle: 'コミュニティの活動', activityDescription: '各マスは関心が共有された1日を表します。', less: '少ない', more: '多い', geographyTitle: '私たちのいる場所', geographyDescription: '期間中に訪問数が多かった国。', interestsTitle: '私たちが見ているもの', interestsDescription: 'プロジェクトで最もよく見られているページ。', originsTitle: 'ここへ来た経路', originsDescription: '主な訪問元。', devicesTitle: 'アクセス方法', devicesDescription: 'コミュニティが使用している端末の種類。', waitingTitle: 'コミュニティの集計を始めます', waitingDescription: 'このページは Cloudflare の集計データを受け取る準備ができています。安全な収集を有効にすると数字が表示されます。', unavailableTitle: '数字を更新できませんでした', unavailableDescription: '再試行のため、最後に公開されたデータを保持しています。', empty: 'このグラフを表示するためのデータがまだ十分ではありません。', updatedAt: '{date} に更新', dataSource: 'データ元：Cloudflare Web Analytics', privacyTitle: '個人登録ではなく、全体の集計', privacyDescription: 'グラフでは集計値だけを使用します。氏名、住所、正確な位置、個人プロフィールは表示しません。', approximateNote: '訪問数は必ずしも個別の人数と一致しません。数字はコミュニティ規模の目安です。', rank: '{position} 位', visits: '{count} 回の訪問',
+  },
+  'ko-KR': {
+    openButton: '우리가 몇 명인지 확인해 보세요', backToCalendars: '달력으로 돌아가기', browserTitle: '13 Calendar — 우리 커뮤니티', eyebrow: '우리 커뮤니티', title: '우리가 몇 명인지 확인해 보세요', description: '13개월 달력, 날짜 변환, 달의 주기에 관심을 가진 사람들의 공동체 모습입니다.', scopeWorld: '전 세계', scopeLabel: '커뮤니티 보기', estimatedVisits: '예상 방문 수', pageViews: '페이지 조회 수', countries: '방문 국가', selectedCountry: '선택한 국가', noCountryData: '이 국가에서는 아직 방문이 기록되지 않았습니다', period: '분석 기간', activityTitle: '커뮤니티 활동', activityDescription: '각 사각형은 관심을 함께 나눈 하루를 나타냅니다.', less: '적음', more: '많음', geographyTitle: '우리가 있는 곳', geographyDescription: '해당 기간에 방문이 가장 많았던 국가입니다.', interestsTitle: '우리가 살펴보는 것', interestsDescription: '프로젝트에서 가장 많이 방문한 페이지입니다.', originsTitle: '어떻게 찾아왔는지', originsDescription: '주요 방문 경로입니다.', devicesTitle: '접속 방식', devicesDescription: '커뮤니티에서 사용한 기기 유형입니다.', waitingTitle: '커뮤니티 집계를 시작합니다', waitingDescription: '이 페이지는 Cloudflare 집계 데이터를 받을 준비가 되었습니다. 안전한 수집을 활성화하면 숫자가 표시됩니다.', unavailableTitle: '숫자를 업데이트할 수 없습니다', unavailableDescription: '다시 시도할 수 있도록 마지막으로 게시된 데이터를 보존합니다.', empty: '이 그래프를 표시할 데이터가 아직 충분하지 않습니다.', updatedAt: '{date}에 업데이트됨', dataSource: '출처: Cloudflare Web Analytics', privacyTitle: '개인 등록이 아닌 공동 집계', privacyDescription: '그래프는 집계된 합계만 사용합니다. 이름, 주소, 정확한 위치 또는 개인 프로필은 표시하지 않습니다.', approximateNote: '방문 수가 고유한 사람 수와 반드시 같지는 않습니다. 숫자는 커뮤니티 규모의 근사치입니다.', rank: '{position}위', visits: '{count}회 방문',
+  },
+};
+

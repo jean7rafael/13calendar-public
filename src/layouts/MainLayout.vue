@@ -66,6 +66,7 @@
         </q-btn>
 
         <q-btn
+          v-if="!isCommunityPage"
           flat
           dense
           no-caps
@@ -159,23 +160,28 @@
           </q-item-section>
         </q-item>
 
-        <!-- Respiro final da lista de idiomas. Ele só alcança a
-             área fixa depois que o último idioma passa por ela. -->
-        <div class="drawer-language-spacer" aria-hidden="true"></div>
+        <!-- A seleção de feriados pertence somente ao conversor.
+             A página comunitária mantém o menu enxuto da página
+             institucional, limitado à escolha do idioma. -->
+        <template v-if="!isCommunityPage">
+          <!-- Respiro final da lista de idiomas. Ele só alcança a
+               área fixa depois que o último idioma passa por ela. -->
+          <div class="drawer-language-spacer" aria-hidden="true"></div>
 
-        <!-- Seleção permanente do país dos feriados. -->
-        <q-separator spaced />
+          <!-- Seleção permanente do país dos feriados. -->
+          <q-separator spaced />
 
-        <q-item-label header class="text-weight-bold drawer-country-header">
-          {{ t('holidaySettings.countryTitle') }}
-        </q-item-label>
+          <q-item-label header class="text-weight-bold drawer-country-header">
+            {{ t('holidaySettings.countryTitle') }}
+          </q-item-label>
 
-        <HolidayCountrySelector
-          drawer-mode
-          class="drawer-country-selector"
-          @select="closeLeftDrawer"
-          @fit-change="setDrawerCountryListFits"
-        />
+          <HolidayCountrySelector
+            drawer-mode
+            class="drawer-country-selector"
+            @select="closeLeftDrawer"
+            @fit-change="setDrawerCountryListFits"
+          />
+        </template>
       </q-list>
     </q-drawer>
 
@@ -215,6 +221,7 @@
 import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useMeta, useQuasar } from 'quasar';
+import { useRoute } from 'vue-router';
 import { setAppLanguage } from 'src/boot/i18n';
 import { setAppDarkMode } from 'src/boot/theme';
 import { useTodayNavigation } from 'src/composables/useTodayNavigation';
@@ -266,10 +273,13 @@ const orderedLanguages = computed(() => [
 const { requestToday } = useTodayNavigation();
 
 const quasar = useQuasar();
+const route = useRoute();
 
 const { t, locale } = useI18n({
   useScope: 'global',
 });
+
+const isCommunityPage = computed(() => route.name === 'community');
 
 /* ===========================================================
    TÍTULO LOCALIZADO DA ABA DO NAVEGADOR
@@ -358,7 +368,10 @@ function isCurrentLanguage(language: AppLocale) {
 function changeLanguage(language: AppLocale) {
   setAppLanguage(language);
   leftDrawerOpen.value = false;
-  holidayCountryDialogOpen.value = true;
+
+  if (!isCommunityPage.value) {
+    holidayCountryDialogOpen.value = true;
+  }
 }
 
 /* ===========================================================
@@ -612,5 +625,6 @@ async function setDrawerCountryListFits(countryListFits) {
   .app-today-button :deep(.q-btn__content > span) {
     display: none;
   }
+
 }
 </style>

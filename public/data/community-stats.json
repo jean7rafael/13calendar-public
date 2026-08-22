@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "status": "awaiting_configuration",
+  "generatedAt": null,
+  "period": {
+    "from": null,
+    "to": null
+  },
+  "summary": {
+    "visits": null,
+    "pageViews": null,
+    "countries": null
+  },
+  "activity": [],
+  "countries": [],
+  "pages": [],
+  "referrers": [],
+  "devices": []
+}

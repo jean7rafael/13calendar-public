@@ -1,5 +1,8 @@
 <template>
   <q-page class="calendar-page" @wheel.capture="containCardWheel">
+    <!-- Acesso comunitário no fluxo da página, sem cobrir o conteúdo. -->
+    <CommunityFloatingButton />
+
     <!-- Apresentação preservada da antiga prévia visual. -->
     <section class="calendar-introduction">
       <p class="calendar-introduction__eyebrow">
@@ -87,6 +90,7 @@ import Fases12Lua from 'src/components/Fases12Lua.vue';
 import Fases13Lua from 'src/components/Fases13Lua.vue';
 import MoonPhaseLegend from 'src/components/MoonPhaseLegend.vue';
 import AppFooter from 'src/components/AppFooter.vue';
+import CommunityFloatingButton from 'src/components/CommunityFloatingButton.vue';
 import { converterPara13Meses, converterParaGregoriano } from 'src/utils/conversorDatas';
 import { useTodayNavigation } from 'src/composables/useTodayNavigation';
 

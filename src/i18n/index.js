@@ -10,12 +10,13 @@ import jaJP from './ja-JP';
 import arSA from './ar-SA';
 import hiIN from './hi-IN';
 import koKR from './ko-KR';
+import { communityMessages } from './community';
 
 /* ===========================================================
    REGISTRO DOS CATÁLOGOS DE TRADUÇÃO DA INTERFACE
 =========================================================== */
 
-export default {
+const messages = {
   'pt-BR': ptBR,
   'en-US': enUS,
   'fr-FR': frFR,
@@ -29,3 +30,13 @@ export default {
   'hi-IN': hiIN,
   'ko-KR': koKR,
 };
+
+/* ===========================================================
+   EXTENSÃO ISOLADA DA PÁGINA COMUNITÁRIA
+=========================================================== */
+
+Object.entries(messages).forEach(([locale, catalog]) => {
+  catalog.community = communityMessages[locale];
+});
+
+export default messages;

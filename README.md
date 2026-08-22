@@ -5,13 +5,13 @@ Calendar alongside the Gregorian calendar. It extends the educational experience
 of [13months.net](https://www.13months.net/) with bidirectional date conversion,
 country-aware holidays, Moon phases, seasons and multilingual tools.
 
-**Live demo:** <https://jean7rafael.github.io/13calendar-public/>
+**Live clean demo:** <https://jean7rafael.github.io/13calendar-public/>
 
-> **Project status:** the companion and the adapted reference page are published
-> together for technical review while a conversation with the creator of
-> `13months.net` is pending. The upstream repository has no published license;
-> its provenance is documented and this integration will be revised or removed
-> if requested by the upstream creator.
+> **Project status:** a clean companion build is public for technical review.
+> The adapted local copy of the reference website remains private while a
+> conversation with the creator of `13months.net` is pending. The upstream
+> repository currently has no published license, so this project does not
+> assume permission to redistribute that adapted reference source.
 
 ## What the application does
 
@@ -79,6 +79,18 @@ corresponding physical instant.
 - Long holiday lists use a compact internal scrollbar only when their real
   content exceeds the five-line card area.
 
+### Community portrait
+
+- A discreet **“See how many of us there are →”** link in the page flow opens a
+  dedicated, multilingual community dashboard without covering mobile content.
+- The page is prepared for privacy-first, aggregated Cloudflare Web Analytics
+  data: estimated visits, page views, daily activity, countries, popular pages,
+  referrers and devices.
+- No individual visitor profile is published, and the interface never invents
+  figures while analytics collection is not configured.
+- The public data contract and setup boundary are documented in
+  [`docs/CLOUDFLARE_COMMUNITY_ANALYTICS.md`](docs/CLOUDFLARE_COMMUNITY_ANALYTICS.md).
+
 ## Navigation integration with 13months.net
 
 The two experiences are designed to feel connected:
@@ -122,6 +134,8 @@ The project standards are documented in:
 - Astronomy Engine for lunar and seasonal calculations
 - `date-holidays` and curated official sources for civil holiday data
 - Vue I18n plus incremental, curated translation catalogs
+- Cloudflare Web Analytics integration prepared as an optional, cookie-free
+  aggregate data source
 
 ## Local development
 
@@ -151,9 +165,9 @@ This project is intended as a complementary tool rather than a replacement for
 home experience and expose the companion through a button or a subdomain for
 visitors who want to convert dates or explore holidays and Moon phases.
 
-The upstream creator’s review remains the preferred next step. The integration
-will be adjusted to reflect any licensing, attribution or design request made
-in that conversation.
+Before a public release, the preferred next step is to obtain the upstream
+creator’s review and explicit permission for the adapted reference source and
+visual integration.
 
 <details>
 <summary><strong>Resumo em português</strong></summary>
@@ -169,8 +183,8 @@ abre o conversor e o botão **X**, em evidência na barra superior do aplicativo
 volta diretamente à página inicial incorporada. Idioma e tema são compartilhados
 entre as duas páginas.
 
-A revisão do criador do `13months.net` continua pendente. A integração será
-ajustada caso ele solicite mudanças de licença, atribuição, identidade visual
-ou retirada da cópia adaptada.
+Antes da publicação pública, ainda é necessário solicitar ao criador do
+`13months.net` autorização para redistribuir a fonte adaptada e validar a forma
+de colaboração, pois o repositório original não possui uma licença publicada.
 
 </details>

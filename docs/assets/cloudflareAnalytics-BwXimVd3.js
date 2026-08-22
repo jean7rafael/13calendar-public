@@ -1,0 +1,1 @@
+import{r as e}from"./index-C34XdpjV.js";var t=e(()=>{if(document.querySelector(`script[data-cf-beacon]`))return;let e=document.createElement(`script`);e.type=`module`,e.src=`https://static.cloudflareinsights.com/beacon.min.js`,e.dataset.cfBeacon=JSON.stringify({token:`71021ca6d9064ceba521e46162d7db69`}),document.body.append(e)});export{t as default};

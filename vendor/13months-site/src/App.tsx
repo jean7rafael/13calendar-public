@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import FeedbackRating from "./components/FeedbackRating";
 import DateConverter from "./components/DateConverter";
 import AppHeader from "./components/AppHeader";
+import CommunityFloatingLink from "./components/CommunityFloatingLink";
+import CloudflareAnalytics from "./components/CloudflareAnalytics";
 import { I18nProvider, useI18n } from "./i18n";
 
 export default function App() {
@@ -31,7 +33,9 @@ function LocalizedApp() {
                 {t("Skip to content")}
             </a>
             <div class="min-h-screen bg-stone-100 dark:bg-slate-950 font-[Inter,system-ui,sans-serif] antialiased transition-colors duration-500">
+                <CloudflareAnalytics />
                 <AppHeader />
+                <CommunityFloatingLink />
                 <main id="main-content">
                     <Hero />
                     <HowItWorks />
