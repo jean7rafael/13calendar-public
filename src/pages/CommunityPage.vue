@@ -175,7 +175,11 @@
       </div>
     </section>
 
-    <AppFooter />
+    <!-- Cadastro voluntário separado visualmente do painel e do rodapé. -->
+    <CommunityRegistration />
+
+    <!-- Rodapé institucional compartilhado, sem repetir o bloco explicativo. -->
+    <AppFooter :show-context="false" />
   </q-page>
 </template>
 
@@ -183,6 +187,7 @@
 import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useMeta } from 'quasar';
+import CommunityRegistration from 'src/components/CommunityRegistration.vue';
 import AppFooter from 'src/components/AppFooter.vue';
 
 /* ===========================================================
@@ -473,7 +478,7 @@ function readPreferredHolidayCountry() {
   width: min(100%, 1180px);
   min-height: 100%;
   margin: 0 auto;
-  padding: 28px 24px 36px;
+  padding: 24px 24px 36px;
   color: var(--app-text);
 }
 
@@ -483,7 +488,7 @@ function readPreferredHolidayCountry() {
 
 .community-hero {
   max-width: 760px;
-  margin: 28px auto 32px;
+  margin: 20px auto 32px;
   text-align: center;
 }
 
@@ -504,25 +509,25 @@ function readPreferredHolidayCountry() {
 }
 
 .community-eyebrow {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   color: #8b5cf6;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.17em;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .community-hero h1 {
   margin: 0;
-  font-size: clamp(32px, 6vw, 56px);
+  font-size: clamp(28px, 5vw, 48px);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.045em;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
 }
 
 .community-description {
-  max-width: 680px;
-  margin: 17px auto 0;
+  max-width: 620px;
+  margin: 18px auto 0;
   color: var(--app-text-muted);
   font-size: 16px;
   line-height: 1.65;
@@ -865,7 +870,7 @@ function readPreferredHolidayCountry() {
   }
 
   .community-hero {
-    margin-top: 20px;
+    margin-top: 8px;
   }
 
   .community-description {

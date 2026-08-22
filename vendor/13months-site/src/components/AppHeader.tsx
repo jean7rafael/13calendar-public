@@ -2,6 +2,7 @@ import { For, Show, createEffect, createMemo, createSignal, onCleanup, onMount }
 import { languages, useI18n } from "../i18n";
 import { useTheme } from "./ThemeProvider";
 import CommunityFloatingLink from "./CommunityFloatingLink";
+import CalendarToolbarLink from "./CalendarToolbarLink";
 
 /* ===========================================================
    CABEÇALHO COMPARTILHADO DA PÁGINA INSTITUCIONAL
@@ -45,14 +46,14 @@ export default function AppHeader() {
                 <div class="flex min-h-[58px] items-center gap-2 px-4 sm:px-[18px]">
                     <button
                         type="button"
-                        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-stone-200 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
+                        class="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-stone-200 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
                         aria-label={t("Choose language")}
                         aria-expanded={menuOpen()}
                         aria-controls="reference-language-menu"
                         onClick={() => setMenuOpen((open) => !open)}
                     >
-                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width={2} aria-hidden="true">
-                            <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16" />
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
                         </svg>
                     </button>
 
@@ -68,7 +69,7 @@ export default function AppHeader() {
 
                     <button
                         type="button"
-                        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-stone-200 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
+                        class="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-stone-200 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
                         aria-label={t(dark() ? "Use light theme" : "Use dark theme")}
                         title={t(dark() ? "Use light theme" : "Use dark theme")}
                         onClick={toggleTheme}
@@ -87,6 +88,8 @@ export default function AppHeader() {
                             </svg>
                         </Show>
                     </button>
+
+                    <CalendarToolbarLink />
                 </div>
             </header>
 

@@ -16,7 +16,7 @@
         <div class="app-brand-mark" aria-hidden="true">13</div>
 
         <q-toolbar-title class="app-title">
-          {{ t('app.title') }}
+          {{ toolbarTitle }}
         </q-toolbar-title>
 
         <!-- A página dos calendários aponta para a comunidade; a
@@ -281,6 +281,9 @@ const { t, locale } = useI18n({
 });
 
 const isCommunityPage = computed(() => route.name === 'community');
+const toolbarTitle = computed(() =>
+  isCommunityPage.value ? t('community.headerTitle') : t('app.title'),
+);
 
 /* ===========================================================
    TÍTULO LOCALIZADO DA ABA DO NAVEGADOR

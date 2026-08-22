@@ -212,9 +212,10 @@ export default function CalendarView() {
                     </For>
 
                     <div
+                        id="special-days"
                         role="listitem"
                         aria-label={t("Special days")}
-                        class="col-span-2 sm:col-span-1 rounded-xl sm:rounded-2xl border border-emerald-200 dark:border-emerald-500/20 bg-emerald-50 dark:bg-emerald-500/3 p-3 sm:p-5 flex flex-col justify-center transition-colors duration-500"
+                        class="scroll-mt-20 col-span-2 sm:col-span-1 rounded-xl sm:rounded-2xl border border-emerald-200 dark:border-emerald-500/20 bg-emerald-50 dark:bg-emerald-500/3 p-3 sm:p-5 flex flex-col justify-center transition-colors duration-500"
                     >
                         <h3 class="text-sm sm:text-lg font-semibold text-emerald-700 dark:text-emerald-300 mb-2 sm:mb-4">
                             Special Days

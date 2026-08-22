@@ -7,11 +7,11 @@ country-aware holidays, Moon phases, seasons and multilingual tools.
 
 **Live clean demo:** <https://jean7rafael.github.io/13calendar-public/>
 
-> **Project status:** a clean companion build is public for technical review.
-> The adapted local copy of the reference website remains private while a
-> conversation with the creator of `13months.net` is pending. The upstream
-> repository currently has no published license, so this project does not
-> assume permission to redistribute that adapted reference source.
+> **Project status:** the clean companion build and its adapted educational home
+> page are public for evaluation. A conversation with the creator of
+> `13months.net` remains open. The upstream repository currently has no
+> published license, so this project will promptly honor any attribution,
+> visual-change or removal request from its author.
 
 ## What the application does
 
@@ -81,13 +81,15 @@ corresponding physical instant.
 
 ### Community portrait
 
-- A discreet **“See how many of us there are →”** link in the page flow opens a
-  dedicated, multilingual community dashboard without covering mobile content.
+- A consistent community button in the three top bars opens a dedicated,
+  multilingual dashboard without covering mobile content.
 - The page is prepared for privacy-first, aggregated Cloudflare Web Analytics
   data: estimated visits, page views, daily activity, countries, popular pages,
   referrers and devices.
 - No individual visitor profile is published, and the interface never invents
   figures while analytics collection is not configured.
+- Visitors may optionally submit a public name and social profile. The backend
+  stores the request as pending and exposes it only after moderation.
 - The public data contract and setup boundary are documented in
   [`docs/CLOUDFLARE_COMMUNITY_ANALYTICS.md`](docs/CLOUDFLARE_COMMUNITY_ANALYTICS.md).
 
@@ -136,6 +138,7 @@ The project standards are documented in:
 - Vue I18n plus incremental, curated translation catalogs
 - Cloudflare Web Analytics integration prepared as an optional, cookie-free
   aggregate data source
+- Cloudflare Worker, D1 and Turnstile for moderated voluntary community entries
 
 ## Local development
 
@@ -165,9 +168,9 @@ This project is intended as a complementary tool rather than a replacement for
 home experience and expose the companion through a button or a subdomain for
 visitors who want to convert dates or explore holidays and Moon phases.
 
-Before a public release, the preferred next step is to obtain the upstream
-creator’s review and explicit permission for the adapted reference source and
-visual integration.
+The adapted demonstration is public while that review is pending. If the
+upstream creator requests attribution, visual changes, a different integration
+or removal, the public copy will be revised accordingly.
 
 <details>
 <summary><strong>Resumo em português</strong></summary>
@@ -178,13 +181,14 @@ sentidos, apresenta feriados de 251 países e territórios, adapta regras de
 feriados ao calendário de 13 meses, calcula fases da Lua e estações e oferece
 12 idiomas, temas claro e escuro e uma interface responsiva.
 
-A integração visual mantém o site de referência como página inicial: um botão
-abre o conversor e o botão **X**, em evidência na barra superior do aplicativo,
-volta diretamente à página inicial incorporada. Idioma e tema são compartilhados
-entre as duas páginas.
+A integração visual mantém a página educacional adaptada como página inicial:
+um botão abre o conversor e o botão **X**, em evidência na barra superior do
+aplicativo, volta diretamente a ela. Idioma e tema são compartilhados entre as
+experiências.
 
-Antes da publicação pública, ainda é necessário solicitar ao criador do
-`13months.net` autorização para redistribuir a fonte adaptada e validar a forma
-de colaboração, pois o repositório original não possui uma licença publicada.
+A demonstração está pública enquanto a conversa com o criador de `13months.net`
+permanece aberta. Como o repositório original não possui licença publicada, o
+projeto atenderá prontamente qualquer solicitação de atribuição, mudança visual
+ou retirada feita pelo autor.
 
 </details>

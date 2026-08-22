@@ -1,0 +1,14 @@
+{
+  "name": "13calendar-community-registration-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "migrate:local": "wrangler d1 migrations apply DB --local",
+    "migrate:remote": "wrangler d1 migrations apply DB --remote"
+  },
+  "devDependencies": {
+    "wrangler": "^4.33.1"
+  }
+}

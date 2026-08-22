@@ -33,7 +33,7 @@ export default function CommunityFloatingLink() {
     return (
         <a
             href={new URL("../#/community", window.location.href).href}
-            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-stone-200 hover:text-slate-900 focus-visible:bg-stone-200 focus-visible:text-slate-900 focus-visible:outline-none dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white dark:focus-visible:bg-white/10 dark:focus-visible:text-white"
+            class="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-stone-200 hover:text-slate-900 focus-visible:bg-stone-200 focus-visible:text-slate-900 focus-visible:outline-none dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white dark:focus-visible:bg-white/10 dark:focus-visible:text-white"
             aria-label={label()}
             title={label()}
         >

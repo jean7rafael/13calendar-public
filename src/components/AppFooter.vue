@@ -1,33 +1,44 @@
 <template>
-  <footer class="app-footer" role="contentinfo" :aria-label="$t('footer.ariaLabel')">
+  <footer
+    class="app-footer"
+    :class="{ 'app-footer--compact': !showContext }"
+    role="contentinfo"
+    :aria-label="$t('footer.ariaLabel')"
+  >
+    <!-- O mesmo separador em degradê abre o rodapé nas duas páginas. -->
+    <div class="app-footer__divider app-footer__divider--top" aria-hidden="true"></div>
+
     <div class="app-footer__content">
-      <div class="app-footer__heading">
-        <p class="app-footer__eyebrow">13 Calendar</p>
-        <h2>{{ $t('footer.title') }}</h2>
-        <p>{{ $t('footer.description') }}</p>
-      </div>
+      <!-- Contexto completo permanece na página principal dos calendários. -->
+      <template v-if="showContext">
+        <div class="app-footer__heading">
+          <p class="app-footer__eyebrow">13 Calendar</p>
+          <h2>{{ $t('footer.title') }}</h2>
+          <p>{{ $t('footer.description') }}</p>
+        </div>
 
-      <div class="app-footer__topics">
-        <article class="app-footer__topic">
-          <span class="app-footer__topic-marker app-footer__topic-marker--source" aria-hidden="true"></span>
-          <h3>{{ $t('footer.sourcesTitle') }}</h3>
-          <p>{{ $t('footer.sourcesText') }}</p>
-        </article>
+        <div class="app-footer__topics">
+          <article class="app-footer__topic">
+            <span class="app-footer__topic-marker app-footer__topic-marker--source" aria-hidden="true"></span>
+            <h3>{{ $t('footer.sourcesTitle') }}</h3>
+            <p>{{ $t('footer.sourcesText') }}</p>
+          </article>
 
-        <article class="app-footer__topic">
-          <span class="app-footer__topic-marker app-footer__topic-marker--privacy" aria-hidden="true"></span>
-          <h3>{{ $t('footer.privacyTitle') }}</h3>
-          <p>{{ $t('footer.privacyText') }}</p>
-        </article>
+          <article class="app-footer__topic">
+            <span class="app-footer__topic-marker app-footer__topic-marker--privacy" aria-hidden="true"></span>
+            <h3>{{ $t('footer.privacyTitle') }}</h3>
+            <p>{{ $t('footer.privacyText') }}</p>
+          </article>
 
-        <article class="app-footer__topic">
-          <span class="app-footer__topic-marker app-footer__topic-marker--limits" aria-hidden="true"></span>
-          <h3>{{ $t('footer.limitationsTitle') }}</h3>
-          <p>{{ $t('footer.limitationsText') }}</p>
-        </article>
-      </div>
+          <article class="app-footer__topic">
+            <span class="app-footer__topic-marker app-footer__topic-marker--limits" aria-hidden="true"></span>
+            <h3>{{ $t('footer.limitationsTitle') }}</h3>
+            <p>{{ $t('footer.limitationsText') }}</p>
+          </article>
+        </div>
 
-      <div class="app-footer__divider" aria-hidden="true"></div>
+        <div class="app-footer__divider" aria-hidden="true"></div>
+      </template>
 
       <div class="app-footer__bottom">
         <p>{{ $t('footer.disclaimer') }}</p>
@@ -56,6 +67,22 @@
   </footer>
 </template>
 
+<script setup>
+/* ===========================================================
+   VARIAÇÃO DO RODAPÉ COMPARTILHADO
+
+   A página de calendários exibe o contexto completo. A página
+   comunitária reutiliza apenas a faixa institucional inferior.
+=========================================================== */
+
+defineProps({
+  showContext: {
+    type: Boolean,
+    default: true,
+  },
+});
+</script>
+
 <style scoped>
 /* ===========================================================
    RODAPÉ DE TRANSPARÊNCIA
@@ -68,11 +95,14 @@
   width: 100%;
   margin-top: 28px;
   color: var(--app-text);
-  border-top: 1px solid var(--app-border);
 }
 
 .app-footer__content {
   padding: 48px 8px 12px;
+}
+
+.app-footer--compact .app-footer__content {
+  padding-top: 20px;
 }
 
 .app-footer__heading {
@@ -153,9 +183,20 @@
 }
 
 .app-footer__divider {
-  height: 1px;
+  height: 2px;
   margin: 32px 0 20px;
-  background: linear-gradient(90deg, transparent, var(--app-border-strong), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--app-border-strong) 35%, transparent) 22%,
+    var(--app-border-strong) 50%,
+    color-mix(in srgb, var(--app-border-strong) 35%, transparent) 78%,
+    transparent 100%
+  );
+}
+
+.app-footer__divider--top {
+  margin: 0;
 }
 
 .app-footer__bottom {

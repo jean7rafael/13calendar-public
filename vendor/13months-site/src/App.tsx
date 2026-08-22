@@ -5,6 +5,7 @@ import CalendarView from "./components/CalendarView";
 import History from "./components/History";
 import Footer from "./components/Footer";
 import FeedbackRating from "./components/FeedbackRating";
+import SabbathSolution from "./components/SabbathSolution";
 import DateConverter from "./components/DateConverter";
 import AppHeader from "./components/AppHeader";
 import CloudflareAnalytics from "./components/CloudflareAnalytics";
@@ -40,6 +41,7 @@ function LocalizedApp() {
                     <CalendarView />
                     <DateConverter />
                     <History />
+                    <SabbathSolution />
                     <FeedbackRating />
                 </main>
                 <Footer />

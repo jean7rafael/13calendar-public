@@ -11,6 +11,7 @@ import arSA from './ar-SA';
 import hiIN from './hi-IN';
 import koKR from './ko-KR';
 import { communityMessages } from './community';
+import { communityRegistrationMessages } from './communityRegistration';
 
 /* ===========================================================
    REGISTRO DOS CATÁLOGOS DE TRADUÇÃO DA INTERFACE
@@ -36,7 +37,10 @@ const messages = {
 =========================================================== */
 
 Object.entries(messages).forEach(([locale, catalog]) => {
-  catalog.community = communityMessages[locale];
+  catalog.community = {
+    ...communityMessages[locale],
+    ...communityRegistrationMessages[locale],
+  };
 });
 
 export default messages;

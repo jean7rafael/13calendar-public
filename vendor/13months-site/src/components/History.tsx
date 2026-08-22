@@ -43,18 +43,26 @@ const faqs = [
     {
         question: "What about the leftover day?",
         answer: "It's called Year Day. It comes after December 28 and before the next January 1. It doesn't belong to any week — no Monday, no Tuesday, just a day off. In leap years, Leap Day comes immediately after Year Day.",
+        href: "#special-days",
+        indicator: "↑",
     },
     {
         question: "Do holidays move?",
         answer: "Some dates would shift, but here's the thing — every date would always be the same day of the week, forever. Christmas on a Wednesday? It's on a Wednesday every year. That's more predictable, not less.",
+        href: "../#/",
+        indicator: "↗",
     },
     {
         question: "Doesn't this break the Sabbath?",
         answer: "This is the objection that killed it in 1937. Year Day sits outside the 7-day week, which some see as breaking an unbroken chain. Others say it's just a pause. It depends on who you ask.",
+        href: "#sabbath-solution",
+        indicator: "↓",
     },
     {
         question: "Has anyone actually tried this?",
         answer: "Kodak ran on it for 61 years. It wasn't a pilot program — it was how they did business. Payroll, planning, accounting. They only stopped because the rest of the world wouldn't switch.",
+        href: "#kodak-fact",
+        indicator: "↓",
     },
     {
         question: "Why 13? Why not 10 or something?",
@@ -166,9 +174,14 @@ export default function History() {
                 >
                     <For each={faqs}>
                         {(faq) => (
-                            <div
+                            <a
                                 role="listitem"
-                                class="rounded-xl sm:rounded-2xl border border-stone-200 dark:border-white/5 bg-stone-100 dark:bg-white/2 p-3 sm:p-6 hover:border-indigo-300 dark:hover:border-indigo-500/20 transition-colors"
+                                href={faq.href}
+                                class={`group relative rounded-xl sm:rounded-2xl border border-stone-200 dark:border-white/5 bg-stone-100 dark:bg-white/2 p-3 sm:p-6 hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-500/5 dark:hover:border-indigo-500/20 transition-all ${
+                                    faq.href
+                                        ? "cursor-pointer"
+                                        : "cursor-default"
+                                }`}
                             >
                                 <h3 class="text-sm sm:text-base font-semibold text-slate-900 dark:text-white mb-1.5 sm:mb-3 flex items-start gap-2 sm:gap-3">
                                     <span
@@ -182,14 +195,23 @@ export default function History() {
                                 <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed pl-7 sm:pl-9">
                                     {faq.answer}
                                 </p>
-                            </div>
+                                {faq.href && (
+                                    <span
+                                        class="absolute end-3 top-3 text-sm text-indigo-400 transition-transform group-hover:translate-x-0.5 sm:end-5 sm:top-5"
+                                        aria-hidden="true"
+                                    >
+                                        {faq.indicator}
+                                    </span>
+                                )}
+                            </a>
                         )}
                     </For>
                 </div>
 
                 <aside
+                    id="kodak-fact"
                     aria-label="Key fact: Kodak's 61-year use of the calendar"
-                    class="mt-8 sm:mt-20 mx-auto max-w-3xl rounded-xl sm:rounded-2xl border border-amber-200 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/3 p-4 sm:p-8 md:p-10 text-center transition-colors duration-500"
+                    class="scroll-mt-20 mt-8 sm:mt-20 mx-auto max-w-3xl rounded-xl sm:rounded-2xl border border-amber-200 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/3 p-4 sm:p-8 md:p-10 text-center transition-colors duration-500"
                 >
                     <h3 class="text-base sm:text-xl font-bold text-amber-700 dark:text-amber-200 mb-2 sm:mb-3">
                         Kodak used this for 61 years
@@ -201,6 +223,43 @@ export default function History() {
                         worked. They only dropped it because nobody else was
                         using it.
                     </p>
+
+                    {/* A trajetória da Kodak transforma o exemplo em evidência concreta. */}
+                    <div class="mt-5 grid grid-cols-3 gap-2 sm:mt-7 sm:gap-3">
+                        <div class="rounded-lg border border-amber-200/80 bg-white/40 px-2 py-3 dark:border-amber-500/15 dark:bg-white/2">
+                            <strong class="block text-lg text-amber-700 dark:text-amber-200 sm:text-2xl">
+                                1928
+                            </strong>
+                            <span class="mt-1 block text-[10px] text-slate-500 dark:text-slate-400 sm:text-xs">
+                                Kodak starts using it
+                            </span>
+                        </div>
+                        <div class="rounded-lg border border-amber-200/80 bg-white/40 px-2 py-3 dark:border-amber-500/15 dark:bg-white/2">
+                            <strong class="block text-lg text-amber-700 dark:text-amber-200 sm:text-2xl">
+                                61
+                            </strong>
+                            <span class="mt-1 block text-[10px] text-slate-500 dark:text-slate-400 sm:text-xs">
+                                Kodak used this for 61 years
+                            </span>
+                        </div>
+                        <div class="rounded-lg border border-amber-200/80 bg-white/40 px-2 py-3 dark:border-amber-500/15 dark:bg-white/2">
+                            <strong class="block text-lg text-amber-700 dark:text-amber-200 sm:text-2xl">
+                                1989
+                            </strong>
+                            <span class="mt-1 block text-[10px] text-slate-500 dark:text-slate-400 sm:text-xs">
+                                Kodak gives up
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 space-y-3 border-t border-amber-200/70 pt-5 text-left dark:border-amber-500/15 sm:mt-7 sm:pt-7">
+                        <p class="text-xs leading-relaxed text-slate-500 dark:text-slate-400 sm:text-sm">
+                            George Eastman loves the idea so much he switches Kodak's entire internal operations to 13 months. Payroll, accounting, everything. It works.
+                        </p>
+                        <p class="text-xs leading-relaxed text-slate-500 dark:text-slate-400 sm:text-sm">
+                            After 61 years, Kodak drops the calendar. Not because it didn't work — it did. But being the only company using a different calendar got old.
+                        </p>
+                    </div>
                 </aside>
             </div>
         </section>

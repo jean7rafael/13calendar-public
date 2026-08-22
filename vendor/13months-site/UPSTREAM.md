@@ -24,7 +24,5 @@ As dependências transitivas `seroval` e `seroval-plugins` possuem uma
 substituição para a versão corrigida `1.6.2`, sem alteração do código visual.
 
 O repositório original não continha um arquivo de licença no commit registrado
-acima. A publicação experimental foi autorizada pelo mantenedor deste projeto
-enquanto aguarda a resposta do autor em `Andree37/13-months#2`. Qualquer pedido
-de licença, atribuição, alteração visual ou retirada deve ser aplicado e
-registrado aqui.
+acima. Antes de redistribuir ou publicar esta cópia modificada, confirme a
+autorização do autor e registre aqui a licença ou permissão correspondente.

@@ -2,6 +2,10 @@
   <q-page class="calendar-page" @wheel.capture="containCardWheel">
     <!-- Apresentação preservada da antiga prévia visual. -->
     <section class="calendar-introduction">
+      <div class="calendar-introduction__orbit" aria-hidden="true">
+        <q-icon name="public" />
+      </div>
+
       <p class="calendar-introduction__eyebrow">
         {{ $t('introduction.eyebrow') }}
       </p>
@@ -280,6 +284,23 @@ watch(todayRequest, () => {
   max-width: 720px;
   margin: 20px auto 2px;
   text-align: center;
+}
+
+/* O mesmo globo identifica as páginas principal e comunitária. */
+.calendar-introduction__orbit {
+  width: 78px;
+  height: 78px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 18px;
+  color: white;
+  background:
+    radial-gradient(circle at 32% 24%, rgb(255 255 255 / 28%), transparent 28%),
+    linear-gradient(135deg, #2563eb, #7c3aed);
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 50%;
+  box-shadow: 0 18px 44px rgb(79 70 229 / 26%);
+  font-size: 34px;
 }
 
 .calendar-introduction__eyebrow {
