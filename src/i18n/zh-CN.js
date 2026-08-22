@@ -30,10 +30,10 @@ export default {
   },
 
   introduction: {
-    eyebrow: '视觉整合',
-    title: '13months.net 的自然延伸',
+    eyebrow: '日期转换',
+    title: '同一日期，两种日历',
     description:
-      '此页面沿用参考项目的色彩、对比度、边框和形状体系，同时不改变应用程序的主界面。',
+      '比较公历与国际固定历，并查看各国节假日、月相和对应日期。',
   },
 
   footer: {

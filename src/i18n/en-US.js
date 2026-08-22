@@ -43,10 +43,10 @@ export default {
   },
 
   introduction: {
-    eyebrow: 'Visual integration',
-    title: 'A natural companion to 13months.net',
+    eyebrow: 'Date conversion',
+    title: 'One date, two calendars',
     description:
-      "This page explores the same family of colors, contrast, borders, and shapes as the reference project without changing the application's main screen.",
+      'Compare the Gregorian Calendar and the International Fixed Calendar with holidays by country, moon phases, and corresponding dates.',
   },
 
   footer: {

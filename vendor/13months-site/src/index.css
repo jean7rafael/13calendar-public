@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+html.language-menu-open,
+body.language-menu-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 html {

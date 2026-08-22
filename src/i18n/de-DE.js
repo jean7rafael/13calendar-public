@@ -43,10 +43,10 @@ export default {
   },
 
   introduction: {
-    eyebrow: 'Visuelle Integration',
-    title: 'Eine natürliche Ergänzung zu 13months.net',
+    eyebrow: 'Datumsumrechnung',
+    title: 'Ein Datum, zwei Kalender',
     description:
-      'Diese Seite verwendet dieselbe Familie von Farben, Kontrasten, Rahmen und Formen wie das Referenzprojekt, ohne den Hauptbildschirm der Anwendung zu verändern.',
+      'Vergleichen Sie den gregorianischen Kalender und den Internationalen Fixkalender mit Feiertagen nach Land, Mondphasen und entsprechenden Daten.',
   },
 
   footer: {

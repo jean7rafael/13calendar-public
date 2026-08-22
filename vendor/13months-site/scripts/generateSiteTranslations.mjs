@@ -53,6 +53,7 @@ const extraMessages = [
     "Choose language",
     "Close language menu",
     "Languages",
+    "Interface language",
     "Use light theme",
     "Use dark theme",
     "Previous year, {year}",

@@ -219,31 +219,16 @@ import { setAppLanguage } from 'src/boot/i18n';
 import { setAppDarkMode } from 'src/boot/theme';
 import { useTodayNavigation } from 'src/composables/useTodayNavigation';
 import HolidayCountrySelector from 'src/components/HolidayCountrySelector.vue';
+import {
+  interfaceLanguages,
+  type InterfaceLocale,
+} from '../../shared/interfaceLanguages';
 
 /* ===========================================================
    TIPOS DOS IDIOMAS DISPONÍVEIS
 =========================================================== */
 
-type AppLocale =
-  | 'en-US'
-  | 'pt-BR'
-  | 'de-DE'
-  | 'fr-FR'
-  | 'it-IT'
-  | 'es-ES'
-  | 'ru-RU'
-  | 'ar-SA'
-  | 'hi-IN'
-  | 'zh-CN'
-  | 'ja-JP'
-  | 'ko-KR';
-
-interface LanguageOption {
-  locale: AppLocale;
-  flag: string;
-  name: string;
-  region: string;
-}
+type AppLocale = InterfaceLocale;
 
 /* ===========================================================
    ESTADO DO MENU E DO POPUP
@@ -259,95 +244,7 @@ const drawerMenuAtEnd = ref(false);
    IDIOMAS EXIBIDOS NO MENU
 =========================================================== */
 
-const languages: LanguageOption[] = [
-  // América do Norte
-  {
-    locale: 'en-US',
-    flag: '🇺🇸',
-    name: 'English',
-    region: 'United States',
-  },
-
-  // América do Sul
-  {
-    locale: 'pt-BR',
-    flag: '🇧🇷',
-    name: 'Português',
-    region: 'Brasil',
-  },
-
-  // Europa Ocidental
-  {
-    locale: 'de-DE',
-    flag: '🇩🇪',
-    name: 'Deutsch',
-    region: 'Deutschland',
-  },
-  {
-    locale: 'fr-FR',
-    flag: '🇫🇷',
-    name: 'Français',
-    region: 'France',
-  },
-
-  {
-    locale: 'it-IT',
-    flag: '🇮🇹',
-    name: 'Italiano',
-    region: 'Italia',
-  },
-
-  {
-    locale: 'es-ES',
-    flag: '🇪🇸',
-    name: 'Español',
-    region: 'España',
-  },
-
-  // Europa Oriental
-  {
-    locale: 'ru-RU',
-    flag: '🇷🇺',
-    name: 'Русский',
-    region: 'Россия',
-  },
-
-  // Ásia Ocidental / Oriente Médio
-  {
-    locale: 'ar-SA',
-    flag: '🇸🇦',
-    name: 'العربية',
-    region: 'المملكة العربية السعودية',
-  },
-
-  // Ásia Meridional
-  {
-    locale: 'hi-IN',
-    flag: '🇮🇳',
-    name: 'हिन्दी',
-    region: 'भारत',
-  },
-
-  // Ásia Oriental
-  {
-    locale: 'zh-CN',
-    flag: '🇨🇳',
-    name: '简体中文',
-    region: '中国',
-  },
-  {
-    locale: 'ja-JP',
-    flag: '🇯🇵',
-    name: '日本語',
-    region: '日本',
-  },
-  {
-    locale: 'ko-KR',
-    flag: '🇰🇷',
-    name: '한국어',
-    region: '대한민국',
-  },
-];
+const languages = interfaceLanguages;
 
 /* ===========================================================
    IDIOMA ATIVO NO INÍCIO DA LISTA

@@ -8,6 +8,10 @@ import {
 } from "solid-js";
 import type { ParentComponent } from "solid-js";
 import generatedMessages from "./locales/generatedMessages.json";
+import {
+    interfaceLanguages,
+    type InterfaceLocale,
+} from "../../../shared/interfaceLanguages";
 
 /* ===========================================================
    IDIOMAS COMPARTILHADOS COM O CONVERSOR
@@ -15,22 +19,9 @@ import generatedMessages from "./locales/generatedMessages.json";
 
 export const APP_LOCALE_STORAGE_KEY = "calendar-app-locale";
 
-export const supportedLocales = [
-    "en-US",
-    "pt-BR",
-    "de-DE",
-    "fr-FR",
-    "it-IT",
-    "es-ES",
-    "ru-RU",
-    "ar-SA",
-    "hi-IN",
-    "zh-CN",
-    "ja-JP",
-    "ko-KR",
-] as const;
+export const supportedLocales = interfaceLanguages.map(({ locale }) => locale);
 
-export type AppLocale = (typeof supportedLocales)[number];
+export type AppLocale = InterfaceLocale;
 
 export interface LanguageOption {
     locale: AppLocale;
@@ -39,20 +30,7 @@ export interface LanguageOption {
     region: string;
 }
 
-export const languages: LanguageOption[] = [
-    { locale: "en-US", flag: "🇺🇸", name: "English", region: "United States" },
-    { locale: "pt-BR", flag: "🇧🇷", name: "Português", region: "Brasil" },
-    { locale: "de-DE", flag: "🇩🇪", name: "Deutsch", region: "Deutschland" },
-    { locale: "fr-FR", flag: "🇫🇷", name: "Français", region: "France" },
-    { locale: "it-IT", flag: "🇮🇹", name: "Italiano", region: "Italia" },
-    { locale: "es-ES", flag: "🇪🇸", name: "Español", region: "España" },
-    { locale: "ru-RU", flag: "🇷🇺", name: "Русский", region: "Россия" },
-    { locale: "ar-SA", flag: "🇸🇦", name: "العربية", region: "المملكة العربية السعودية" },
-    { locale: "hi-IN", flag: "🇮🇳", name: "हिन्दी", region: "भारत" },
-    { locale: "zh-CN", flag: "🇨🇳", name: "简体中文", region: "中国" },
-    { locale: "ja-JP", flag: "🇯🇵", name: "日本語", region: "日本" },
-    { locale: "ko-KR", flag: "🇰🇷", name: "한국어", region: "대한민국" },
-];
+export const languages: LanguageOption[] = [...interfaceLanguages];
 
 type TranslationParameters = Record<string, string | number>;
 type MessageCatalog = Record<AppLocale, Record<string, string>>;

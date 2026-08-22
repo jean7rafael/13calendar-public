@@ -1,4 +1,4 @@
-import { For, Show, createSignal, onCleanup, onMount } from "solid-js";
+import { For, Show, createEffect, createMemo, createSignal, onCleanup, onMount } from "solid-js";
 import { languages, useI18n } from "../i18n";
 import { useTheme } from "./ThemeProvider";
 
@@ -10,6 +10,17 @@ export default function AppHeader() {
     const [menuOpen, setMenuOpen] = createSignal(false);
     const { locale, setLocale, t } = useI18n();
     const { dark, toggleTheme } = useTheme();
+    const orderedLanguages = createMemo(() => [
+        ...languages.filter((language) => language.locale === locale()),
+        ...languages.filter((language) => language.locale !== locale()),
+    ]);
+
+    createEffect(() => {
+        const menuIsOpen = menuOpen();
+
+        document.documentElement.classList.toggle("language-menu-open", menuIsOpen);
+        document.body.classList.toggle("language-menu-open", menuIsOpen);
+    });
 
     onMount(() => {
         const closeOnEscape = (event: KeyboardEvent) => {
@@ -22,6 +33,8 @@ export default function AppHeader() {
 
         onCleanup(() => {
             document.removeEventListener("keydown", closeOnEscape);
+            document.documentElement.classList.remove("language-menu-open");
+            document.body.classList.remove("language-menu-open");
         });
     });
 
@@ -85,23 +98,37 @@ export default function AppHeader() {
 
                     <aside
                         id="reference-language-menu"
-                        class="absolute inset-y-0 left-0 w-[280px] max-w-[86vw] overflow-y-auto border-r border-stone-200 bg-stone-50 p-2 shadow-2xl dark:border-white/10 dark:bg-slate-950"
+                        class="absolute inset-y-0 start-0 w-[280px] max-w-[86vw] overflow-y-auto overscroll-contain border-e border-stone-200 bg-stone-50 px-2 pb-2 shadow-2xl dark:border-white/10 dark:bg-slate-950"
                         role="menu"
                         aria-label={t("Languages")}
                     >
-                        <p class="px-3 pb-2 pt-4 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                            {t("Languages")}
-                        </p>
+                        <div class="sticky top-0 z-30 flex h-12 items-center justify-between bg-stone-50 px-3 dark:bg-slate-950">
+                            <p class="text-sm font-semibold tracking-wide text-slate-500 dark:text-slate-400">
+                                {t("Interface language")}
+                            </p>
 
-                        <For each={languages}>
+                            <button
+                                type="button"
+                                class="flex h-8 w-8 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-stone-200 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
+                                aria-label={t("Close language menu")}
+                                title={t("Close language menu")}
+                                onClick={() => setMenuOpen(false)}
+                            >
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width={2} aria-hidden="true">
+                                    <path stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <For each={orderedLanguages()}>
                             {(language) => (
                                 <button
                                     type="button"
                                     role="menuitemradio"
                                     aria-checked={locale() === language.locale}
-                                    class={`my-0.5 flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left transition-colors ${
+                                    class={`relative my-0.5 flex w-full items-center gap-3 rounded-xl px-3 py-2 text-start transition-colors ${
                                         locale() === language.locale
-                                            ? "bg-indigo-50 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300"
+                                            ? "sticky top-12 z-20 isolate bg-indigo-50 text-indigo-700 shadow-md before:absolute before:-inset-x-2 before:-inset-y-0.5 before:-z-10 before:bg-stone-50 dark:bg-indigo-500/15 dark:text-indigo-300 dark:before:bg-slate-950"
                                             : "text-slate-700 hover:bg-stone-200/70 dark:text-slate-200 dark:hover:bg-white/5"
                                     }`}
                                     onClick={() => {

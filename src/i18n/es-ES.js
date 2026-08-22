@@ -43,10 +43,10 @@ export default {
   },
 
   introduction: {
-    eyebrow: 'Integración visual',
-    title: 'Un complemento natural para 13months.net',
+    eyebrow: 'Conversión de fechas',
+    title: 'Una misma fecha, dos calendarios',
     description:
-      'Esta página explora la misma familia de colores, contrastes, bordes y formas del proyecto de referencia sin modificar la pantalla principal de la aplicación.',
+      'Compara el calendario gregoriano y el calendario fijo internacional con festivos por país, fases de la Luna y fechas correspondientes.',
   },
 
   footer: {
