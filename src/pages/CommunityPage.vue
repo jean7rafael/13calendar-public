@@ -1,11 +1,5 @@
 <template>
   <q-page class="community-page">
-    <!-- Retorno discreto à experiência principal. -->
-    <router-link :to="{ name: 'home' }" class="community-back-link">
-      <q-icon name="arrow_back" size="18px" />
-      <span>{{ t('community.backToCalendars') }}</span>
-    </router-link>
-
     <!-- Identidade da comunidade inspirada no painel de perfil. -->
     <section class="community-hero">
       <div class="community-orbit" aria-hidden="true">
@@ -481,24 +475,6 @@ function readPreferredHolidayCountry() {
   margin: 0 auto;
   padding: 28px 24px 36px;
   color: var(--app-text);
-}
-
-.community-back-link {
-  width: max-content;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  color: var(--app-text-muted);
-  border-radius: 999px;
-  text-decoration: none;
-  transition: 160ms ease;
-}
-
-.community-back-link:hover,
-.community-back-link:focus-visible {
-  color: var(--app-text);
-  background: var(--app-hover);
 }
 
 /* ===========================================================

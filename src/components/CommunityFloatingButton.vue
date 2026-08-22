@@ -1,36 +1,25 @@
 <template>
-  <router-link
+  <q-btn
+    flat
+    dense
+    round
+    icon="groups"
     :to="{ name: 'community' }"
-    class="community-page-link"
+    class="community-toolbar-button"
     :aria-label="$t('community.openButton')"
   >
-    <span>{{ $t('community.openButton') }}</span>
-    <q-icon name="arrow_forward" size="18px" />
-  </router-link>
+    <q-tooltip>
+      {{ $t('community.openButton') }}
+    </q-tooltip>
+  </q-btn>
 </template>
 
 <style scoped>
 /* ===========================================================
-   ATALHO COMUNITÁRIO NO FLUXO DA PÁGINA
-
-   Ele replica o retorno discreto da página comunitária, mas
-   fica alinhado à direita e aponta para a próxima experiência.
+   ATALHO COMUNITÁRIO DA BARRA SUPERIOR
 =========================================================== */
 
-.community-page-link {
-  width: fit-content;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  align-self: flex-end;
+.community-toolbar-button {
   color: var(--app-text-muted);
-  font-size: 14px;
-  text-decoration: none;
-  transition: color 180ms ease;
-}
-
-.community-page-link:hover,
-.community-page-link:focus-visible {
-  color: var(--app-primary-text);
 }
 </style>

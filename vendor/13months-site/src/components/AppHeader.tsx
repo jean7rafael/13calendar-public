@@ -1,6 +1,7 @@
 import { For, Show, createEffect, createMemo, createSignal, onCleanup, onMount } from "solid-js";
 import { languages, useI18n } from "../i18n";
 import { useTheme } from "./ThemeProvider";
+import CommunityFloatingLink from "./CommunityFloatingLink";
 
 /* ===========================================================
    CABEÇALHO COMPARTILHADO DA PÁGINA INSTITUCIONAL
@@ -62,6 +63,8 @@ export default function AppHeader() {
                     <p class="min-w-0 flex-1 truncate text-[15px] font-semibold sm:text-[17px]">
                         IFC - International Fixed Calendar
                     </p>
+
+                    <CommunityFloatingLink />
 
                     <button
                         type="button"

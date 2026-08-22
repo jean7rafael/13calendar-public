@@ -45,6 +45,23 @@
         {{ moonTooltipText }}
       </q-tooltip>
     </div>
+
+    <!-- A ação permanece presa ao canto do calendário
+         gregoriano sem participar do fluxo da página. -->
+    <q-btn
+      flat
+      dense
+      no-caps
+      icon="today"
+      :label="$t('calendar.today')"
+      class="calendar-today-button"
+      :aria-label="$t('calendar.goToToday')"
+      @click.stop="requestToday"
+    >
+      <q-tooltip>
+        {{ $t('calendar.goToToday') }}
+      </q-tooltip>
+    </q-btn>
   </q-card>
 </template>
 
@@ -52,6 +69,7 @@
 import { computed, nextTick, onMounted, onUpdated, ref, shallowRef, watch } from 'vue';
 import { obterFasesLuaDoAno } from 'src/utils/fasesLua';
 import { useCalendarTranslations } from 'src/composables/useCalendarTranslations';
+import { useTodayNavigation } from 'src/composables/useTodayNavigation';
 import {
   createMoonPhaseDateMap,
   getMoonPhaseEventClass,
@@ -65,6 +83,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue', 'update:mes12', 'update:ano12']);
+const { requestToday } = useTodayNavigation();
 
 /* ===========================================================
    DATA INTERNA UTILIZADA PELO Q-DATE
@@ -245,6 +264,7 @@ function navegacaoCalendario({ year, month }) {
 
 <style scoped>
 .q-card {
+  position: relative;
   width: 100%;
   min-width: var(--calendar-card-min-width, 320px);
   max-width: var(--calendar-card-max-width, 520px);
@@ -252,6 +272,19 @@ function navegacaoCalendario({ year, month }) {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+}
+
+/* Botão local para retornar à data atual. A posição absoluta
+   preserva o alinhamento entre os dois calendários. */
+.calendar-today-button {
+  position: absolute;
+  inset-inline-end: 14px;
+  bottom: 12px;
+  z-index: 3;
+  min-height: 34px;
+  padding: 0 11px;
+  color: var(--app-primary-text);
+  border-radius: 10px;
 }
 
 .calendar-card-title {

@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <!-- Barra superior com menu, título e retorno à data de hoje. -->
+    <!-- Barra superior com menu, título e ações comuns às páginas. -->
     <q-header class="app-header">
       <q-toolbar class="app-toolbar">
         <q-btn
@@ -18,6 +18,25 @@
         <q-toolbar-title class="app-title">
           {{ t('app.title') }}
         </q-toolbar-title>
+
+        <!-- A página dos calendários aponta para a comunidade; a
+             página comunitária oferece o caminho inverso. -->
+        <CommunityFloatingButton v-if="!isCommunityPage" />
+
+        <q-btn
+          v-else
+          flat
+          dense
+          round
+          icon="today"
+          class="app-toolbar-button"
+          :to="{ name: 'home' }"
+          :aria-label="t('community.backToCalendars')"
+        >
+          <q-tooltip>
+            {{ t('community.backToCalendars') }}
+          </q-tooltip>
+        </q-btn>
 
         <q-btn
           flat
@@ -62,22 +81,6 @@
 
           <q-tooltip>
             {{ themeButtonLabel }}
-          </q-tooltip>
-        </q-btn>
-
-        <q-btn
-          v-if="!isCommunityPage"
-          flat
-          dense
-          no-caps
-          icon="today"
-          :label="t('calendar.today')"
-          class="app-today-button"
-          :aria-label="t('calendar.goToToday')"
-          @click="requestToday"
-        >
-          <q-tooltip>
-            {{ t('calendar.goToToday') }}
           </q-tooltip>
         </q-btn>
 
@@ -224,7 +227,7 @@ import { useMeta, useQuasar } from 'quasar';
 import { useRoute } from 'vue-router';
 import { setAppLanguage } from 'src/boot/i18n';
 import { setAppDarkMode } from 'src/boot/theme';
-import { useTodayNavigation } from 'src/composables/useTodayNavigation';
+import CommunityFloatingButton from 'src/components/CommunityFloatingButton.vue';
 import HolidayCountrySelector from 'src/components/HolidayCountrySelector.vue';
 import {
   interfaceLanguages,
@@ -269,8 +272,6 @@ const orderedLanguages = computed(() => [
 /* ===========================================================
    SERVIÇOS COMPARTILHADOS DA INTERFACE
 =========================================================== */
-
-const { requestToday } = useTodayNavigation();
 
 const quasar = useQuasar();
 const route = useRoute();
@@ -466,13 +467,6 @@ async function setDrawerCountryListFits(countryListFits) {
   white-space: nowrap;
 }
 
-.app-today-button {
-  min-height: 34px;
-  padding: 0 12px;
-  color: var(--app-primary-text);
-  border-radius: 10px;
-}
-
 /* Bandeiras exibidas ao lado das opções de idioma. */
 .language-flag {
   font-size: 25px;
@@ -615,15 +609,6 @@ async function setDrawerCountryListFits(countryListFits) {
 
   .app-title {
     font-size: 15px;
-  }
-
-  .app-today-button {
-    min-width: 34px;
-    padding: 0;
-  }
-
-  .app-today-button :deep(.q-btn__content > span) {
-    display: none;
   }
 
 }
