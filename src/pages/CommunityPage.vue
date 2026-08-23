@@ -173,6 +173,18 @@
         <p>{{ t('community.approximateNote') }}</p>
         <small>{{ t('community.dataSource') }}</small>
       </div>
+      <!-- Acesso discreto: a rota continua protegida pelo segredo administrativo. -->
+      <q-btn
+        class="community-privacy__admin"
+        flat
+        round
+        dense
+        icon="admin_panel_settings"
+        :to="{ name: 'community-admin' }"
+        :aria-label="t('community.adminAccess')"
+      >
+        <q-tooltip>{{ t('community.adminAccess') }}</q-tooltip>
+      </q-btn>
     </section>
 
     <!-- Perfis voluntários aparecem somente após moderação. -->
@@ -922,11 +934,12 @@ function readPreferredHolidayCountry() {
 =========================================================== */
 
 .community-privacy {
+  position: relative;
   display: flex;
   align-items: flex-start;
   gap: 16px;
   margin-top: 18px;
-  padding: 22px;
+  padding: 22px 58px 22px 22px;
   color: #059669;
   background: color-mix(in srgb, #10b981 7%, var(--app-surface));
   border: 1px solid color-mix(in srgb, #10b981 24%, var(--app-border));
@@ -952,6 +965,31 @@ function readPreferredHolidayCountry() {
   margin-top: 8px;
   color: var(--app-text-faint);
   font-size: 10px;
+}
+
+.community-privacy__admin {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  color: var(--app-text-faint);
+  opacity: 0.38;
+  transition: color 160ms ease, opacity 160ms ease, background 160ms ease;
+}
+
+.community-privacy__admin:hover,
+.community-privacy__admin:focus-visible {
+  color: #8b5cf6;
+  opacity: 1;
+}
+
+[dir='rtl'] .community-privacy {
+  padding-right: 22px;
+  padding-left: 58px;
+}
+
+[dir='rtl'] .community-privacy__admin {
+  right: auto;
+  left: 14px;
 }
 
 /* ===========================================================
