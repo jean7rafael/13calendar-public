@@ -9,7 +9,8 @@ individuais.
 
 ## Princípio de privacidade
 
-- A interface pública lê apenas `public/data/community-stats.json`.
+- A interface pública lê `GET /analytics/stats` no Worker; o JSON estático é
+  mantido somente como estado de reserva quando o endpoint não está configurado.
 - Nenhuma chave privada da Cloudflare pode ser inserida no navegador.
 - Países e dispositivos aparecem apenas como totais agregados.
 - Não devem ser publicados IPs, cidades, coordenadas, identificadores de página,
@@ -41,10 +42,11 @@ o estado inicial “a comunidade está começando a ser contada”.
 
 ## Publicação do retrato agregado
 
-O Web Analytics disponibiliza os seis meses anteriores. A automação deve salvar
-diariamente somente as datas ainda ausentes no histórico próprio e recalcular os
-totais a partir dessa série persistida. Assim, a passagem da janela da
-Cloudflare não apaga dias antigos nem soma novamente períodos sobrepostos.
+O Worker consulta uma janela recente de 89 dias, dentro do limite retornado pela
+conta atual, e grava os resultados diários no D1 por operações idempotentes.
+Cada nova consulta atualiza os dias ainda presentes na API sem duplicá-los, e o
+agendamento diário preserva os dias antigos depois que saem da janela da
+Cloudflare. Assim, o painel pode crescer por toda a vida do projeto.
 
 O arquivo público segue este contrato:
 
@@ -63,17 +65,17 @@ O arquivo público segue este contrato:
 }
 ```
 
-Uma automação futura deverá consultar a GraphQL Analytics API com um token
-privado de permissão **Account Analytics: Read**, reduzir a resposta a esse
-contrato e publicar somente o JSON final. Os segredos esperados serão:
+Essa redução já ocorre no Worker. A credencial privada possui somente a
+permissão **Account Analytics: Read**, e o navegador nunca a recebe. A
+configuração usa:
 
-- `CLOUDFLARE_ANALYTICS_API_TOKEN` — privado, somente na automação;
+- `CLOUDFLARE_ANALYTICS_API_TOKEN` — secret criptografada no Worker;
 - `CLOUDFLARE_ACCOUNT_ID` — conta do Web Analytics;
-- identificador do site disponibilizado pela Cloudflare.
+- `CLOUDFLARE_ANALYTICS_HOST` — hostname público agregado.
 
-A coleta pública já pode receber visitas. A consulta automática só será ativada
-depois da criação da credencial privada e da confirmação do conjunto de dados
-disponível na conta. Até o primeiro retrato real ser gerado, `status` permanece
+A rota pública é atualizada no máximo a cada cinco minutos e a tarefa agendada
+roda diariamente às `01:30 UTC`. Se a consulta externa falhar, o Worker entrega
+o último retrato preservado. Antes do primeiro retrato real, `status` permanece
 como `awaiting_configuration` e não há números fictícios.
 
 ## Cadastro voluntário
@@ -85,9 +87,11 @@ Worker separado, que valida o Turnstile no servidor, grava o pedido no D1 como
 de emissão também são conferidos; cada token vale para uma única tentativa.
 
 O endereço do Worker e a chave pública ficam na compilação. A chave secreta do
-Turnstile e o token administrativo permanecem criptografados no Worker. Ainda é
-necessário criar a interface de moderação e remoção. Entradas pendentes, tokens
-e credenciais nunca fazem parte do GitHub Pages.
+Turnstile e o token administrativo permanecem criptografados no Worker. A rota
+oculta `#/community-admin` lista os pedidos pendentes e permite aprovar ou
+recusar cada um; o segredo fica somente na sessão da aba. A página comunitária
+consulta `GET /members` e exibe apenas os perfis aprovados. Entradas pendentes,
+tokens e credenciais nunca fazem parte do GitHub Pages.
 
 ## Fontes técnicas oficiais
 

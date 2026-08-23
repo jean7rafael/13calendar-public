@@ -9,14 +9,22 @@
 	"observability": {
 		"enabled": true
 	},
+	"triggers": {
+		"crons": [
+			"30 1 * * *"
+		]
+	},
 	"vars": {
 		"ALLOWED_ORIGINS": "https://jean7rafael.github.io,http://localhost:9000",
+		"CLOUDFLARE_ACCOUNT_ID": "709c42e19af23594cb523ac2795643ee",
+		"CLOUDFLARE_ANALYTICS_HOST": "jean7rafael.github.io",
 		"TURNSTILE_EXPECTED_ACTION": "community_registration",
 		"TURNSTILE_HOSTNAMES": "jean7rafael.github.io"
 	},
 	"secrets": {
 		"required": [
 			"ADMIN_API_TOKEN",
+			"CLOUDFLARE_ANALYTICS_API_TOKEN",
 			"TURNSTILE_SECRET_KEY"
 		]
 	},

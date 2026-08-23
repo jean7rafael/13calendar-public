@@ -32,6 +32,9 @@ yarn-error.log*
 # local .env files
 .env.local*
 
+# Segredo local para abrir a tela de moderação; nunca publicar.
+/cloudflare/community-registration-worker/.admin-token.local
+
 # Arquivos temporários da tradução gratuita pelo navegador
 /manual-holiday-translations/
 

@@ -19,6 +19,11 @@ const routes: RouteRecordRaw[] = [
         name: 'community',
         component: () => import('pages/CommunityPage.vue'),
       },
+      {
+        path: 'community-admin',
+        name: 'community-admin',
+        component: () => import('pages/CommunityAdminPage.vue'),
+      },
     ],
   },
 

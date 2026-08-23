@@ -175,6 +175,39 @@
       </div>
     </section>
 
+    <!-- Perfis voluntários aparecem somente após moderação. -->
+    <section class="community-members" :aria-labelledby="membersTitleId">
+      <header class="community-members__heading">
+        <p>{{ t('community.membersEyebrow') }}</p>
+        <h2 :id="membersTitleId">{{ t('community.membersTitle') }}</h2>
+        <span>{{ t('community.membersDescription') }}</span>
+      </header>
+
+      <div v-if="approvedMembers.length" class="community-members__grid">
+        <a
+          v-for="member in approvedMembers"
+          :key="`${member.socialNetwork}:${member.socialProfile}`"
+          class="community-member"
+          :href="getMemberProfileUrl(member)"
+          target="_blank"
+          rel="noopener noreferrer"
+          :aria-label="t('community.memberProfile', { name: member.publicName })"
+        >
+          <span class="community-member__avatar" aria-hidden="true">
+            {{ getMemberInitial(member.publicName) }}
+          </span>
+          <span class="community-member__identity">
+            <strong>{{ member.publicName }}</strong>
+            <small>{{ getMemberProfileLabel(member) }}</small>
+          </span>
+          <span class="community-member__country" :title="getCountryName(member.country)">
+            {{ getCountryFlag(member.country) }}
+          </span>
+        </a>
+      </div>
+      <p v-else class="community-members__empty">{{ t('community.membersEmpty') }}</p>
+    </section>
+
     <!-- Cadastro voluntário separado visualmente do painel e do rodapé. -->
     <CommunityRegistration />
 
@@ -189,6 +222,7 @@ import { useI18n } from 'vue-i18n';
 import { useMeta } from 'quasar';
 import CommunityRegistration from 'src/components/CommunityRegistration.vue';
 import AppFooter from 'src/components/AppFooter.vue';
+import { getCommunityApiUrl } from 'src/services/communityApi';
 
 /* ===========================================================
    ESTADO DOS DADOS AGREGADOS
@@ -207,8 +241,10 @@ const EMPTY_DATA = {
 };
 
 const communityData = ref(EMPTY_DATA);
+const approvedMembers = ref([]);
 const loadFailed = ref(false);
 const selectedScope = ref('world');
+const membersTitleId = 'community-members-title';
 
 const { t, locale } = useI18n({ useScope: 'global' });
 const preferredHolidayCountry = readPreferredHolidayCountry();
@@ -223,8 +259,13 @@ useMeta(() => ({ title: t('community.browserTitle') }));
 =========================================================== */
 
 onMounted(async () => {
+  await Promise.all([loadCommunityAnalytics(), loadApprovedMembers()]);
+});
+
+async function loadCommunityAnalytics() {
   try {
-    const response = await fetch(`${import.meta.env.BASE_URL}data/community-stats.json`, {
+    const liveEndpoint = getCommunityApiUrl('analytics/stats');
+    const response = await fetch(liveEndpoint || `${import.meta.env.BASE_URL}data/community-stats.json`, {
       cache: 'no-store',
     });
 
@@ -239,7 +280,24 @@ onMounted(async () => {
   } catch {
     loadFailed.value = true;
   }
-});
+}
+
+async function loadApprovedMembers() {
+  const endpoint = getCommunityApiUrl('members');
+
+  if (!endpoint) return;
+
+  try {
+    const response = await fetch(endpoint, { cache: 'no-store' });
+
+    if (!response.ok) return;
+
+    const payload = await response.json();
+    approvedMembers.value = Array.isArray(payload?.members) ? payload.members : [];
+  } catch {
+    // O painel de estatísticas continua funcional se a lista estiver indisponível.
+  }
+}
 
 const isReady = computed(() => communityData.value.status === 'ready');
 
@@ -447,6 +505,10 @@ function getCountryName(code) {
 }
 
 function getCountryFlag(code) {
+  if (!/^[A-Z]{2}$/.test(String(code || '').toUpperCase())) {
+    return '🌐';
+  }
+
   return String(code)
     .toUpperCase()
     .replace(/[A-Z]/g, (letter) => String.fromCodePoint(127397 + letter.charCodeAt(0)));
@@ -458,6 +520,34 @@ function getPageLabel(path) {
   }
 
   return String(path).replace(/^\/?#?\/?/, '/');
+}
+
+function getMemberInitial(name) {
+  return Array.from(String(name || '').trim())[0]?.toUpperCase() || '•';
+}
+
+function getMemberProfileLabel(member) {
+  return `${member.socialNetwork} · ${member.socialProfile}`;
+}
+
+function getMemberProfileUrl(member) {
+  const profile = String(member?.socialProfile || '').trim();
+
+  if (/^https:\/\//i.test(profile)) {
+    return profile;
+  }
+
+  const username = profile.replace(/^@/, '').replace(/^\/+|\/+$/g, '');
+
+  if (member?.socialNetwork === 'instagram') {
+    return `https://www.instagram.com/${encodeURIComponent(username)}/`;
+  }
+
+  if (member?.socialNetwork === 'facebook') {
+    return `https://www.facebook.com/${encodeURIComponent(username)}`;
+  }
+
+  return '#';
 }
 
 function readPreferredHolidayCountry() {
@@ -863,6 +953,106 @@ function readPreferredHolidayCountry() {
   color: var(--app-text-faint);
   font-size: 10px;
 }
+
+/* ===========================================================
+   PERFIS PÚBLICOS APROVADOS
+=========================================================== */
+
+.community-members {
+  margin-top: 28px;
+  padding: clamp(24px, 5vw, 42px);
+  background: color-mix(in srgb, var(--app-surface) 92%, transparent);
+  border: 1px solid var(--app-border);
+  border-radius: 20px;
+  box-shadow: var(--app-card-shadow);
+}
+
+.community-members__heading {
+  max-width: 680px;
+  margin: 0 auto 28px;
+  text-align: center;
+}
+
+.community-members__heading p {
+  margin: 0 0 8px;
+  color: #8b5cf6;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.community-members__heading h2 {
+  margin: 0;
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.community-members__heading span {
+  display: block;
+  margin-top: 10px;
+  color: var(--app-text-muted);
+  line-height: 1.55;
+}
+
+.community-members__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+.community-member {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 15px;
+  color: var(--app-text);
+  background: color-mix(in srgb, #8b5cf6 5%, var(--app-surface));
+  border: 1px solid var(--app-border);
+  border-radius: 15px;
+  text-decoration: none;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.community-member:hover,
+.community-member:focus-visible {
+  background: color-mix(in srgb, #8b5cf6 10%, var(--app-surface));
+  border-color: color-mix(in srgb, #8b5cf6 42%, var(--app-border));
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.community-member__avatar {
+  width: 42px;
+  height: 42px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: white;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  border-radius: 50%;
+  font-weight: 800;
+}
+
+.community-member__identity {
+  min-width: 0;
+  flex: 1;
+}
+
+.community-member__identity strong,
+.community-member__identity small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.community-member__identity strong { font-size: 13px; }
+.community-member__identity small { margin-top: 3px; color: var(--app-text-muted); font-size: 11px; }
+.community-member__country { flex: none; font-size: 21px; }
+.community-members__empty { margin: 0; color: var(--app-text-faint); text-align: center; }
 
 @media (max-width: 760px) {
   .community-page {

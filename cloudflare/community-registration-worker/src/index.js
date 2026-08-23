@@ -10,6 +10,11 @@ const MAXIMUM_TURNSTILE_TOKEN_LENGTH = 2_048;
 const ALLOWED_SOCIAL_NETWORKS = new Set(['instagram', 'facebook', 'other']);
 const ALLOWED_STATUSES = new Set(['approved', 'rejected']);
 
+import {
+  refreshAndReadCommunityAnalytics,
+  refreshCommunityAnalytics,
+} from './analytics.js';
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '';
@@ -34,6 +39,14 @@ export default {
         return await listApprovedMembers(env, corsHeaders);
       }
 
+      if (request.method === 'GET' && url.pathname === '/analytics/stats') {
+        const analytics = await refreshAndReadCommunityAnalytics(env);
+
+        return jsonResponse(analytics, 200, corsHeaders, {
+          'Cache-Control': 'public, max-age=300',
+        });
+      }
+
       if (request.method === 'GET' && url.pathname === '/admin/registrations') {
         return await listPendingRegistrations(request, env, corsHeaders);
       }
@@ -47,6 +60,11 @@ export default {
       console.error('Community registration error', error);
       return jsonResponse({ error: 'internal_error' }, 500, corsHeaders);
     }
+  },
+
+  /* A atualização diária mantém um histórico maior que a janela da API. */
+  async scheduled(_controller, env, context) {
+    context.waitUntil(refreshCommunityAnalytics(env));
   },
 };
 

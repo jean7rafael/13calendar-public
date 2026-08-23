@@ -12,6 +12,7 @@ import hiIN from './hi-IN';
 import koKR from './ko-KR';
 import { communityMessages } from './community';
 import { communityRegistrationMessages } from './communityRegistration';
+import { communityOperationsMessages } from './communityOperations';
 
 /* ===========================================================
    REGISTRO DOS CATÁLOGOS DE TRADUÇÃO DA INTERFACE
@@ -40,6 +41,7 @@ Object.entries(messages).forEach(([locale, catalog]) => {
   catalog.community = {
     ...communityMessages[locale],
     ...communityRegistrationMessages[locale],
+    ...communityOperationsMessages[locale],
   };
 });
 
