@@ -78,12 +78,16 @@ como `awaiting_configuration` e não há números fictícios.
 
 ## Cadastro voluntário
 
-Uma futura área de participação poderá publicar nome e Instagram ou Facebook
-somente com consentimento explícito. Como o GitHub Pages não grava dados, o
-formulário deverá usar um Worker separado, banco D1, Turnstile validado no
-servidor e moderação antes da exibição. Também deverá existir um meio de remover
-o cadastro. Entradas pendentes, tokens e credenciais nunca farão parte deste
-repositório público.
+A área de participação recebe nome público e Instagram, Facebook ou outra rede
+somente com consentimento explícito. O GitHub Pages envia a inscrição para um
+Worker separado, que valida o Turnstile no servidor, grava o pedido no D1 como
+`pending` e publica somente registros aprovados. A ação do widget e o hostname
+de emissão também são conferidos; cada token vale para uma única tentativa.
+
+O endereço do Worker e a chave pública ficam na compilação. A chave secreta do
+Turnstile e o token administrativo permanecem criptografados no Worker. Ainda é
+necessário criar a interface de moderação e remoção. Entradas pendentes, tokens
+e credenciais nunca fazem parte do GitHub Pages.
 
 ## Fontes técnicas oficiais
 

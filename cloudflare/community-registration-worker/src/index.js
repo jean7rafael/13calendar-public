@@ -6,6 +6,7 @@
 =========================================================== */
 
 const MAXIMUM_BODY_BYTES = 12_000;
+const MAXIMUM_TURNSTILE_TOKEN_LENGTH = 2_048;
 const ALLOWED_SOCIAL_NETWORKS = new Set(['instagram', 'facebook', 'other']);
 const ALLOWED_STATUSES = new Set(['approved', 'rejected']);
 
@@ -71,6 +72,8 @@ async function createRegistration(request, env, corsHeaders) {
     payload.turnstileToken,
     env.TURNSTILE_SECRET_KEY,
     request.headers.get('CF-Connecting-IP'),
+    env.TURNSTILE_EXPECTED_ACTION,
+    env.TURNSTILE_HOSTNAMES,
   );
 
   if (!turnstileIsValid) {
@@ -206,27 +209,56 @@ function normalizeText(value, maximumLength) {
     .slice(0, maximumLength);
 }
 
-async function verifyTurnstile(token, secret, remoteIp) {
-  if (!token || !secret) {
+async function verifyTurnstile(token, secret, remoteIp, expectedAction, allowedHostnamesValue) {
+  const normalizedToken = typeof token === 'string' ? token.trim() : '';
+  const allowedHostnames = new Set(
+    String(allowedHostnamesValue || '')
+      .split(',')
+      .map((hostname) => hostname.trim().toLowerCase())
+      .filter(Boolean),
+  );
+
+  if (
+    !normalizedToken ||
+    normalizedToken.length > MAXIMUM_TURNSTILE_TOKEN_LENGTH ||
+    !secret ||
+    !expectedAction ||
+    allowedHostnames.size === 0
+  ) {
     return false;
   }
 
-  const verificationResponse = await fetch(
-    'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        secret,
-        response: token,
-        remoteip: remoteIp || undefined,
-        idempotency_key: crypto.randomUUID(),
-      }),
-    },
-  );
+  try {
+    const verificationResponse = await fetch(
+      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        signal: AbortSignal.timeout(10_000),
+        body: new URLSearchParams({
+          secret,
+          response: normalizedToken,
+          remoteip: remoteIp || '',
+          idempotency_key: crypto.randomUUID(),
+        }),
+      },
+    );
 
-  const verification = await verificationResponse.json();
-  return verification.success === true;
+    if (!verificationResponse.ok) {
+      return false;
+    }
+
+    const verification = await verificationResponse.json();
+
+    return (
+      verification.success === true &&
+      verification.action === expectedAction &&
+      allowedHostnames.has(String(verification.hostname || '').toLowerCase())
+    );
+  } catch {
+    // Falhas de rede, timeout e respostas inválidas são recusadas com segurança.
+    return false;
+  }
 }
 
 async function isAuthorizedAdministrator(request, expectedToken) {

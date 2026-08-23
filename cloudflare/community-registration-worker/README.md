@@ -20,6 +20,11 @@ registro entra como `pending` e precisa ser aprovado antes de aparecer.
 8. Coloque somente a chave pública do Turnstile em
    `VITE_TURNSTILE_SITE_KEY`.
 
+O widget usa a ação `community_registration`. O Worker exige essa mesma ação e
+aceita tokens emitidos somente para `jean7rafael.github.io`, conforme as
+variáveis não secretas de `wrangler.jsonc`. Tokens são de uso único e o
+formulário renova o desafio depois de cada tentativa de envio.
+
 Nenhuma das duas chaves secretas deve entrar em `.env`, `wrangler.jsonc`, GitHub
 ou no código do navegador.
 

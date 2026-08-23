@@ -2,7 +2,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "13calendar-community-registration",
 	"main": "src/index.js",
-	"compatibility_date": "2026-08-22",
+	"compatibility_date": "2026-08-23",
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
@@ -10,7 +10,15 @@
 		"enabled": true
 	},
 	"vars": {
-		"ALLOWED_ORIGINS": "https://jean7rafael.github.io,http://localhost:9000"
+		"ALLOWED_ORIGINS": "https://jean7rafael.github.io,http://localhost:9000",
+		"TURNSTILE_EXPECTED_ACTION": "community_registration",
+		"TURNSTILE_HOSTNAMES": "jean7rafael.github.io"
+	},
+	"secrets": {
+		"required": [
+			"ADMIN_API_TOKEN",
+			"TURNSTILE_SECRET_KEY"
+		]
 	},
 	"d1_databases": [
 		{

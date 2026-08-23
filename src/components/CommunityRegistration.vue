@@ -112,6 +112,7 @@ const registrationEndpoint = String(
   import.meta.env.VITE_COMMUNITY_REGISTRATION_URL || '',
 ).trim();
 const turnstileSiteKey = String(import.meta.env.VITE_TURNSTILE_SITE_KEY || '').trim();
+const turnstileAction = 'community_registration';
 const turnstileContainer = ref(null);
 const turnstileToken = ref('');
 let turnstileWidgetId = null;
@@ -121,7 +122,9 @@ const canSubmit = computed(
     Boolean(publicName.value.trim()) &&
     Boolean(socialProfile.value.trim()) &&
     consent.value &&
-    (!turnstileSiteKey || Boolean(turnstileToken.value)),
+    Boolean(registrationEndpoint) &&
+    Boolean(turnstileSiteKey) &&
+    Boolean(turnstileToken.value),
 );
 
 function loadTurnstileScript() {
@@ -161,6 +164,7 @@ async function mountTurnstile() {
 
     turnstileWidgetId = window.turnstile.render(turnstileContainer.value, {
       sitekey: turnstileSiteKey,
+      action: turnstileAction,
       theme: 'auto',
       callback: (token) => {
         turnstileToken.value = token;
@@ -225,14 +229,22 @@ async function submitRegistration() {
     submissionState.value = 'success';
     submissionMessage.value = t('community.submitSuccess');
 
-    if (window.turnstile && turnstileWidgetId !== null) {
-      window.turnstile.reset(turnstileWidgetId);
-      turnstileToken.value = '';
-    }
   } catch {
     submissionState.value = 'error';
     submissionMessage.value = t('community.submitError');
+  } finally {
+    resetTurnstile();
   }
+}
+
+/* Cada token é válido para um único envio. O widget é renovado
+   tanto após sucesso quanto após erro para permitir uma nova tentativa. */
+function resetTurnstile() {
+  if (window.turnstile && turnstileWidgetId !== null) {
+    window.turnstile.reset(turnstileWidgetId);
+  }
+
+  turnstileToken.value = '';
 }
 
 function readPreferredHolidayCountry() {
