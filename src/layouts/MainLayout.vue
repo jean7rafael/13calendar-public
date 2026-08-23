@@ -166,7 +166,7 @@
         <!-- A seleção de feriados pertence somente ao conversor.
              A página comunitária mantém o menu enxuto da página
              institucional, limitado à escolha do idioma. -->
-        <template v-if="!isCommunityPage">
+        <template v-if="!usesLanguageOnlyDrawer">
           <!-- Respiro final da lista de idiomas. Ele só alcança a
                área fixa depois que o último idioma passa por ela. -->
           <div class="drawer-language-spacer" aria-hidden="true"></div>
@@ -281,9 +281,19 @@ const { t, locale } = useI18n({
 });
 
 const isCommunityPage = computed(() => route.name === 'community');
-const toolbarTitle = computed(() =>
-  isCommunityPage.value ? t('community.headerTitle') : t('app.title'),
+const isCommunityAdminPage = computed(() => route.name === 'community-admin');
+
+/* A comunidade e a moderação compartilham a gaveta enxuta.
+   Somente o conversor oferece a escolha de feriados. */
+const usesLanguageOnlyDrawer = computed(
+  () => isCommunityPage.value || isCommunityAdminPage.value,
 );
+
+const toolbarTitle = computed(() => {
+  if (isCommunityAdminPage.value) return t('community.adminTitle');
+  if (isCommunityPage.value) return t('community.headerTitle');
+  return t('app.title');
+});
 
 /* ===========================================================
    TÍTULO LOCALIZADO DA ABA DO NAVEGADOR
@@ -373,7 +383,7 @@ function changeLanguage(language: AppLocale) {
   setAppLanguage(language);
   leftDrawerOpen.value = false;
 
-  if (!isCommunityPage.value) {
+  if (!usesLanguageOnlyDrawer.value) {
     holidayCountryDialogOpen.value = true;
   }
 }
