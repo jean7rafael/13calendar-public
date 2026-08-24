@@ -54,7 +54,7 @@
     </section>
 
     <div class="community-dashboard">
-      <!-- Mapa de calor diário. -->
+      <!-- Gráfico diário com escala adaptada ao trecho visível. -->
       <section class="community-panel community-panel--activity">
         <header class="community-panel__header">
           <div>
@@ -64,22 +64,40 @@
           <span v-if="updatedAtLabel" class="community-updated">{{ updatedAtLabel }}</span>
         </header>
 
-        <div class="community-heatmap-shell" dir="ltr">
-          <div class="community-heatmap" role="img" :aria-label="t('community.activityTitle')">
+        <div
+          ref="activityBarViewport"
+          class="community-activity-chart-shell"
+          dir="ltr"
+          @scroll.passive="updateActivityBarViewport"
+        >
+          <div class="community-activity-chart" role="img" :aria-label="t('community.activityTitle')">
             <span
               v-for="cell in activityCells"
               :key="cell.date"
-              class="community-heatmap__cell"
-              :class="`community-heatmap__cell--level-${cell.level}`"
+              class="community-activity-bar"
               :title="`${formatDate(cell.date)} · ${formatVisits(cell.visits)}`"
-            ></span>
+            >
+              <span class="community-activity-bar__plot">
+                <i
+                  class="community-activity-bar__fill"
+                  :class="`community-activity-bar__fill--level-${cell.level}`"
+                  :style="activityBarStyle(cell)"
+                ></i>
+              </span>
+              <time :datetime="cell.date" class="community-activity-bar__day">
+                {{ formatActivityDay(cell.date) }}
+              </time>
+              <small class="community-activity-bar__month">
+                {{ formatActivityMonthStart(cell.date) }}
+              </small>
+            </span>
           </div>
+        </div>
 
-          <div class="community-heatmap-legend">
-            <span>{{ t('community.less') }}</span>
-            <i v-for="level in 5" :key="level" :class="`community-heatmap__cell--level-${level - 1}`"></i>
-            <span>{{ t('community.more') }}</span>
-          </div>
+        <div class="community-activity-legend">
+          <span>{{ t('community.less') }}</span>
+          <i v-for="level in 5" :key="level" :class="`community-activity-bar__fill--level-${level - 1}`"></i>
+          <span>{{ t('community.more') }}</span>
         </div>
       </section>
 
@@ -242,7 +260,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useMeta } from 'quasar';
 import CommunityRegistration from 'src/components/CommunityRegistration.vue';
@@ -269,7 +287,11 @@ const communityData = ref(EMPTY_DATA);
 const approvedMembers = ref([]);
 const loadFailed = ref(false);
 const selectedScope = ref('world');
+const activityBarViewport = ref(null);
+const visibleActivityRange = ref({ start: 0, end: 1 });
 const membersTitleId = 'community-members-title';
+let activityResizeObserver = null;
+let activityScrollFrame = 0;
 
 const { t, locale } = useI18n({ useScope: 'global' });
 const preferredHolidayCountry = readPreferredHolidayCountry();
@@ -285,6 +307,16 @@ useMeta(() => ({ title: t('community.browserTitle') }));
 
 onMounted(async () => {
   await Promise.all([loadCommunityAnalytics(), loadApprovedMembers()]);
+  await nextTick();
+  setupActivityBarChart();
+});
+
+onBeforeUnmount(() => {
+  activityResizeObserver?.disconnect();
+
+  if (activityScrollFrame) {
+    window.cancelAnimationFrame(activityScrollFrame);
+  }
 });
 
 async function loadCommunityAnalytics() {
@@ -432,7 +464,11 @@ const updatedAtLabel = computed(() => {
 });
 
 /* ===========================================================
-   MAPA DE CALOR DOS ÚLTIMOS SEIS MESES
+   GRÁFICO DE BARRAS DOS ÚLTIMOS SEIS MESES
+
+   A cor compara cada dia com o período inteiro. A altura usa
+   somente o maior valor atualmente visível, preservando a
+   leitura de períodos com movimentos muito diferentes.
 =========================================================== */
 
 const activityCells = computed(() => {
@@ -457,6 +493,79 @@ const activityCells = computed(() => {
     };
   });
 });
+
+const visibleActivityMaximum = computed(() => {
+  const { start, end } = visibleActivityRange.value;
+
+  return Math.max(
+    1,
+    ...activityCells.value.slice(start, end).map(({ visits }) => Number(visits) || 0),
+  );
+});
+
+function setupActivityBarChart() {
+  const viewport = activityBarViewport.value;
+
+  if (!viewport) return;
+
+  activityResizeObserver = new ResizeObserver(updateActivityBarViewport);
+  activityResizeObserver.observe(viewport);
+
+  window.requestAnimationFrame(() => {
+    viewport.scrollLeft = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    updateActivityBarViewport();
+  });
+}
+
+function updateActivityBarViewport() {
+  if (activityScrollFrame) return;
+
+  activityScrollFrame = window.requestAnimationFrame(() => {
+    activityScrollFrame = 0;
+    const viewport = activityBarViewport.value;
+
+    if (!viewport) return;
+
+    const bars = Array.from(viewport.querySelectorAll('.community-activity-bar'));
+    const viewportRect = viewport.getBoundingClientRect();
+    let start = bars.findIndex((bar) => bar.getBoundingClientRect().right > viewportRect.left);
+
+    if (start < 0) start = Math.max(0, bars.length - 1);
+
+    let end = start;
+
+    while (end < bars.length && bars[end].getBoundingClientRect().left < viewportRect.right) {
+      end += 1;
+    }
+
+    visibleActivityRange.value = { start, end: Math.max(start + 1, end) };
+  });
+}
+
+function activityBarStyle(cell) {
+  if (!cell.visits) {
+    return { '--activity-bar-height': '3px' };
+  }
+
+  const percentage = Math.min(
+    100,
+    Math.max(8, (cell.visits / visibleActivityMaximum.value) * 100),
+  );
+  return { '--activity-bar-height': `${percentage}%` };
+}
+
+function formatActivityDay(value) {
+  const date = parseDay(value);
+  return date ? new Intl.DateTimeFormat(locale.value, { day: '2-digit' }).format(date) : '';
+}
+
+function formatActivityMonthStart(value) {
+  const date = parseDay(value);
+
+  if (!date || date.getUTCDate() !== 1) return '';
+
+  return new Intl.DateTimeFormat(locale.value, { month: 'short' }).format(date);
+}
 
 /* ===========================================================
    RANKINGS E LISTAS SECUNDÁRIAS
@@ -824,43 +933,100 @@ function readPreferredHolidayCountry() {
   font-size: 10px;
 }
 
-.community-heatmap-shell {
+.community-activity-chart-shell {
+  max-width: 100%;
   overflow-x: auto;
-  padding: 4px 1px 1px;
+  padding: 4px 1px 8px;
+  overscroll-behavior-inline: contain;
+  scrollbar-color: color-mix(in srgb, #8b5cf6 48%, transparent) transparent;
+  scrollbar-width: thin;
 }
 
-.community-heatmap {
-  width: max-content;
+.community-activity-chart-shell::-webkit-scrollbar {
+  height: 5px;
+}
+
+.community-activity-chart-shell::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, #8b5cf6 48%, transparent);
+  border-radius: 999px;
+}
+
+.community-activity-chart {
+  --activity-chart-height: clamp(140px, 22vw, 220px);
+  min-width: max-content;
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  padding: 0 2px;
+}
+
+.community-activity-bar {
+  width: 24px;
+  flex: 0 0 24px;
   display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(7, 11px);
-  gap: 4px;
-  margin-inline: auto;
+  grid-template-rows: var(--activity-chart-height) 15px 12px;
+  align-items: end;
+  text-align: center;
 }
 
-.community-heatmap__cell,
-.community-heatmap-legend i {
+.community-activity-bar__plot {
+  width: 100%;
+  height: var(--activity-chart-height);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-bottom: 1px solid color-mix(in srgb, var(--app-border) 72%, transparent);
+}
+
+.community-activity-bar__fill {
+  width: 13px;
+  height: var(--activity-bar-height);
+  display: block;
+  background: color-mix(in srgb, var(--app-text) 7%, transparent);
+  border: 1px solid color-mix(in srgb, var(--app-border) 66%, transparent);
+  border-radius: 5px 5px 2px 2px;
+  transition: height 180ms ease, background 180ms ease;
+}
+
+.community-activity-bar__fill--level-1 { background: #c7d2fe !important; }
+.community-activity-bar__fill--level-2 { background: #818cf8 !important; }
+.community-activity-bar__fill--level-3 { background: #6366f1 !important; }
+.community-activity-bar__fill--level-4 { background: #7c3aed !important; }
+
+.community-activity-bar__day,
+.community-activity-bar__month {
+  overflow: hidden;
+  color: var(--app-text-faint);
+  font-size: 9px;
+  line-height: 1;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+.community-activity-bar__month {
+  color: color-mix(in srgb, #8b5cf6 78%, var(--app-text-muted));
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.community-activity-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 8px;
+  color: var(--app-text-faint);
+  font-size: 10px;
+}
+
+.community-activity-legend i {
   width: 11px;
   height: 11px;
   display: block;
   background: color-mix(in srgb, var(--app-text) 7%, transparent);
   border: 1px solid color-mix(in srgb, var(--app-border) 66%, transparent);
   border-radius: 3px;
-}
-
-.community-heatmap__cell--level-1 { background: #c7d2fe !important; }
-.community-heatmap__cell--level-2 { background: #818cf8 !important; }
-.community-heatmap__cell--level-3 { background: #6366f1 !important; }
-.community-heatmap__cell--level-4 { background: #7c3aed !important; }
-
-.community-heatmap-legend {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 4px;
-  margin-top: 12px;
-  color: var(--app-text-faint);
-  font-size: 10px;
 }
 
 .community-ranking {
@@ -1196,6 +1362,15 @@ function readPreferredHolidayCountry() {
 
   .community-panel {
     padding: 18px;
+  }
+
+  .community-panel--activity .community-panel__header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .community-activity-chart {
+    --activity-chart-height: clamp(140px, 38vw, 180px);
   }
 
   .community-ranking__row {
