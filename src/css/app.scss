@@ -161,6 +161,33 @@ body,
 }
 
 /* ===========================================================
+   AÇÃO PRIMÁRIA COMPARTILHADA
+
+   Botões que representam a ação principal de uma tela usam
+   esta mesma pílula, evitando variações visuais entre áreas.
+=========================================================== */
+
+.app-primary-action {
+  min-height: 42px;
+  padding-inline: 22px;
+  color: white !important;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed) !important;
+  border: 1px solid rgb(167 139 250 / 32%);
+  border-radius: 999px;
+  box-shadow: 0 12px 28px rgb(79 70 229 / 20%);
+  font-weight: 700;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.app-primary-action:not(.disabled):hover,
+.app-primary-action:not(.disabled):focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 15px 32px rgb(79 70 229 / 28%);
+}
+
+/* ===========================================================
    MENU, SELETORES E ESTADOS INTERATIVOS
 =========================================================== */
 

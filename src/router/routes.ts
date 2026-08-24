@@ -24,6 +24,11 @@ const routes: RouteRecordRaw[] = [
         name: 'community-admin',
         component: () => import('pages/CommunityAdminPage.vue'),
       },
+      {
+        path: 'privacy',
+        name: 'privacy',
+        component: () => import('pages/PrivacyPage.vue'),
+      },
     ],
   },
 

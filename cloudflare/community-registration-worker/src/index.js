@@ -8,15 +8,22 @@
 const MAXIMUM_BODY_BYTES = 12_000;
 const MAXIMUM_TURNSTILE_TOKEN_LENGTH = 2_048;
 const ALLOWED_SOCIAL_NETWORKS = new Set(['instagram', 'facebook', 'other']);
-const ALLOWED_STATUSES = new Set(['approved', 'rejected']);
+const ALLOWED_STATUSES = new Set(['pending', 'approved', 'rejected']);
+const PENDING_RETENTION_DAYS = 60;
+const REJECTED_RETENTION_DAYS = 30;
 
 import {
   refreshAndReadCommunityAnalytics,
   refreshCommunityAnalytics,
 } from './analytics.js';
+import {
+  connectTelegramNotifications,
+  notifyPendingRegistration,
+  readTelegramNotificationStatus,
+} from './telegram.js';
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, context) {
     const origin = request.headers.get('Origin') || '';
     const corsHeaders = createCorsHeaders(origin, env.ALLOWED_ORIGINS);
 
@@ -32,7 +39,7 @@ export default {
 
     try {
       if (request.method === 'POST' && url.pathname === '/registrations') {
-        return await createRegistration(request, env, corsHeaders);
+        return await createRegistration(request, env, corsHeaders, context);
       }
 
       if (request.method === 'GET' && url.pathname === '/members') {
@@ -48,11 +55,30 @@ export default {
       }
 
       if (request.method === 'GET' && url.pathname === '/admin/registrations') {
-        return await listPendingRegistrations(request, env, corsHeaders);
+        return await listAdminRegistrations(request, env, corsHeaders, url);
       }
 
       if (request.method === 'PATCH' && url.pathname.startsWith('/admin/registrations/')) {
         return await moderateRegistration(request, env, corsHeaders, url.pathname);
+      }
+
+      if (request.method === 'PUT' && url.pathname.startsWith('/admin/registrations/')) {
+        return await updateRegistration(request, env, corsHeaders, url.pathname);
+      }
+
+      if (request.method === 'DELETE' && url.pathname.startsWith('/admin/registrations/')) {
+        return await deleteRegistration(request, env, corsHeaders, url.pathname);
+      }
+
+      if (request.method === 'GET' && url.pathname === '/admin/notifications') {
+        return await readNotificationStatus(request, env, corsHeaders);
+      }
+
+      if (
+        request.method === 'POST' &&
+        url.pathname === '/admin/notifications/telegram/connect'
+      ) {
+        return await connectTelegramForAdministrator(request, env, corsHeaders);
       }
 
       return jsonResponse({ error: 'not_found' }, 404, corsHeaders);
@@ -64,7 +90,12 @@ export default {
 
   /* A atualização diária mantém um histórico maior que a janela da API. */
   async scheduled(_controller, env, context) {
-    context.waitUntil(refreshCommunityAnalytics(env));
+    context.waitUntil(
+      Promise.all([
+        refreshCommunityAnalytics(env),
+        purgeExpiredRegistrations(env),
+      ]),
+    );
   },
 };
 
@@ -72,7 +103,7 @@ export default {
    CRIAÇÃO DE UM CADASTRO PENDENTE
 =========================================================== */
 
-async function createRegistration(request, env, corsHeaders) {
+async function createRegistration(request, env, corsHeaders, context) {
   const contentLength = Number(request.headers.get('Content-Length') || 0);
 
   if (contentLength > MAXIMUM_BODY_BYTES) {
@@ -99,6 +130,17 @@ async function createRegistration(request, env, corsHeaders) {
   }
 
   try {
+    /* Uma recusa não prende o perfil para sempre. A nova manifestação
+       substitui o registro rejeitado e volta a passar pela moderação. */
+    await env.DB.prepare(
+      `DELETE FROM community_registrations
+        WHERE social_network = ?
+          AND social_profile = ?
+          AND status = 'rejected'`,
+    )
+      .bind(registration.socialNetwork, registration.socialProfile)
+      .run();
+
     await env.DB.prepare(
       `INSERT INTO community_registrations (
         id, public_name, social_network, social_profile,
@@ -122,6 +164,18 @@ async function createRegistration(request, env, corsHeaders) {
 
     throw error;
   }
+
+  /* O cadastro já foi salvo: uma falha externa não altera o resultado público. */
+  context.waitUntil(
+    notifyPendingRegistration(env).catch((error) => {
+      console.error(
+        JSON.stringify({
+          message: 'telegram_notification_failed',
+          code: error?.code || 'unknown_error',
+        }),
+      );
+    }),
+  );
 
   return jsonResponse({ status: 'pending' }, 201, corsHeaders);
 }
@@ -151,24 +205,43 @@ async function listApprovedMembers(env, corsHeaders) {
    MODERAÇÃO PROTEGIDA POR SEGREDO ADMINISTRATIVO
 =========================================================== */
 
-async function listPendingRegistrations(request, env, corsHeaders) {
+async function listAdminRegistrations(request, env, corsHeaders, url) {
   if (!(await isAuthorizedAdministrator(request, env.ADMIN_API_TOKEN))) {
     return jsonResponse({ error: 'unauthorized' }, 401, corsHeaders);
   }
 
-  const result = await env.DB.prepare(
+  const requestedStatus = String(url.searchParams.get('status') || 'pending').toLowerCase();
+  const selectedStatus = requestedStatus === 'all' ? null : requestedStatus;
+
+  if (selectedStatus && !ALLOWED_STATUSES.has(selectedStatus)) {
+    return jsonResponse({ error: 'invalid_status' }, 400, corsHeaders);
+  }
+
+  const statusClause = selectedStatus ? 'WHERE status = ?' : '';
+  const statement = env.DB.prepare(
     `SELECT id,
             public_name AS publicName,
             social_network AS socialNetwork,
             social_profile AS socialProfile,
             locale,
             country,
-            created_at AS createdAt
+            status,
+            created_at AS createdAt,
+            reviewed_at AS reviewedAt,
+            updated_at AS updatedAt
        FROM community_registrations
-      WHERE status = 'pending'
-      ORDER BY created_at ASC
+      ${statusClause}
+      ORDER BY CASE status
+                 WHEN 'pending' THEN 0
+                 WHEN 'approved' THEN 1
+                 ELSE 2
+               END,
+               COALESCE(updated_at, reviewed_at, created_at) DESC
       LIMIT 200`,
-  ).all();
+  );
+  const result = selectedStatus
+    ? await statement.bind(selectedStatus).all()
+    : await statement.all();
 
   return jsonResponse({ registrations: result.results || [] }, 200, corsHeaders);
 }
@@ -187,10 +260,10 @@ async function moderateRegistration(request, env, corsHeaders, pathname) {
 
   const result = await env.DB.prepare(
     `UPDATE community_registrations
-        SET status = ?, reviewed_at = ?
-      WHERE id = ? AND status = 'pending'`,
+        SET status = ?, reviewed_at = ?, updated_at = ?
+      WHERE id = ?`,
   )
-    .bind(status, new Date().toISOString(), id)
+    .bind(status, new Date().toISOString(), new Date().toISOString(), id)
     .run();
 
   if (!result.meta?.changes) {
@@ -198,6 +271,140 @@ async function moderateRegistration(request, env, corsHeaders, pathname) {
   }
 
   return jsonResponse({ status }, 200, corsHeaders);
+}
+
+/* ===========================================================
+   CORREÇÃO E EXCLUSÃO ADMINISTRATIVAS
+=========================================================== */
+
+async function updateRegistration(request, env, corsHeaders, pathname) {
+  if (!(await isAuthorizedAdministrator(request, env.ADMIN_API_TOKEN))) {
+    return jsonResponse({ error: 'unauthorized' }, 401, corsHeaders);
+  }
+
+  const id = readRegistrationId(pathname);
+  const registration = normalizeRegistration(await request.json());
+
+  if (!id || !registration) {
+    return jsonResponse({ error: 'invalid_registration' }, 400, corsHeaders);
+  }
+
+  try {
+    const result = await env.DB.prepare(
+      `UPDATE community_registrations
+          SET public_name = ?,
+              social_network = ?,
+              social_profile = ?,
+              locale = ?,
+              country = ?,
+              updated_at = ?
+        WHERE id = ?`,
+    )
+      .bind(
+        registration.publicName,
+        registration.socialNetwork,
+        registration.socialProfile,
+        registration.locale,
+        registration.country,
+        new Date().toISOString(),
+        id,
+      )
+      .run();
+
+    if (!result.meta?.changes) {
+      return jsonResponse({ error: 'registration_not_found' }, 404, corsHeaders);
+    }
+  } catch (error) {
+    if (String(error).includes('UNIQUE constraint failed')) {
+      return jsonResponse({ error: 'already_registered' }, 409, corsHeaders);
+    }
+
+    throw error;
+  }
+
+  return jsonResponse({ status: 'updated' }, 200, corsHeaders);
+}
+
+async function deleteRegistration(request, env, corsHeaders, pathname) {
+  if (!(await isAuthorizedAdministrator(request, env.ADMIN_API_TOKEN))) {
+    return jsonResponse({ error: 'unauthorized' }, 401, corsHeaders);
+  }
+
+  const id = readRegistrationId(pathname);
+
+  if (!id) {
+    return jsonResponse({ error: 'invalid_registration' }, 400, corsHeaders);
+  }
+
+  const result = await env.DB.prepare(
+    'DELETE FROM community_registrations WHERE id = ?',
+  )
+    .bind(id)
+    .run();
+
+  if (!result.meta?.changes) {
+    return jsonResponse({ error: 'registration_not_found' }, 404, corsHeaders);
+  }
+
+  return jsonResponse({ status: 'deleted' }, 200, corsHeaders);
+}
+
+function readRegistrationId(pathname) {
+  return decodeURIComponent(pathname.split('/').pop() || '').trim();
+}
+
+/* A limpeza automática aplica a política publicada sem tocar nos
+   perfis aprovados, que permanecem até a retirada do consentimento. */
+async function purgeExpiredRegistrations(env) {
+  const pendingLimit = new Date(Date.now() - PENDING_RETENTION_DAYS * 86_400_000).toISOString();
+  const rejectedLimit = new Date(Date.now() - REJECTED_RETENTION_DAYS * 86_400_000).toISOString();
+
+  await env.DB.prepare(
+    `DELETE FROM community_registrations
+      WHERE (status = 'pending' AND created_at < ?)
+         OR (status = 'rejected' AND COALESCE(reviewed_at, created_at) < ?)`,
+  )
+    .bind(pendingLimit, rejectedLimit)
+    .run();
+}
+
+/* ===========================================================
+   CONFIGURAÇÃO ADMINISTRATIVA DOS AVISOS
+=========================================================== */
+
+async function readNotificationStatus(request, env, corsHeaders) {
+  if (!(await isAuthorizedAdministrator(request, env.ADMIN_API_TOKEN))) {
+    return jsonResponse({ error: 'unauthorized' }, 401, corsHeaders);
+  }
+
+  const telegram = await readTelegramNotificationStatus(env);
+
+  return jsonResponse({ telegram }, 200, corsHeaders, {
+    'Cache-Control': 'no-store',
+  });
+}
+
+async function connectTelegramForAdministrator(request, env, corsHeaders) {
+  if (!(await isAuthorizedAdministrator(request, env.ADMIN_API_TOKEN))) {
+    return jsonResponse({ error: 'unauthorized' }, 401, corsHeaders);
+  }
+
+  try {
+    const telegram = await connectTelegramNotifications(env);
+    return jsonResponse({ telegram }, 200, corsHeaders);
+  } catch (error) {
+    const errorCode = error?.code || 'telegram_connection_failed';
+    const status = errorCode === 'telegram_chat_not_found' ? 404 : 503;
+
+    console.error(
+      JSON.stringify({
+        message: 'telegram_connection_failed',
+        code: errorCode,
+      }),
+    );
+
+    return jsonResponse({ error: errorCode }, status, corsHeaders);
+  }
 }
 
 /* ===========================================================
@@ -302,7 +509,7 @@ async function isAuthorizedAdministrator(request, expectedToken) {
 function createCorsHeaders(origin, allowedOriginsValue = '') {
   const headers = new Headers({
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, PATCH, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
     Vary: 'Origin',
   });
   const allowedOrigins = String(allowedOriginsValue)

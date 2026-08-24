@@ -22,6 +22,7 @@
           unelevated
           no-caps
           color="primary"
+          class="app-primary-action"
           type="submit"
           icon="login"
           :loading="isLoading"
@@ -31,6 +32,26 @@
       </form>
 
       <template v-else>
+        <!-- A conexão é feita somente após autenticar a moderação. -->
+        <section class="community-admin-notifications">
+          <q-icon name="notifications_active" aria-hidden="true" />
+          <div>
+            <h2>{{ t('community.adminTelegramTitle') }}</h2>
+            <p>{{ t('community.adminTelegramDescription') }}</p>
+            <small>{{ telegramStatusText }}</small>
+          </div>
+          <q-btn
+            v-if="notificationStatus.configured"
+            outline
+            no-caps
+            color="primary"
+            icon="send"
+            :loading="isConnectingTelegram"
+            :label="t('community.adminTelegramConnect')"
+            @click="connectTelegram"
+          />
+        </section>
+
         <div class="community-admin-toolbar">
           <h2>{{ t('community.adminPending') }}</h2>
           <q-btn flat round icon="logout" :aria-label="t('community.adminExit')" @click="signOut">
@@ -81,7 +102,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useMeta } from 'quasar';
 import { getCommunityApiUrl } from 'src/services/communityApi';
@@ -99,9 +120,28 @@ const registrations = ref([]);
 const isAuthorized = ref(false);
 const isLoading = ref(false);
 const moderatingId = ref('');
+const isConnectingTelegram = ref(false);
+const notificationStatus = ref({ configured: null, connected: false, username: '' });
 const message = ref('');
 const hasError = ref(false);
 const { t, locale } = useI18n({ useScope: 'global' });
+const telegramStatusText = computed(() => {
+  if (notificationStatus.value.configured === null) {
+    return t('community.adminTelegramUnavailable');
+  }
+
+  if (!notificationStatus.value.configured) {
+    return t('community.adminTelegramMissing');
+  }
+
+  if (notificationStatus.value.connected) {
+    return t('community.adminTelegramConnected', {
+      username: notificationStatus.value.username || 'jean7rafael',
+    });
+  }
+
+  return t('community.adminTelegramWaiting');
+});
 
 useMeta(() => ({ title: t('community.adminTitle') }));
 
@@ -130,6 +170,7 @@ async function loadPending() {
     registrations.value = Array.isArray(payload?.registrations) ? payload.registrations : [];
     isAuthorized.value = true;
     sessionStorage.setItem(SESSION_KEY, adminToken.value.trim());
+    await loadNotificationStatus();
   } catch {
     isAuthorized.value = false;
     hasError.value = true;
@@ -137,6 +178,70 @@ async function loadPending() {
     sessionStorage.removeItem(SESSION_KEY);
   } finally {
     isLoading.value = false;
+  }
+}
+
+/* ===========================================================
+   CONEXÃO E TESTE DOS AVISOS DO TELEGRAM
+=========================================================== */
+
+async function loadNotificationStatus() {
+  const endpoint = getCommunityApiUrl('admin/notifications');
+
+  if (!endpoint) return;
+
+  try {
+    const response = await fetch(endpoint, {
+      headers: { Authorization: `Bearer ${adminToken.value.trim()}` },
+      cache: 'no-store',
+    });
+
+    if (!response.ok) return;
+
+    const payload = await response.json();
+
+    if (payload?.telegram) {
+      notificationStatus.value = payload.telegram;
+    }
+  } catch {
+    // A moderação permanece utilizável mesmo se o canal estiver indisponível.
+  }
+}
+
+async function connectTelegram() {
+  const endpoint = getCommunityApiUrl('admin/notifications/telegram/connect');
+
+  if (!endpoint) return;
+
+  isConnectingTelegram.value = true;
+  message.value = '';
+
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${adminToken.value.trim()}` },
+    });
+    const payload = await response.json();
+
+    if (!response.ok || !payload?.telegram?.connected) {
+      if (payload?.error === 'telegram_chat_not_found') {
+        throw new Error('telegram_chat_not_found');
+      }
+
+      throw new Error('telegram_connection_failed');
+    }
+
+    notificationStatus.value = payload.telegram;
+    hasError.value = false;
+    message.value = t('community.adminTelegramSuccess');
+  } catch (error) {
+    hasError.value = true;
+    message.value =
+      error?.message === 'telegram_chat_not_found'
+        ? t('community.adminTelegramNotFound')
+        : t('community.adminTelegramError');
+  } finally {
+    isConnectingTelegram.value = false;
   }
 }
 
@@ -172,6 +277,7 @@ function signOut() {
   sessionStorage.removeItem(SESSION_KEY);
   adminToken.value = '';
   registrations.value = [];
+  notificationStatus.value = { configured: null, connected: false, username: '' };
   isAuthorized.value = false;
   message.value = '';
 }
@@ -236,6 +342,22 @@ function formatDate(value) {
 
 .community-admin-toolbar { display: flex; align-items: center; justify-content: space-between; margin-top: 32px; }
 .community-admin-toolbar h2 { margin: 0; font-size: 18px; }
+.community-admin-notifications {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  margin-top: 32px;
+  padding: 16px;
+  color: var(--app-text);
+  background: color-mix(in srgb, #8b5cf6 8%, var(--app-surface));
+  border: 1px solid color-mix(in srgb, #8b5cf6 34%, var(--app-border));
+  border-radius: 15px;
+}
+.community-admin-notifications > .q-icon { color: #8b5cf6; font-size: 28px; }
+.community-admin-notifications h2 { margin: 0; font-size: 16px; }
+.community-admin-notifications p { margin: 4px 0; color: var(--app-text-muted); }
+.community-admin-notifications small { color: var(--app-text-faint); }
 .community-admin-list { display: grid; gap: 12px; margin-top: 16px; }
 
 .community-admin-list article {
@@ -263,6 +385,8 @@ function formatDate(value) {
 @media (max-width: 680px) {
   .community-admin-page { padding: 24px 12px; }
   .community-admin-login { grid-template-columns: 1fr; }
+  .community-admin-notifications { grid-template-columns: auto 1fr; }
+  .community-admin-notifications .q-btn { grid-column: 1 / -1; justify-self: stretch; }
   .community-admin-list article { align-items: stretch; flex-direction: column; }
   .community-admin-actions { justify-content: flex-end; }
 }

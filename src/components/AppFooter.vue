@@ -58,6 +58,9 @@
           >
             {{ $t('footer.sourceCodeLink') }}
           </a>
+          <router-link :to="{ name: 'privacy' }">
+            {{ $t('privacy.footerLink') }}
+          </router-link>
           <a href="https://www.13months.net/" target="_blank" rel="noopener noreferrer">
             13months.net
           </a>

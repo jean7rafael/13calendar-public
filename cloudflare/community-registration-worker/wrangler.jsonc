@@ -15,16 +15,19 @@
 		]
 	},
 	"vars": {
-		"ALLOWED_ORIGINS": "https://jean7rafael.github.io,http://localhost:9000",
+		"ALLOWED_ORIGINS": "https://13calendar.pages.dev,https://13calendar.eu.org,https://jean7rafael.github.io,http://localhost:9000",
 		"CLOUDFLARE_ACCOUNT_ID": "709c42e19af23594cb523ac2795643ee",
-		"CLOUDFLARE_ANALYTICS_HOST": "jean7rafael.github.io",
+		"CLOUDFLARE_ANALYTICS_HOST": "13calendar.pages.dev",
+		"MODERATION_URL": "https://13calendar.pages.dev/#/community-admin",
+		"TELEGRAM_ADMIN_USERNAME": "jean7rafael",
 		"TURNSTILE_EXPECTED_ACTION": "community_registration",
-		"TURNSTILE_HOSTNAMES": "jean7rafael.github.io"
+		"TURNSTILE_HOSTNAMES": "13calendar.pages.dev,13calendar.eu.org,jean7rafael.github.io"
 	},
 	"secrets": {
 		"required": [
 			"ADMIN_API_TOKEN",
 			"CLOUDFLARE_ANALYTICS_API_TOKEN",
+			"TELEGRAM_BOT_TOKEN",
 			"TURNSTILE_SECRET_KEY"
 		]
 	},

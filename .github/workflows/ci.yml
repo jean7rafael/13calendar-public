@@ -1,0 +1,45 @@
+name: Verificação do projeto
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Lint, build e auditorias
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v6
+
+      - name: Preparar o Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências do aplicativo
+        run: npm ci
+
+      - name: Instalar dependências da página adaptada
+        run: npm ci --prefix vendor/13months-site
+
+      - name: Instalar dependências do Worker
+        run: npm ci --prefix cloudflare/community-registration-worker
+
+      - name: Executar a verificação completa
+        run: npm run verify
+
+      - name: Validar o pacote do Worker sem publicar
+        run: npm --prefix cloudflare/community-registration-worker exec -- wrangler deploy --dry-run
+

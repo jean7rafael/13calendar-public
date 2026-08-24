@@ -13,6 +13,7 @@ import koKR from './ko-KR';
 import { communityMessages } from './community';
 import { communityRegistrationMessages } from './communityRegistration';
 import { communityOperationsMessages } from './communityOperations';
+import { privacyMessages } from './privacy';
 
 /* ===========================================================
    REGISTRO DOS CATÁLOGOS DE TRADUÇÃO DA INTERFACE
@@ -43,6 +44,7 @@ Object.entries(messages).forEach(([locale, catalog]) => {
     ...communityRegistrationMessages[locale],
     ...communityOperationsMessages[locale],
   };
+  catalog.privacy = privacyMessages[locale];
 });
 
 export default messages;

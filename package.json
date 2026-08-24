@@ -1,6 +1,6 @@
 {
   "name": "13calendar",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Date conversion, holidays and Moon phases for the Gregorian and International Fixed calendars",
   "productName": "13 Calendar — Date Converter",
   "author": "Jean Rafael Martins <jean7rafael@icloud.com>",
@@ -28,8 +28,11 @@
     "holidays:translate:import": "node scripts/generateHolidayTranslations.mjs --import-manual",
     "holidays:translate:plan": "node scripts/generateHolidayTranslations.mjs --plan",
     "dev": "quasar dev",
-    "prebuild": "npm run holidays:runtime",
+    "prebuild": "npm run holidays:runtime && npm run build:reference",
     "build": "quasar build",
+    "build:reference": "npm --prefix vendor/13months-site run build",
+    "audit:production": "npm audit --omit=dev && npm --prefix vendor/13months-site audit --omit=dev && npm --prefix cloudflare/community-registration-worker audit --omit=dev",
+    "verify": "npm run lint && npm run build && npm run holidays:audit && npm run holidays:weekday:audit && npm run holidays:calendar13:audit && npm run holidays:merge:audit && npm run holidays:emoji:audit && npm run holidays:translation:audit && npm run holidays:official:audit && npm run audit:production",
     "postinstall": "quasar prepare"
   },
   "dependencies": {

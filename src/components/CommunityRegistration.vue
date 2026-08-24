@@ -6,7 +6,11 @@
       <span>{{ t('community.joinDescription') }}</span>
     </div>
 
-    <q-form class="community-registration__form" @submit.prevent="submitRegistration">
+    <q-form
+      ref="registrationForm"
+      class="community-registration__form"
+      @submit.prevent="submitRegistration"
+    >
       <div class="community-registration__fields">
         <q-input
           v-model.trim="publicName"
@@ -56,7 +60,7 @@
           unelevated
           no-caps
           color="primary"
-          class="community-registration__submit"
+          class="app-primary-action"
           type="submit"
           icon="person_add"
           :loading="submissionState === 'sending'"
@@ -91,6 +95,7 @@ const socialProfile = ref('');
 const consent = ref(false);
 const submissionState = ref('idle');
 const submissionMessage = ref('');
+const registrationForm = ref(null);
 const registrationTitleId = 'community-registration-title';
 
 const { t, locale } = useI18n({ useScope: 'global' });
@@ -226,9 +231,16 @@ async function submitRegistration() {
     publicName.value = '';
     socialProfile.value = '';
     consent.value = false;
+
+    /* O formulário vazio representa um novo cadastro, não uma tentativa
+       inválida. Depois que o Vue aplicar a limpeza, removemos somente o
+       resultado visual da validação anterior. Uma nova tentativa incompleta
+       continua sendo validada normalmente pelo QForm. */
+    await nextTick();
+    registrationForm.value?.resetValidation();
+
     submissionState.value = 'success';
     submissionMessage.value = t('community.submitSuccess');
-
   } catch {
     submissionState.value = 'error';
     submissionMessage.value = t('community.submitError');
@@ -338,26 +350,6 @@ function readPreferredHolidayCountry() {
   margin: 0;
   color: var(--app-text-muted);
   line-height: 1.5;
-}
-
-/* Botão-pílula compartilhando o gradiente das ações da página institucional. */
-.community-registration__submit {
-  min-height: 42px;
-  padding-inline: 22px;
-  background: linear-gradient(135deg, #4f46e5, #7c3aed) !important;
-  border: 1px solid rgb(167 139 250 / 32%);
-  border-radius: 999px;
-  box-shadow: 0 12px 28px rgb(79 70 229 / 20%);
-  font-weight: 700;
-  transition:
-    transform 160ms ease,
-    box-shadow 160ms ease;
-}
-
-.community-registration__submit:not(.disabled):hover,
-.community-registration__submit:not(.disabled):focus-visible {
-  transform: translateY(-1px);
-  box-shadow: 0 15px 32px rgb(79 70 229 / 28%);
 }
 
 .community-registration__actions p {

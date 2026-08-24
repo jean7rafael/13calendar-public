@@ -24,5 +24,9 @@ As dependências transitivas `seroval` e `seroval-plugins` possuem uma
 substituição para a versão corrigida `1.6.2`, sem alteração do código visual.
 
 O repositório original não continha um arquivo de licença no commit registrado
-acima. Antes de redistribuir ou publicar esta cópia modificada, confirme a
-autorização do autor e registre aqui a licença ou permissão correspondente.
+acima. Esta adaptação substancial integra a experiência pública de demonstração,
+mas permanece expressamente fora da licença MIT do código original do 13
+Calendar. A autorização e a colaboração foram solicitadas ao autor em
+<https://github.com/Andree37/13-months/issues/2>. Qualquer pedido de atribuição,
+ajuste visual, licenciamento diferente ou retirada será aplicado e registrado
+neste arquivo.
