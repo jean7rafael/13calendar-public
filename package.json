@@ -31,8 +31,9 @@
     "prebuild": "npm run holidays:runtime && npm run build:reference",
     "build": "quasar build",
     "build:reference": "npm --prefix vendor/13months-site run build",
+    "audit:bundle": "node scripts/auditProductionBundle.mjs",
     "audit:production": "npm audit --omit=dev && npm --prefix vendor/13months-site audit --omit=dev && npm --prefix cloudflare/community-registration-worker audit --omit=dev",
-    "verify": "npm run lint && npm run build && npm run holidays:audit && npm run holidays:weekday:audit && npm run holidays:calendar13:audit && npm run holidays:merge:audit && npm run holidays:emoji:audit && npm run holidays:translation:audit && npm run holidays:official:audit && npm run audit:production",
+    "verify": "npm run lint && npm run build && npm run audit:bundle && npm run holidays:audit && npm run holidays:weekday:audit && npm run holidays:calendar13:audit && npm run holidays:merge:audit && npm run holidays:emoji:audit && npm run holidays:translation:audit && npm run holidays:official:audit && npm run audit:production",
     "postinstall": "quasar prepare"
   },
   "dependencies": {

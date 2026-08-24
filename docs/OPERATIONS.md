@@ -61,6 +61,8 @@ Worker aplica essa política e preserva os resumos agregados de visita no D1.
 ## Rotina de manutenção
 
 - Em cada alteração: verificar a execução verde dos workflows.
+- Em cada build: `npm run audit:bundle` impede regressões grandes e silenciosas
+  no total de JavaScript e CSS. Ele é executado também por `npm run verify`.
 - Mensalmente: conferir Worker, D1, Turnstile e painel comunitário.
 - Em 20 de dezembro e 5 de janeiro: revisar o workflow de fontes oficiais de
   feriados e validar manualmente qualquer candidato antes de publicar.

@@ -406,7 +406,7 @@
   linha sem alterar os outros idiomas nem os textos corridos.
 - A frase que acompanha o número 28 na página incorporada preserva em todos os
   idiomas o sentido de `every month`: em português, `28 dias em todos os
-  meses`. As traduções têm curadoria explícita para não virarem uma média como
+meses`. As traduções têm curadoria explícita para não virarem uma média como
   `28 dias por mês` em futuras regenerações.
 - As frases do Dia Bissexto da página incorporada também têm curadoria nos 12
   idiomas. A linha curta e a descrição sempre informam que ele vem
@@ -728,6 +728,10 @@
   do repositório público. A publicação automática do Cloudflare Pages valida a
   presença das duas credenciais e ignora somente o deploy quando alguma delas
   ainda não estiver configurada, sem imprimir valores sensíveis.
+- O build possui um orçamento automatizado para JavaScript e CSS por meio de
+  `npm run audit:bundle`. A auditoria mede o conjunto bruto e compactado e
+  também o maior chunk, impedindo que o catálogo ou uma dependência volte a
+  aumentar silenciosamente o carregamento.
 - A apresentação em redes sociais passou a usar uma imagem Open Graph própria
   de 1200 × 630 px, comum ao conversor e à página educacional. Twitter Card,
   dimensões, textos alternativos e locale foram explicitados. O contato de
