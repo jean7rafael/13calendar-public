@@ -77,6 +77,18 @@
       >
         {{ submissionMessage }}
       </p>
+
+      <!-- O link completo só existe nesta resposta. O Worker guarda
+           apenas a impressão criptográfica do código privado. -->
+      <section v-if="deletionLink" class="community-registration__deletion">
+        <q-icon name="key" aria-hidden="true" />
+        <div>
+          <strong>{{ t('community.deletionSaveTitle') }}</strong>
+          <p>{{ t('community.deletionSaveDescription') }}</p>
+          <q-input v-model="deletionLink" outlined readonly type="textarea" autogrow :label="t('community.deletionLinkLabel')" />
+          <q-btn flat no-caps icon="content_copy" :label="t('community.copyLink')" @click="copyDeletionLink" />
+        </div>
+      </section>
     </q-form>
   </section>
 </template>
@@ -84,6 +96,7 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 
 /* ===========================================================
    DADOS PÚBLICOS DO CADASTRO VOLUNTÁRIO
@@ -97,8 +110,10 @@ const submissionState = ref('idle');
 const submissionMessage = ref('');
 const registrationForm = ref(null);
 const registrationTitleId = 'community-registration-title';
+const deletionLink = ref('');
 
 const { t, locale } = useI18n({ useScope: 'global' });
+const router = useRouter();
 
 const socialNetworkOptions = computed(() => [
   { label: 'Instagram', value: 'instagram' },
@@ -201,6 +216,7 @@ onBeforeUnmount(() => {
 
 async function submitRegistration() {
   submissionMessage.value = '';
+  deletionLink.value = '';
 
   if (!registrationEndpoint) {
     submissionState.value = 'setup';
@@ -224,9 +240,17 @@ async function submitRegistration() {
       }),
     });
 
-    if (!response.ok) {
+    const payload = await response.json();
+
+    if (!response.ok || !payload?.deletionCode) {
       throw new Error(`HTTP ${response.status}`);
     }
+
+    const removalRoute = router.resolve({
+      name: 'community-remove',
+      query: { code: payload.deletionCode },
+    });
+    deletionLink.value = new URL(removalRoute.href, window.location.href).href;
 
     publicName.value = '';
     socialProfile.value = '';
@@ -246,6 +270,15 @@ async function submitRegistration() {
     submissionMessage.value = t('community.submitError');
   } finally {
     resetTurnstile();
+  }
+}
+
+async function copyDeletionLink() {
+  try {
+    await navigator.clipboard.writeText(deletionLink.value);
+    submissionMessage.value = t('community.copied');
+  } catch {
+    submissionMessage.value = t('community.copyError');
   }
 }
 
@@ -381,6 +414,29 @@ function readPreferredHolidayCountry() {
 .community-registration__message--error {
   color: #dc2626;
   background: rgb(239 68 68 / 10%);
+}
+
+.community-registration__deletion {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px;
+  color: var(--app-text);
+  background: color-mix(in srgb, #8b5cf6 7%, var(--app-surface));
+  border: 1px solid color-mix(in srgb, #8b5cf6 32%, var(--app-border));
+  border-radius: 14px;
+}
+
+.community-registration__deletion > .q-icon {
+  color: #8b5cf6;
+  font-size: 25px;
+}
+
+.community-registration__deletion p {
+  margin: 4px 0 12px;
+  color: var(--app-text-muted);
+  line-height: 1.5;
 }
 
 @media (max-width: 760px) {

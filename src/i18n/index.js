@@ -13,6 +13,7 @@ import koKR from './ko-KR';
 import { communityMessages } from './community';
 import { communityRegistrationMessages } from './communityRegistration';
 import { communityOperationsMessages } from './communityOperations';
+import { communityProfileManagementMessages } from './communityProfileManagement';
 import { privacyMessages } from './privacy';
 
 /* ===========================================================
@@ -43,6 +44,7 @@ Object.entries(messages).forEach(([locale, catalog]) => {
     ...communityMessages[locale],
     ...communityRegistrationMessages[locale],
     ...communityOperationsMessages[locale],
+    ...communityProfileManagementMessages[locale],
   };
   catalog.privacy = privacyMessages[locale];
 });

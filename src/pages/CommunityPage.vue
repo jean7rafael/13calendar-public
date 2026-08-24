@@ -120,8 +120,8 @@
         </header>
 
         <ol v-if="topPages.length" class="community-simple-list">
-          <li v-for="page in topPages" :key="page.path">
-            <span>{{ getPageLabel(page.path) }}</span>
+          <li v-for="page in topPages" :key="page.label">
+            <span>{{ page.label }}</span>
             <strong>{{ formatNumber(page.views) }}</strong>
           </li>
         </ol>
@@ -189,6 +189,18 @@
 
     <!-- Perfis voluntários aparecem somente após moderação. -->
     <section class="community-members" :aria-labelledby="membersTitleId">
+      <!-- Entrada discreta para a retirada do próprio perfil. -->
+      <q-btn
+        class="community-members__remove"
+        flat
+        round
+        icon="person_remove"
+        :to="{ name: 'community-remove' }"
+        :aria-label="t('community.membersRemoveButton')"
+      >
+        <q-tooltip>{{ t('community.membersRemoveButton') }}</q-tooltip>
+      </q-btn>
+
       <header class="community-members__heading">
         <p>{{ t('community.membersEyebrow') }}</p>
         <h2 :id="membersTitleId">{{ t('community.membersTitle') }}</h2>
@@ -206,7 +218,8 @@
           :aria-label="t('community.memberProfile', { name: member.publicName })"
         >
           <span class="community-member__avatar" aria-hidden="true">
-            {{ getMemberInitial(member.publicName) }}
+            <img v-if="member.avatarUrl" :src="member.avatarUrl" alt="" />
+            <template v-else>{{ getMemberInitial(member.publicName) }}</template>
           </span>
           <span class="community-member__identity">
             <strong>{{ member.publicName }}</strong>
@@ -461,7 +474,18 @@ const topCountries = computed(() => {
   }));
 });
 
-const topPages = computed(() => (communityData.value.pages || []).slice(0, 6));
+const topPages = computed(() => {
+  const totalsByPage = new Map();
+
+  for (const page of communityData.value.pages || []) {
+    const label = getPageLabel(page.path);
+    totalsByPage.set(label, (totalsByPage.get(label) || 0) + (Number(page.views) || 0));
+  }
+
+  return Array.from(totalsByPage, ([label, views]) => ({ label, views }))
+    .sort((left, right) => right.views - left.views)
+    .slice(0, 6);
+});
 const topReferrers = computed(() => (communityData.value.referrers || []).slice(0, 5));
 const topDevices = computed(() => (communityData.value.devices || []).slice(0, 5));
 
@@ -527,11 +551,23 @@ function getCountryFlag(code) {
 }
 
 function getPageLabel(path) {
-  if (!path || path === '/' || path === '/#/') {
-    return '13 Calendar';
+  const normalizedPath = String(path || '').trim().toLowerCase();
+
+  if (normalizedPath.includes('reference-site')) return t('community.pageHome');
+  if (normalizedPath.includes('community-admin')) return t('community.pageModeration');
+  if (normalizedPath.includes('community')) return t('community.pageCommunity');
+  if (normalizedPath.includes('privacy')) return t('community.pagePrivacy');
+  if (
+    !normalizedPath ||
+    normalizedPath === '/' ||
+    normalizedPath === '/#/' ||
+    normalizedPath === '13 calendar' ||
+    normalizedPath.includes('13calendar-public')
+  ) {
+    return t('community.pageCalendars');
   }
 
-  return String(path).replace(/^\/?#?\/?/, '/');
+  return t('community.pageOther');
 }
 
 function getMemberInitial(name) {
@@ -997,12 +1033,30 @@ function readPreferredHolidayCountry() {
 =========================================================== */
 
 .community-members {
+  position: relative;
   margin-top: 28px;
   padding: clamp(24px, 5vw, 42px);
   background: color-mix(in srgb, var(--app-surface) 92%, transparent);
   border: 1px solid var(--app-border);
   border-radius: 20px;
   box-shadow: var(--app-card-shadow);
+}
+
+.community-members__remove {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  color: var(--app-text-faint);
+}
+
+.community-members__remove:hover,
+.community-members__remove:focus-visible {
+  color: #8b5cf6;
+}
+
+[dir='rtl'] .community-members__remove {
+  right: auto;
+  left: 18px;
 }
 
 .community-members__heading {
@@ -1072,6 +1126,13 @@ function readPreferredHolidayCountry() {
   background: linear-gradient(135deg, #2563eb, #7c3aed);
   border-radius: 50%;
   font-weight: 800;
+}
+
+.community-member__avatar img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .community-member__identity {

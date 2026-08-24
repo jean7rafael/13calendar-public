@@ -25,6 +25,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/CommunityAdminPage.vue'),
       },
       {
+        path: 'community-remove',
+        name: 'community-remove',
+        component: () => import('pages/CommunityRemovalPage.vue'),
+      },
+      {
         path: 'privacy',
         name: 'privacy',
         component: () => import('pages/PrivacyPage.vue'),

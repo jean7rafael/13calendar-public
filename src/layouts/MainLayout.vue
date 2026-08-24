@@ -282,15 +282,17 @@ const { t, locale } = useI18n({
 
 const isCommunityPage = computed(() => route.name === 'community');
 const isCommunityAdminPage = computed(() => route.name === 'community-admin');
+const isCommunityRemovalPage = computed(() => route.name === 'community-remove');
 
 /* A comunidade e a moderação compartilham a gaveta enxuta.
    Somente o conversor oferece a escolha de feriados. */
 const usesLanguageOnlyDrawer = computed(
-  () => isCommunityPage.value || isCommunityAdminPage.value,
+  () => isCommunityPage.value || isCommunityAdminPage.value || isCommunityRemovalPage.value,
 );
 
 const toolbarTitle = computed(() => {
   if (isCommunityAdminPage.value) return t('community.adminTitle');
+  if (isCommunityRemovalPage.value) return t('community.removalTitle');
   if (isCommunityPage.value) return t('community.headerTitle');
   return t('app.title');
 });

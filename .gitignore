@@ -35,6 +35,10 @@ yarn-error.log*
 # Segredo local para abrir a tela de moderação; nunca publicar.
 /cloudflare/community-registration-worker/.admin-token.local
 
+# Tipos regeneráveis do Worker; `npx wrangler types` recria o arquivo.
+/cloudflare/community-registration-worker/worker-configuration.d.ts
+/cloudflare/community-registration-worker/.wrangler/
+
 # Arquivos temporários da tradução gratuita pelo navegador
 /manual-holiday-translations/
 
