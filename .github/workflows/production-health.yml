@@ -1,0 +1,50 @@
+name: Verificar produção
+
+on:
+  schedule:
+    - cron: '45 10 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-health
+  cancel-in-progress: true
+
+jobs:
+  health:
+    name: Site, dados públicos e comunidade
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Conferir páginas e arquivos de indexação
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location --retry 3 \
+            https://13calendar.pages.dev/ --output main.html
+          curl --fail --silent --show-error --location --retry 3 \
+            https://13calendar.pages.dev/reference-site/ --output reference.html
+          curl --fail --silent --show-error --location --retry 3 \
+            https://13calendar.pages.dev/robots.txt --output robots.txt
+          curl --fail --silent --show-error --location --retry 3 \
+            https://13calendar.pages.dev/sitemap.xml --output sitemap.xml
+
+          grep -q 'https://13calendar.pages.dev/' main.html
+          grep -q '13calendar.pages.dev/sitemap.xml' robots.txt
+          grep -q '<urlset' sitemap.xml
+
+      - name: Conferir API comunitária pública
+        shell: bash
+        run: |
+          set -euo pipefail
+          api='https://13calendar-community-registration.13calendar-community-registration-worker.workers.dev'
+          curl --fail --silent --show-error --location --retry 3 \
+            "$api/analytics/stats" --output analytics.json
+          curl --fail --silent --show-error --location --retry 3 \
+            "$api/members" --output members.json
+
+          node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('analytics.json')); if (!data.status) process.exit(1)"
+          node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('members.json')); if (!Array.isArray(data.members)) process.exit(1)"

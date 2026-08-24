@@ -1,0 +1,68 @@
+name: Revisar fontes oficiais de feriados
+
+on:
+  schedule:
+    - cron: '15 6 20 12 *'
+    - cron: '15 6 5 1 *'
+  workflow_dispatch:
+    inputs:
+      year:
+        description: Ano que deve ser procurado
+        required: false
+        type: string
+      all_supported:
+        description: Verificar também os países da base principal
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o projeto
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Consultar fontes oficiais
+        env:
+          INPUT_YEAR: ${{ inputs.year }}
+          INPUT_ALL_SUPPORTED: ${{ inputs.all_supported }}
+        run: |
+          arguments=()
+          if [ -n "$INPUT_YEAR" ]; then arguments+=("--year=$INPUT_YEAR"); fi
+          if [ "$INPUT_ALL_SUPPORTED" = "true" ]; then arguments+=("--all-supported"); fi
+          npm run holidays:official:refresh -- "${arguments[@]}"
+
+      - name: Auditar o apêndice
+        run: npm run holidays:official:audit
+
+      - name: Abrir revisão quando houver mudanças
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- holiday-source-review/generated; then exit 0; fi
+          branch="automation/official-holidays-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add holiday-source-review/generated
+          git commit -m "chore: atualizar candidatos oficiais de feriados"
+          git push --set-upstream origin "$branch"
+          gh pr create \
+            --title "Revisar calendários oficiais de feriados" \
+            --body "Varredura automática concluída. As datas só devem entrar no app depois da revisão das fontes oficiais." \
+            --base "${GITHUB_REF_NAME}" \
+            --head "$branch"

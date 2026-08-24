@@ -1,0 +1,70 @@
+name: Publicar no Cloudflare Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  deployments: write
+
+concurrency:
+  group: cloudflare-pages-production
+  cancel-in-progress: true
+
+jobs:
+  configuration:
+    name: Conferir credenciais
+    runs-on: ubuntu-latest
+    outputs:
+      cloudflare-ready: ${{ steps.state.outputs.ready }}
+
+    steps:
+      - name: Verificar secrets necessários
+        id: state
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Publicação Cloudflare aguardando os secrets do repositório."
+          fi
+
+  deploy:
+    name: Build e publicação
+    needs: configuration
+    if: needs.configuration.outputs.cloudflare-ready == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v6
+
+      - name: Preparar o Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências do aplicativo
+        run: npm ci
+
+      - name: Instalar dependências da página adaptada
+        run: npm ci --prefix vendor/13months-site
+
+      - name: Gerar o pacote completo
+        run: npm run build
+
+      - name: Publicar aplicativo e página adaptada
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '4.125.0'
+          command: pages deploy dist/spa --project-name=13calendar --branch=main
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

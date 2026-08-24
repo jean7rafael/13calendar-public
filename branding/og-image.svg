@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="background" x1="80" y1="40" x2="1120" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#020617" />
+      <stop offset="0.58" stop-color="#0f172a" />
+      <stop offset="1" stop-color="#1e1b4b" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(940 110) rotate(130) scale(470 390)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7c3aed" stop-opacity="0.42" />
+      <stop offset="1" stop-color="#7c3aed" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#6366f1" />
+      <stop offset="1" stop-color="#9333ea" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" rx="36" fill="url(#background)" />
+  <rect width="1200" height="630" rx="36" fill="url(#glow)" />
+  <rect x="34" y="34" width="1132" height="562" rx="28" fill="none" stroke="#818cf8" stroke-opacity="0.22" />
+
+  <g transform="translate(86 76)">
+    <rect width="76" height="76" rx="22" fill="url(#accent)" />
+    <text x="38" y="50" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" text-anchor="middle">13</text>
+  </g>
+
+  <text x="86" y="232" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="800" letter-spacing="-2">13 Calendar</text>
+  <text x="88" y="292" fill="#a5b4fc" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="3">INTERNATIONAL FIXED CALENDAR</text>
+  <text x="88" y="352" fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="26">Date conversion, holidays and Moon phases</text>
+
+  <g transform="translate(88 410)" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#e2e8f0">
+    <g>
+      <rect width="196" height="54" rx="27" fill="#1e293b" stroke="#818cf8" stroke-opacity="0.32" />
+      <text x="98" y="34" text-anchor="middle">Date conversion</text>
+    </g>
+    <g transform="translate(212)">
+      <rect width="150" height="54" rx="27" fill="#1e293b" stroke="#818cf8" stroke-opacity="0.32" />
+      <text x="75" y="34" text-anchor="middle">Holidays</text>
+    </g>
+    <g transform="translate(378)">
+      <rect width="190" height="54" rx="27" fill="#1e293b" stroke="#818cf8" stroke-opacity="0.32" />
+      <text x="95" y="34" text-anchor="middle">Moon phases</text>
+    </g>
+  </g>
+
+  <g transform="translate(760 160)">
+    <rect width="330" height="330" rx="42" fill="#0f172a" fill-opacity="0.72" stroke="#818cf8" stroke-opacity="0.28" />
+    <g transform="translate(40 42)" fill="#172036">
+      <rect width="44" height="44" rx="11" fill="#312e81" />
+      <rect x="52" width="44" height="44" rx="11" />
+      <rect x="104" width="44" height="44" rx="11" />
+      <rect x="156" width="44" height="44" rx="11" />
+      <rect x="208" width="44" height="44" rx="11" fill="#312e81" />
+      <rect y="52" width="44" height="44" rx="11" fill="#312e81" />
+      <rect x="52" y="52" width="44" height="44" rx="11" />
+      <rect x="104" y="52" width="44" height="44" rx="11" fill="#6d4aff" />
+      <rect x="156" y="52" width="44" height="44" rx="11" />
+      <rect x="208" y="52" width="44" height="44" rx="11" fill="#312e81" />
+      <rect y="104" width="44" height="44" rx="11" fill="#312e81" />
+      <rect x="52" y="104" width="44" height="44" rx="11" />
+      <rect x="104" y="104" width="44" height="44" rx="11" />
+      <rect x="156" y="104" width="44" height="44" rx="11" />
+      <rect x="208" y="104" width="44" height="44" rx="11" fill="#312e81" />
+      <rect y="156" width="44" height="44" rx="11" fill="#312e81" />
+      <rect x="52" y="156" width="44" height="44" rx="11" />
+      <rect x="104" y="156" width="44" height="44" rx="11" />
+      <rect x="156" y="156" width="44" height="44" rx="11" />
+      <rect x="208" y="156" width="44" height="44" rx="11" fill="#312e81" />
+    </g>
+    <circle cx="282" cy="286" r="17" fill="#facc15" />
+    <circle cx="289" cy="280" r="16" fill="#0f172a" />
+  </g>
+
+  <text x="88" y="548" fill="#64748b" font-family="Arial, Helvetica, sans-serif" font-size="20">13calendar.pages.dev</text>
+</svg>

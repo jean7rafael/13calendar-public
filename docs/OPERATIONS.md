@@ -4,7 +4,8 @@
 
 - Produção: <https://13calendar.pages.dev/>
 - Página educacional adaptada: <https://13calendar.pages.dev/reference-site/>
-- Worker comunitário: `13calendar-community-registration.workers.dev`
+- Worker comunitário:
+  `13calendar-community-registration.13calendar-community-registration-worker.workers.dev`
 
 Os endereços alternativos e o procedimento de troca ficam em
 [`DEPLOYMENT_DOMAINS.md`](DEPLOYMENT_DOMAINS.md).
@@ -19,6 +20,20 @@ Depois que os segredos `CLOUDFLARE_ACCOUNT_ID` e `CLOUDFLARE_API_TOKEN` forem
 adicionados ao repositório público, o workflow `Publicar no Cloudflare Pages`
 publicará cada alteração aprovada na `main`. A publicação manual de emergência
 continua possível com Wrangler.
+
+Enquanto algum secret estiver ausente, o workflow conclui a conferência sem
+expor valores e ignora somente a etapa de publicação. As ações que exigem login
+do mantenedor ficam centralizadas em [`OWNER_ACTIONS.md`](OWNER_ACTIONS.md).
+
+## Monitoramento automatizado
+
+- O workflow `Verificar produção` roda diariamente e confere o aplicativo, a
+  página educacional, `robots.txt`, `sitemap.xml` e as rotas públicas da
+  comunidade.
+- O workflow `Revisar fontes oficiais de feriados` roda em 20 de dezembro e 5
+  de janeiro. Ele apenas abre candidatos para revisão; nenhuma data oficial é
+  publicada sem validação humana.
+- O contato de segurança público fica em `/.well-known/security.txt`.
 
 ## Banco comunitário e recuperação
 
@@ -53,4 +68,3 @@ Worker aplica essa política e preserva os resumos agregados de visita no D1.
   revisar o changelog dos pacotes afetados.
 - Em incidente: consultar logs do Worker, preservar o bookmark atual e usar
   Time Travel somente depois de identificar o instante anterior ao problema.
-
