@@ -742,6 +742,14 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   solicitação do domínio EU.org e Google Search Console. Em 2026-08-24,
   `13calendar.eu.org` não retornou registros DNS; a disponibilidade definitiva
   ainda depende do formulário do EU.org.
+- A primeira execução manual de `Verificar produção` concluiu com sucesso em
+  `jean7rafael/13calendar-public/actions/runs/32758739347`. Lint, build,
+  auditorias calendáricas, orçamento do pacote, auditoria das dependências e o
+  dry-run do Worker também passaram no GitHub. A imagem social, os metadados e
+  o arquivo de segurança foram publicados no deployment
+  `e4ce1fa3.13calendar.pages.dev`; o endereço canônico foi conferido depois da
+  publicação. O código público correspondente está nos commits `47819db` e
+  `e6b1732`.
 - O código original do projeto recebeu licença MIT em `LICENSE`. A página
   educacional adaptada permanece fora dessa licença e documentada em
   `THIRD_PARTY_NOTICES.md` e `vendor/13months-site/UPSTREAM.md`, pois o projeto
