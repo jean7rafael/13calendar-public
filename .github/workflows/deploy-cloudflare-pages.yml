@@ -66,5 +66,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           wranglerVersion: '4.125.0'
-          command: pages deploy dist/spa --project-name=13calendar --branch=main
+          command: pages deploy dist/spa --project-name=13calendar --branch=main --commit-dirty=true
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}

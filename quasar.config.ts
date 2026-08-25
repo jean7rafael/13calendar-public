@@ -21,6 +21,15 @@ export default defineConfig(() => ({
 
   build: {
     publicPath: process.env.PUBLIC_PATH || '/',
+
+    /* O catálogo internacional forma um chunk assíncrono conhecido. O limite
+       evita o aviso genérico do Vite; o orçamento real continua sendo validado
+       por scripts/auditProductionBundle.mjs em todo npm run verify. */
+    extendViteConf(viteConf) {
+      viteConf.build ??= {};
+      viteConf.build.chunkSizeWarningLimit = 1800;
+    },
+
     target: {
       browser: ['es2022', 'firefox115', 'chrome115', 'safari14'],
       node: 'node20',

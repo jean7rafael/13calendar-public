@@ -759,6 +759,13 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   concluiu build e publicação com sucesso na execução `32794144833`. O workflow
   passou de `cloudflare/wrangler-action@v3` para `@v4`, versão oficial que usa o
   runtime Node 24 e elimina o aviso de depreciação do Node 20.
+- O workflow informa explicitamente ao Wrangler que os arquivos gerados pelo
+  build tornam a árvore temporária diferente do checkout. O aviso genérico de
+  chunk do Vite foi substituído pelo orçamento dedicado e mais rigoroso de
+  `auditProductionBundle.mjs`. O único aviso de dependência restante vem de
+  `glob@10.5.0`, transitivo do `@quasar/app-vite@2`; a auditoria encontra zero
+  vulnerabilidades e sua remoção exige uma futura atualização principal do
+  Quasar CLI, não uma substituição forçada da subdependência.
 - O código original do projeto recebeu licença MIT em `LICENSE`. A página
   educacional adaptada permanece fora dessa licença e documentada em
   `THIRD_PARTY_NOTICES.md` e `vendor/13months-site/UPSTREAM.md`, pois o projeto
