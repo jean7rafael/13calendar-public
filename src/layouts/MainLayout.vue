@@ -296,6 +296,7 @@ const toolbarTitle = computed(() => {
   if (isCommunityAdminPage.value) return t('community.adminTitle');
   if (isCommunityRemovalPage.value) return t('community.removalTitle');
   if (isCommunityPage.value) return t('community.headerTitle');
+  if (isPrivacyPage.value) return t('privacy.title');
   return t('app.title');
 });
 
