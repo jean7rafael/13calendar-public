@@ -68,27 +68,22 @@ Após a aprovação serão feitos, nesta ordem:
 4. redirecionamento permanente dos endereços antigos;
 5. validação de todos os formulários e páginas.
 
-## 3. Adicionar o site ao Google Search Console
+## 3. Google Search Console — propriedade verificada
 
-Enquanto o domínio próprio não for aprovado, é possível iniciar com uma
-propriedade do tipo **Prefixo do URL** para
-`https://13calendar.pages.dev/`. Depois, o domínio próprio deverá usar uma
-propriedade de **Domínio**, validada por DNS.
+Estado confirmado em 25 de agosto de 2026:
 
-Passos:
+- a propriedade de Prefixo do URL `https://13calendar.pages.dev/` foi criada;
+- a tag HTML publicada validou automaticamente a propriedade;
+- `sitemap.xml` está preenchido na tela de envio;
+- a publicação técnica já oferece `robots.txt`, `sitemap.xml`, canonical e
+  metadados próprios para a página principal e para a página educacional.
 
-1. Abra <https://search.google.com/search-console>.
-2. Selecione **Adicionar propriedade**.
-3. Para começar agora, escolha **Prefixo do URL** e informe exatamente
-   `https://13calendar.pages.dev/`.
-4. Escolha **Tag HTML**. A tag de verificação já está incorporada e publicada
-   no `<head>` da página principal; ela é pública por definição e não concede
-   acesso à conta Google.
-5. Clique em **Verificar** no Search Console.
-6. Na opção **Sitemaps**, informe `sitemap.xml` e envie. O endereço completo
-   resultante será
+Falta somente confirmar e executar estas ações na conta Google:
+
+1. Na opção **Sitemaps**, enviar o valor já preenchido `sitemap.xml`. O
+   endereço completo resultante será
    `https://13calendar.pages.dev/sitemap.xml`.
-7. Em **Inspeção de URL**, solicite a indexação de
+2. Em **Inspeção de URL**, solicitar a indexação de
    `https://13calendar.pages.dev/` e de
    `https://13calendar.pages.dev/reference-site/`.
 

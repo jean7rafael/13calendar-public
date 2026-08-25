@@ -13,6 +13,8 @@ const ALLOWED_SOCIAL_NETWORKS = new Set(['instagram', 'facebook', 'other']);
 const ALLOWED_STATUSES = new Set(['pending', 'approved', 'rejected']);
 const PENDING_RETENTION_DAYS = 60;
 const REJECTED_RETENTION_DAYS = 30;
+const FEEDBACK_OPTION_COUNT = 4;
+const MAXIMUM_VOTER_ID_LENGTH = 80;
 
 import puppeteer from '@cloudflare/puppeteer';
 import { refreshAndReadCommunityAnalytics, refreshCommunityAnalytics } from './analytics.js';
@@ -60,6 +62,14 @@ export default {
         return jsonResponse(analytics, 200, corsHeaders, {
           'Cache-Control': 'public, max-age=300',
         });
+      }
+
+      if (request.method === 'GET' && url.pathname === '/feedback/votes') {
+        return await readReferenceFeedbackVotes(env, corsHeaders, url);
+      }
+
+      if (request.method === 'POST' && url.pathname === '/feedback/votes') {
+        return await saveReferenceFeedbackVote(request, env, corsHeaders);
       }
 
       if (request.method === 'GET' && url.pathname === '/admin/registrations') {
@@ -141,6 +151,117 @@ export default {
     );
   },
 };
+
+/* ===========================================================
+   VOTAÇÃO PERSISTENTE DA PÁGINA DE REFERÊNCIA
+
+   O navegador cria um identificador aleatório e o conserva localmente.
+   O Worker usa esse valor apenas para atualizar um voto já existente,
+   sem armazenar IP, conta, localização ou qualquer dado pessoal.
+=========================================================== */
+
+async function readReferenceFeedbackVotes(env, corsHeaders, url) {
+  const voterId = normalizeFeedbackVoterId(url.searchParams.get('voterId'));
+  const [votes, selectedVote] = await Promise.all([
+    readReferenceFeedbackTotals(env),
+    voterId
+      ? env.DB.prepare(
+          `SELECT option_index AS optionIndex
+             FROM reference_feedback_votes
+            WHERE voter_id = ?`,
+        )
+          .bind(voterId)
+          .first()
+      : null,
+  ]);
+
+  return jsonResponse(
+    {
+      votes,
+      userVote: Number.isInteger(selectedVote?.optionIndex) ? selectedVote.optionIndex : null,
+    },
+    200,
+    corsHeaders,
+    { 'Cache-Control': 'no-store' },
+  );
+}
+
+async function saveReferenceFeedbackVote(request, env, corsHeaders) {
+  const contentLength = Number(request.headers.get('Content-Length') || 0);
+
+  if (contentLength > 1_024) {
+    return jsonResponse({ error: 'payload_too_large' }, 413, corsHeaders);
+  }
+
+  const payload = await request.json();
+  const voterId = normalizeFeedbackVoterId(payload.voterId);
+  const optionIndex = Number(payload.index);
+
+  if (
+    !voterId ||
+    !Number.isInteger(optionIndex) ||
+    optionIndex < 0 ||
+    optionIndex >= FEEDBACK_OPTION_COUNT
+  ) {
+    return jsonResponse({ error: 'invalid_vote' }, 400, corsHeaders);
+  }
+
+  const now = new Date().toISOString();
+
+  await env.DB.prepare(
+    `INSERT INTO reference_feedback_votes (
+       voter_id, option_index, created_at, updated_at
+     ) VALUES (?, ?, ?, ?)
+     ON CONFLICT(voter_id) DO UPDATE SET
+       option_index = excluded.option_index,
+       updated_at = excluded.updated_at`,
+  )
+    .bind(voterId, optionIndex, now, now)
+    .run();
+
+  return jsonResponse(
+    {
+      votes: await readReferenceFeedbackTotals(env),
+      userVote: optionIndex,
+    },
+    200,
+    corsHeaders,
+    { 'Cache-Control': 'no-store' },
+  );
+}
+
+async function readReferenceFeedbackTotals(env) {
+  const result = await env.DB.prepare(
+    `SELECT option_index AS optionIndex, COUNT(*) AS total
+       FROM reference_feedback_votes
+      GROUP BY option_index`,
+  ).all();
+  const totals = new Array(FEEDBACK_OPTION_COUNT).fill(0);
+
+  for (const row of result.results || []) {
+    const optionIndex = Number(row.optionIndex);
+
+    if (Number.isInteger(optionIndex) && optionIndex >= 0 && optionIndex < FEEDBACK_OPTION_COUNT) {
+      totals[optionIndex] = Number(row.total) || 0;
+    }
+  }
+
+  return totals;
+}
+
+function normalizeFeedbackVoterId(value) {
+  const normalized = String(value || '').trim();
+
+  if (
+    normalized.length < 20 ||
+    normalized.length > MAXIMUM_VOTER_ID_LENGTH ||
+    !/^[A-Za-z0-9_-]+$/.test(normalized)
+  ) {
+    return '';
+  }
+
+  return normalized;
+}
 
 /* ===========================================================
    CRIAÇÃO DE UM CADASTRO PENDENTE
@@ -726,7 +847,11 @@ async function captureAvatarWithBrowser(env, profileUrl, socialProfile) {
     if (!bestCandidate) {
       const finalUrl = page.url().toLowerCase();
       const pageText = await page
-        .$eval('body', (body) => String(body.innerText || '').toLowerCase().slice(0, 4_000))
+        .$eval('body', (body) =>
+          String(body.innerText || '')
+            .toLowerCase()
+            .slice(0, 4_000),
+        )
         .catch(() => '');
 
       if (
@@ -1224,13 +1349,15 @@ function normalizeRegistration(payload) {
 }
 
 function normalizeText(value, maximumLength) {
-  return String(value || '')
-    // Caracteres de controle nunca fazem parte de nomes ou perfis públicos.
-    // eslint-disable-next-line no-control-regex
-    .replace(/[\u0000-\u001F\u007F]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .slice(0, maximumLength);
+  return (
+    String(value || '')
+      // Caracteres de controle nunca fazem parte de nomes ou perfis públicos.
+      // eslint-disable-next-line no-control-regex
+      .replace(/[\u0000-\u001F\u007F]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, maximumLength)
+  );
 }
 
 async function verifyTurnstile(token, secret, remoteIp, expectedAction, allowedHostnamesValue) {

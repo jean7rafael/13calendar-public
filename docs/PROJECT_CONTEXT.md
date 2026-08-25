@@ -861,6 +861,35 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   permanecem com zero vulnerabilidades. O workflow do Worker ignora a fonte
   privada e publica somente no espelho público, evitando uma falsa falha por
   ausência deliberada dos secrets de produção no repositório privado.
+- Em 25 de agosto de 2026, a conversão deixou de ter duas implementações
+  independentes. `shared/internationalFixedCalendar.js` passou a ser a fonte
+  comum do aplicativo Vue e da página educacional Solid: os 364 dias comuns
+  vêm primeiro, o Dia do Ano é o ordinal 365 e, somente em ano bissexto, o Dia
+  Bissexto é o ordinal 366, imediatamente depois do Dia do Ano. A antiga tabela
+  fixa e a antiga inserção do Dia Bissexto entre junho e julho foram removidas.
+  `npm run calendar:conversion:audit` verifica limites, Dias Especiais e ida e
+  volta nos dois sentidos.
+- A frase cardinal do conversor `Month {month} of 13 · Week {week} of 4`
+  recebeu curadoria nos 12 idiomas. Em português ela é
+  `Mês {month} de 13 · Semana {week} de 4`; nenhum idioma deve transformar a
+  quantidade em ordinal como `4 da 13ª`. A auditoria de traduções exige as
+  variáveis e o catálogo completo antes da compilação.
+- A enquete visual da página educacional deixou de usar estado temporário ou
+  serviço externo. O Worker oferece `GET/POST /feedback/votes`, identifica uma
+  escolha anônima por UUID salvo no navegador e persiste somente o voto e esse
+  identificador no D1. Não são armazenados IP, nome ou perfil. A migração
+  `0006_create_reference_feedback_votes.sql`, a auditoria dedicada e a
+  verificação diária de produção fazem parte do fluxo automático.
+- As dependências compatíveis foram atualizadas e os três pacotes de produção
+  permanecem sem vulnerabilidades conhecidas. O único alerta completo restante
+  é de desenvolvimento, vindo do navegador automatizado do Worker, sem versão
+  compatível disponível. A verificação integral passou com Node 24, incluindo
+  lint, builds, conversões, traduções, feriados, orçamento do pacote e
+  auditorias de produção.
+- A propriedade de Prefixo do URL `https://13calendar.pages.dev/` foi criada e
+  verificada no Google Search Console pela tag HTML já publicada. O sitemap e
+  as duas solicitações de indexação aguardam somente a confirmação do
+  mantenedor imediatamente antes do envio externo.
 
 ## Pendências atuais
 
@@ -872,8 +901,8 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   Cloudflare Pages e executar a troca coordenada descrita em
   `docs/OWNER_ACTIONS.md`.
 - Concluir a verificação de `https://13calendar.pages.dev/` no Google Search
-  Console e enviar `sitemap.xml`. A tag HTML já está publicada; essa etapa pode
-  ser concluída antes da aprovação do domínio próprio.
+  Console: a propriedade já está verificada; enviar `sitemap.xml` e solicitar a
+  indexação das duas páginas depois da confirmação operacional do mantenedor.
 
 ## Protocolo de manutenção deste arquivo
 

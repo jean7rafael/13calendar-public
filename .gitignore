@@ -38,6 +38,7 @@ yarn-error.log*
 # Tipos regeneráveis do Worker; `npx wrangler types` recria o arquivo.
 /cloudflare/community-registration-worker/worker-configuration.d.ts
 /cloudflare/community-registration-worker/.wrangler/
+/cloudflare/community-registration-worker/*.cpuprofile
 
 # Arquivos temporários da tradução gratuita pelo navegador
 /manual-holiday-translations/

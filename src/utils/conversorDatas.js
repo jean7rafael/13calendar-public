@@ -1,11 +1,11 @@
-import { tabela365, tabela366 } from './tabelaDias.js';
+import {
+  gregorianPartsToInternationalFixed,
+  internationalFixedPartsToGregorian,
+} from '../../shared/internationalFixedCalendar.js';
 
-/* ===========================================================
-   IDENTIFICAÇÃO DE ANOS BISSEXTOS
-=========================================================== */
-
-function isLeapYear(year) {
-  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+/* Formata números de mês e dia com os dois algarismos usados pelas interfaces. */
+function padDatePart(value) {
+  return String(value).padStart(2, '0');
 }
 
 /* ===========================================================
@@ -14,16 +14,15 @@ function isLeapYear(year) {
 
 export function converterPara13Meses(dataGregoriana) {
   const [ano, mes, dia] = dataGregoriana.split('-');
-  const anoInt = parseInt(ano, 10);
-  const tabela = isLeapYear(anoInt) ? tabela366 : tabela365;
+  const convertido = gregorianPartsToInternationalFixed(
+    Number.parseInt(ano, 10),
+    Number.parseInt(mes, 10),
+    Number.parseInt(dia, 10),
+  );
 
-  const encontrado = tabela.find((entrada) => entrada.gregoriano === `${mes}-${dia}`);
+  if (!convertido) return null;
 
-  if (!encontrado) {
-    return null;
-  }
-
-  return `${ano}-${encontrado.trezeMeses}`;
+  return `${ano}-${padDatePart(convertido.month)}-${padDatePart(convertido.day)}`;
 }
 
 /* ===========================================================
@@ -32,14 +31,13 @@ export function converterPara13Meses(dataGregoriana) {
 
 export function converterParaGregoriano(data13Meses) {
   const [ano, mes, dia] = data13Meses.split('-');
-  const anoInt = parseInt(ano, 10);
-  const tabela = isLeapYear(anoInt) ? tabela366 : tabela365;
+  const convertido = internationalFixedPartsToGregorian(
+    Number.parseInt(ano, 10),
+    Number.parseInt(mes, 10),
+    Number.parseInt(dia, 10),
+  );
 
-  const encontrado = tabela.find((entrada) => entrada.trezeMeses === `${mes}-${dia}`);
+  if (!convertido) return null;
 
-  if (!encontrado) {
-    return null;
-  }
-
-  return `${ano}-${encontrado.gregoriano}`;
+  return `${ano}-${padDatePart(convertido.month)}-${padDatePart(convertido.day)}`;
 }

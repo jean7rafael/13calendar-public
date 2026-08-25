@@ -1,108 +1,111 @@
-import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 /* ===========================================================
    CAMINHOS E IDIOMAS DA PÁGINA INCORPORADA
 =========================================================== */
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
-const projectDirectory = resolve(scriptDirectory, "..");
-const componentDirectory = resolve(projectDirectory, "src/components");
-const outputFile = resolve(projectDirectory, "src/locales/generatedMessages.json");
-const sourceMessageFile = resolve(projectDirectory, "src/locales/sourceMessages.json");
-const googleTranslateUrl = "https://translate.googleapis.com/translate_a/single";
-const ollamaUrl = process.env.OLLAMA_URL || "http://127.0.0.1:11434/api/chat";
-const ollamaModel = process.env.OLLAMA_MODEL || "gpt-oss:20b";
-const useOllama = process.argv.includes("--ollama");
-const useSequentialOllama = process.argv.includes("--ollama-sequential");
-const extractOnly = process.argv.includes("--extract-only");
-const printMessages = process.argv.includes("--print-messages");
-const writeSourceMessages = process.argv.includes("--write-source-messages");
+const projectDirectory = resolve(scriptDirectory, '..');
+const componentDirectory = resolve(projectDirectory, 'src/components');
+const outputFile = resolve(projectDirectory, 'src/locales/generatedMessages.json');
+const sourceMessageFile = resolve(projectDirectory, 'src/locales/sourceMessages.json');
+const googleTranslateUrl = 'https://translate.googleapis.com/translate_a/single';
+const ollamaUrl = process.env.OLLAMA_URL || 'http://127.0.0.1:11434/api/chat';
+const ollamaModel = process.env.OLLAMA_MODEL || 'gpt-oss:20b';
+const useOllama = process.argv.includes('--ollama');
+const useSequentialOllama = process.argv.includes('--ollama-sequential');
+const extractOnly = process.argv.includes('--extract-only');
+const printMessages = process.argv.includes('--print-messages');
+const writeSourceMessages = process.argv.includes('--write-source-messages');
 
 const targetLanguages = {
-    "pt-BR": "pt",
-    "de-DE": "de",
-    "fr-FR": "fr",
-    "it-IT": "it",
-    "es-ES": "es",
-    "ru-RU": "ru",
-    "ar-SA": "ar",
-    "hi-IN": "hi",
-    "zh-CN": "zh-CN",
-    "ja-JP": "ja",
-    "ko-KR": "ko",
+  'pt-BR': 'pt',
+  'de-DE': 'de',
+  'fr-FR': 'fr',
+  'it-IT': 'it',
+  'es-ES': 'es',
+  'ru-RU': 'ru',
+  'ar-SA': 'ar',
+  'hi-IN': 'hi',
+  'zh-CN': 'zh-CN',
+  'ja-JP': 'ja',
+  'ko-KR': 'ko',
 };
 
 const languageNames = {
-    "pt-BR": "Brazilian Portuguese",
-    "de-DE": "German",
-    "fr-FR": "French",
-    "it-IT": "Italian",
-    "es-ES": "Spanish from Spain",
-    "ru-RU": "Russian",
-    "ar-SA": "Modern Standard Arabic",
-    "hi-IN": "Hindi",
-    "zh-CN": "Simplified Chinese",
-    "ja-JP": "Japanese",
-    "ko-KR": "Korean",
+  'pt-BR': 'Brazilian Portuguese',
+  'de-DE': 'German',
+  'fr-FR': 'French',
+  'it-IT': 'Italian',
+  'es-ES': 'Spanish from Spain',
+  'ru-RU': 'Russian',
+  'ar-SA': 'Modern Standard Arabic',
+  'hi-IN': 'Hindi',
+  'zh-CN': 'Simplified Chinese',
+  'ja-JP': 'Japanese',
+  'ko-KR': 'Korean',
 };
 
 const extraMessages = [
-    "Skip to content",
-    "Choose language",
-    "Close language menu",
-    "Languages",
-    "Interface language",
-    "Use light theme",
-    "Use dark theme",
-    "Previous year, {year}",
-    "Next year, {year}",
-    "Return to current year, {year}",
-    "{year} is a leap year · After Year Day",
-    "{year} is not a leap year",
-    "A day outside the weekly cycle",
-    "An intercalary day immediately after Year Day",
-    "Month {month} of 13 · Week {week} of 4",
-    "Year Day, {year}",
-    "Leap Day, {year}",
-    "{weekday}, {month} {day}, {year}",
-    "Now",
-    "Link copied!",
-    "Couldn't share",
-    "Share this",
-    "votes",
-    "All 13 months of {year}",
-    "{month}, month {number}",
-    "{weekday}, {month} {day}{today}",
-    " (today)",
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "Sol",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sun",
-    "Mon",
-    "Tue",
-    "Wed",
-    "Thu",
-    "Fri",
-    "Sat",
+  'Skip to content',
+  'Choose language',
+  'Close language menu',
+  'Languages',
+  'Interface language',
+  'Use light theme',
+  'Use dark theme',
+  'Previous year, {year}',
+  'Next year, {year}',
+  'Return to current year, {year}',
+  '{year} is a leap year · After Year Day',
+  '{year} is not a leap year',
+  'A day outside the weekly cycle',
+  'An intercalary day immediately after Year Day',
+  'Month {month} of 13 · Week {week} of 4',
+  'Year Day, {year}',
+  'Leap Day, {year}',
+  '{weekday}, {month} {day}, {year}',
+  'Now',
+  'Link copied!',
+  "Couldn't share",
+  'Share this',
+  'votes',
+  'Voting is temporarily unavailable.',
+  'Votes could not be loaded. Please try again later.',
+  'Your vote could not be saved. Please try again.',
+  'All 13 months of {year}',
+  '{month}, month {number}',
+  '{weekday}, {month} {day}{today}',
+  ' (today)',
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'Sol',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sun',
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri',
+  'Sat',
 ];
 
 /* ===========================================================
@@ -114,18 +117,251 @@ const extraMessages = [
 =========================================================== */
 
 const curatedTranslations = {
-    "pt-BR": { Sun: "Dom", Mon: "Seg", Tue: "Ter", Wed: "Qua", Thu: "Qui", Fri: "Sex", Sat: "Sáb", "days every month": "dias em todos os meses", "Go to 13months.net": "Ir para 13months.net" },
-    "de-DE": { Sun: "So", Mon: "Mo", Tue: "Di", Wed: "Mi", Thu: "Do", Fri: "Fr", Sat: "Sa", "days every month": "Tage in jedem Monat", "Go to 13months.net": "Zu 13months.net" },
-    "fr-FR": { Sun: "Dim", Mon: "Lun", Tue: "Mar", Wed: "Mer", Thu: "Jeu", Fri: "Ven", Sat: "Sam", "days every month": "jours dans chaque mois", "Go to 13months.net": "Aller sur 13months.net" },
-    "it-IT": { Sun: "Dom", Mon: "Lun", Tue: "Mar", Wed: "Mer", Thu: "Gio", Fri: "Ven", Sat: "Sab", "days every month": "giorni in ogni mese", "Go to 13months.net": "Vai a 13months.net" },
-    "es-ES": { Sun: "Dom", Mon: "Lun", Tue: "Mar", Wed: "Mié", Thu: "Jue", Fri: "Vie", Sat: "Sáb", "days every month": "días en cada mes", "Go to 13months.net": "Ir a 13months.net" },
-    "ru-RU": { Sun: "Вс", Mon: "Пн", Tue: "Вт", Wed: "Ср", Thu: "Чт", Fri: "Пт", Sat: "Сб", "days every month": "дней в каждом месяце", "Go to 13months.net": "Перейти на 13months.net" },
-    "ar-SA": { Sun: "أحد", Mon: "إثن", Tue: "ثلا", Wed: "أرب", Thu: "خمي", Fri: "جمع", Sat: "سبت", "days every month": "يومًا في كل شهر", "Go to 13months.net": "الانتقال إلى 13months.net" },
-    "hi-IN": { Sun: "रवि", Mon: "सोम", Tue: "मंगल", Wed: "बुध", Thu: "गुरु", Fri: "शुक्र", Sat: "शनि", "days every month": "दिन, हर महीने", "Go to 13months.net": "13months.net पर जाएँ" },
-    "zh-CN": { Sun: "周日", Mon: "周一", Tue: "周二", Wed: "周三", Thu: "周四", Fri: "周五", Sat: "周六", "days every month": "天，每个月都一样", "Go to 13months.net": "前往 13months.net" },
-    "ja-JP": { Sun: "日", Mon: "月", Tue: "火", Wed: "水", Thu: "木", Fri: "金", Sat: "土", "days every month": "日、すべての月で同じ", "Go to 13months.net": "13months.net へ移動" },
-    "ko-KR": { Sun: "일", Mon: "월", Tue: "화", Wed: "수", Thu: "목", Fri: "금", Sat: "토", "days every month": "일, 모든 달이 동일", "Go to 13months.net": "13months.net으로 이동" },
+  'pt-BR': {
+    Sun: 'Dom',
+    Mon: 'Seg',
+    Tue: 'Ter',
+    Wed: 'Qua',
+    Thu: 'Qui',
+    Fri: 'Sex',
+    Sat: 'Sáb',
+    'days every month': 'dias em todos os meses',
+    'Go to 13months.net': 'Ir para 13months.net',
+  },
+  'de-DE': {
+    Sun: 'So',
+    Mon: 'Mo',
+    Tue: 'Di',
+    Wed: 'Mi',
+    Thu: 'Do',
+    Fri: 'Fr',
+    Sat: 'Sa',
+    'days every month': 'Tage in jedem Monat',
+    'Go to 13months.net': 'Zu 13months.net',
+  },
+  'fr-FR': {
+    Sun: 'Dim',
+    Mon: 'Lun',
+    Tue: 'Mar',
+    Wed: 'Mer',
+    Thu: 'Jeu',
+    Fri: 'Ven',
+    Sat: 'Sam',
+    'days every month': 'jours dans chaque mois',
+    'Go to 13months.net': 'Aller sur 13months.net',
+  },
+  'it-IT': {
+    Sun: 'Dom',
+    Mon: 'Lun',
+    Tue: 'Mar',
+    Wed: 'Mer',
+    Thu: 'Gio',
+    Fri: 'Ven',
+    Sat: 'Sab',
+    'days every month': 'giorni in ogni mese',
+    'Go to 13months.net': 'Vai a 13months.net',
+  },
+  'es-ES': {
+    Sun: 'Dom',
+    Mon: 'Lun',
+    Tue: 'Mar',
+    Wed: 'Mié',
+    Thu: 'Jue',
+    Fri: 'Vie',
+    Sat: 'Sáb',
+    'days every month': 'días en cada mes',
+    'Go to 13months.net': 'Ir a 13months.net',
+  },
+  'ru-RU': {
+    Sun: 'Вс',
+    Mon: 'Пн',
+    Tue: 'Вт',
+    Wed: 'Ср',
+    Thu: 'Чт',
+    Fri: 'Пт',
+    Sat: 'Сб',
+    'days every month': 'дней в каждом месяце',
+    'Go to 13months.net': 'Перейти на 13months.net',
+  },
+  'ar-SA': {
+    Sun: 'أحد',
+    Mon: 'إثن',
+    Tue: 'ثلا',
+    Wed: 'أرب',
+    Thu: 'خمي',
+    Fri: 'جمع',
+    Sat: 'سبت',
+    'days every month': 'يومًا في كل شهر',
+    'Go to 13months.net': 'الانتقال إلى 13months.net',
+  },
+  'hi-IN': {
+    Sun: 'रवि',
+    Mon: 'सोम',
+    Tue: 'मंगल',
+    Wed: 'बुध',
+    Thu: 'गुरु',
+    Fri: 'शुक्र',
+    Sat: 'शनि',
+    'days every month': 'दिन, हर महीने',
+    'Go to 13months.net': '13months.net पर जाएँ',
+  },
+  'zh-CN': {
+    Sun: '周日',
+    Mon: '周一',
+    Tue: '周二',
+    Wed: '周三',
+    Thu: '周四',
+    Fri: '周五',
+    Sat: '周六',
+    'days every month': '天，每个月都一样',
+    'Go to 13months.net': '前往 13months.net',
+  },
+  'ja-JP': {
+    Sun: '日',
+    Mon: '月',
+    Tue: '火',
+    Wed: '水',
+    Thu: '木',
+    Fri: '金',
+    Sat: '土',
+    'days every month': '日、すべての月で同じ',
+    'Go to 13months.net': '13months.net へ移動',
+  },
+  'ko-KR': {
+    Sun: '일',
+    Mon: '월',
+    Tue: '화',
+    Wed: '수',
+    Thu: '목',
+    Fri: '금',
+    Sat: '토',
+    'days every month': '일, 모든 달이 동일',
+    'Go to 13months.net': '13months.net으로 이동',
+  },
 };
+
+/* ===========================================================
+   POSIÇÃO DO MÊS E DA SEMANA
+
+   Os números são cardinais: “4 de 13” descreve uma posição no
+   conjunto e nunca deve virar “da 13ª”. A regra manual impede que
+   tradutores genéricos alterem esse sentido.
+=========================================================== */
+
+const curatedCalendarPositionTranslations = {
+  'pt-BR': { 'Month {month} of 13 · Week {week} of 4': 'Mês {month} de 13 · Semana {week} de 4' },
+  'de-DE': {
+    'Month {month} of 13 · Week {week} of 4': 'Monat {month} von 13 · Woche {week} von 4',
+  },
+  'fr-FR': {
+    'Month {month} of 13 · Week {week} of 4': 'Mois {month} sur 13 · Semaine {week} sur 4',
+  },
+  'it-IT': {
+    'Month {month} of 13 · Week {week} of 4': 'Mese {month} di 13 · Settimana {week} di 4',
+  },
+  'es-ES': { 'Month {month} of 13 · Week {week} of 4': 'Mes {month} de 13 · Semana {week} de 4' },
+  'ru-RU': { 'Month {month} of 13 · Week {week} of 4': 'Месяц {month} из 13 · Неделя {week} из 4' },
+  'ar-SA': {
+    'Month {month} of 13 · Week {week} of 4': 'الشهر {month} من 13 · الأسبوع {week} من 4',
+  },
+  'hi-IN': {
+    'Month {month} of 13 · Week {week} of 4': '13 में से महीना {month} · 4 में से सप्ताह {week}',
+  },
+  'zh-CN': { 'Month {month} of 13 · Week {week} of 4': '月份 {month}/13 · 周 {week}/4' },
+  'ja-JP': { 'Month {month} of 13 · Week {week} of 4': '月 {month}/13 · 週 {week}/4' },
+  'ko-KR': { 'Month {month} of 13 · Week {week} of 4': '월 {month}/13 · 주 {week}/4' },
+};
+
+/* Mensagens operacionais ficam compreensíveis mesmo quando o serviço
+   gratuito de tradução está temporariamente limitado. */
+const curatedFeedbackTranslations = {
+  'pt-BR': {
+    'Voting is temporarily unavailable.': 'A votação está temporariamente indisponível.',
+    'Votes could not be loaded. Please try again later.':
+      'Não foi possível carregar os votos. Tente novamente mais tarde.',
+    'Your vote could not be saved. Please try again.':
+      'Não foi possível salvar seu voto. Tente novamente.',
+  },
+  'de-DE': {
+    'Voting is temporarily unavailable.': 'Die Abstimmung ist vorübergehend nicht verfügbar.',
+    'Votes could not be loaded. Please try again later.':
+      'Die Stimmen konnten nicht geladen werden. Bitte versuchen Sie es später erneut.',
+    'Your vote could not be saved. Please try again.':
+      'Ihre Stimme konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.',
+  },
+  'fr-FR': {
+    'Voting is temporarily unavailable.': 'Le vote est temporairement indisponible.',
+    'Votes could not be loaded. Please try again later.':
+      'Impossible de charger les votes. Veuillez réessayer plus tard.',
+    'Your vote could not be saved. Please try again.':
+      'Votre vote n’a pas pu être enregistré. Veuillez réessayer.',
+  },
+  'it-IT': {
+    'Voting is temporarily unavailable.': 'La votazione è temporaneamente non disponibile.',
+    'Votes could not be loaded. Please try again later.':
+      'Impossibile caricare i voti. Riprova più tardi.',
+    'Your vote could not be saved. Please try again.': 'Impossibile salvare il tuo voto. Riprova.',
+  },
+  'es-ES': {
+    'Voting is temporarily unavailable.': 'La votación no está disponible temporalmente.',
+    'Votes could not be loaded. Please try again later.':
+      'No se pudieron cargar los votos. Inténtalo de nuevo más tarde.',
+    'Your vote could not be saved. Please try again.':
+      'No se pudo guardar tu voto. Inténtalo de nuevo.',
+  },
+  'ru-RU': {
+    'Voting is temporarily unavailable.': 'Голосование временно недоступно.',
+    'Votes could not be loaded. Please try again later.':
+      'Не удалось загрузить результаты. Повторите попытку позже.',
+    'Your vote could not be saved. Please try again.':
+      'Не удалось сохранить ваш голос. Повторите попытку.',
+  },
+  'ar-SA': {
+    'Voting is temporarily unavailable.': 'التصويت غير متاح مؤقتًا.',
+    'Votes could not be loaded. Please try again later.':
+      'تعذر تحميل الأصوات. يرجى المحاولة لاحقًا.',
+    'Your vote could not be saved. Please try again.': 'تعذر حفظ تصويتك. يرجى المحاولة مرة أخرى.',
+  },
+  'hi-IN': {
+    'Voting is temporarily unavailable.': 'मतदान अस्थायी रूप से उपलब्ध नहीं है।',
+    'Votes could not be loaded. Please try again later.':
+      'मत लोड नहीं हो सके। कृपया बाद में फिर प्रयास करें।',
+    'Your vote could not be saved. Please try again.':
+      'आपका मत सहेजा नहीं जा सका। कृपया फिर प्रयास करें।',
+  },
+  'zh-CN': {
+    'Voting is temporarily unavailable.': '投票暂时不可用。',
+    'Votes could not be loaded. Please try again later.': '无法加载投票结果，请稍后重试。',
+    'Your vote could not be saved. Please try again.': '无法保存您的投票，请重试。',
+  },
+  'ja-JP': {
+    'Voting is temporarily unavailable.': '投票は一時的に利用できません。',
+    'Votes could not be loaded. Please try again later.':
+      '投票結果を読み込めませんでした。後でもう一度お試しください。',
+    'Your vote could not be saved. Please try again.':
+      '投票を保存できませんでした。もう一度お試しください。',
+  },
+  'ko-KR': {
+    'Voting is temporarily unavailable.': '투표를 일시적으로 이용할 수 없습니다.',
+    'Votes could not be loaded. Please try again later.':
+      '투표 결과를 불러오지 못했습니다. 나중에 다시 시도해 주세요.',
+    'Your vote could not be saved. Please try again.':
+      '투표를 저장하지 못했습니다. 다시 시도해 주세요.',
+  },
+};
+
+/* Estes títulos já pertencem a blocos escritos no próprio idioma.
+   Eles não devem ser retraduzidos quando o observador atualiza a página. */
+const localizedPassthroughMessages = [
+  'What about the Sabbath?',
+  'E quanto ao Sabá?',
+  'Et le sabbat ?',
+  '¿Y el sabbat?',
+  'Und was ist mit dem Sabbat?',
+  'E il sabato religioso?',
+  'JTA, 1 Oct. 1937',
+  'United Nations, 1945',
+];
 
 /* ===========================================================
    DIA BISSEXTO DEPOIS DO DIA DO ANO
@@ -138,74 +374,97 @@ const curatedTranslations = {
 =========================================================== */
 
 const curatedLeapDayTranslations = {
-    "pt-BR": {
-        "{year} is a leap year · After Year Day": "{year} é bissexto · após o Dia do Ano",
-        "{year} is not a leap year": "{year} não é bissexto",
-        "An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.": "Um dia intercalar extra adicionado a cada 4 anos logo após o Dia do Ano. Também fora do ciclo semanal.",
-    },
-    "de-DE": {
-        "{year} is a leap year · After Year Day": "{year} ist ein Schaltjahr · nach dem Tag des Jahres",
-        "{year} is not a leap year": "{year} ist kein Schaltjahr",
-        "An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.": "Ein zusätzlicher Schalttag, der alle 4 Jahre direkt nach dem Tag des Jahres eingefügt wird. Ebenfalls außerhalb des Wochenzyklus.",
-    },
-    "fr-FR": {
-        "{year} is a leap year · After Year Day": "{year} est bissextile · après le Jour de l'année",
-        "{year} is not a leap year": "{year} n'est pas bissextile",
-        "An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.": "Un jour intercalaire supplémentaire ajouté tous les 4 ans juste après le Jour de l'année. Également hors du cycle hebdomadaire.",
-    },
-    "it-IT": {
-        "{year} is a leap year · After Year Day": "{year} è bisestile · dopo il Giorno dell'anno",
-        "{year} is not a leap year": "{year} non è bisestile",
-        "An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.": "Un giorno intercalare aggiuntivo inserito ogni 4 anni subito dopo il Giorno dell'anno. Anche fuori dal ciclo settimanale.",
-    },
-    "es-ES": {
-        "{year} is a leap year · After Year Day": "{year} es bisiesto · después del Día del Año",
-        "{year} is not a leap year": "{year} no es bisiesto",
-        "An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.": "Un día intercalar adicional añadido cada 4 años justo después del Día del Año. También fuera del ciclo semanal.",
-    },
-    "ru-RU": {
-        "{year} is a leap year · After Year Day": "{year} — високосный год · после Дня года",
-        "{year} is not a leap year": "{year} — не високосный год",
-        "An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.": "Дополнительный вставной день, добавляемый раз в 4 года сразу после Дня года. Также вне недельного цикла.",
-    },
-    "ar-SA": {
-        "{year} is a leap year · After Year Day": "السنة {year} كبيسة · بعد يوم السنة",
-        "{year} is not a leap year": "السنة {year} غير كبيسة",
-        "An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.": "يوم إضافي يُضاف كل 4 سنوات مباشرة بعد يوم السنة، وهو أيضًا خارج الدورة الأسبوعية.",
-    },
-    "hi-IN": {
-        "{year} is a leap year · After Year Day": "{year} लीप वर्ष है · वर्ष दिवस के बाद",
-        "{year} is not a leap year": "{year} लीप वर्ष नहीं है",
-        "An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.": "हर 4 वर्ष में वर्ष दिवस के तुरंत बाद जोड़ा जाने वाला एक अतिरिक्त अंतरवर्ती दिन। यह साप्ताहिक चक्र से भी बाहर है।",
-    },
-    "zh-CN": {
-        "{year} is a leap year · After Year Day": "{year}年是闰年 · 年度日之后",
-        "{year} is not a leap year": "{year}年不是闰年",
-        "An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.": "每4年在年度日之后紧接着增加的一个闰日，也不属于每周循环。",
-    },
-    "ja-JP": {
-        "{year} is a leap year · After Year Day": "{year}年はうるう年・年の日の後",
-        "{year} is not a leap year": "{year}年はうるう年ではありません",
-        "An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.": "4年ごとに年の日の直後に加えられる特別な1日。週の周期にも属しません。",
-    },
-    "ko-KR": {
-        "{year} is a leap year · After Year Day": "{year}년은 윤년 · 해의 날 이후",
-        "{year} is not a leap year": "{year}년은 윤년이 아님",
-        "An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.": "4년마다 해의 날 직후에 추가되는 윤일입니다. 주간 주기에도 속하지 않습니다.",
-    },
+  'pt-BR': {
+    '{year} is a leap year · After Year Day': '{year} é bissexto · após o Dia do Ano',
+    '{year} is not a leap year': '{year} não é bissexto',
+    'An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.':
+      'Um dia intercalar extra adicionado a cada 4 anos logo após o Dia do Ano. Também fora do ciclo semanal.',
+  },
+  'de-DE': {
+    '{year} is a leap year · After Year Day': '{year} ist ein Schaltjahr · nach dem Tag des Jahres',
+    '{year} is not a leap year': '{year} ist kein Schaltjahr',
+    'An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.':
+      'Ein zusätzlicher Schalttag, der alle 4 Jahre direkt nach dem Tag des Jahres eingefügt wird. Ebenfalls außerhalb des Wochenzyklus.',
+  },
+  'fr-FR': {
+    '{year} is a leap year · After Year Day': "{year} est bissextile · après le Jour de l'année",
+    '{year} is not a leap year': "{year} n'est pas bissextile",
+    'An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.':
+      "Un jour intercalaire supplémentaire ajouté tous les 4 ans juste après le Jour de l'année. Également hors du cycle hebdomadaire.",
+  },
+  'it-IT': {
+    '{year} is a leap year · After Year Day': "{year} è bisestile · dopo il Giorno dell'anno",
+    '{year} is not a leap year': '{year} non è bisestile',
+    'An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.':
+      "Un giorno intercalare aggiuntivo inserito ogni 4 anni subito dopo il Giorno dell'anno. Anche fuori dal ciclo settimanale.",
+  },
+  'es-ES': {
+    '{year} is a leap year · After Year Day': '{year} es bisiesto · después del Día del Año',
+    '{year} is not a leap year': '{year} no es bisiesto',
+    'An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.':
+      'Un día intercalar adicional añadido cada 4 años justo después del Día del Año. También fuera del ciclo semanal.',
+  },
+  'ru-RU': {
+    '{year} is a leap year · After Year Day': '{year} — високосный год · после Дня года',
+    '{year} is not a leap year': '{year} — не високосный год',
+    'An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.':
+      'Дополнительный вставной день, добавляемый раз в 4 года сразу после Дня года. Также вне недельного цикла.',
+  },
+  'ar-SA': {
+    '{year} is a leap year · After Year Day': 'السنة {year} كبيسة · بعد يوم السنة',
+    '{year} is not a leap year': 'السنة {year} غير كبيسة',
+    'An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.':
+      'يوم إضافي يُضاف كل 4 سنوات مباشرة بعد يوم السنة، وهو أيضًا خارج الدورة الأسبوعية.',
+  },
+  'hi-IN': {
+    '{year} is a leap year · After Year Day': '{year} लीप वर्ष है · वर्ष दिवस के बाद',
+    '{year} is not a leap year': '{year} लीप वर्ष नहीं है',
+    'An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.':
+      'हर 4 वर्ष में वर्ष दिवस के तुरंत बाद जोड़ा जाने वाला एक अतिरिक्त अंतरवर्ती दिन। यह साप्ताहिक चक्र से भी बाहर है।',
+  },
+  'zh-CN': {
+    '{year} is a leap year · After Year Day': '{year}年是闰年 · 年度日之后',
+    '{year} is not a leap year': '{year}年不是闰年',
+    'An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.':
+      '每4年在年度日之后紧接着增加的一个闰日，也不属于每周循环。',
+  },
+  'ja-JP': {
+    '{year} is a leap year · After Year Day': '{year}年はうるう年・年の日の後',
+    '{year} is not a leap year': '{year}年はうるう年ではありません',
+    'An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.':
+      '4年ごとに年の日の直後に加えられる特別な1日。週の周期にも属しません。',
+  },
+  'ko-KR': {
+    '{year} is a leap year · After Year Day': '{year}년은 윤년 · 해의 날 이후',
+    '{year} is not a leap year': '{year}년은 윤년이 아님',
+    'An extra intercalary day added every 4 years immediately after Year Day. Also outside the weekly cycle.':
+      '4년마다 해의 날 직후에 추가되는 윤일입니다. 주간 주기에도 속하지 않습니다.',
+  },
 };
 
 function applyCuratedTranslations(catalogs) {
-    [curatedTranslations, curatedLeapDayTranslations].forEach((translationsByLocale) => {
-        Object.entries(translationsByLocale).forEach(([locale, translations]) => {
-            catalogs[locale] = {
-                ...(catalogs[locale] || {}),
-                ...translations,
-            };
-        });
+  [
+    curatedTranslations,
+    curatedCalendarPositionTranslations,
+    curatedFeedbackTranslations,
+    curatedLeapDayTranslations,
+  ].forEach((translationsByLocale) => {
+    Object.entries(translationsByLocale).forEach(([locale, translations]) => {
+      catalogs[locale] = {
+        ...(catalogs[locale] || {}),
+        ...translations,
+      };
     });
+  });
 
-    return catalogs;
+  Object.keys(targetLanguages).forEach((locale) => {
+    catalogs[locale] = {
+      ...(catalogs[locale] || {}),
+      ...Object.fromEntries(localizedPassthroughMessages.map((message) => [message, message])),
+    };
+  });
+
+  return catalogs;
 }
 
 /* ===========================================================
@@ -213,22 +472,24 @@ function applyCuratedTranslations(catalogs) {
 =========================================================== */
 
 async function loadTypeScript() {
-    const candidates = [
-        resolve(projectDirectory, "node_modules/typescript/lib/typescript.js"),
-        process.env.REFERENCE_NODE_MODULES
-            ? resolve(process.env.REFERENCE_NODE_MODULES, "typescript/lib/typescript.js")
-            : null,
-    ].filter(Boolean);
+  const candidates = [
+    resolve(projectDirectory, 'node_modules/typescript/lib/typescript.js'),
+    process.env.REFERENCE_NODE_MODULES
+      ? resolve(process.env.REFERENCE_NODE_MODULES, 'typescript/lib/typescript.js')
+      : null,
+  ].filter(Boolean);
 
-    for (const candidate of candidates) {
-        try {
-            return (await import(pathToFileURL(candidate).href)).default;
-        } catch {
-            // Tenta o próximo local conhecido.
-        }
+  for (const candidate of candidates) {
+    try {
+      return (await import(pathToFileURL(candidate).href)).default;
+    } catch {
+      // Tenta o próximo local conhecido.
     }
+  }
 
-    throw new Error("TypeScript não encontrado. Execute npm install nesta página antes de gerar as traduções.");
+  throw new Error(
+    'TypeScript não encontrado. Execute npm install nesta página antes de gerar as traduções.',
+  );
 }
 
 /* ===========================================================
@@ -236,91 +497,102 @@ async function loadTypeScript() {
 =========================================================== */
 
 function normalizeMessage(value) {
-    return String(value).replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+  return String(value).replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
 }
 
 function collectMessagesFromSource(ts, sourceFile) {
-    const messages = new Set();
+  const messages = new Set();
 
-    const add = (value) => {
-        const normalized = normalizeMessage(value);
+  const add = (value) => {
+    const normalized = normalizeMessage(value);
 
-        if (normalized && /[A-Za-z]/.test(normalized)) {
-            messages.add(normalized);
+    if (normalized && /[A-Za-z]/.test(normalized)) {
+      messages.add(normalized);
+    }
+  };
+
+  const visit = (node) => {
+    if (ts.isJsxText(node)) {
+      add(node.getText(sourceFile));
+    }
+
+    if (
+      ts.isJsxAttribute(node) &&
+      node.initializer &&
+      ts.isStringLiteral(node.initializer) &&
+      ['aria-label', 'placeholder', 'title'].includes(node.name.getText(sourceFile))
+    ) {
+      add(node.initializer.text);
+    }
+
+    if (
+      ts.isPropertyAssignment(node) &&
+      ts.isIdentifier(node.name) &&
+      [
+        'title',
+        'description',
+        'question',
+        'answer',
+        'label',
+        'name',
+        'subtitle',
+        'message',
+        'heading',
+        'text',
+      ].includes(node.name.text) &&
+      ts.isStringLiteral(node.initializer)
+    ) {
+      add(node.initializer.text);
+    }
+
+    if (ts.isArrayLiteralExpression(node)) {
+      for (const element of node.elements) {
+        if (ts.isStringLiteral(element)) {
+          add(element.text);
         }
-    };
+      }
+    }
 
-    const visit = (node) => {
-        if (ts.isJsxText(node)) {
-            add(node.getText(sourceFile));
-        }
+    if (
+      ts.isCallExpression(node) &&
+      ts.isIdentifier(node.expression) &&
+      node.expression.text === 't' &&
+      node.arguments[0] &&
+      ts.isStringLiteral(node.arguments[0])
+    ) {
+      add(node.arguments[0].text);
+    }
 
-        if (
-            ts.isJsxAttribute(node) &&
-            node.initializer &&
-            ts.isStringLiteral(node.initializer) &&
-            ["aria-label", "placeholder", "title"].includes(node.name.getText(sourceFile))
-        ) {
-            add(node.initializer.text);
-        }
+    ts.forEachChild(node, visit);
+  };
 
-        if (
-            ts.isPropertyAssignment(node) &&
-            ts.isIdentifier(node.name) &&
-            ["title", "description", "question", "answer", "label", "name", "subtitle", "message", "heading", "text"].includes(node.name.text) &&
-            ts.isStringLiteral(node.initializer)
-        ) {
-            add(node.initializer.text);
-        }
-
-        if (ts.isArrayLiteralExpression(node)) {
-            for (const element of node.elements) {
-                if (ts.isStringLiteral(element)) {
-                    add(element.text);
-                }
-            }
-        }
-
-        if (
-            ts.isCallExpression(node) &&
-            ts.isIdentifier(node.expression) &&
-            node.expression.text === "t" &&
-            node.arguments[0] &&
-            ts.isStringLiteral(node.arguments[0])
-        ) {
-            add(node.arguments[0].text);
-        }
-
-        ts.forEachChild(node, visit);
-    };
-
-    visit(sourceFile);
-    return messages;
+  visit(sourceFile);
+  return messages;
 }
 
 async function collectSourceMessages() {
-    const ts = await loadTypeScript();
-    const fileNames = (await readdir(componentDirectory))
-        .filter((fileName) => fileName.endsWith(".tsx"))
-        .map((fileName) => resolve(componentDirectory, fileName));
-    const messages = new Set(extraMessages);
+  const ts = await loadTypeScript();
+  const fileNames = (await readdir(componentDirectory))
+    .filter((fileName) => fileName.endsWith('.tsx'))
+    .map((fileName) => resolve(componentDirectory, fileName));
+  const messages = new Set(extraMessages);
 
-    for (const fileName of fileNames) {
-        const source = await readFile(fileName, "utf8");
-        const sourceFile = ts.createSourceFile(
-            fileName,
-            source,
-            ts.ScriptTarget.Latest,
-            true,
-            ts.ScriptKind.TSX,
-        );
+  for (const fileName of fileNames) {
+    const source = await readFile(fileName, 'utf8');
+    const sourceFile = ts.createSourceFile(
+      fileName,
+      source,
+      ts.ScriptTarget.Latest,
+      true,
+      ts.ScriptKind.TSX,
+    );
 
-        for (const message of collectMessagesFromSource(ts, sourceFile)) {
-            messages.add(message);
-        }
+    for (const message of collectMessagesFromSource(ts, sourceFile)) {
+      messages.add(message);
     }
+  }
 
-    return [...messages].sort((left, right) => left.localeCompare(right, "en"));
+  return [...messages].sort((left, right) => left.localeCompare(right, 'en'));
 }
 
 /* ===========================================================
@@ -328,87 +600,89 @@ async function collectSourceMessages() {
 =========================================================== */
 
 function wait(milliseconds) {
-    return new Promise((resolveWait) => setTimeout(resolveWait, milliseconds));
+  return new Promise((resolveWait) => setTimeout(resolveWait, milliseconds));
 }
 
 async function translateBlock(messages, targetLanguage, blockNumber, attempt = 1) {
-    const source = messages
-        .map((message, index) => `[[SM${String(index).padStart(4, "0")}]] ${message}`)
-        .join("\n");
-    const response = await fetch(googleTranslateUrl, {
-        method: "POST",
-        headers: {
-            "content-type": "application/x-www-form-urlencoded;charset=UTF-8",
-        },
-        body: new URLSearchParams({
-            client: "gtx",
-            sl: "en",
-            tl: targetLanguage,
-            dt: "t",
-            q: source,
-        }),
-    });
+  const source = messages
+    .map((message, index) => `[[SM${String(index).padStart(4, '0')}]] ${message}`)
+    .join('\n');
+  const response = await fetch(googleTranslateUrl, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    },
+    body: new URLSearchParams({
+      client: 'gtx',
+      sl: 'en',
+      tl: targetLanguage,
+      dt: 't',
+      q: source,
+    }),
+  });
 
-    if (response.status === 429 && attempt < 6) {
-        await wait(4_000 * attempt);
-        return translateBlock(messages, targetLanguage, blockNumber, attempt + 1);
-    }
+  if (response.status === 429 && attempt < 6) {
+    await wait(4_000 * attempt);
+    return translateBlock(messages, targetLanguage, blockNumber, attempt + 1);
+  }
 
-    if (!response.ok) {
-        throw new Error(`Falha HTTP ${response.status} no bloco ${blockNumber}.`);
-    }
+  if (!response.ok) {
+    throw new Error(`Falha HTTP ${response.status} no bloco ${blockNumber}.`);
+  }
 
-    const responseData = await response.json();
-    const translated = responseData?.[0]?.map((segment) => segment?.[0] || "").join("") || "";
-    const entries = [...translated.matchAll(/\[\[SM(\d{4})\]\]\s*([\s\S]*?)(?=\n?\[\[SM\d{4}\]\]|$)/g)];
+  const responseData = await response.json();
+  const translated = responseData?.[0]?.map((segment) => segment?.[0] || '').join('') || '';
+  const entries = [
+    ...translated.matchAll(/\[\[SM(\d{4})\]\]\s*([\s\S]*?)(?=\n?\[\[SM\d{4}\]\]|$)/g),
+  ];
 
-    if (entries.length !== messages.length) {
-        throw new Error(`O tradutor alterou os marcadores do bloco ${blockNumber}.`);
-    }
+  if (entries.length !== messages.length) {
+    throw new Error(`O tradutor alterou os marcadores do bloco ${blockNumber}.`);
+  }
 
-    return entries.map((entry) => entry[2].trim());
+  return entries.map((entry) => entry[2].trim());
 }
 
 async function translateBlockWithFallback(messages, targetLanguage, blockNumber) {
-    try {
-        return await translateBlock(messages, targetLanguage, blockNumber);
-    } catch (error) {
-        if (messages.length === 1) {
-            throw error;
-        }
-
-        const middle = Math.ceil(messages.length / 2);
-        const left = await translateBlockWithFallback(
-            messages.slice(0, middle),
-            targetLanguage,
-            `${blockNumber}.1`,
-        );
-        const right = await translateBlockWithFallback(
-            messages.slice(middle),
-            targetLanguage,
-            `${blockNumber}.2`,
-        );
-
-        return [...left, ...right];
+  try {
+    return await translateBlock(messages, targetLanguage, blockNumber);
+  } catch (error) {
+    if (messages.length === 1) {
+      throw error;
     }
+
+    const middle = Math.ceil(messages.length / 2);
+    const left = await translateBlockWithFallback(
+      messages.slice(0, middle),
+      targetLanguage,
+      `${blockNumber}.1`,
+    );
+    const right = await translateBlockWithFallback(
+      messages.slice(middle),
+      targetLanguage,
+      `${blockNumber}.2`,
+    );
+
+    return [...left, ...right];
+  }
 }
 
 async function translateMessages(messages, targetLanguage) {
-    const translated = [];
-    const blockSize = 12;
+  const translated = [];
+  const blockSize = 12;
 
-    for (let start = 0; start < messages.length; start += blockSize) {
-        const block = messages.slice(start, start + blockSize);
-        const blockTranslation = await translateBlockWithFallback(
-            block,
-            targetLanguage,
-            start / blockSize + 1,
-        );
-        translated.push(...blockTranslation);
-        await wait(600);
-    }
+  for (let start = 0; start < messages.length; start += blockSize) {
+    const block = messages.slice(start, start + blockSize);
+    const blockTranslation = await translateBlockWithFallback(
+      block,
+      targetLanguage,
+      start / blockSize + 1,
+    );
+    translated.push(...blockTranslation);
+    await wait(600);
+  }
 
-    return Object.fromEntries(messages.map((message, index) => [message, translated[index]]));
+  return Object.fromEntries(messages.map((message, index) => [message, translated[index]]));
 }
 
 /* ===========================================================
@@ -420,162 +694,156 @@ async function translateMessages(messages, targetLanguage) {
 =========================================================== */
 
 function collectPlaceholders(message) {
-    return [...String(message).matchAll(/\{\w+\}/g)]
-        .map((match) => match[0])
-        .sort();
+  return [...String(message).matchAll(/\{\w+\}/g)].map((match) => match[0]).sort();
 }
 
 function validateTranslation(source, translated, locale, id) {
-    if (typeof translated !== "string" || !translated.trim()) {
-        throw new Error(`${locale}/${id}: tradução vazia.`);
-    }
+  if (typeof translated !== 'string' || !translated.trim()) {
+    throw new Error(`${locale}/${id}: tradução vazia.`);
+  }
 
-    const sourcePlaceholders = JSON.stringify(collectPlaceholders(source));
-    const translatedPlaceholders = JSON.stringify(collectPlaceholders(translated));
+  const sourcePlaceholders = JSON.stringify(collectPlaceholders(source));
+  const translatedPlaceholders = JSON.stringify(collectPlaceholders(translated));
 
-    if (sourcePlaceholders !== translatedPlaceholders) {
-        throw new Error(`${locale}/${id}: placeholders alterados.`);
-    }
+  if (sourcePlaceholders !== translatedPlaceholders) {
+    throw new Error(`${locale}/${id}: placeholders alterados.`);
+  }
 
-    return translated.trim();
+  return translated.trim();
 }
 
 async function translateOllamaBlock(messages, locale, blockNumber) {
-    const items = messages.map((source, index) => ({
-        id: `M${String(index).padStart(4, "0")}`,
-        source,
-    }));
-    const response = await fetch(ollamaUrl, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-            model: ollamaModel,
-            stream: false,
-            think: "low",
-            format: {
-                type: "object",
-                properties: {
-                    translations: {
-                        type: "array",
-                        items: {
-                            type: "object",
-                            properties: {
-                                id: { type: "string" },
-                                text: { type: "string" },
-                            },
-                            required: ["id", "text"],
-                        },
-                    },
-                },
-                required: ["translations"],
+  const items = messages.map((source, index) => ({
+    id: `M${String(index).padStart(4, '0')}`,
+    source,
+  }));
+  const response = await fetch(ollamaUrl, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      model: ollamaModel,
+      stream: false,
+      think: 'low',
+      format: {
+        type: 'object',
+        properties: {
+          translations: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                id: { type: 'string' },
+                text: { type: 'string' },
+              },
+              required: ['id', 'text'],
             },
-            options: {
-                temperature: 0.1,
-                num_ctx: 8192,
-                num_predict: 8192,
-            },
-            messages: [
-                {
-                    role: "system",
-                    content:
-                        `You are a professional software localization translator. ` +
-                        `Translate English interface copy into ${languageNames[locale]}. ` +
-                        `The product explains the International Fixed Calendar with 13 equal ` +
-                        `months. Preserve every {placeholder} exactly, preserve numbers, URLs, ` +
-                        `brand names, IFC, Kodak and the month name Sol. Use concise natural ` +
-                        `interface language. Return every id exactly once and no commentary.`,
-                },
-                {
-                    role: "user",
-                    content: JSON.stringify({ locale, items }),
-                },
-            ],
-        }),
-    });
+          },
+        },
+        required: ['translations'],
+      },
+      options: {
+        temperature: 0.1,
+        num_ctx: 8192,
+        num_predict: 8192,
+      },
+      messages: [
+        {
+          role: 'system',
+          content:
+            `You are a professional software localization translator. ` +
+            `Translate English interface copy into ${languageNames[locale]}. ` +
+            `The product explains the International Fixed Calendar with 13 equal ` +
+            `months. Preserve every {placeholder} exactly, preserve numbers, URLs, ` +
+            `brand names, IFC, Kodak and the month name Sol. Use concise natural ` +
+            `interface language. Return every id exactly once and no commentary.`,
+        },
+        {
+          role: 'user',
+          content: JSON.stringify({ locale, items }),
+        },
+      ],
+    }),
+  });
 
-    if (!response.ok) {
-        throw new Error(`Ollama respondeu HTTP ${response.status} no bloco ${blockNumber}.`);
-    }
+  if (!response.ok) {
+    throw new Error(`Ollama respondeu HTTP ${response.status} no bloco ${blockNumber}.`);
+  }
 
-    const responseData = await response.json();
-    const parsed = JSON.parse(responseData?.message?.content || "{}");
-    const translatedById = new Map(
-        (parsed.translations || []).map((entry) => [entry.id, entry.text]),
+  const responseData = await response.json();
+  const parsed = JSON.parse(responseData?.message?.content || '{}');
+  const translatedById = new Map(
+    (parsed.translations || []).map((entry) => [entry.id, entry.text]),
+  );
+
+  if (translatedById.size !== items.length) {
+    throw new Error(
+      `${locale}/${blockNumber}: esperadas ${items.length} traduções, ` +
+        `recebidas ${translatedById.size}.`,
     );
+  }
 
-    if (translatedById.size !== items.length) {
-        throw new Error(
-            `${locale}/${blockNumber}: esperadas ${items.length} traduções, ` +
-                `recebidas ${translatedById.size}.`,
-        );
-    }
-
-    return items.map(({ id, source }) =>
-        validateTranslation(source, translatedById.get(id), locale, id),
-    );
+  return items.map(({ id, source }) =>
+    validateTranslation(source, translatedById.get(id), locale, id),
+  );
 }
 
 async function translateOllamaBlockWithFallback(messages, locale, blockNumber) {
-    try {
-        return await translateOllamaBlock(messages, locale, blockNumber);
-    } catch (error) {
-        if (messages.length === 1) {
-            throw error;
-        }
-
-        console.warn(`${locale}/${blockNumber}: dividindo bloco apó ${error.message}`);
-        const middle = Math.ceil(messages.length / 2);
-        const left = await translateOllamaBlockWithFallback(
-            messages.slice(0, middle),
-            locale,
-            `${blockNumber}.1`,
-        );
-        const right = await translateOllamaBlockWithFallback(
-            messages.slice(middle),
-            locale,
-            `${blockNumber}.2`,
-        );
-
-        return [...left, ...right];
+  try {
+    return await translateOllamaBlock(messages, locale, blockNumber);
+  } catch (error) {
+    if (messages.length === 1) {
+      throw error;
     }
+
+    console.warn(`${locale}/${blockNumber}: dividindo bloco apó ${error.message}`);
+    const middle = Math.ceil(messages.length / 2);
+    const left = await translateOllamaBlockWithFallback(
+      messages.slice(0, middle),
+      locale,
+      `${blockNumber}.1`,
+    );
+    const right = await translateOllamaBlockWithFallback(
+      messages.slice(middle),
+      locale,
+      `${blockNumber}.2`,
+    );
+
+    return [...left, ...right];
+  }
 }
 
 async function translateMessagesWithOllama(messages, locale) {
-    const translated = [];
-    const blocks = [];
-    let currentBlock = [];
-    let currentCharacterCount = 0;
+  const translated = [];
+  const blocks = [];
+  let currentBlock = [];
+  let currentCharacterCount = 0;
 
-    /* O limite por caracteres mantém entrada e resposta dentro
+  /* O limite por caracteres mantém entrada e resposta dentro
        do contexto local mesmo quando o lote contém parágrafos. */
-    for (const message of messages) {
-        const nextCharacterCount = currentCharacterCount + message.length;
+  for (const message of messages) {
+    const nextCharacterCount = currentCharacterCount + message.length;
 
-        if (currentBlock.length > 0 && (currentBlock.length >= 100 || nextCharacterCount > 7000)) {
-            blocks.push(currentBlock);
-            currentBlock = [];
-            currentCharacterCount = 0;
-        }
-
-        currentBlock.push(message);
-        currentCharacterCount += message.length;
+    if (currentBlock.length > 0 && (currentBlock.length >= 100 || nextCharacterCount > 7000)) {
+      blocks.push(currentBlock);
+      currentBlock = [];
+      currentCharacterCount = 0;
     }
 
-    if (currentBlock.length > 0) {
-        blocks.push(currentBlock);
-    }
+    currentBlock.push(message);
+    currentCharacterCount += message.length;
+  }
 
-    for (const [index, block] of blocks.entries()) {
-        const blockNumber = index + 1;
-        console.log(
-            `${locale}: traduzindo bloco ${blockNumber}/${blocks.length} com Ollama...`,
-        );
-        translated.push(
-            ...(await translateOllamaBlockWithFallback(block, locale, blockNumber)),
-        );
-    }
+  if (currentBlock.length > 0) {
+    blocks.push(currentBlock);
+  }
 
-    return Object.fromEntries(messages.map((message, index) => [message, translated[index]]));
+  for (const [index, block] of blocks.entries()) {
+    const blockNumber = index + 1;
+    console.log(`${locale}: traduzindo bloco ${blockNumber}/${blocks.length} com Ollama...`);
+    translated.push(...(await translateOllamaBlockWithFallback(block, locale, blockNumber)));
+  }
+
+  return Object.fromEntries(messages.map((message, index) => [message, translated[index]]));
 }
 
 /* ===========================================================
@@ -587,200 +855,186 @@ async function translateMessagesWithOllama(messages, locale) {
 =========================================================== */
 
 const ollamaLocaleGroups = [
-    ["pt-BR", "de-DE", "fr-FR"],
-    ["it-IT", "es-ES", "ru-RU"],
-    ["ar-SA", "hi-IN", "zh-CN"],
-    ["ja-JP", "ko-KR"],
+  ['pt-BR', 'de-DE', 'fr-FR'],
+  ['it-IT', 'es-ES', 'ru-RU'],
+  ['ar-SA', 'hi-IN', 'zh-CN'],
+  ['ja-JP', 'ko-KR'],
 ];
 
 function createGroupedTranslationBlocks(messages) {
-    const blocks = [];
-    let currentBlock = [];
-    let currentCharacterCount = 0;
+  const blocks = [];
+  let currentBlock = [];
+  let currentCharacterCount = 0;
 
-    messages.forEach((source, sourceIndex) => {
-        const nextCharacterCount = currentCharacterCount + source.length;
+  messages.forEach((source, sourceIndex) => {
+    const nextCharacterCount = currentCharacterCount + source.length;
 
-        if (currentBlock.length > 0 && (currentBlock.length >= 30 || nextCharacterCount > 2500)) {
-            blocks.push(currentBlock);
-            currentBlock = [];
-            currentCharacterCount = 0;
-        }
-
-        currentBlock.push({
-            id: `M${String(sourceIndex).padStart(4, "0")}`,
-            source,
-            sourceIndex,
-        });
-        currentCharacterCount += source.length;
-    });
-
-    if (currentBlock.length > 0) {
-        blocks.push(currentBlock);
+    if (currentBlock.length > 0 && (currentBlock.length >= 30 || nextCharacterCount > 2500)) {
+      blocks.push(currentBlock);
+      currentBlock = [];
+      currentCharacterCount = 0;
     }
 
-    return blocks;
+    currentBlock.push({
+      id: `M${String(sourceIndex).padStart(4, '0')}`,
+      source,
+      sourceIndex,
+    });
+    currentCharacterCount += source.length;
+  });
+
+  if (currentBlock.length > 0) {
+    blocks.push(currentBlock);
+  }
+
+  return blocks;
 }
 
 function parseOllamaJson(content) {
-    return JSON.parse(
-        String(content || "")
-            .trim()
-            .replace(/^```(?:json)?\s*/i, "")
-            .replace(/\s*```$/, ""),
-    );
+  return JSON.parse(
+    String(content || '')
+      .trim()
+      .replace(/^```(?:json)?\s*/i, '')
+      .replace(/\s*```$/, ''),
+  );
 }
 
 async function translateOllamaLocaleGroupBlock(items, locales, blockNumber) {
-    const localeDescription = locales
-        .map((locale) => `${locale} (${languageNames[locale]})`)
-        .join(", ");
-    const response = await fetch(ollamaUrl, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-            model: ollamaModel,
-            stream: false,
-            think: "low",
-            format: "json",
-            options: {
-                temperature: 0.1,
-                num_ctx: 4096,
-                num_predict: 4096,
-            },
-            messages: [
-                {
-                    role: "system",
-                    content:
-                        `You are a professional software localization translator. ` +
-                        `Translate every English interface string into ${localeDescription}. ` +
-                        `The product explains the International Fixed Calendar with 13 equal ` +
-                        `months. Preserve every {placeholder} exactly, numbers, URLs, IFC, ` +
-                        `Kodak and the month name Sol. Use concise natural interface language. ` +
-                        `Return only strict JSON: {"items":[{"id":"M0000",` +
-                        `"translations":{"locale":"text"}}]}. Return every id and locale ` +
-                        `exactly once, with no commentary.`,
-                },
-                {
-                    role: "user",
-                    content: JSON.stringify(
-                        items.map(({ id, source }) => ({ id, source })),
-                    ),
-                },
-            ],
-        }),
-    });
+  const localeDescription = locales
+    .map((locale) => `${locale} (${languageNames[locale]})`)
+    .join(', ');
+  const response = await fetch(ollamaUrl, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      model: ollamaModel,
+      stream: false,
+      think: 'low',
+      format: 'json',
+      options: {
+        temperature: 0.1,
+        num_ctx: 4096,
+        num_predict: 4096,
+      },
+      messages: [
+        {
+          role: 'system',
+          content:
+            `You are a professional software localization translator. ` +
+            `Translate every English interface string into ${localeDescription}. ` +
+            `The product explains the International Fixed Calendar with 13 equal ` +
+            `months. Preserve every {placeholder} exactly, numbers, URLs, IFC, ` +
+            `Kodak and the month name Sol. Use concise natural interface language. ` +
+            `Return only strict JSON: {"items":[{"id":"M0000",` +
+            `"translations":{"locale":"text"}}]}. Return every id and locale ` +
+            `exactly once, with no commentary.`,
+        },
+        {
+          role: 'user',
+          content: JSON.stringify(items.map(({ id, source }) => ({ id, source }))),
+        },
+      ],
+    }),
+  });
 
-    if (!response.ok) {
-        throw new Error(`Ollama respondeu HTTP ${response.status} no bloco ${blockNumber}.`);
-    }
+  if (!response.ok) {
+    throw new Error(`Ollama respondeu HTTP ${response.status} no bloco ${blockNumber}.`);
+  }
 
-    const responseData = await response.json();
+  const responseData = await response.json();
 
-    if (responseData.done !== true || !responseData.message?.content) {
-        throw new Error(`Ollama não concluiu o bloco ${blockNumber}.`);
-    }
+  if (responseData.done !== true || !responseData.message?.content) {
+    throw new Error(`Ollama não concluiu o bloco ${blockNumber}.`);
+  }
 
-    const parsed = parseOllamaJson(responseData.message.content);
-    const entriesById = new Map((parsed.items || []).map((entry) => [entry.id, entry]));
+  const parsed = parseOllamaJson(responseData.message.content);
+  const entriesById = new Map((parsed.items || []).map((entry) => [entry.id, entry]));
 
-    if (entriesById.size !== items.length) {
-        throw new Error(
-            `Bloco ${blockNumber}: esperados ${items.length} ids, ` +
-                `recebidos ${entriesById.size}.`,
-        );
-    }
+  if (entriesById.size !== items.length) {
+    throw new Error(
+      `Bloco ${blockNumber}: esperados ${items.length} ids, ` + `recebidos ${entriesById.size}.`,
+    );
+  }
 
-    return items.map((item) => {
-        const entry = entriesById.get(item.id);
-        const translations = Object.fromEntries(
-            locales.map((locale) => [
-                locale,
-                validateTranslation(
-                    item.source,
-                    entry?.translations?.[locale],
-                    locale,
-                    item.id,
-                ),
-            ]),
-        );
+  return items.map((item) => {
+    const entry = entriesById.get(item.id);
+    const translations = Object.fromEntries(
+      locales.map((locale) => [
+        locale,
+        validateTranslation(item.source, entry?.translations?.[locale], locale, item.id),
+      ]),
+    );
 
-        return { ...item, translations };
-    });
+    return { ...item, translations };
+  });
 }
 
 async function translateOllamaLocaleGroupBlockWithFallback(items, locales, blockNumber) {
-    try {
-        return await translateOllamaLocaleGroupBlock(items, locales, blockNumber);
-    } catch (error) {
-        if (items.length === 1) {
-            throw error;
-        }
-
-        console.warn(`Grupo ${locales.join(",")}/${blockNumber}: ${error.message}`);
-        const middle = Math.ceil(items.length / 2);
-        const left = await translateOllamaLocaleGroupBlockWithFallback(
-            items.slice(0, middle),
-            locales,
-            `${blockNumber}.1`,
-        );
-        const right = await translateOllamaLocaleGroupBlockWithFallback(
-            items.slice(middle),
-            locales,
-            `${blockNumber}.2`,
-        );
-
-        return [...left, ...right];
+  try {
+    return await translateOllamaLocaleGroupBlock(items, locales, blockNumber);
+  } catch (error) {
+    if (items.length === 1) {
+      throw error;
     }
+
+    console.warn(`Grupo ${locales.join(',')}/${blockNumber}: ${error.message}`);
+    const middle = Math.ceil(items.length / 2);
+    const left = await translateOllamaLocaleGroupBlockWithFallback(
+      items.slice(0, middle),
+      locales,
+      `${blockNumber}.1`,
+    );
+    const right = await translateOllamaLocaleGroupBlockWithFallback(
+      items.slice(middle),
+      locales,
+      `${blockNumber}.2`,
+    );
+
+    return [...left, ...right];
+  }
 }
 
 async function translateAllMessagesWithOllama(messages, currentCatalogs) {
-    const blocks = createGroupedTranslationBlocks(messages);
-    const translatedCatalogs = {
-        ...currentCatalogs,
-        "en-US": Object.fromEntries(messages.map((message) => [message, message])),
-    };
+  const blocks = createGroupedTranslationBlocks(messages);
+  const translatedCatalogs = {
+    ...currentCatalogs,
+    'en-US': Object.fromEntries(messages.map((message) => [message, message])),
+  };
 
-    for (const configuredLocales of ollamaLocaleGroups) {
-        const locales = configuredLocales.filter(
-            (locale) => Object.keys(translatedCatalogs[locale] || {}).length !== messages.length,
-        );
+  for (const configuredLocales of ollamaLocaleGroups) {
+    const locales = configuredLocales.filter(
+      (locale) => Object.keys(translatedCatalogs[locale] || {}).length !== messages.length,
+    );
 
-        if (locales.length === 0) {
-            continue;
-        }
-
-        locales.forEach((locale) => {
-            translatedCatalogs[locale] = {};
-        });
-
-        for (const [index, block] of blocks.entries()) {
-            const blockNumber = index + 1;
-            console.log(
-                `${locales.join(", ")}: bloco ${blockNumber}/${blocks.length}...`,
-            );
-            const translatedItems = await translateOllamaLocaleGroupBlockWithFallback(
-                block,
-                locales,
-                blockNumber,
-            );
-
-            translatedItems.forEach(({ source, translations }) => {
-                locales.forEach((locale) => {
-                    translatedCatalogs[locale][source] = translations[locale];
-                });
-            });
-
-            await mkdir(dirname(outputFile), { recursive: true });
-            await writeFile(
-                outputFile,
-                `${JSON.stringify(translatedCatalogs, null, 2)}\n`,
-                "utf8",
-            );
-        }
+    if (locales.length === 0) {
+      continue;
     }
 
-    return translatedCatalogs;
+    locales.forEach((locale) => {
+      translatedCatalogs[locale] = {};
+    });
+
+    for (const [index, block] of blocks.entries()) {
+      const blockNumber = index + 1;
+      console.log(`${locales.join(', ')}: bloco ${blockNumber}/${blocks.length}...`);
+      const translatedItems = await translateOllamaLocaleGroupBlockWithFallback(
+        block,
+        locales,
+        blockNumber,
+      );
+
+      translatedItems.forEach(({ source, translations }) => {
+        locales.forEach((locale) => {
+          translatedCatalogs[locale][source] = translations[locale];
+        });
+      });
+
+      await mkdir(dirname(outputFile), { recursive: true });
+      await writeFile(outputFile, `${JSON.stringify(translatedCatalogs, null, 2)}\n`, 'utf8');
+    }
+  }
+
+  return translatedCatalogs;
 }
 
 /* ===========================================================
@@ -789,62 +1043,77 @@ async function translateAllMessagesWithOllama(messages, currentCatalogs) {
 
 const sourceMessages = await collectSourceMessages();
 const englishCatalog = Object.fromEntries(sourceMessages.map((message) => [message, message]));
-let catalogs = { "en-US": englishCatalog };
+let catalogs = { 'en-US': englishCatalog };
 
 if (extractOnly) {
-    if (writeSourceMessages) {
-        await mkdir(dirname(sourceMessageFile), { recursive: true });
-        await writeFile(sourceMessageFile, `${JSON.stringify(sourceMessages, null, 2)}\n`, "utf8");
-    }
+  if (writeSourceMessages) {
+    await mkdir(dirname(sourceMessageFile), { recursive: true });
+    await writeFile(sourceMessageFile, `${JSON.stringify(sourceMessages, null, 2)}\n`, 'utf8');
+  }
 
-    if (printMessages) {
-        console.log(JSON.stringify(sourceMessages, null, 2));
-    }
+  if (printMessages) {
+    console.log(JSON.stringify(sourceMessages, null, 2));
+  }
 
-    console.log(
-        `${sourceMessages.length} textos encontrados; ` +
-            `${sourceMessages.reduce((total, message) => total + message.length, 0)} caracteres.`,
-    );
-    process.exit(0);
+  console.log(
+    `${sourceMessages.length} textos encontrados; ` +
+      `${sourceMessages.reduce((total, message) => total + message.length, 0)} caracteres.`,
+  );
+  process.exit(0);
 }
 
 try {
-    const existingCatalogs = JSON.parse(await readFile(outputFile, "utf8"));
-    const sourceKeys = JSON.stringify(Object.keys(englishCatalog));
+  const existingCatalogs = JSON.parse(await readFile(outputFile, 'utf8'));
+  const validSources = new Set(sourceMessages);
 
-    if (JSON.stringify(Object.keys(existingCatalogs["en-US"] || {})) === sourceKeys) {
-        catalogs = existingCatalogs;
-    }
+  /* Conserva as traduções já revisadas e descarta somente textos que
+       deixaram de existir. Assim, uma frase nova não força a tradução de
+       toda a página nem sobrecarrega o serviço gratuito. */
+  catalogs = Object.fromEntries(
+    Object.entries(existingCatalogs).map(([locale, messages]) => [
+      locale,
+      Object.fromEntries(Object.entries(messages).filter(([source]) => validSources.has(source))),
+    ]),
+  );
+  catalogs['en-US'] = englishCatalog;
 } catch {
-    // Na primeira geração o arquivo ainda não existe.
+  // Na primeira geração o arquivo ainda não existe.
 }
 
+catalogs = applyCuratedTranslations(catalogs);
+
 if (useOllama && !useSequentialOllama) {
-    catalogs = applyCuratedTranslations(
-        await translateAllMessagesWithOllama(sourceMessages, catalogs),
-    );
-    await mkdir(dirname(outputFile), { recursive: true });
-    await writeFile(outputFile, `${JSON.stringify(catalogs, null, 2)}\n`, "utf8");
-    console.log(`Catálogo local gerado em ${outputFile}.`);
-    process.exit(0);
+  catalogs = applyCuratedTranslations(
+    await translateAllMessagesWithOllama(sourceMessages, catalogs),
+  );
+  await mkdir(dirname(outputFile), { recursive: true });
+  await writeFile(outputFile, `${JSON.stringify(catalogs, null, 2)}\n`, 'utf8');
+  console.log(`Catálogo local gerado em ${outputFile}.`);
+  process.exit(0);
 }
 
 for (const [locale, googleLanguage] of Object.entries(targetLanguages)) {
-    if (Object.keys(catalogs[locale] || {}).length === sourceMessages.length) {
-        console.log(`${locale}: catálogo existente preservado`);
-        continue;
-    }
+  const existingMessages = catalogs[locale] || {};
+  const missingMessages = sourceMessages.filter(
+    (message) => !Object.hasOwn(existingMessages, message),
+  );
 
-    catalogs[locale] = useSequentialOllama
-        ? await translateMessagesWithOllama(sourceMessages, locale)
-        : await translateMessages(sourceMessages, googleLanguage);
-    await mkdir(dirname(outputFile), { recursive: true });
-    await writeFile(outputFile, `${JSON.stringify(catalogs, null, 2)}\n`, "utf8");
-    console.log(`${locale}: ${sourceMessages.length} textos`);
-    await wait(1_000);
+  if (missingMessages.length === 0) {
+    console.log(`${locale}: catálogo existente preservado`);
+    continue;
+  }
+
+  const translatedMessages = useSequentialOllama
+    ? await translateMessagesWithOllama(missingMessages, locale)
+    : await translateMessages(missingMessages, googleLanguage);
+  catalogs[locale] = { ...existingMessages, ...translatedMessages };
+  await mkdir(dirname(outputFile), { recursive: true });
+  await writeFile(outputFile, `${JSON.stringify(catalogs, null, 2)}\n`, 'utf8');
+  console.log(`${locale}: ${missingMessages.length} textos novos`);
+  await wait(1_000);
 }
 
 catalogs = applyCuratedTranslations(catalogs);
 await mkdir(dirname(outputFile), { recursive: true });
-await writeFile(outputFile, `${JSON.stringify(catalogs, null, 2)}\n`, "utf8");
+await writeFile(outputFile, `${JSON.stringify(catalogs, null, 2)}\n`, 'utf8');
 console.log(`Catálogo gerado em ${outputFile}.`);

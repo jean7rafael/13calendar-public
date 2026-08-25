@@ -45,6 +45,9 @@ jobs:
             "$api/analytics/stats" --output analytics.json
           curl --fail --silent --show-error --location --retry 3 \
             "$api/members" --output members.json
+          curl --fail --silent --show-error --location --retry 3 \
+            "$api/feedback/votes" --output feedback.json
 
           node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('analytics.json')); if (!data.status) process.exit(1)"
           node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('members.json')); if (!Array.isArray(data.members)) process.exit(1)"
+          node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('feedback.json')); if (!Array.isArray(data.votes) || data.votes.length !== 4 || !data.votes.every(Number.isInteger)) process.exit(1)"
