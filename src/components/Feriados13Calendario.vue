@@ -132,7 +132,10 @@ import { ref, computed, watch, toRef } from 'vue';
 
 import { useCarouselTransition } from 'src/utils/carouselMecanism';
 
-import { getThirteenMonthHolidaysForMonth } from 'src/holidays/holidayEngine';
+import {
+  getThirteenMonthHolidaysForMonth,
+  prepareHolidayCountry,
+} from 'src/holidays/holidayEngine';
 
 import CarouselSeletores from 'src/components/Carousel13Seletores.vue';
 
@@ -223,14 +226,7 @@ let holidayRequestId = 0;
 
 /* Recalcula a lista ao navegar ou alterar país e filtros. */
 watch(
-  [
-    carouselMonth,
-    carouselYear,
-    holidayCountry,
-    holidayFilters,
-    locale,
-    calendar13HolidayMode,
-  ],
+  [carouselMonth, carouselYear, holidayCountry, holidayFilters, locale, calendar13HolidayMode],
   async ([month, year, country]) => {
     const requestId = ++holidayRequestId;
 
@@ -240,6 +236,7 @@ watch(
       await Promise.all([
         loadHolidayTranslations(country),
         loadHolidayTranslations('SEASONS'),
+        prepareHolidayCountry(country),
       ]);
 
       const nextHolidays = getThirteenMonthHolidaysForMonth({

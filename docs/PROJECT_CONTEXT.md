@@ -163,7 +163,7 @@
 
 ## Estado atual
 
-- **Última atividade:** 2026-08-24.
+- **Última atividade:** 2026-08-25.
 - Em 2026-08-11, a pasta `Programas de Programador` foi transferida do Desktop
   sincronizado pelo OneDrive para `/Users/jean7rafael/Downloads`. O repositório
   ativo deste aplicativo passou a ficar em
@@ -459,7 +459,8 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   fonte do navegador e passou a rolar internamente somente quando necessário.
   A contenção de roda foi estendida aos dois calendários e aos encartes das
   fases da Lua, inclusive sob zoom. `lint`, `build` e a inspeção visual de
-  2026 e 2028 passaram; falta somente a confirmação final no Safari real.
+  2026 e 2028 passaram. As correções posteriores específicas do Safari foram
+  validadas no navegador real durante o acabamento visual.
 - Em 2026-08-10, o fallback de idioma mudou de português do Brasil para inglês
   dos Estados Unidos no aplicativo principal, na versão pública limpa e na
   página incorporada. A escolha salva continua prioritária e os idiomas
@@ -605,9 +606,9 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
 - O frontend protegido foi publicado na cópia limpa no commit `41650ec`; o
   GitHub Pages concluiu com sucesso. Na rota pública `#/community`, o script e o
   widget foram carregados sem erros e emitiram um token real, confirmando chave
-  pública, hostname e carregamento do desafio. Não foi criada uma inscrição de
-  teste porque o envio ao Worker produz um registro externo; o teste de sucesso
-  e repetição do token permanece explicitamente pendente de autorização.
+  pública, hostname e carregamento do desafio. Os testes reais de cadastro,
+  moderação, exclusão e renovação do token foram concluídos nas revisões
+  posteriores registradas abaixo.
 - Em 2026-08-23, a primeira tentativa real no GitHub Pages concluiu o desafio,
   mas foi recusada antes do D1. A atualização isolada do segredo pelo painel
   havia ativado uma versão que não continha `TURNSTILE_EXPECTED_ACTION` nem
@@ -739,9 +740,7 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   `/.well-known/security.txt`.
 - As ações que necessariamente exigem a conta do proprietário foram isoladas
   em `docs/OWNER_ACTIONS.md`, com instruções para o token restrito do GitHub,
-  solicitação do domínio EU.org e Google Search Console. Em 2026-08-24,
-  `13calendar.eu.org` não retornou registros DNS; a disponibilidade definitiva
-  ainda depende do formulário do EU.org.
+  solicitação do domínio EU.org e Google Search Console.
 - A primeira execução manual de `Verificar produção` concluiu com sucesso em
   `jean7rafael/13calendar-public/actions/runs/32758739347`. Lint, build,
   auditorias calendáricas, orçamento do pacote, auditoria das dependências e o
@@ -778,10 +777,18 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   `THIRD_PARTY_NOTICES.md` e `vendor/13months-site/UPSTREAM.md`, pois o projeto
   de origem ainda não publicou uma licença própria. `SECURITY.md`,
   `CHANGELOG.md`, a política de privacidade e a documentação operacional foram
-  adicionados. O Cloudflare Pages é o endereço canônico atual; o futuro
-  `13calendar.eu.org` e o redirecionamento legado do GitHub Pages estão
-  preparados, mas a solicitação do domínio e a automação pública ainda precisam
-  ser concluídas.
+  adicionados. O Cloudflare Pages é o endereço canônico atual; a publicação
+  automática e o redirecionamento legado do GitHub Pages estão ativos.
+- Em 2026-08-25, a solicitação de `13calendar.eu.org` passou integralmente pela
+  validação técnica do EU.org: os nameservers atribuídos pelo Cloudflare
+  responderam corretamente a SOA e NS e o pedido foi salvo para análise humana.
+  A zona permanece pendente no Cloudflare até o EU.org publicar a delegação.
+  Nenhum registro DNS adicional deve ser criado antes dessa aprovação.
+- Na mesma revisão de estado, a produção principal, a página educacional,
+  `robots.txt`, `sitemap.xml`, `/members` e `/analytics/stats` responderam com
+  HTTP 200. Os workflows públicos mais recentes de verificação, GitHub Pages e
+  publicação no Cloudflare Pages terminaram com sucesso. Não houve mudança
+  estrutural no aplicativo.
 
 ## Pendências atuais
 
@@ -789,8 +796,11 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   o repositório de origem continua sem licença explícita. A demonstração
   experimental foi publicada por decisão do mantenedor; aplicar prontamente
   qualquer pedido de licença, atribuição, mudança visual ou retirada do autor.
-- Executar as ações de conta documentadas em `docs/OWNER_ACTIONS.md`: solicitar
-  `13calendar.eu.org` e cadastrar a propriedade no Google Search Console.
+- Aguardar a aprovação humana de `13calendar.eu.org`; depois associá-lo ao
+  Cloudflare Pages e executar a troca coordenada descrita em
+  `docs/OWNER_ACTIONS.md`.
+- Cadastrar `https://13calendar.pages.dev/` no Google Search Console. Essa etapa
+  pode ser concluída antes da aprovação do domínio próprio.
 - Como otimização opcional posterior, separar também os dados e o parser civil
   por país. A mudança atual já removeu o maior gargalo de 10 MB.
 

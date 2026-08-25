@@ -4,7 +4,10 @@ import { createSeasonDefinitions } from 'src/holidays/seasonDefinitions';
 
 import { getHolidayCountryConfig } from 'src/holidays/countryRegistry';
 
-import { getDateHolidaysForYear } from 'src/holidays/dateHolidayProvider';
+import {
+  getDateHolidaysForYear,
+  prepareDateHolidayProvider,
+} from 'src/holidays/dateHolidayProvider';
 
 import {
   getOfficialHolidaysForYear,
@@ -56,6 +59,21 @@ export const DEFAULT_HOLIDAY_FILTERS = Object.freeze({
   commercial: true,
   astronomical: true,
 });
+
+/* ===========================================================
+   PREPARAÇÃO DOS DADOS CIVIS DO PAÍS
+
+   Países exclusivamente astronômicos não precisam baixar o
+   parser. Nos demais, o carregamento ocorre antes do cálculo.
+=========================================================== */
+
+export async function prepareHolidayCountry(country = 'BR') {
+  const countryConfig = getHolidayCountryConfig(country);
+
+  if (countryConfig.provider === 'date-holidays' || countryConfig.provider === 'hybrid') {
+    await prepareDateHolidayProvider(countryConfig.code);
+  }
+}
 
 /* ===========================================================
    UTILITÁRIOS DE DATA EM UTC
@@ -337,8 +355,7 @@ function resolveDefinitionsForYear(countryConfig, year, filters, definitions) {
            folga observada, mesmo quando a definição antiga ainda
            não trazia essa classificação explicitamente. */
         occurrenceKind:
-          definition.occurrenceKind ||
-          (definition.type === 'substitute' ? 'observed' : 'holiday'),
+          definition.occurrenceKind || (definition.type === 'substitute' ? 'observed' : 'holiday'),
         source: definition.source || countryConfig.sources[definition.sourceId] || null,
       };
     })
@@ -391,10 +408,7 @@ function getGregorianHolidaysForYear({
       ? mergeProviderAndEditorialHolidays(providerHolidays, editorialHolidays)
       : [...providerHolidays, ...editorialHolidays];
 
-  const countryHolidays = mergeOfficialHolidayOccurrences(
-    baseCountryHolidays,
-    officialHolidays,
-  );
+  const countryHolidays = mergeOfficialHolidayOccurrences(baseCountryHolidays, officialHolidays);
 
   const seasonHolidays = resolveDefinitionsForYear(
     countryConfig,
@@ -460,9 +474,7 @@ function calculateNativeCalendar13Easter(year, easterType = 'easter') {
   }
 
   const marchEquinox = Seasons(numericYear)?.mar_equinox?.date;
-  const paschalFullMoon = marchEquinox
-    ? SearchMoonPhase(180, marchEquinox, 40)?.date
-    : null;
+  const paschalFullMoon = marchEquinox ? SearchMoonPhase(180, marchEquinox, 40)?.date : null;
 
   if (!paschalFullMoon) {
     nativeCalendar13EasterByYear.set(numericYear, null);
@@ -506,13 +518,14 @@ function getThirteenMonthHolidaysForYear({
     ? mode
     : DEFAULT_CALENDAR_13_HOLIDAY_MODE;
 
-  return getGregorianHolidaysForYear({
-    country,
-    year,
-    locale,
-    filters,
-  })
-    /* Datas meramente observadas são ajustes de expediente do
+  return (
+    getGregorianHolidaysForYear({
+      country,
+      year,
+      locale,
+      filters,
+    })
+      /* Datas meramente observadas são ajustes de expediente do
        calendário gregoriano. No calendário hipotético de 13 meses,
        o feriado original pode cair em outro dia da semana e essa
        folga isolada deixa de ter fundamento. Períodos oficiais com
@@ -521,34 +534,31 @@ function getThirteenMonthHolidaysForYear({
 
        A verificação redundante do tipo protege catálogos antigos ou
        fontes futuras que ainda não tragam occurrenceKind normalizado. */
-    .filter(
-      (holiday) => holiday.occurrenceKind !== 'observed' && holiday.type !== 'substitute',
-    )
-    .map((holiday) => {
-      const date13Corresponding = converterPara13Meses(holiday.date);
-      const nativeResolution = resolveNativeCalendar13HolidayDate(holiday, year, {
-        correspondingDate: date13Corresponding,
-        resolveNativeEaster: calculateNativeCalendar13Easter,
-        resolveCorrespondingRule: resolveCorrespondingCalendar13Rule,
-      });
-      const date13Native = nativeResolution.date || date13Corresponding;
-      const date13 =
-        selectedMode === CALENDAR_13_HOLIDAY_MODES.NATIVE
-          ? date13Native
-          : date13Corresponding;
+      .filter((holiday) => holiday.occurrenceKind !== 'observed' && holiday.type !== 'substitute')
+      .map((holiday) => {
+        const date13Corresponding = converterPara13Meses(holiday.date);
+        const nativeResolution = resolveNativeCalendar13HolidayDate(holiday, year, {
+          correspondingDate: date13Corresponding,
+          resolveNativeEaster: calculateNativeCalendar13Easter,
+          resolveCorrespondingRule: resolveCorrespondingCalendar13Rule,
+        });
+        const date13Native = nativeResolution.date || date13Corresponding;
+        const date13 =
+          selectedMode === CALENDAR_13_HOLIDAY_MODES.NATIVE ? date13Native : date13Corresponding;
 
-      return {
-        ...holiday,
-        gregorianDate: holiday.date,
-        date13Corresponding,
-        date13Native,
-        date13,
-        calendar13Mode: selectedMode,
-        calendar13Resolution: nativeResolution.resolution,
-      };
-    })
-    .filter((holiday) => Boolean(holiday.date13))
-    .sort((first, second) => first.date13.localeCompare(second.date13));
+        return {
+          ...holiday,
+          gregorianDate: holiday.date,
+          date13Corresponding,
+          date13Native,
+          date13,
+          calendar13Mode: selectedMode,
+          calendar13Resolution: nativeResolution.resolution,
+        };
+      })
+      .filter((holiday) => Boolean(holiday.date13))
+      .sort((first, second) => first.date13.localeCompare(second.date13))
+  );
 }
 
 /* ===========================================================

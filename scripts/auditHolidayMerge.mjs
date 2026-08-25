@@ -1,5 +1,7 @@
 import { resolve as resolvePath } from 'node:path';
 
+import { readFile } from 'node:fs/promises';
+
 import { createServer } from 'vite';
 
 import {
@@ -8,6 +10,12 @@ import {
   resolveProviderMergeRuleKey,
 } from '../src/holidays/holidayMerge.js';
 import { consolidateSubstituteHolidays } from '../src/holidays/holidaySubstitution.js';
+
+import Holidays from 'date-holidays-parser';
+
+const dateHolidaysData = JSON.parse(
+  await readFile(resolvePath(process.cwd(), 'src/holidays/generated/dateHolidays.json'), 'utf8'),
+);
 
 /* ===========================================================
    UTILITÁRIOS DA AUDITORIA
@@ -334,6 +342,14 @@ let auditedOccurrenceCount = 0;
 
 try {
   const holidayEngine = await viteServer.ssrLoadModule('/src/holidays/holidayEngine.js');
+  const dateHolidayProvider = await viteServer.ssrLoadModule(
+    '/src/holidays/dateHolidayProvider.js',
+  );
+
+  dateHolidayProvider.initializeDateHolidayProvider({
+    Holidays,
+    data: dateHolidaysData,
+  });
 
   for (const country of auditedCountries) {
     for (const year of auditedYears) {
@@ -380,8 +396,7 @@ try {
 
           calendar13Holidays
             .filter(
-              (holiday) =>
-                holiday.type === 'substitute' || holiday.occurrenceKind === 'observed',
+              (holiday) => holiday.type === 'substitute' || holiday.occurrenceKind === 'observed',
             )
             .forEach((holiday) => {
               errors.push(

@@ -1,7 +1,3 @@
-import Holidays from 'date-holidays-parser';
-
-import dateHolidaysData from 'src/holidays/generated/dateHolidays.json';
-
 import { resolveInternationalHolidayEmojiDetails } from 'src/holidays/holidayEmojiResolver';
 
 import { resolveHolidayTranslationSource } from 'src/holidays/holidayTranslationContexts';
@@ -50,10 +46,112 @@ function resolveProviderSource(countryCode) {
 =========================================================== */
 
 const providersByCountry = new Map();
+const runtimeDataByCountry = new Map();
+const preparationByCountry = new Map();
+let holidaysConstructor = null;
+let completeAuditData = null;
+let sharedNamesPromise = null;
+
+function normalizeCountryCode(countryCode) {
+  return String(countryCode || '')
+    .trim()
+    .toUpperCase();
+}
+
+function resolveRuntimeAssetUrl(relativePath) {
+  const baseUrl = import.meta.env?.BASE_URL || '/';
+
+  return `${baseUrl.replace(/\/?$/, '/')}${relativePath}`;
+}
+
+async function fetchRuntimeJson(relativePath) {
+  const response = await fetch(resolveRuntimeAssetUrl(relativePath));
+
+  if (!response.ok) {
+    throw new Error(`Falha ao carregar ${relativePath}: HTTP ${response.status}.`);
+  }
+
+  return response.json();
+}
+
+/* ===========================================================
+   PREPARAÇÃO SOB DEMANDA
+
+   O parser e os dados civis são carregados somente depois que
+   um país é escolhido. O catálogo completo permanece disponível
+   para as auditorias, sem entrar no pacote inicial do navegador.
+=========================================================== */
+
+export function initializeDateHolidayProvider({ Holidays, data }) {
+  if (typeof Holidays !== 'function' || !data?.holidays) {
+    throw new TypeError('O parser e a base civil completos são obrigatórios.');
+  }
+
+  holidaysConstructor = Holidays;
+  completeAuditData = data;
+  providersByCountry.clear();
+}
+
+export async function prepareDateHolidayProvider(countryCode) {
+  const normalizedCountryCode = normalizeCountryCode(countryCode);
+
+  if (!normalizedCountryCode) {
+    return;
+  }
+
+  if (providersByCountry.has(normalizedCountryCode)) {
+    return;
+  }
+
+  if (completeAuditData && holidaysConstructor) {
+    getProvider(normalizedCountryCode);
+    return;
+  }
+
+  if (!preparationByCountry.has(normalizedCountryCode)) {
+    const preparation = Promise.all([
+      holidaysConstructor
+        ? Promise.resolve(holidaysConstructor)
+        : import('date-holidays-parser').then(
+            (parserModule) => parserModule.default || parserModule.Holidays,
+          ),
+      sharedNamesPromise ||
+        (sharedNamesPromise = fetchRuntimeJson('holiday-data/date-holidays/names.json')),
+      fetchRuntimeJson(
+        `holiday-data/date-holidays/countries/${encodeURIComponent(normalizedCountryCode)}.json`,
+      ),
+    ])
+      .then(([Holidays, names, countryPackage]) => {
+        holidaysConstructor = Holidays;
+        runtimeDataByCountry.set(normalizedCountryCode, {
+          ...countryPackage,
+          names,
+        });
+        getProvider(normalizedCountryCode);
+      })
+      .catch((error) => {
+        preparationByCountry.delete(normalizedCountryCode);
+        throw error;
+      });
+
+    preparationByCountry.set(normalizedCountryCode, preparation);
+  }
+
+  await preparationByCountry.get(normalizedCountryCode);
+}
 
 function getProvider(countryCode) {
   if (!providersByCountry.has(countryCode)) {
-    const provider = new Holidays(dateHolidaysData);
+    const dateHolidayData = runtimeDataByCountry.get(countryCode) || completeAuditData;
+
+    if (!holidaysConstructor || !dateHolidayData) {
+      throw new Error(
+        `A base internacional de ${countryCode} precisa ser preparada antes da consulta.`,
+      );
+    }
+
+    const Holidays = holidaysConstructor;
+    const provider = new Holidays(dateHolidayData);
 
     if (!provider.init(countryCode)) {
       throw new Error(`A base internacional não contém feriados para ${countryCode}.`);
@@ -109,9 +207,7 @@ function hashRule(rule) {
 =========================================================== */
 
 export function getDateHolidaysForYear({ country, year, locale, filters }) {
-  const countryCode = String(country || '')
-    .trim()
-    .toUpperCase();
+  const countryCode = normalizeCountryCode(country);
 
   const provider = getProvider(countryCode);
 

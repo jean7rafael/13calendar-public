@@ -12,6 +12,7 @@
     "conversation:export": "node scripts/exportCodexConversation.mjs",
     "holidays:data": "node scripts/generateHolidayData.mjs",
     "holidays:runtime": "node scripts/generateHolidayRuntimeData.mjs",
+    "holidays:runtime:audit": "node scripts/auditHolidayRuntimeData.mjs",
     "holidays:audit": "node scripts/auditHolidayCountries.mjs",
     "holidays:weekday:audit": "node scripts/auditHolidayWeekdayRules.mjs",
     "holidays:calendar13:audit": "node scripts/auditCalendar13HolidayRules.mjs",
@@ -27,13 +28,14 @@
     "holidays:translate:ollama": "node scripts/translateHolidayFilesWithOllama.mjs",
     "holidays:translate:import": "node scripts/generateHolidayTranslations.mjs --import-manual",
     "holidays:translate:plan": "node scripts/generateHolidayTranslations.mjs --plan",
+    "predev": "npm run holidays:runtime",
     "dev": "quasar dev",
     "prebuild": "npm run holidays:runtime && npm run build:reference",
     "build": "quasar build",
     "build:reference": "npm --prefix vendor/13months-site run build",
     "audit:bundle": "node scripts/auditProductionBundle.mjs",
     "audit:production": "npm audit --omit=dev && npm --prefix vendor/13months-site audit --omit=dev && npm --prefix cloudflare/community-registration-worker audit --omit=dev",
-    "verify": "npm run lint && npm run build && npm run audit:bundle && npm run holidays:audit && npm run holidays:weekday:audit && npm run holidays:calendar13:audit && npm run holidays:merge:audit && npm run holidays:emoji:audit && npm run holidays:translation:audit && npm run holidays:official:audit && npm run audit:production",
+    "verify": "npm run lint && npm run build && npm run audit:bundle && npm run holidays:runtime:audit && npm run holidays:audit && npm run holidays:weekday:audit && npm run holidays:calendar13:audit && npm run holidays:merge:audit && npm run holidays:emoji:audit && npm run holidays:translation:audit && npm run holidays:official:audit && npm run audit:production",
     "postinstall": "quasar prepare"
   },
   "dependencies": {

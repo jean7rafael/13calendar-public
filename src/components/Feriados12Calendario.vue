@@ -97,7 +97,8 @@
             <div
               class="fase-wrapper"
               :class="{
-                'fase-wrapper--scrollable': feriadosCompletos.filter((item) => item.date).length > 5,
+                'fase-wrapper--scrollable':
+                  feriadosCompletos.filter((item) => item.date).length > 5,
               }"
             >
               <q-list dense class="lista-lua">
@@ -160,7 +161,7 @@ import { ref, computed, onBeforeUnmount, watch, toRef } from 'vue';
 
 import { useCarouselTransition } from 'src/utils/carouselMecanism';
 
-import { getGregorianHolidaysForMonth } from 'src/holidays/holidayEngine';
+import { getGregorianHolidaysForMonth, prepareHolidayCountry } from 'src/holidays/holidayEngine';
 
 import CarouselSeletores from 'src/components/Carousel12Seletores.vue';
 
@@ -352,6 +353,7 @@ watch(
       await Promise.all([
         loadHolidayTranslations(country),
         loadHolidayTranslations('SEASONS'),
+        prepareHolidayCountry(country),
       ]);
 
       const nextHolidays = getGregorianHolidaysForMonth({

@@ -32,29 +32,20 @@ Para trocar ou revogar o token no futuro:
 6. Execute manualmente o workflow `Publicar no Cloudflare Pages` para validar o
    novo token. Não envie o valor do token em conversas ou capturas.
 
-## 2. Solicitar `13calendar.eu.org`
+## 2. Ativar `13calendar.eu.org` — aguardando aprovação
 
-O endereço não possui registros DNS em 24 de agosto de 2026, mas isso não
-substitui a confirmação de disponibilidade feita pelo formulário do EU.org.
+Estado confirmado em 25 de agosto de 2026:
 
-Passos:
+- a zona `13calendar.eu.org` foi criada no plano gratuito do Cloudflare;
+- os dois nameservers atribuídos foram informados ao EU.org;
+- o EU.org validou corretamente as respostas SOA e NS, sem erros, e salvou a
+  solicitação para análise humana;
+- o Cloudflare está verificando periodicamente a delegação e permanece em
+  **Waiting for your registrar to propagate your new nameservers**.
 
-1. No Cloudflare, abra **Account home** → **Domains** → **Add a domain**.
-2. Informe `13calendar.eu.org`, escolha o plano gratuito e conclua a criação da
-   zona. O Cloudflare mostrará dois servidores com nomes semelhantes a
-   `exemplo.ns.cloudflare.com`; copie exatamente os dois.
-3. Se o Cloudflare permitir, abra **Workers & Pages** → `13calendar` →
-   **Custom domains** → **Set up a domain** e informe `13calendar.eu.org`. É
-   normal o domínio continuar pendente até a delegação do EU.org.
-4. Volte ao formulário do EU.org e mantenha a opção recomendada
-   **server names + replies on SOA + replies on NS**.
-5. Preencha apenas `Name1` e `Name2` com os dois servidores atribuídos pelo
-   Cloudflare. Deixe os campos de IP vazios; eles não são necessários para
-   nameservers externos.
-6. Envie o pedido. A mensagem `Domain not found` exibida antes desses campos
-   serem preenchidos indica apenas que ainda não existia delegação DNS.
-7. Aguarde a validação humana por e-mail. O próprio EU.org informa que ela pode
-   levar alguns dias. Quando for aprovada, avise `domínio aprovado`.
+Não criar registros A, AAAA, CNAME ou MX enquanto a delegação estiver
+pendente. Não é necessário repetir a solicitação nem usar **Create Worker**.
+Quando o EU.org aprovar o pedido por e-mail, avise `domínio aprovado`.
 
 Após a aprovação serão feitos, nesta ordem:
 

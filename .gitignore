@@ -42,5 +42,8 @@ yarn-error.log*
 # Arquivos temporários da tradução gratuita pelo navegador
 /manual-holiday-translations/
 
+# Pacotes civis divididos por país; regenerados antes de dev/build.
+/public/holiday-data/date-holidays/
+
 # Exportações locais e potencialmente sensíveis das conversas dos agentes
 /docs/agent-conversations/exports/
