@@ -16,10 +16,10 @@ O build principal sempre gera primeiro os dados de execução e a página
 adaptada. Por isso, `npm run build` produz uma pasta `dist/spa` completa e não
 permite publicar somente metade da experiência.
 
-Depois que os segredos `CLOUDFLARE_ACCOUNT_ID` e `CLOUDFLARE_API_TOKEN` forem
-adicionados ao repositório público, o workflow `Publicar no Cloudflare Pages`
-publicará cada alteração aprovada na `main`. A publicação manual de emergência
-continua possível com Wrangler.
+Os segredos `CLOUDFLARE_ACCOUNT_ID` e `CLOUDFLARE_API_TOKEN` estão configurados
+no repositório público. O workflow `Publicar no Cloudflare Pages` publica cada
+alteração aprovada na `main`. A publicação manual de emergência continua
+possível com Wrangler.
 
 Enquanto algum secret estiver ausente, o workflow conclui a conferência sem
 expor valores e ignora somente a etapa de publicação. As ações que exigem login

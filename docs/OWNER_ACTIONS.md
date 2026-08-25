@@ -4,16 +4,18 @@ Este arquivo reúne somente tarefas que exigem login, confirmação de identidad
 ou uma decisão do proprietário. Nenhum segredo deve ser colado em conversas,
 commits ou capturas de tela.
 
-## 1. Ativar a publicação automática no Cloudflare Pages
+## 1. Publicação automática no Cloudflare Pages — concluída
 
-Estado atual:
+Estado validado em 24 de agosto de 2026:
 
-- `CLOUDFLARE_ACCOUNT_ID` já está salvo como secret do repositório público;
-- o workflow de publicação já está pronto e apenas ignora o deploy enquanto o
-  token abaixo estiver ausente;
-- a publicação manual continua funcionando normalmente.
+- `CLOUDFLARE_ACCOUNT_ID` e `CLOUDFLARE_API_TOKEN` estão salvos como secrets do
+  repositório público;
+- o workflow realizou build e deploy completos com sucesso na execução
+  `32793984475`;
+- cada push futuro na `main` pública passa a publicar automaticamente;
+- a publicação manual continua disponível para emergências.
 
-Passos:
+Para trocar ou revogar o token no futuro:
 
 1. Abra <https://dash.cloudflare.com/profile/api-tokens>.
 2. Crie um **Custom token** com um nome como
@@ -27,10 +29,8 @@ Passos:
    gh secret set CLOUDFLARE_API_TOKEN --repo jean7rafael/13calendar-public
    ```
 
-6. Avise apenas `token cadastrado`. Não envie o valor do token.
-
-Depois disso, a automação será validada e cada atualização da `main` pública
-passará a gerar e publicar o site no Cloudflare Pages.
+6. Execute manualmente o workflow `Publicar no Cloudflare Pages` para validar o
+   novo token. Não envie o valor do token em conversas ou capturas.
 
 ## 2. Solicitar `13calendar.eu.org`
 
@@ -81,4 +81,3 @@ Acompanhe <https://github.com/Andree37/13-months/issues/2>. O pedido continua
 aberto e sem resposta desde 11 de agosto de 2026. Se houver resposta, envie o
 link ou uma captura; qualquer exigência de licença, atribuição, mudança ou
 remoção terá prioridade.
-

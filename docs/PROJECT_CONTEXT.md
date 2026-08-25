@@ -750,6 +750,11 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   `e4ce1fa3.13calendar.pages.dev`; o endereço canônico foi conferido depois da
   publicação. O código público correspondente está nos commits `47819db` e
   `e6b1732`.
+- Os dois secrets da publicação automática foram concluídos em 2026-08-24. O
+  workflow `Publicar no Cloudflare Pages` realizou build e deploy reais com
+  sucesso na execução `32793984475`, gerando o deployment
+  `f2419ee6.13calendar.pages.dev`. A partir desse ponto, cada push na `main` do
+  repositório público publica o pacote completo sem intervenção manual.
 - O código original do projeto recebeu licença MIT em `LICENSE`. A página
   educacional adaptada permanece fora dessa licença e documentada em
   `THIRD_PARTY_NOTICES.md` e `vendor/13months-site/UPSTREAM.md`, pois o projeto
@@ -766,10 +771,6 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   o repositório de origem continua sem licença explícita. A demonstração
   experimental foi publicada por decisão do mantenedor; aplicar prontamente
   qualquer pedido de licença, atribuição, mudança visual ou retirada do autor.
-- O secret `CLOUDFLARE_ACCOUNT_ID` já está cadastrado no repositório público.
-  Criar um token restrito a `Account > Cloudflare Pages > Edit`, cadastrá-lo
-  como `CLOUDFLARE_API_TOKEN` e então executar uma vez o workflow de publicação
-  para validar a automação. A publicação manual atual continua operacional.
 - Executar as ações de conta documentadas em `docs/OWNER_ACTIONS.md`: solicitar
   `13calendar.eu.org` e cadastrar a propriedade no Google Search Console.
 - Como otimização opcional posterior, separar também os dados e o parser civil
