@@ -9,6 +9,7 @@
     "migrate:remote": "wrangler d1 migrations apply DB --remote"
   },
   "devDependencies": {
+    "@cloudflare/puppeteer": "^1.4.0",
     "wrangler": "^4.33.1"
   }
 }

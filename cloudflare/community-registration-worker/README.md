@@ -23,6 +23,10 @@ registro entra como `pending` e precisa ser aprovado antes de aparecer.
 9. Coloque somente a chave pública do Turnstile em
    `VITE_TURNSTILE_SITE_KEY`.
 
+O `wrangler.jsonc` também declara o binding `BROWSER`. Ele dá acesso ao
+Cloudflare Browser Run usado como segunda tentativa para fotos públicas; não é
+uma secret e é provisionado junto com a implantação do Worker.
+
 ## Avisos de moderação no Telegram
 
 O aviso contém somente a informação de que existe uma nova pendência e o link
@@ -79,11 +83,14 @@ registro fora da página pública.
 Na mesma tela, a seção **Avisos no Telegram** mostra se o bot está configurado
 e se a conversa administrativa já foi conectada.
 
-Ao aprovar um perfil do Instagram ou Facebook, o Worker procura a foto pública
-declarada nos metadados da própria rede e guarda uma cópia no D1. O processo não
-usa login, cookie ou sessão do moderador. Se a rede bloquear a leitura, o perfil
-continua aprovado com a inicial do nome e a moderação permite repetir a captura
-ou enviar uma imagem manualmente.
+Ao receber um perfil do Instagram ou Facebook, o Worker procura a foto pública
+nos metadados da rede. Se o HTML inicial não a trouxer, o Browser Run abre o
+link público, identifica uma imagem visível com características de avatar e
+captura somente esse elemento. A cópia pode ser preparada ainda durante a
+moderação, mas só é servida por `/avatars/:id` depois da aprovação. O processo
+não usa login, cookie ou sessão do moderador. Se a rede bloquear até o navegador
+automatizado, o perfil continua com a inicial do nome e a moderação permite
+repetir a captura ou enviar uma imagem manualmente.
 
 ## Retrato comunitário
 

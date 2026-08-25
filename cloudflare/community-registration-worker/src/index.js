@@ -14,6 +14,7 @@ const ALLOWED_STATUSES = new Set(['pending', 'approved', 'rejected']);
 const PENDING_RETENTION_DAYS = 60;
 const REJECTED_RETENTION_DAYS = 30;
 
+import puppeteer from '@cloudflare/puppeteer';
 import { refreshAndReadCommunityAnalytics, refreshCommunityAnalytics } from './analytics.js';
 import {
   connectTelegramNotifications,
@@ -212,16 +213,31 @@ async function createRegistration(request, env, corsHeaders, context) {
     throw error;
   }
 
-  /* O cadastro já foi salvo: uma falha externa não altera o resultado público. */
+  /* O cadastro já foi salvo: avisos e captura da foto acontecem em segundo
+     plano. A foto pode ser guardada enquanto o perfil está pendente, mas o
+     endpoint público só a entrega depois da aprovação. */
   context.waitUntil(
-    notifyPendingRegistration(env).catch((error) => {
-      console.error(
-        JSON.stringify({
-          message: 'telegram_notification_failed',
-          code: error?.code || 'unknown_error',
-        }),
-      );
-    }),
+    Promise.allSettled([
+      notifyPendingRegistration(env).catch((error) => {
+        console.error(
+          JSON.stringify({
+            message: 'telegram_notification_failed',
+            code: error?.code || 'unknown_error',
+          }),
+        );
+      }),
+      captureRegistrationAvatar(env, id, { allowPending: true }).then((capture) => {
+        if (capture.ok) return;
+
+        console.info(
+          JSON.stringify({
+            message: 'registration_avatar_capture_deferred',
+            registrationId: id,
+            code: capture.error,
+          }),
+        );
+      }),
+    ]),
   );
 
   return jsonResponse(
@@ -250,15 +266,16 @@ async function listApprovedMembers(request, env, corsHeaders) {
             avatar_updated_at AS avatarUpdatedAt
        FROM community_registrations
       WHERE status = 'approved'
-      ORDER BY COALESCE(reviewed_at, created_at) ASC, created_at ASC
+      ORDER BY created_at ASC, id ASC
       LIMIT 500`,
   ).all();
 
-  const members = (result.results || []).map((member) => ({
+  const members = (result.results || []).map((member, sortOrder) => ({
     publicName: member.publicName,
     socialNetwork: member.socialNetwork,
     socialProfile: member.socialProfile,
     country: member.country,
+    sortOrder,
     avatarUrl: member.hasAvatar
       ? createAvatarUrl(request, member.id, member.avatarUpdatedAt)
       : null,
@@ -503,9 +520,9 @@ async function uploadRegistrationAvatar(request, env, corsHeaders, pathname) {
   );
 }
 
-/* A captura automática lê a imagem pública declarada pela própria rede
-   social. O arquivo é copiado para o D1, portanto a página comunitária não
-   depende de links temporários nem expõe cookies ou sessões do moderador. */
+/* A captura automática tenta primeiro os metadados públicos e, quando
+   necessário, abre a página com o navegador do Worker. O arquivo é copiado
+   para o D1, sem expor cookies ou sessões do moderador. */
 async function captureRegistrationAvatarForAdministrator(request, env, corsHeaders, pathname) {
   if (!(await isAuthorizedAdministrator(request, env.ADMIN_API_TOKEN))) {
     return jsonResponse({ error: 'unauthorized' }, 401, corsHeaders);
@@ -517,7 +534,7 @@ async function captureRegistrationAvatarForAdministrator(request, env, corsHeade
     return jsonResponse({ error: 'invalid_registration' }, 400, corsHeaders);
   }
 
-  const capture = await captureRegistrationAvatar(env, id);
+  const capture = await captureRegistrationAvatar(env, id, { force: true });
 
   if (!capture.ok) {
     return jsonResponse({ error: capture.error }, capture.status || 422, corsHeaders);
@@ -530,19 +547,28 @@ async function captureRegistrationAvatarForAdministrator(request, env, corsHeade
   );
 }
 
-async function captureRegistrationAvatar(env, id) {
+async function captureRegistrationAvatar(env, id, { allowPending = false, force = false } = {}) {
   const registration = await env.DB.prepare(
     `SELECT social_network AS socialNetwork,
             social_profile AS socialProfile,
-            status
+            status,
+            CASE WHEN avatar_data IS NULL THEN 0 ELSE 1 END AS hasAvatar,
+            avatar_updated_at AS avatarUpdatedAt
        FROM community_registrations
       WHERE id = ?`,
   )
     .bind(id)
     .first();
 
-  if (!registration || registration.status !== 'approved') {
+  const acceptedStatus =
+    registration?.status === 'approved' || (allowPending && registration?.status === 'pending');
+
+  if (!registration || !acceptedStatus) {
     return { ok: false, error: 'registration_not_found', status: 404 };
+  }
+
+  if (registration.hasAvatar && !force) {
+    return { ok: true, updatedAt: registration.avatarUpdatedAt };
   }
 
   const profileUrl = createSocialProfileUrl(registration.socialNetwork, registration.socialProfile);
@@ -551,53 +577,214 @@ async function captureRegistrationAvatar(env, id) {
     return { ok: false, error: 'avatar_capture_unsupported', status: 422 };
   }
 
-  const profileResponse = await fetch(profileUrl, {
-    redirect: 'follow',
-    headers: {
-      Accept: 'text/html,application/xhtml+xml',
-      'User-Agent': 'Mozilla/5.0 (compatible; 13CalendarCommunity/1.0)',
-    },
-    signal: AbortSignal.timeout(12_000),
-  });
+  /* Primeiro preservamos o caminho leve para redes que publicam og:image.
+     Se o HTML inicial não trouxer a foto, o Browser Run abre o perfil como
+     uma página real e captura somente o elemento visual do avatar. */
+  const metadataCapture = await captureAvatarFromProfileMetadata(profileUrl);
+  const capturedAvatar = metadataCapture.ok
+    ? metadataCapture
+    : await captureAvatarWithBrowser(env, profileUrl, registration.socialProfile);
 
-  if (!profileResponse.ok) {
-    return { ok: false, error: 'avatar_profile_unavailable', status: 422 };
-  }
+  if (!capturedAvatar.ok) return capturedAvatar;
 
-  const imageUrl = readOpenGraphImage(await profileResponse.text());
-
-  if (!imageUrl) {
-    return { ok: false, error: 'avatar_image_not_found', status: 422 };
-  }
-
-  const imageResponse = await fetch(imageUrl, {
-    redirect: 'follow',
-    headers: { Accept: 'image/jpeg,image/png,image/webp' },
-    signal: AbortSignal.timeout(12_000),
-  });
-  const contentType = String(imageResponse.headers.get('Content-Type') || '')
-    .split(';')[0]
-    .trim()
-    .toLowerCase();
-  const declaredLength = Number(imageResponse.headers.get('Content-Length') || 0);
-
-  if (
-    !imageResponse.ok ||
-    !ALLOWED_AVATAR_TYPES.has(contentType) ||
-    declaredLength > MAXIMUM_AVATAR_BYTES
-  ) {
-    return { ok: false, error: 'avatar_image_unavailable', status: 422 };
-  }
-
-  const avatar = await imageResponse.arrayBuffer();
-
-  if (!avatar.byteLength || avatar.byteLength > MAXIMUM_AVATAR_BYTES) {
-    return { ok: false, error: 'avatar_too_large', status: 413 };
-  }
-
-  const updatedAt = await storeRegistrationAvatar(env, id, avatar, contentType);
+  const updatedAt = await storeRegistrationAvatar(
+    env,
+    id,
+    capturedAvatar.avatar,
+    capturedAvatar.contentType,
+  );
 
   return { ok: true, updatedAt };
+}
+
+/* ===========================================================
+   CAPTURA PÚBLICA DA FOTO DE PERFIL
+=========================================================== */
+
+async function captureAvatarFromProfileMetadata(profileUrl) {
+  try {
+    const profileResponse = await fetch(profileUrl, {
+      redirect: 'follow',
+      headers: {
+        Accept: 'text/html,application/xhtml+xml',
+        'User-Agent': 'Mozilla/5.0 (compatible; 13CalendarCommunity/1.0)',
+      },
+      signal: AbortSignal.timeout(12_000),
+    });
+
+    if (!profileResponse.ok) {
+      return { ok: false, error: 'avatar_profile_unavailable', status: 422 };
+    }
+
+    const imageUrl = readOpenGraphImage(await profileResponse.text());
+
+    return imageUrl
+      ? downloadPublicAvatar(imageUrl)
+      : { ok: false, error: 'avatar_image_not_found', status: 422 };
+  } catch {
+    return { ok: false, error: 'avatar_profile_unavailable', status: 422 };
+  }
+}
+
+async function captureAvatarWithBrowser(env, profileUrl, socialProfile) {
+  if (!env.BROWSER) {
+    return { ok: false, error: 'avatar_browser_unavailable', status: 422 };
+  }
+
+  let browser;
+
+  try {
+    browser = await puppeteer.launch(env.BROWSER);
+    const page = await browser.newPage();
+    await page.setViewport({ width: 1280, height: 900, deviceScaleFactor: 1 });
+    await page.setUserAgent(
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) ' +
+        'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+    );
+    await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
+    await page.goto(profileUrl, { waitUntil: 'domcontentloaded', timeout: 15_000 });
+    await page.waitForNetworkIdle({ idleTime: 500, timeout: 4_000 }).catch(() => undefined);
+
+    /* Algumas redes inserem og:image somente depois de executar JavaScript. */
+    const renderedImageUrl = readOpenGraphImage(await page.content());
+
+    if (renderedImageUrl) {
+      const renderedMetadataCapture = await downloadPublicAvatar(renderedImageUrl);
+      if (renderedMetadataCapture.ok) return renderedMetadataCapture;
+    }
+
+    const imageHandles = await page.$$('img');
+    const normalizedProfile = String(socialProfile || '')
+      .replace(/^@/, '')
+      .replace(/^https?:\/\/[^/]+\//i, '')
+      .replace(/[/?#].*$/, '')
+      .toLowerCase();
+    let bestCandidate = null;
+
+    /* O perfil pode mudar de marcação sem aviso. Em vez de depender de uma
+       classe interna, avaliamos somente imagens visíveis, quase quadradas e
+       com sinais semânticos de foto de perfil. Logos e ícones são rejeitados. */
+    for (const handle of imageHandles) {
+      const candidate = await handle.evaluate((image, expectedProfile) => {
+        const rect = image.getBoundingClientRect();
+        const style = window.getComputedStyle(image);
+        const alt = String(image.getAttribute('alt') || '').toLowerCase();
+        const source = String(image.currentSrc || image.src || '').toLowerCase();
+        const context = String(image.parentElement?.textContent || '')
+          .toLowerCase()
+          .slice(0, 240);
+        const visible =
+          rect.width >= 40 &&
+          rect.height >= 40 &&
+          style.display !== 'none' &&
+          style.visibility !== 'hidden' &&
+          Number(style.opacity || 1) > 0;
+        const ratio = rect.width / Math.max(rect.height, 1);
+        const forbidden = /logo|icon|sprite|emoji|badge|qr code/.test(`${alt} ${source}`);
+
+        if (!visible || ratio < 0.72 || ratio > 1.38 || forbidden) return null;
+
+        let score = 0;
+        if (/profile|avatar|perfil|foto do perfil|photo de profil|profilbild/.test(alt))
+          score += 120;
+        if (expectedProfile && `${alt} ${context}`.includes(expectedProfile)) score += 90;
+        if (image.closest('header, main')) score += 35;
+        if (rect.width >= 80 && rect.width <= 320) score += 30;
+        if (rect.top >= 0 && rect.top <= 520) score += 20;
+        if (Number.parseFloat(style.borderRadius || '0') >= Math.min(rect.width, rect.height) / 3) {
+          score += 20;
+        }
+
+        return { score, width: rect.width, height: rect.height };
+      }, normalizedProfile);
+
+      if (
+        candidate &&
+        candidate.score >= 55 &&
+        (!bestCandidate || candidate.score > bestCandidate.score)
+      ) {
+        bestCandidate = { handle, score: candidate.score };
+      }
+    }
+
+    if (!bestCandidate) {
+      return { ok: false, error: 'avatar_image_not_found', status: 422 };
+    }
+
+    let screenshot = await bestCandidate.handle.screenshot({
+      type: 'webp',
+      quality: 82,
+      optimizeForSpeed: true,
+    });
+
+    if (screenshot.byteLength > MAXIMUM_AVATAR_BYTES) {
+      screenshot = await bestCandidate.handle.screenshot({
+        type: 'webp',
+        quality: 58,
+        optimizeForSpeed: true,
+      });
+    }
+
+    if (!screenshot.byteLength || screenshot.byteLength > MAXIMUM_AVATAR_BYTES) {
+      return { ok: false, error: 'avatar_too_large', status: 413 };
+    }
+
+    return {
+      ok: true,
+      avatar: copyArrayBuffer(screenshot),
+      contentType: 'image/webp',
+    };
+  } catch (error) {
+    console.info(
+      JSON.stringify({
+        message: 'browser_avatar_capture_failed',
+        code: error?.name || 'unknown_error',
+      }),
+    );
+    return { ok: false, error: 'avatar_image_unavailable', status: 422 };
+  } finally {
+    if (browser) await browser.close().catch(() => undefined);
+  }
+}
+
+async function downloadPublicAvatar(imageUrl) {
+  try {
+    const imageResponse = await fetch(imageUrl, {
+      redirect: 'follow',
+      headers: { Accept: 'image/jpeg,image/png,image/webp' },
+      signal: AbortSignal.timeout(12_000),
+    });
+    const contentType = String(imageResponse.headers.get('Content-Type') || '')
+      .split(';')[0]
+      .trim()
+      .toLowerCase();
+    const declaredLength = Number(imageResponse.headers.get('Content-Length') || 0);
+
+    if (
+      !imageResponse.ok ||
+      !ALLOWED_AVATAR_TYPES.has(contentType) ||
+      declaredLength > MAXIMUM_AVATAR_BYTES
+    ) {
+      return { ok: false, error: 'avatar_image_unavailable', status: 422 };
+    }
+
+    const avatar = await imageResponse.arrayBuffer();
+
+    if (!avatar.byteLength || avatar.byteLength > MAXIMUM_AVATAR_BYTES) {
+      return { ok: false, error: 'avatar_too_large', status: 413 };
+    }
+
+    return { ok: true, avatar, contentType };
+  } catch {
+    return { ok: false, error: 'avatar_image_unavailable', status: 422 };
+  }
+}
+
+function copyArrayBuffer(value) {
+  const source = value instanceof Uint8Array ? value : new Uint8Array(value);
+  const copy = new Uint8Array(source.byteLength);
+  copy.set(source);
+  return copy.buffer;
 }
 
 async function captureMissingApprovedAvatars(env) {
@@ -984,6 +1171,8 @@ function normalizeRegistration(payload) {
 
 function normalizeText(value, maximumLength) {
   return String(value || '')
+    // Caracteres de controle nunca fazem parte de nomes ou perfis públicos.
+    // eslint-disable-next-line no-control-regex
     .replace(/[\u0000-\u001F\u007F]/g, '')
     .replace(/\s+/g, ' ')
     .trim()

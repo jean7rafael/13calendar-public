@@ -53,8 +53,13 @@ assert.equal(await areEqualSecrets('same-secret', 'different-secret'), false);
 
 assert.match(
   workerSource,
-  /ORDER BY COALESCE\(reviewed_at, created_at\) ASC, created_at ASC/,
+  /ORDER BY created_at ASC, id ASC/,
   'A vitrine pública deve preservar a ordem histórica, com os primeiros participantes no início.',
+);
+assert.match(
+  workerSource,
+  /puppeteer\.launch\(env\.BROWSER\)/,
+  'A captura automática deve abrir o perfil público com o navegador quando os metadados falharem.',
 );
 assert.match(
   workerSource,

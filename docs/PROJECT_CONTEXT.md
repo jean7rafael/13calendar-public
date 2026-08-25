@@ -720,14 +720,25 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   segredos foi sincronizado no repositório público nos commits `0b39878` e
   `73c0091`.
 - Em 2026-08-25, a captura de foto deixou de depender do recorte manual como
-  caminho principal. Ao aprovar Instagram ou Facebook, o Worker consulta
-  somente os metadados públicos `og:image`, valida formato e tamanho e guarda a
-  cópia no D1; uma tarefa diária repete tentativas pendentes e a moderação pode
-  solicitar nova captura ou usar o envio manual como fallback. Nenhuma senha,
-  cookie ou sessão social é usada. O formulário de exclusão e o Worker passaram
-  a extrair corretamente o código privado quando o participante cola o link
-  completo. Os botões discretos de acesso interno e remoção pública usam a
-  mesma caixa, afastamento e hover.
+  caminho principal. Após o Turnstile e o armazenamento do cadastro, o Worker
+  tenta `og:image`; se o HTML inicial não contiver a foto, o binding `BROWSER`
+  do Cloudflare Browser Run abre o perfil público, rejeita logos/ícones e
+  captura somente o elemento visível mais compatível com um avatar. A imagem
+  pode ser preparada enquanto o cadastro ainda está pendente, mas o endpoint
+  público só a serve depois da aprovação. Uma tarefa diária repete falhas e a
+  moderação mantém nova captura e upload manual como fallback. Nenhuma senha,
+  cookie ou sessão social é usada. A versão do Worker
+  `81648b9d-fb23-4183-970e-571c3b1caa4f` foi implantada com o binding; as fotos
+  públicas corretas de `jean7rafael` e `cmyk_alt` foram copiadas para o D1 e
+  conferidas visualmente. A vitrine ativa devolve esses perfis por `created_at`
+  crescente, enquanto a moderação preserva os mais recentes no topo. O
+  formulário de autoexclusão usa validação preguiçosa e limpa diretamente o
+  campo e o formulário depois do sucesso, sem enfraquecer as regras de uma
+  tentativa incompleta. O formulário de exclusão
+  e o Worker continuam aceitando tanto o código isolado quanto o link completo;
+  as fotos quadradas preservadas no D1 recebem uma máscara circular uniforme
+  na vitrine e na moderação. Os botões discretos de acesso interno e remoção
+  pública usam a mesma caixa, afastamento e hover.
 - Em 2026-08-24, a grade de atividade da comunidade foi substituída em todas as
   larguras por um gráfico diário de barras com 182 dias. O histórico tem
   rolagem horizontal própria, inicia nos dias mais recentes e recalcula a

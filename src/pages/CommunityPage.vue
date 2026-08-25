@@ -360,7 +360,24 @@ async function loadApprovedMembers() {
     if (!response.ok) return;
 
     const payload = await response.json();
-    approvedMembers.value = Array.isArray(payload?.members) ? payload.members : [];
+    const members = Array.isArray(payload?.members) ? payload.members : [];
+
+    /* A vitrine preserva a ordem de chegada mesmo se uma versão antiga da
+       API devolver os perfis em outra sequência. Registros sem data mantêm
+       a ordem recebida até o Worker atualizado assumir essa garantia. */
+    approvedMembers.value = members
+      .map((member, originalIndex) => ({ member, originalIndex }))
+      .sort((left, right) => {
+        const leftOrder = Number(left.member.sortOrder);
+        const rightOrder = Number(right.member.sortOrder);
+
+        if (!Number.isFinite(leftOrder) || !Number.isFinite(rightOrder)) {
+          return left.originalIndex - right.originalIndex;
+        }
+
+        return leftOrder - rightOrder || left.originalIndex - right.originalIndex;
+      })
+      .map(({ member }) => member);
   } catch {
     // O painel de estatísticas continua funcional se a lista estiver indisponível.
   }
@@ -1313,6 +1330,7 @@ function readPreferredHolidayCountry() {
   flex: none;
   display: grid;
   place-items: center;
+  overflow: hidden;
   color: white;
   background: linear-gradient(135deg, #2563eb, #7c3aed);
   border-radius: 50%;
@@ -1324,6 +1342,7 @@ function readPreferredHolidayCountry() {
   height: 100%;
   display: block;
   object-fit: cover;
+  border-radius: inherit;
 }
 
 .community-member__identity {

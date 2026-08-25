@@ -8,12 +8,14 @@
       <h1>{{ t('community.removalTitle') }}</h1>
       <p class="community-removal-description">{{ t('community.removalDescription') }}</p>
 
-      <q-form class="community-removal-form" @submit.prevent="removeRegistration">
+      <q-form ref="removalForm" class="community-removal-form" @submit.prevent="removeRegistration">
         <q-input
+          ref="deletionCodeInput"
           v-model.trim="deletionCode"
           outlined
           type="textarea"
           autogrow
+          lazy-rules
           :label="t('community.removalCodeLabel')"
           :rules="[(value) => Boolean(value?.trim()) || t('community.required')]"
         />
@@ -79,6 +81,8 @@ const deletionCode = ref(String(route.query.code || '').trim());
 const confirmed = ref(false);
 const state = ref('idle');
 const message = ref('');
+const removalForm = ref(null);
+const deletionCodeInput = ref(null);
 const turnstileContainer = ref(null);
 const turnstileToken = ref('');
 const turnstileSiteKey = String(import.meta.env.VITE_TURNSTILE_SITE_KEY || '').trim();
@@ -182,10 +186,17 @@ async function removeRegistration() {
       );
     }
 
-    deletionCode.value = '';
-    confirmed.value = false;
     state.value = 'success';
     message.value = t('community.removalSuccess');
+    deletionCode.value = '';
+    confirmed.value = false;
+
+    /* O formulário vazio após uma exclusão concluída representa o fim do
+       processo, não uma nova tentativa inválida. A próxima tentativa sem
+       código continuará acionando normalmente as regras obrigatórias. */
+    await nextTick();
+    deletionCodeInput.value?.resetValidation();
+    removalForm.value?.resetValidation();
   } catch (error) {
     state.value = 'error';
     message.value =

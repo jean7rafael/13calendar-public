@@ -1,41 +1,40 @@
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "13calendar-community-registration",
-	"main": "src/index.js",
-	"compatibility_date": "2026-08-23",
-	"compatibility_flags": [
-		"nodejs_compat"
-	],
-	"observability": {
-		"enabled": true
-	},
-	"triggers": {
-		"crons": [
-			"30 1 * * *"
-		]
-	},
-	"vars": {
-		"ALLOWED_ORIGINS": "https://13calendar.pages.dev,https://13calendar.eu.org,https://jean7rafael.github.io,http://localhost:9000",
-		"CLOUDFLARE_ACCOUNT_ID": "709c42e19af23594cb523ac2795643ee",
-		"CLOUDFLARE_ANALYTICS_HOST": "13calendar.pages.dev",
-		"MODERATION_URL": "https://13calendar.pages.dev/#/community-admin",
-		"TELEGRAM_ADMIN_USERNAME": "jean7rafael",
-		"TURNSTILE_EXPECTED_ACTION": "community_registration",
-		"TURNSTILE_DELETION_ACTION": "community_deletion",
-		"TURNSTILE_HOSTNAMES": "13calendar.pages.dev,13calendar.eu.org,jean7rafael.github.io"
-	},
-	"secrets": {
-		"required": [
-			"ADMIN_API_TOKEN",
-			"CLOUDFLARE_ANALYTICS_API_TOKEN",
-			"TELEGRAM_BOT_TOKEN",
-			"TURNSTILE_SECRET_KEY"
-		]
-	},
-	"d1_databases": [
-		{
-			"binding": "DB",
-			"database_id": "684d3b24-eecc-49b9-9be9-32c6d8092613"
-		}
-	]
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "13calendar-community-registration",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-23",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true,
+  },
+  "triggers": {
+    "crons": ["30 1 * * *"],
+  },
+  "vars": {
+    "ALLOWED_ORIGINS": "https://13calendar.pages.dev,https://13calendar.eu.org,https://jean7rafael.github.io,http://localhost:9000",
+    "CLOUDFLARE_ACCOUNT_ID": "709c42e19af23594cb523ac2795643ee",
+    "CLOUDFLARE_ANALYTICS_HOST": "13calendar.pages.dev",
+    "MODERATION_URL": "https://13calendar.pages.dev/#/community-admin",
+    "TELEGRAM_ADMIN_USERNAME": "jean7rafael",
+    "TURNSTILE_EXPECTED_ACTION": "community_registration",
+    "TURNSTILE_DELETION_ACTION": "community_deletion",
+    "TURNSTILE_HOSTNAMES": "13calendar.pages.dev,13calendar.eu.org,jean7rafael.github.io",
+  },
+  "secrets": {
+    "required": [
+      "ADMIN_API_TOKEN",
+      "CLOUDFLARE_ANALYTICS_API_TOKEN",
+      "TELEGRAM_BOT_TOKEN",
+      "TURNSTILE_SECRET_KEY",
+    ],
+  },
+  "browser": {
+    "binding": "BROWSER",
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_id": "684d3b24-eecc-49b9-9be9-32c6d8092613",
+    },
+  ],
 }
