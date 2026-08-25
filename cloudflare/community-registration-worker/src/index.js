@@ -14,10 +14,7 @@ const ALLOWED_STATUSES = new Set(['pending', 'approved', 'rejected']);
 const PENDING_RETENTION_DAYS = 60;
 const REJECTED_RETENTION_DAYS = 30;
 
-import {
-  refreshAndReadCommunityAnalytics,
-  refreshCommunityAnalytics,
-} from './analytics.js';
+import { refreshAndReadCommunityAnalytics, refreshCommunityAnalytics } from './analytics.js';
 import {
   connectTelegramNotifications,
   notifyPendingRegistration,
@@ -85,6 +82,19 @@ export default {
       }
 
       if (
+        request.method === 'POST' &&
+        url.pathname.endsWith('/avatar/capture') &&
+        url.pathname.startsWith('/admin/registrations/')
+      ) {
+        return await captureRegistrationAvatarForAdministrator(
+          request,
+          env,
+          corsHeaders,
+          url.pathname,
+        );
+      }
+
+      if (
         request.method === 'DELETE' &&
         url.pathname.endsWith('/avatar') &&
         url.pathname.startsWith('/admin/registrations/')
@@ -93,7 +103,7 @@ export default {
       }
 
       if (request.method === 'PATCH' && url.pathname.startsWith('/admin/registrations/')) {
-        return await moderateRegistration(request, env, corsHeaders, url.pathname);
+        return await moderateRegistration(request, env, corsHeaders, url.pathname, context);
       }
 
       if (request.method === 'PUT' && url.pathname.startsWith('/admin/registrations/')) {
@@ -108,10 +118,7 @@ export default {
         return await readNotificationStatus(request, env, corsHeaders);
       }
 
-      if (
-        request.method === 'POST' &&
-        url.pathname === '/admin/notifications/telegram/connect'
-      ) {
+      if (request.method === 'POST' && url.pathname === '/admin/notifications/telegram/connect') {
         return await connectTelegramForAdministrator(request, env, corsHeaders);
       }
 
@@ -128,6 +135,7 @@ export default {
       Promise.all([
         refreshCommunityAnalytics(env),
         purgeExpiredRegistrations(env),
+        captureMissingApprovedAvatars(env),
       ]),
     );
   },
@@ -242,7 +250,7 @@ async function listApprovedMembers(request, env, corsHeaders) {
             avatar_updated_at AS avatarUpdatedAt
        FROM community_registrations
       WHERE status = 'approved'
-      ORDER BY reviewed_at DESC, created_at DESC
+      ORDER BY COALESCE(reviewed_at, created_at) ASC, created_at ASC
       LIMIT 500`,
   ).all();
 
@@ -299,7 +307,7 @@ async function listAdminRegistrations(request, env, corsHeaders, url) {
                  WHEN 'approved' THEN 1
                  ELSE 2
                END,
-               CASE WHEN status = 'pending' THEN created_at END ASC,
+               CASE WHEN status = 'pending' THEN created_at END DESC,
                CASE WHEN status = 'approved'
                     THEN COALESCE(updated_at, reviewed_at, created_at) END DESC,
                CASE WHEN status = 'rejected'
@@ -323,7 +331,7 @@ async function listAdminRegistrations(request, env, corsHeaders, url) {
   });
 }
 
-async function moderateRegistration(request, env, corsHeaders, pathname) {
+async function moderateRegistration(request, env, corsHeaders, pathname, context) {
   if (!(await isAuthorizedAdministrator(request, env.ADMIN_API_TOKEN))) {
     return jsonResponse({ error: 'unauthorized' }, 401, corsHeaders);
   }
@@ -345,6 +353,22 @@ async function moderateRegistration(request, env, corsHeaders, pathname) {
 
   if (!result.meta?.changes) {
     return jsonResponse({ error: 'registration_not_found' }, 404, corsHeaders);
+  }
+
+  /* A aprovação dispara a foto automaticamente, mas nunca atrasa nem
+     invalida a moderação se a rede social estiver indisponível. */
+  if (status === 'approved') {
+    context.waitUntil(
+      captureRegistrationAvatar(env, id).catch((error) => {
+        console.error(
+          JSON.stringify({
+            message: 'automatic_avatar_capture_failed',
+            registrationId: id,
+            code: error?.code || 'unknown_error',
+          }),
+        );
+      }),
+    );
   }
 
   return jsonResponse({ status }, 200, corsHeaders);
@@ -470,6 +494,137 @@ async function uploadRegistrationAvatar(request, env, corsHeaders, pathname) {
     return jsonResponse({ error: 'avatar_too_large' }, 413, corsHeaders);
   }
 
+  const updatedAt = await storeRegistrationAvatar(env, id, avatar, contentType);
+
+  return jsonResponse(
+    { status: 'updated', avatarUrl: createAvatarUrl(request, id, updatedAt) },
+    200,
+    corsHeaders,
+  );
+}
+
+/* A captura automática lê a imagem pública declarada pela própria rede
+   social. O arquivo é copiado para o D1, portanto a página comunitária não
+   depende de links temporários nem expõe cookies ou sessões do moderador. */
+async function captureRegistrationAvatarForAdministrator(request, env, corsHeaders, pathname) {
+  if (!(await isAuthorizedAdministrator(request, env.ADMIN_API_TOKEN))) {
+    return jsonResponse({ error: 'unauthorized' }, 401, corsHeaders);
+  }
+
+  const id = readRegistrationIdBeforeAction(pathname, 'avatar/capture');
+
+  if (!id) {
+    return jsonResponse({ error: 'invalid_registration' }, 400, corsHeaders);
+  }
+
+  const capture = await captureRegistrationAvatar(env, id);
+
+  if (!capture.ok) {
+    return jsonResponse({ error: capture.error }, capture.status || 422, corsHeaders);
+  }
+
+  return jsonResponse(
+    { status: 'updated', avatarUrl: createAvatarUrl(request, id, capture.updatedAt) },
+    200,
+    corsHeaders,
+  );
+}
+
+async function captureRegistrationAvatar(env, id) {
+  const registration = await env.DB.prepare(
+    `SELECT social_network AS socialNetwork,
+            social_profile AS socialProfile,
+            status
+       FROM community_registrations
+      WHERE id = ?`,
+  )
+    .bind(id)
+    .first();
+
+  if (!registration || registration.status !== 'approved') {
+    return { ok: false, error: 'registration_not_found', status: 404 };
+  }
+
+  const profileUrl = createSocialProfileUrl(registration.socialNetwork, registration.socialProfile);
+
+  if (!profileUrl) {
+    return { ok: false, error: 'avatar_capture_unsupported', status: 422 };
+  }
+
+  const profileResponse = await fetch(profileUrl, {
+    redirect: 'follow',
+    headers: {
+      Accept: 'text/html,application/xhtml+xml',
+      'User-Agent': 'Mozilla/5.0 (compatible; 13CalendarCommunity/1.0)',
+    },
+    signal: AbortSignal.timeout(12_000),
+  });
+
+  if (!profileResponse.ok) {
+    return { ok: false, error: 'avatar_profile_unavailable', status: 422 };
+  }
+
+  const imageUrl = readOpenGraphImage(await profileResponse.text());
+
+  if (!imageUrl) {
+    return { ok: false, error: 'avatar_image_not_found', status: 422 };
+  }
+
+  const imageResponse = await fetch(imageUrl, {
+    redirect: 'follow',
+    headers: { Accept: 'image/jpeg,image/png,image/webp' },
+    signal: AbortSignal.timeout(12_000),
+  });
+  const contentType = String(imageResponse.headers.get('Content-Type') || '')
+    .split(';')[0]
+    .trim()
+    .toLowerCase();
+  const declaredLength = Number(imageResponse.headers.get('Content-Length') || 0);
+
+  if (
+    !imageResponse.ok ||
+    !ALLOWED_AVATAR_TYPES.has(contentType) ||
+    declaredLength > MAXIMUM_AVATAR_BYTES
+  ) {
+    return { ok: false, error: 'avatar_image_unavailable', status: 422 };
+  }
+
+  const avatar = await imageResponse.arrayBuffer();
+
+  if (!avatar.byteLength || avatar.byteLength > MAXIMUM_AVATAR_BYTES) {
+    return { ok: false, error: 'avatar_too_large', status: 413 };
+  }
+
+  const updatedAt = await storeRegistrationAvatar(env, id, avatar, contentType);
+
+  return { ok: true, updatedAt };
+}
+
+async function captureMissingApprovedAvatars(env) {
+  const result = await env.DB.prepare(
+    `SELECT id
+       FROM community_registrations
+      WHERE status = 'approved' AND avatar_data IS NULL
+      ORDER BY reviewed_at ASC, created_at ASC
+      LIMIT 5`,
+  ).all();
+
+  for (const registration of result.results || []) {
+    try {
+      await captureRegistrationAvatar(env, registration.id);
+    } catch (error) {
+      console.error(
+        JSON.stringify({
+          message: 'scheduled_avatar_capture_failed',
+          registrationId: registration.id,
+          code: error?.code || 'unknown_error',
+        }),
+      );
+    }
+  }
+}
+
+async function storeRegistrationAvatar(env, id, avatar, contentType) {
   const updatedAt = new Date().toISOString();
 
   await env.DB.prepare(
@@ -483,11 +638,73 @@ async function uploadRegistrationAvatar(request, env, corsHeaders, pathname) {
     .bind(avatar, contentType, updatedAt, updatedAt, id)
     .run();
 
-  return jsonResponse(
-    { status: 'updated', avatarUrl: createAvatarUrl(request, id, updatedAt) },
-    200,
-    corsHeaders,
-  );
+  return updatedAt;
+}
+
+function createSocialProfileUrl(socialNetwork, socialProfile) {
+  const network = String(socialNetwork || '').toLowerCase();
+  const profile = String(socialProfile || '').trim();
+
+  if (!['instagram', 'facebook'].includes(network) || !profile) return '';
+
+  if (/^https?:\/\//i.test(profile)) {
+    try {
+      const url = new URL(profile);
+      const hostname = url.hostname.toLowerCase().replace(/^www\./, '');
+      const expectedHostname = network === 'instagram' ? 'instagram.com' : 'facebook.com';
+
+      return hostname === expectedHostname || hostname.endsWith(`.${expectedHostname}`)
+        ? url.toString()
+        : '';
+    } catch {
+      return '';
+    }
+  }
+
+  const username = profile.replace(/^@/, '').replace(/^\/+|\/+$/g, '');
+
+  if (!username || username.includes('/')) return '';
+
+  return network === 'instagram'
+    ? `https://www.instagram.com/${encodeURIComponent(username)}/`
+    : `https://www.facebook.com/${encodeURIComponent(username)}`;
+}
+
+function readOpenGraphImage(html) {
+  const metaTags = String(html || '').match(/<meta\b[^>]*>/gi) || [];
+
+  for (const tag of metaTags) {
+    const property = readHtmlAttribute(tag, 'property') || readHtmlAttribute(tag, 'name');
+
+    if (property?.toLowerCase() !== 'og:image') continue;
+
+    const content = decodeHtmlAttribute(readHtmlAttribute(tag, 'content'));
+
+    try {
+      const imageUrl = new URL(content);
+      if (['http:', 'https:'].includes(imageUrl.protocol)) return imageUrl.toString();
+    } catch {
+      // Metadados inválidos são ignorados e mantêm o avatar de fallback.
+    }
+  }
+
+  return '';
+}
+
+function readHtmlAttribute(tag, attribute) {
+  const match = tag.match(new RegExp(`\\b${attribute}\\s*=\\s*(["'])(.*?)\\1`, 'i'));
+  return match?.[2] || '';
+}
+
+function decodeHtmlAttribute(value) {
+  return String(value || '')
+    .replace(/&amp;/gi, '&')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&#x([0-9a-f]+);/gi, (_match, hexadecimal) =>
+      String.fromCodePoint(Number.parseInt(hexadecimal, 16)),
+    )
+    .replace(/&#(\d+);/g, (_match, decimal) => String.fromCodePoint(Number.parseInt(decimal, 10)));
 }
 
 async function removeRegistrationAvatar(request, env, corsHeaders, pathname) {
@@ -570,12 +787,9 @@ async function createAdministrativeDeletionCode(request, env, corsHeaders, pathn
     return jsonResponse({ error: 'registration_not_found' }, 404, corsHeaders);
   }
 
-  return jsonResponse(
-    { deletionCode: `${id}.${deletionSecret}` },
-    200,
-    corsHeaders,
-    { 'Cache-Control': 'no-store' },
-  );
+  return jsonResponse({ deletionCode: `${id}.${deletionSecret}` }, 200, corsHeaders, {
+    'Cache-Control': 'no-store',
+  });
 }
 
 async function removeOwnRegistration(request, env, corsHeaders) {
@@ -586,7 +800,7 @@ async function removeOwnRegistration(request, env, corsHeaders) {
   }
 
   const payload = await request.json();
-  const deletionCode = String(payload?.deletionCode || '').trim();
+  const deletionCode = normalizeDeletionCode(payload?.deletionCode);
   const separatorIndex = deletionCode.indexOf('.');
   const id = deletionCode.slice(0, separatorIndex);
   const deletionSecret = deletionCode.slice(separatorIndex + 1);
@@ -617,9 +831,7 @@ async function removeOwnRegistration(request, env, corsHeaders) {
     return jsonResponse({ error: 'invalid_deletion_code' }, 400, corsHeaders);
   }
 
-  await env.DB.prepare('DELETE FROM community_registrations WHERE id = ?')
-    .bind(id)
-    .run();
+  await env.DB.prepare('DELETE FROM community_registrations WHERE id = ?').bind(id).run();
 
   return jsonResponse({ status: 'deleted' }, 200, corsHeaders);
 }
@@ -652,25 +864,49 @@ function createSecureSecret() {
 }
 
 async function hashText(value) {
-  const digest = await crypto.subtle.digest(
-    'SHA-256',
-    new TextEncoder().encode(String(value)),
-  );
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(String(value)));
 
-  return Array.from(
-    new Uint8Array(digest),
-    (byte) => byte.toString(16).padStart(2, '0'),
-  ).join('');
+  return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
 }
 
 async function areEqualSecrets(left, right) {
-  const encoder = new TextEncoder();
-  const [leftDigest, rightDigest] = await Promise.all([
-    crypto.subtle.digest('SHA-256', encoder.encode(String(left))),
-    crypto.subtle.digest('SHA-256', encoder.encode(String(right))),
-  ]);
+  const leftBytes = toBytes(left);
+  const rightBytes = toBytes(right);
+  const maximumLength = Math.max(leftBytes.length, rightBytes.length);
+  let difference = leftBytes.length ^ rightBytes.length;
 
-  return crypto.subtle.timingSafeEqual(leftDigest, rightDigest);
+  for (let index = 0; index < maximumLength; index += 1) {
+    difference |= (leftBytes[index] || 0) ^ (rightBytes[index] || 0);
+  }
+
+  return difference === 0;
+}
+
+function toBytes(value) {
+  if (value instanceof ArrayBuffer) return new Uint8Array(value);
+  if (ArrayBuffer.isView(value)) {
+    return new Uint8Array(value.buffer, value.byteOffset, value.byteLength);
+  }
+
+  return new TextEncoder().encode(String(value));
+}
+
+function normalizeDeletionCode(value) {
+  let candidate = String(value || '').trim();
+
+  if (!candidate) return '';
+
+  try {
+    const url = new URL(candidate);
+    const directCode = url.searchParams.get('code');
+    const hashQuery = url.hash.includes('?') ? url.hash.slice(url.hash.indexOf('?') + 1) : '';
+    candidate = directCode || new URLSearchParams(hashQuery).get('code') || candidate;
+  } catch {
+    const query = candidate.includes('?') ? candidate.slice(candidate.indexOf('?') + 1) : '';
+    candidate = new URLSearchParams(query).get('code') || candidate;
+  }
+
+  return candidate.trim();
 }
 
 /* A limpeza automática aplica a política publicada sem tocar nos
@@ -819,7 +1055,7 @@ async function isAuthorizedAdministrator(request, expectedToken) {
     crypto.subtle.digest('SHA-256', encoder.encode(expectedToken)),
   ]);
 
-  return crypto.subtle.timingSafeEqual(suppliedDigest, expectedDigest);
+  return areEqualSecrets(suppliedDigest, expectedDigest);
 }
 
 /* ===========================================================
@@ -852,3 +1088,7 @@ function jsonResponse(payload, status = 200, baseHeaders = new Headers(), extraH
 
   return new Response(JSON.stringify(payload), { status, headers });
 }
+
+/* Funções puras exportadas somente para a auditoria automatizada. O handler
+   padrão continua sendo a única entrada pública implantada pelo Worker. */
+export { areEqualSecrets, createSocialProfileUrl, normalizeDeletionCode, readOpenGraphImage };

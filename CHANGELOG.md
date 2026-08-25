@@ -17,8 +17,11 @@ versionamento segue [Semantic Versioning](https://semver.org/).
 - Página educacional adaptada que funciona como entrada da experiência.
 - Retrato comunitário agregado, cadastro voluntário moderado, Turnstile, D1 e
   alertas de novas pendências pelo Telegram.
+- Exclusão autônoma por link privado, importação automática de fotos públicas
+  de Instagram e Facebook e gerenciamento administrativo dos perfis.
+- Carregamento sob demanda do calendário civil e das traduções do país
+  selecionado, com auditoria de cobertura dos 206 calendários disponíveis.
 - Aviso de privacidade, política de segurança, licença do código original e
   delimitação explícita do material adaptado de terceiro.
 - Publicação canônica no Cloudflare Pages, sitemap, metadados de busca e
   verificação contínua pelo GitHub Actions.
-

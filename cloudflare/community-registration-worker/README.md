@@ -23,6 +23,26 @@ registro entra como `pending` e precisa ser aprovado antes de aparecer.
 9. Coloque somente a chave pública do Turnstile em
    `VITE_TURNSTILE_SITE_KEY`.
 
+## Avisos de moderação no Telegram
+
+O aviso contém somente a informação de que existe uma nova pendência e o link
+da moderação. Nome, perfil social, país e telefone não são enviados ao Telegram.
+
+1. No Telegram, abra o perfil oficial `@BotFather`, crie um bot com `/newbot` e
+   guarde o token fornecido. Não cole esse token no código, no GitHub ou nesta
+   conversa.
+2. Nesta pasta, execute `npx wrangler secret put TELEGRAM_BOT_TOKEN` e cole o
+   token somente quando o terminal solicitar.
+3. Abra o bot recém-criado pelo perfil `@jean7rafael` e envie `/start`.
+4. Entre em `#/community-admin`, autentique a moderação e escolha **Conectar e
+   testar**. O Worker localizará essa conversa privada, guardará somente o
+   identificador técnico no D1 e enviará uma mensagem de confirmação.
+
+O usuário esperado fica na variável não secreta `TELEGRAM_ADMIN_USERNAME`. O
+número de telefone não é necessário e não é acessível pela Bot API. Se o bot ou
+o Telegram estiverem indisponíveis, o cadastro continua salvo normalmente e a
+falha fica apenas nos logs estruturados do Worker.
+
 O widget usa a ação `community_registration`. O Worker exige essa mesma ação e
 aceita tokens emitidos somente para `jean7rafael.github.io`, conforme as
 variáveis não secretas de `wrangler.jsonc`. Tokens são de uso único e o
@@ -40,6 +60,13 @@ moderação somente quando necessário.
 - `GET /analytics/stats`: atualiza e devolve o retrato comunitário agregado;
 - `GET /admin/registrations`: lista pendências com autorização administrativa;
 - `PATCH /admin/registrations/:id`: aprova ou rejeita uma pendência.
+- `POST /admin/registrations/:id/avatar/capture`: repete a importação automática
+  da foto pública declarada pela rede social;
+- `POST /registrations/remove`: remove somente o perfil associado ao código
+  privado apresentado pelo próprio titular;
+- `GET /admin/notifications`: informa o estado dos canais de aviso;
+- `POST /admin/notifications/telegram/connect`: conecta a conversa privada e
+  envia uma mensagem de teste.
 
 ## Moderação
 
@@ -48,6 +75,15 @@ menus públicos e exige o valor de `ADMIN_API_TOKEN`. O segredo permanece apenas
 na sessão da aba e é removido ao sair ou ao fechar a aba. Cada pedido começa
 como `pending`; Aprovar o torna visível em `GET /members`, e Recusar mantém o
 registro fora da página pública.
+
+Na mesma tela, a seção **Avisos no Telegram** mostra se o bot está configurado
+e se a conversa administrativa já foi conectada.
+
+Ao aprovar um perfil do Instagram ou Facebook, o Worker procura a foto pública
+declarada nos metadados da própria rede e guarda uma cópia no D1. O processo não
+usa login, cookie ou sessão do moderador. Se a rede bloquear a leitura, o perfil
+continua aprovado com a inicial do nome e a moderação permite repetir a captura
+ou enviar uma imagem manualmente.
 
 ## Retrato comunitário
 

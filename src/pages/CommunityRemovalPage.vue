@@ -23,7 +23,11 @@
         </q-checkbox>
 
         <!-- A autoexclusão usa uma ação Turnstile própria e um token por envio. -->
-        <div v-if="turnstileSiteKey" ref="turnstileContainer" class="community-removal-turnstile"></div>
+        <div
+          v-if="turnstileSiteKey"
+          ref="turnstileContainer"
+          class="community-removal-turnstile"
+        ></div>
 
         <q-btn
           unelevated
@@ -37,12 +41,23 @@
           :label="t(state === 'sending' ? 'community.removalSending' : 'community.removalSubmit')"
         />
 
-        <p v-if="message" class="community-removal-message" :class="`community-removal-message--${state}`" aria-live="polite">
+        <p
+          v-if="message"
+          class="community-removal-message"
+          :class="`community-removal-message--${state}`"
+          aria-live="polite"
+        >
           {{ message }}
         </p>
       </q-form>
 
-      <q-btn flat no-caps icon="arrow_back" :to="{ name: 'community' }" :label="t('community.removalBack')" />
+      <q-btn
+        flat
+        no-caps
+        icon="arrow_back"
+        :to="{ name: 'community' }"
+        :label="t('community.removalBack')"
+      />
     </section>
   </q-page>
 </template>
@@ -70,12 +85,13 @@ const turnstileSiteKey = String(import.meta.env.VITE_TURNSTILE_SITE_KEY || '').t
 const removalEndpoint = getCommunityApiUrl('registrations/remove');
 let turnstileWidgetId = null;
 
-const canSubmit = computed(() =>
-  Boolean(deletionCode.value.trim()) &&
-  confirmed.value &&
-  Boolean(removalEndpoint) &&
-  Boolean(turnstileSiteKey) &&
-  Boolean(turnstileToken.value),
+const canSubmit = computed(
+  () =>
+    Boolean(deletionCode.value.trim()) &&
+    confirmed.value &&
+    Boolean(removalEndpoint) &&
+    Boolean(turnstileSiteKey) &&
+    Boolean(turnstileToken.value),
 );
 
 useMeta(() => ({ title: t('community.removalBrowserTitle') }));
@@ -114,9 +130,15 @@ async function mountTurnstile() {
       sitekey: turnstileSiteKey,
       action: 'community_deletion',
       theme: 'auto',
-      callback: (token) => { turnstileToken.value = token; },
-      'expired-callback': () => { turnstileToken.value = ''; },
-      'error-callback': () => { turnstileToken.value = ''; },
+      callback: (token) => {
+        turnstileToken.value = token;
+      },
+      'expired-callback': () => {
+        turnstileToken.value = '';
+      },
+      'error-callback': () => {
+        turnstileToken.value = '';
+      },
     });
   } catch {
     state.value = 'error';
@@ -138,19 +160,26 @@ async function removeRegistration() {
   state.value = 'sending';
   message.value = '';
 
+  /* O campo aceita tanto o código isolado quanto o link completo que foi
+     entregue pela moderação. A normalização também existe no Worker para
+     manter a API segura diante de clientes antigos. */
+  const normalizedDeletionCode = extractDeletionCode(deletionCode.value);
+
   try {
     const response = await fetch(removalEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        deletionCode: deletionCode.value.trim(),
+        deletionCode: normalizedDeletionCode,
         turnstileToken: turnstileToken.value,
       }),
     });
     const payload = await response.json();
 
     if (!response.ok) {
-      throw new Error(payload?.error === 'invalid_deletion_code' ? 'invalid_deletion_code' : 'request_failed');
+      throw new Error(
+        payload?.error === 'invalid_deletion_code' ? 'invalid_deletion_code' : 'request_failed',
+      );
     }
 
     deletionCode.value = '';
@@ -159,13 +188,32 @@ async function removeRegistration() {
     message.value = t('community.removalSuccess');
   } catch (error) {
     state.value = 'error';
-    message.value = error?.message === 'invalid_deletion_code'
-      ? t('community.removalInvalid')
-      : t('community.removalError');
+    message.value =
+      error?.message === 'invalid_deletion_code'
+        ? t('community.removalInvalid')
+        : t('community.removalError');
   } finally {
     if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
     turnstileToken.value = '';
   }
+}
+
+function extractDeletionCode(value) {
+  let candidate = String(value || '').trim();
+
+  if (!candidate) return '';
+
+  try {
+    const url = new URL(candidate);
+    const directCode = url.searchParams.get('code');
+    const hashQuery = url.hash.includes('?') ? url.hash.slice(url.hash.indexOf('?') + 1) : '';
+    candidate = directCode || new URLSearchParams(hashQuery).get('code') || candidate;
+  } catch {
+    const query = candidate.includes('?') ? candidate.slice(candidate.indexOf('?') + 1) : '';
+    candidate = new URLSearchParams(query).get('code') || candidate;
+  }
+
+  return candidate.trim();
 }
 </script>
 
@@ -200,18 +248,57 @@ async function removeRegistration() {
   font-size: 28px;
 }
 
-.community-removal-eyebrow { margin: 0 0 8px; color: #8b5cf6; font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
-.community-removal-card h1 { margin: 0; font-size: clamp(28px, 5vw, 42px); letter-spacing: -0.04em; }
-.community-removal-description { max-width: 540px; margin: 14px auto 30px; color: var(--app-text-muted); line-height: 1.65; }
-.community-removal-form { display: grid; gap: 16px; text-align: start; }
-.community-removal-confirmation { color: var(--app-text-muted); }
-.community-removal-turnstile { min-height: 65px; }
-.community-removal-submit { justify-self: end; }
-.community-removal-message { margin: 0; padding: 12px 14px; border-radius: 12px; text-align: center; }
-.community-removal-message--success { color: #059669; background: rgb(16 185 129 / 10%); }
-.community-removal-message--error { color: #dc2626; background: rgb(239 68 68 / 10%); }
+.community-removal-eyebrow {
+  margin: 0 0 8px;
+  color: #8b5cf6;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.community-removal-card h1 {
+  margin: 0;
+  font-size: clamp(28px, 5vw, 42px);
+  letter-spacing: -0.04em;
+}
+.community-removal-description {
+  max-width: 540px;
+  margin: 14px auto 30px;
+  color: var(--app-text-muted);
+  line-height: 1.65;
+}
+.community-removal-form {
+  display: grid;
+  gap: 16px;
+  text-align: start;
+}
+.community-removal-confirmation {
+  color: var(--app-text-muted);
+}
+.community-removal-turnstile {
+  min-height: 65px;
+}
+.community-removal-submit {
+  justify-self: end;
+}
+.community-removal-message {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  text-align: center;
+}
+.community-removal-message--success {
+  color: #059669;
+  background: rgb(16 185 129 / 10%);
+}
+.community-removal-message--error {
+  color: #dc2626;
+  background: rgb(239 68 68 / 10%);
+}
 
 @media (max-width: 560px) {
-  .community-removal-submit { width: 100%; }
+  .community-removal-submit {
+    width: 100%;
+  }
 }
 </style>

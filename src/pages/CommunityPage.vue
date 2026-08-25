@@ -34,13 +34,7 @@
       <div>
         <h2>{{ t(loadFailed ? 'community.unavailableTitle' : 'community.waitingTitle') }}</h2>
         <p>
-          {{
-            t(
-              loadFailed
-                ? 'community.unavailableDescription'
-                : 'community.waitingDescription',
-            )
-          }}
+          {{ t(loadFailed ? 'community.unavailableDescription' : 'community.waitingDescription') }}
         </p>
       </div>
     </section>
@@ -70,7 +64,11 @@
           dir="ltr"
           @scroll.passive="updateActivityBarViewport"
         >
-          <div class="community-activity-chart" role="img" :aria-label="t('community.activityTitle')">
+          <div
+            class="community-activity-chart"
+            role="img"
+            :aria-label="t('community.activityTitle')"
+          >
             <span
               v-for="cell in activityCells"
               :key="cell.date"
@@ -96,7 +94,11 @@
 
         <div class="community-activity-legend">
           <span>{{ t('community.less') }}</span>
-          <i v-for="level in 5" :key="level" :class="`community-activity-bar__fill--level-${level - 1}`"></i>
+          <i
+            v-for="level in 5"
+            :key="level"
+            :class="`community-activity-bar__fill--level-${level - 1}`"
+          ></i>
           <span>{{ t('community.more') }}</span>
         </div>
       </section>
@@ -112,7 +114,11 @@
         </header>
 
         <div v-if="topCountries.length" class="community-ranking">
-          <article v-for="(country, index) in topCountries" :key="country.code" class="community-ranking__row">
+          <article
+            v-for="(country, index) in topCountries"
+            :key="country.code"
+            class="community-ranking__row"
+          >
             <div class="community-ranking__label">
               <span>{{ getCountryFlag(country.code) }}</span>
               <strong>{{ getCountryName(country.code) }}</strong>
@@ -193,7 +199,7 @@
       </div>
       <!-- Acesso discreto: a rota continua protegida pelo segredo administrativo. -->
       <q-btn
-        class="community-privacy__admin"
+        class="community-corner-action community-privacy__admin"
         flat
         round
         dense
@@ -209,9 +215,10 @@
     <section class="community-members" :aria-labelledby="membersTitleId">
       <!-- Entrada discreta para a retirada do próprio perfil. -->
       <q-btn
-        class="community-members__remove"
+        class="community-corner-action community-members__remove"
         flat
         round
+        dense
         icon="person_remove"
         :to="{ name: 'community-remove' }"
         :aria-label="t('community.membersRemoveButton')"
@@ -322,9 +329,12 @@ onBeforeUnmount(() => {
 async function loadCommunityAnalytics() {
   try {
     const liveEndpoint = getCommunityApiUrl('analytics/stats');
-    const response = await fetch(liveEndpoint || `${import.meta.env.BASE_URL}data/community-stats.json`, {
-      cache: 'no-store',
-    });
+    const response = await fetch(
+      liveEndpoint || `${import.meta.env.BASE_URL}data/community-stats.json`,
+      {
+        cache: 'no-store',
+      },
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -413,14 +423,9 @@ const summaryMetrics = computed(() => {
       label: t('community.countries'),
     },
     {
-      value:
-        selectedScope.value === 'world'
-          ? periodLabel.value
-          : formatMetricValue(countryValue),
+      value: selectedScope.value === 'world' ? periodLabel.value : formatMetricValue(countryValue),
       label:
-        selectedScope.value === 'world'
-          ? t('community.period')
-          : t('community.selectedCountry'),
+        selectedScope.value === 'world' ? t('community.period') : t('community.selectedCountry'),
     },
   ];
 });
@@ -547,10 +552,7 @@ function activityBarStyle(cell) {
     return { '--activity-bar-height': '3px' };
   }
 
-  const percentage = Math.min(
-    100,
-    Math.max(8, (cell.visits / visibleActivityMaximum.value) * 100),
-  );
+  const percentage = Math.min(100, Math.max(8, (cell.visits / visibleActivityMaximum.value) * 100));
   return { '--activity-bar-height': `${percentage}%` };
 }
 
@@ -603,9 +605,10 @@ const topDevices = computed(() => (communityData.value.devices || []).slice(0, 5
 =========================================================== */
 
 function formatNumber(value) {
-  return new Intl.NumberFormat(locale.value, { notation: 'compact', maximumFractionDigits: 1 }).format(
-    Number(value) || 0,
-  );
+  return new Intl.NumberFormat(locale.value, {
+    notation: 'compact',
+    maximumFractionDigits: 1,
+  }).format(Number(value) || 0);
 }
 
 function formatMetricValue(value) {
@@ -620,9 +623,11 @@ function formatDate(value) {
   const date = parseDay(value);
 
   return date
-    ? new Intl.DateTimeFormat(locale.value, { day: '2-digit', month: 'short', year: 'numeric' }).format(
-        date,
-      )
+    ? new Intl.DateTimeFormat(locale.value, {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      }).format(date)
     : '—';
 }
 
@@ -660,7 +665,9 @@ function getCountryFlag(code) {
 }
 
 function getPageLabel(path) {
-  const normalizedPath = String(path || '').trim().toLowerCase();
+  const normalizedPath = String(path || '')
+    .trim()
+    .toLowerCase();
 
   if (normalizedPath.includes('reference-site')) return t('community.pageHome');
   if (normalizedPath.includes('community-admin')) return t('community.pageModeration');
@@ -985,13 +992,23 @@ function readPreferredHolidayCountry() {
   background: color-mix(in srgb, var(--app-text) 7%, transparent);
   border: 1px solid color-mix(in srgb, var(--app-border) 66%, transparent);
   border-radius: 5px 5px 2px 2px;
-  transition: height 180ms ease, background 180ms ease;
+  transition:
+    height 180ms ease,
+    background 180ms ease;
 }
 
-.community-activity-bar__fill--level-1 { background: #c7d2fe !important; }
-.community-activity-bar__fill--level-2 { background: #818cf8 !important; }
-.community-activity-bar__fill--level-3 { background: #6366f1 !important; }
-.community-activity-bar__fill--level-4 { background: #7c3aed !important; }
+.community-activity-bar__fill--level-1 {
+  background: #c7d2fe !important;
+}
+.community-activity-bar__fill--level-2 {
+  background: #818cf8 !important;
+}
+.community-activity-bar__fill--level-3 {
+  background: #6366f1 !important;
+}
+.community-activity-bar__fill--level-4 {
+  background: #7c3aed !important;
+}
 
 .community-activity-bar__day,
 .community-activity-bar__month {
@@ -1169,19 +1186,30 @@ function readPreferredHolidayCountry() {
   font-size: 10px;
 }
 
-.community-privacy__admin {
-  position: absolute;
-  right: 14px;
-  bottom: 12px;
+.community-corner-action {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
   color: var(--app-text-faint);
-  opacity: 0.38;
-  transition: color 160ms ease, opacity 160ms ease, background 160ms ease;
+  opacity: 0.46;
+  transition:
+    color 160ms ease,
+    opacity 160ms ease,
+    background 160ms ease;
 }
 
-.community-privacy__admin:hover,
-.community-privacy__admin:focus-visible {
+.community-corner-action:hover,
+.community-corner-action:focus-visible {
   color: #8b5cf6;
+  background: color-mix(in srgb, #8b5cf6 10%, transparent);
   opacity: 1;
+}
+
+.community-privacy__admin {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
 }
 
 [dir='rtl'] .community-privacy {
@@ -1210,14 +1238,8 @@ function readPreferredHolidayCountry() {
 
 .community-members__remove {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  color: var(--app-text-faint);
-}
-
-.community-members__remove:hover,
-.community-members__remove:focus-visible {
-  color: #8b5cf6;
+  top: 16px;
+  right: 16px;
 }
 
 [dir='rtl'] .community-members__remove {
@@ -1271,7 +1293,10 @@ function readPreferredHolidayCountry() {
   border: 1px solid var(--app-border);
   border-radius: 15px;
   text-decoration: none;
-  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
 }
 
 .community-member:hover,
@@ -1314,10 +1339,23 @@ function readPreferredHolidayCountry() {
   white-space: nowrap;
 }
 
-.community-member__identity strong { font-size: 13px; }
-.community-member__identity small { margin-top: 3px; color: var(--app-text-muted); font-size: 11px; }
-.community-member__country { flex: none; font-size: 21px; }
-.community-members__empty { margin: 0; color: var(--app-text-faint); text-align: center; }
+.community-member__identity strong {
+  font-size: 13px;
+}
+.community-member__identity small {
+  margin-top: 3px;
+  color: var(--app-text-muted);
+  font-size: 11px;
+}
+.community-member__country {
+  flex: none;
+  font-size: 21px;
+}
+.community-members__empty {
+  margin: 0;
+  color: var(--app-text-faint);
+  text-align: center;
+}
 
 @media (max-width: 760px) {
   .community-page {

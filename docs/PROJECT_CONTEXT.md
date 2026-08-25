@@ -697,9 +697,12 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   exclusão, enquanto o D1 conserva somente o resumo SHA-256 do segredo. A rota
   pública `#/community-remove`, protegida pelo Turnstile com a ação própria
   `community_deletion`, permite que cada participante apague apenas o registro
-  vinculado ao seu código. A moderação lista pendências da mais antiga para a
-  mais recente e, abaixo delas, todos os perfis aprovados; permite corrigir
-  dados, excluir, gerar ou trocar o link privado e anexar/remover manualmente um
+  vinculado ao seu código. Links completos e códigos isolados são aceitos e
+  normalizados antes da comparação; o resumo secreto continua sendo comparado
+  em tempo constante. A moderação lista pendências e perfis publicados do mais
+  novo para o mais antigo; a vitrine pública preserva a ordem histórica, do
+  perfil mais antigo para o mais novo. A moderação permite corrigir dados,
+  excluir, gerar ou trocar o link privado e anexar/remover manualmente um
   recorte da foto pública. As imagens JPEG, PNG ou WebP de até 512 KiB ficam no
   próprio D1, são servidas somente para perfis aprovados e desaparecem junto
   com o registro. A migração `0005_registration_ownership_and_avatar.sql` foi
@@ -712,6 +715,15 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   `d7fe56c3.13calendar.pages.dev` e conferido no domínio canônico. O código sem
   segredos foi sincronizado no repositório público nos commits `0b39878` e
   `73c0091`.
+- Em 2026-08-25, a captura de foto deixou de depender do recorte manual como
+  caminho principal. Ao aprovar Instagram ou Facebook, o Worker consulta
+  somente os metadados públicos `og:image`, valida formato e tamanho e guarda a
+  cópia no D1; uma tarefa diária repete tentativas pendentes e a moderação pode
+  solicitar nova captura ou usar o envio manual como fallback. Nenhuma senha,
+  cookie ou sessão social é usada. O formulário de exclusão e o Worker passaram
+  a extrair corretamente o código privado quando o participante cola o link
+  completo. Os botões discretos de acesso interno e remoção pública usam a
+  mesma caixa, afastamento e hover.
 - Em 2026-08-24, a grade de atividade da comunidade foi substituída em todas as
   larguras por um gráfico diário de barras com 182 dias. O histórico tem
   rolagem horizontal própria, inicia nos dias mais recentes e recalcula a
@@ -789,6 +801,12 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   HTTP 200. Os workflows públicos mais recentes de verificação, GitHub Pages e
   publicação no Cloudflare Pages terminaram com sucesso. Não houve mudança
   estrutural no aplicativo.
+- Em 2026-08-25, os dados civis da `date-holidays` também foram separados por
+  país. O build gera 206 pacotes civis e carrega parser e calendário somente
+  quando o país é selecionado; as traduções e o catálogo editorial continuam
+  incrementais. A auditoria de runtime confirmou os 206 países e a sequência
+  completa de verificação concluiu com 16.890 ocorrências do calendário 13,
+  orçamento de bundle aprovado e zero vulnerabilidades de produção.
 
 ## Pendências atuais
 
@@ -801,8 +819,6 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   `docs/OWNER_ACTIONS.md`.
 - Cadastrar `https://13calendar.pages.dev/` no Google Search Console. Essa etapa
   pode ser concluída antes da aprovação do domínio próprio.
-- Como otimização opcional posterior, separar também os dados e o parser civil
-  por país. A mudança atual já removeu o maior gargalo de 10 MB.
 
 ## Protocolo de manutenção deste arquivo
 
