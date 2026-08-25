@@ -294,6 +294,9 @@
   incorporada. A escolha de regiões, países e o popup posterior à troca de
   idioma permanecem exclusivos do conversor. O retorno aos calendários aparece
   apenas no conteúdo da página comunitária, sem um controle duplicado na barra.
+- A rota de privacidade também oferece somente a escolha de idioma. Como ela não
+  exibe feriados, trocar o idioma nessa página nunca abre o popup de país; esse
+  popup e a seleção geográfica pertencem exclusivamente ao conversor.
 - A página comunitária possui faixa de totais, mapa de calor de seis meses,
   ranking por país, páginas, origens e dispositivos, além de filtro mundial ou
   por país. Os 38 textos estão localizados nos 12 idiomas em

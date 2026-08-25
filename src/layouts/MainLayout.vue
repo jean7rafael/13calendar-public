@@ -229,10 +229,7 @@ import { setAppLanguage } from 'src/boot/i18n';
 import { setAppDarkMode } from 'src/boot/theme';
 import CommunityFloatingButton from 'src/components/CommunityFloatingButton.vue';
 import HolidayCountrySelector from 'src/components/HolidayCountrySelector.vue';
-import {
-  interfaceLanguages,
-  type InterfaceLocale,
-} from '../../shared/interfaceLanguages';
+import { interfaceLanguages, type InterfaceLocale } from '../../shared/interfaceLanguages';
 
 /* ===========================================================
    TIPOS DOS IDIOMAS DISPONÍVEIS
@@ -283,11 +280,16 @@ const { t, locale } = useI18n({
 const isCommunityPage = computed(() => route.name === 'community');
 const isCommunityAdminPage = computed(() => route.name === 'community-admin');
 const isCommunityRemovalPage = computed(() => route.name === 'community-remove');
+const isPrivacyPage = computed(() => route.name === 'privacy');
 
-/* A comunidade e a moderação compartilham a gaveta enxuta.
+/* Páginas sem calendário compartilham a gaveta enxuta.
    Somente o conversor oferece a escolha de feriados. */
 const usesLanguageOnlyDrawer = computed(
-  () => isCommunityPage.value || isCommunityAdminPage.value || isCommunityRemovalPage.value,
+  () =>
+    isCommunityPage.value ||
+    isCommunityAdminPage.value ||
+    isCommunityRemovalPage.value ||
+    isPrivacyPage.value,
 );
 
 const toolbarTitle = computed(() => {
@@ -312,9 +314,7 @@ useMeta(() => ({
    ROTA DA PÁGINA INICIAL DE REFERÊNCIA
 =========================================================== */
 
-const configuredReferenceSiteUrl = String(
-  import.meta.env.VITE_REFERENCE_SITE_URL || '',
-).trim();
+const configuredReferenceSiteUrl = String(import.meta.env.VITE_REFERENCE_SITE_URL || '').trim();
 const referenceSiteUrl = configuredReferenceSiteUrl
   ? configuredReferenceSiteUrl
   : new URL(`${import.meta.env.BASE_URL}reference-site/index.html`, window.location.origin).href;
@@ -416,7 +416,8 @@ function updateDrawerMenuEndState(menuElement = getDrawerMenuElement()) {
     return;
   }
 
-  const remainingScroll = menuElement.scrollHeight - menuElement.clientHeight - menuElement.scrollTop;
+  const remainingScroll =
+    menuElement.scrollHeight - menuElement.clientHeight - menuElement.scrollTop;
   drawerMenuAtEnd.value = remainingScroll <= 1;
 }
 
@@ -625,6 +626,5 @@ async function setDrawerCountryListFits(countryListFits) {
   .app-title {
     font-size: 15px;
   }
-
 }
 </style>
