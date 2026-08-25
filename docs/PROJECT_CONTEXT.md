@@ -872,8 +872,12 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
 - A frase cardinal do conversor `Month {month} of 13 · Week {week} of 4`
   recebeu curadoria nos 12 idiomas. Em português ela é
   `Mês {month} de 13 · Semana {week} de 4`; nenhum idioma deve transformar a
-  quantidade em ordinal como `4 da 13ª`. A auditoria de traduções exige as
-  variáveis e o catálogo completo antes da compilação.
+  quantidade em ordinal como `4 da 13ª`. A causa da regressão era o componente
+  ainda montar a frase em fragmentos, embora o catálogo completo já estivesse
+  correto. O conversor agora chama uma única mensagem parametrizada. A
+  auditoria de traduções inspeciona também o componente, e a verificação diária
+  de produção lê o pacote JavaScript publicado para exigir a frase cardinal e
+  rejeitar a antiga forma ordinal.
 - A enquete visual da página educacional deixou de usar estado temporário ou
   serviço externo. O Worker oferece `GET/POST /feedback/votes`, identifica uma
   escolha anônima por UUID salvo no navegador e persiste somente o voto e esse
@@ -899,6 +903,12 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   zero. O token restrito da CI publica Pages e Workers, mas não altera D1; por
   isso, migrações de banco continuam sendo uma operação deliberada do
   mantenedor e não bloqueiam os deploys normais do Worker.
+- O pente-fino final da tradução cardinal executou a verificação integral com
+  Node 24, sem erros, e confirmou no navegador local a renderização
+  `Mês 9 de 13`. O novo pacote educacional não contém `da 13ª`. As páginas e
+  APIs públicas continuavam respondendo HTTP 200 antes da publicação dessa
+  correção; o workflow diário passa a impedir que uma futura publicação volte
+  a conter a expressão ordinal.
 
 ## Pendências atuais
 
@@ -909,6 +919,14 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
 - Aguardar a aprovação humana de `13calendar.eu.org`; depois associá-lo ao
   Cloudflare Pages e executar a troca coordenada descrita em
   `docs/OWNER_ACTIONS.md`.
+- Acompanhar o Google Search Console. Em 25 de agosto, a propriedade ainda
+  informava que os dados estavam em processamento e a primeira leitura de
+  `/sitemap.xml` aparecia como “Não foi possível buscar”, apesar de o arquivo
+  público responder HTTP 200, ser XML válido e listar as duas páginas. Após o
+  processamento ou a renovação da cota diária, conferir a nova leitura,
+  reenviar o sitemap se necessário e solicitar a indexação da página
+  educacional. Esta pendência depende do processamento do Google, não de uma
+  falha conhecida no arquivo publicado.
 
 ## Protocolo de manutenção deste arquivo
 

@@ -211,10 +211,15 @@ export default function DateConverter() {
                                                     )}
                                                 </p>
                                                 <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">
-                                                    Month {ifc().month} of 13 ·
-                                                    Week{" "}
-                                                    {Math.ceil(ifc().day! / 7)}{" "}
-                                                    of 4
+                                                    {t(
+                                                        "Month {month} of 13 · Week {week} of 4",
+                                                        {
+                                                            month: ifc().month!,
+                                                            week: Math.ceil(
+                                                                ifc().day! / 7,
+                                                            ),
+                                                        },
+                                                    )}
                                                 </p>
                                             </Show>
                                         </div>

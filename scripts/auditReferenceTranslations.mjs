@@ -8,7 +8,7 @@ import { readFile } from 'node:fs/promises';
    expressão cardinal “mês X de 13 / semana Y de 4”.
 =========================================================== */
 
-const [sourceMessages, catalogs] = await Promise.all([
+const [sourceMessages, catalogs, dateConverterSource] = await Promise.all([
   readFile(
     new URL('../vendor/13months-site/src/locales/sourceMessages.json', import.meta.url),
     'utf8',
@@ -17,6 +17,10 @@ const [sourceMessages, catalogs] = await Promise.all([
     new URL('../vendor/13months-site/src/locales/generatedMessages.json', import.meta.url),
     'utf8',
   ).then(JSON.parse),
+  readFile(
+    new URL('../vendor/13months-site/src/components/DateConverter.tsx', import.meta.url),
+    'utf8',
+  ),
 ]);
 const positionSource = 'Month {month} of 13 · Week {week} of 4';
 const expectedPositions = {
@@ -61,4 +65,14 @@ for (const [locale, messages] of Object.entries(catalogs)) {
 }
 
 assert.equal(Object.keys(catalogs).length, Object.keys(expectedPositions).length);
+assert.match(
+  dateConverterSource,
+  /t\(\s*["']Month \{month\} of 13 · Week \{week\} of 4["']\s*,/,
+  'O conversor deve traduzir a posição do mês e da semana como uma única mensagem parametrizada.',
+);
+assert.doesNotMatch(
+  dateConverterSource,
+  />\s*Month \{ifc\(\)\.month\} of 13/,
+  'O conversor não pode voltar a separar a frase em fragmentos traduzidos isoladamente.',
+);
 console.log('Traduções auditadas: 12 idiomas completos e posições cardinais preservadas.');
