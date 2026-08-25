@@ -766,6 +766,13 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   `glob@10.5.0`, transitivo do `@quasar/app-vite@2`; a auditoria encontra zero
   vulnerabilidades e sua remoção exige uma futura atualização principal do
   Quasar CLI, não uma substituição forçada da subdependência.
+- O primeiro envio do pedido `13calendar.eu.org` chegou à checagem
+  `Domain not found` porque os campos de nameserver estavam vazios. A sequência
+  correta ficou documentada em `OWNER_ACTIONS.md`: criar primeiro a zona no
+  Cloudflare, copiar os dois nameservers atribuídos, preencher `Name1` e
+  `Name2` no EU.org e manter vazios os IPs. Para o Search Console, a propriedade
+  provisória usa Prefixo do URL e verificação por tag HTML; o domínio próprio
+  usará verificação DNS depois da aprovação.
 - O código original do projeto recebeu licença MIT em `LICENSE`. A página
   educacional adaptada permanece fora dessa licença e documentada em
   `THIRD_PARTY_NOTICES.md` e `vendor/13months-site/UPSTREAM.md`, pois o projeto

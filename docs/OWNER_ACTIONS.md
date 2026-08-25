@@ -39,12 +39,22 @@ substitui a confirmação de disponibilidade feita pelo formulário do EU.org.
 
 Passos:
 
-1. Crie ou acesse uma conta em <https://nic.eu.org/>.
-2. Solicite o domínio `13calendar.eu.org`.
-3. Quando o formulário pedir DNS, use os servidores autoritativos aceitos pelo
-   fluxo escolhido. Se o EU.org exigir que o DNS já esteja respondendo,
-   interrompa nesse ponto e envie uma captura da tela, sem dados secretos.
-4. Quando a solicitação for aprovada, avise `domínio aprovado`.
+1. No Cloudflare, abra **Account home** → **Domains** → **Add a domain**.
+2. Informe `13calendar.eu.org`, escolha o plano gratuito e conclua a criação da
+   zona. O Cloudflare mostrará dois servidores com nomes semelhantes a
+   `exemplo.ns.cloudflare.com`; copie exatamente os dois.
+3. Se o Cloudflare permitir, abra **Workers & Pages** → `13calendar` →
+   **Custom domains** → **Set up a domain** e informe `13calendar.eu.org`. É
+   normal o domínio continuar pendente até a delegação do EU.org.
+4. Volte ao formulário do EU.org e mantenha a opção recomendada
+   **server names + replies on SOA + replies on NS**.
+5. Preencha apenas `Name1` e `Name2` com os dois servidores atribuídos pelo
+   Cloudflare. Deixe os campos de IP vazios; eles não são necessários para
+   nameservers externos.
+6. Envie o pedido. A mensagem `Domain not found` exibida antes desses campos
+   serem preenchidos indica apenas que ainda não existia delegação DNS.
+7. Aguarde a validação humana por e-mail. O próprio EU.org informa que ela pode
+   levar alguns dias. Quando for aprovada, avise `domínio aprovado`.
 
 Após a aprovação serão feitos, nesta ordem:
 
@@ -67,10 +77,16 @@ Passos:
 2. Selecione **Adicionar propriedade**.
 3. Para começar agora, escolha **Prefixo do URL** e informe exatamente
    `https://13calendar.pages.dev/`.
-4. Escolha a verificação por arquivo HTML ou tag HTML e envie o arquivo ou a
-   tag fornecida, sem ocultar nenhuma parte necessária à verificação pública.
-5. Depois da confirmação, envie o sitemap
+4. Escolha **Tag HTML**, copie a tag `<meta ...>` completa e envie-a para ser
+   incorporada e publicada. A tag de verificação é pública por definição e não
+   concede acesso à conta Google.
+5. Depois da publicação da tag, clique em **Verificar** no Search Console.
+6. Na opção **Sitemaps**, informe `sitemap.xml` e envie. O endereço completo
+   resultante será
    `https://13calendar.pages.dev/sitemap.xml`.
+7. Em **Inspeção de URL**, solicite a indexação de
+   `https://13calendar.pages.dev/` e de
+   `https://13calendar.pages.dev/reference-site/`.
 
 Quando `13calendar.eu.org` estiver ativo, será criada uma propriedade de
 Domínio para ele e o sitemap canônico será reenviado.
