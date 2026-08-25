@@ -18,6 +18,10 @@ concurrency:
 jobs:
   deploy:
     name: Validar e publicar Worker
+    # O repositório privado é a fonte da versão, mas os secrets de produção
+    # pertencem somente ao espelho público. A sincronização dispara este mesmo
+    # workflow no destino correto sem produzir uma falsa falha na fonte privada.
+    if: github.repository == 'jean7rafael/13calendar-public'
     runs-on: ubuntu-latest
     timeout-minutes: 15
 

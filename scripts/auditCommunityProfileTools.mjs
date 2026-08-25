@@ -85,5 +85,15 @@ assert.match(
   /readAvatarCaptureErrorMessage/,
   'A moderação deve converter os códigos da captura em mensagens acionáveis.',
 );
+assert.match(
+  adminPageSource,
+  /messageScope === 'management'/,
+  'O retorno das ações de gerenciamento deve permanecer dentro do popup correspondente.',
+);
+assert.match(
+  adminPageSource,
+  /showMessage\(t\('community\.adminPhotoCaptured'\), false, 'management'\)/,
+  'A captura de foto concluída não pode voltar a exibir sua confirmação atrás do popup.',
+);
 
 console.log('Fluxo comunitário auditado: links, códigos, fotos públicas e segredos.');

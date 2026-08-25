@@ -831,10 +831,11 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   privado `Sincronizar versão pública`, autenticado por `PUBLIC_REPO_TOKEN`,
   verifica todo o projeto e o Worker, espelha a fonte permitida e dispara os
   dois deploys públicos. A página e as verificações públicas concluíram no
-  commit `f1d3d3a`; o workflow do Worker revelou que o token CI atual tem
-  permissão para Pages, mas não `Workers Scripts: Edit`. O Worker correto
-  `81648b9d-fb23-4183-970e-571c3b1caa4f` continua ativo por deploy local; a
-  troca da credencial CI ficou documentada em `OWNER_ACTIONS.md`.
+  commit `f1d3d3a`; o primeiro workflow do Worker revelou que o token CI tinha
+  permissão para Pages, mas não `Workers Scripts: Edit`. Em 25 de agosto, a
+  permissão foi incorporada ao mesmo token e a execução pública
+  `32802460935` publicou o Worker com sucesso. O deploy automático da API
+  voltou a fazer parte do fluxo normal de lançamento.
 - Na mesma padronização, a captura automática da foto passou a preservar
   códigos de falha do Worker até a interface. Perfil restrito, página
   inexistente, foto não identificada ou bloqueada, limite temporário do
@@ -846,6 +847,20 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   `daa33955-f65b-46ab-9103-161ed20dc3ab` foi implantada por OAuth local com o
   binding `BROWSER` e as variáveis existentes preservadas. `npm run verify` e
   o dry-run específico do Worker concluíram sem erros.
+- O retorno das ações do gerenciamento de perfis fica dentro do popup que
+  originou a ação. Confirmação ou erro de captura, upload, remoção de foto,
+  edição e geração do link privado não podem reaparecer no fim da página
+  encoberta. A auditoria comunitária verifica esse escopo antes do build.
+- O pente-fino de 25 de agosto confirmou as páginas principal e educacional,
+  `robots.txt`, `sitemap.xml`, `security.txt`, `/members` e
+  `/analytics/stats` com HTTP 200; a rota administrativa sem credencial
+  respondeu 401. `npm run verify`, o dry-run e a análise de inicialização do
+  Worker passaram. Não foram encontrados segredos, artefatos de build ou
+  `node_modules` rastreados. As advertências do `npm audit` completo pertencem
+  somente a ferramentas de desenvolvimento; os três pacotes de produção
+  permanecem com zero vulnerabilidades. O workflow do Worker ignora a fonte
+  privada e publica somente no espelho público, evitando uma falsa falha por
+  ausência deliberada dos secrets de produção no repositório privado.
 
 ## Pendências atuais
 
@@ -856,11 +871,9 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
 - Aguardar a aprovação humana de `13calendar.eu.org`; depois associá-lo ao
   Cloudflare Pages e executar a troca coordenada descrita em
   `docs/OWNER_ACTIONS.md`.
-- Cadastrar `https://13calendar.pages.dev/` no Google Search Console. Essa etapa
-  pode ser concluída antes da aprovação do domínio próprio.
-- Substituir o secret público `CLOUDFLARE_API_TOKEN` por um token restrito que
-  inclua Cloudflare Pages e o modelo `Edit Cloudflare Workers`; depois validar
-  os dois workflows de publicação.
+- Concluir a verificação de `https://13calendar.pages.dev/` no Google Search
+  Console e enviar `sitemap.xml`. A tag HTML já está publicada; essa etapa pode
+  ser concluída antes da aprovação do domínio próprio.
 
 ## Protocolo de manutenção deste arquivo
 

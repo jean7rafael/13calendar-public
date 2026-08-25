@@ -158,7 +158,7 @@
       </template>
 
       <p
-        v-if="message"
+        v-if="message && messageScope === 'page'"
         class="community-admin-message"
         :class="{ 'community-admin-message--error': hasError }"
       >
@@ -315,6 +315,16 @@
             :label="t('community.adminDelete')"
             @click="deleteConfirmationOpen = true"
           />
+
+          <!-- O retorno das ações de gerenciamento pertence ao próprio popup,
+               sem ficar oculto no fluxo da página que está atrás dele. -->
+          <p
+            v-if="message && messageScope === 'management'"
+            class="community-admin-message community-admin-message--dialog"
+            :class="{ 'community-admin-message--error': hasError }"
+          >
+            {{ message }}
+          </p>
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -326,6 +336,13 @@
           <div class="text-h6">{{ t('community.adminDeletionReady') }}</div>
           <p>{{ t('community.adminDeletionReadyDescription') }}</p>
           <q-input v-model="generatedDeletionLink" outlined readonly type="textarea" autogrow />
+          <p
+            v-if="message && messageScope === 'deletion-code'"
+            class="community-admin-message community-admin-message--dialog"
+            :class="{ 'community-admin-message--error': hasError }"
+          >
+            {{ message }}
+          </p>
         </q-card-section>
         <q-card-actions align="right">
           <q-btn
@@ -356,6 +373,13 @@
                 name: managedRegistration?.publicName,
               })
             }}
+          </p>
+          <p
+            v-if="message && messageScope === 'delete-confirmation'"
+            class="community-admin-message community-admin-message--dialog"
+            :class="{ 'community-admin-message--error': hasError }"
+          >
+            {{ message }}
           </p>
         </q-card-section>
         <q-card-actions align="right">
@@ -398,6 +422,7 @@ const isConnectingTelegram = ref(false);
 const notificationStatus = ref({ configured: null, connected: false, username: '' });
 const message = ref('');
 const hasError = ref(false);
+const messageScope = ref('page');
 const managementOpen = ref(false);
 const deletionCodeOpen = ref(false);
 const deleteConfirmationOpen = ref(false);
@@ -445,8 +470,7 @@ async function loadRegistrations(options = {}) {
   const endpoint = getCommunityApiUrl('admin/registrations?status=all');
   if (!endpoint || !adminToken.value.trim()) return;
   isLoading.value = true;
-  if (!options.preserveMessage) message.value = '';
-  hasError.value = false;
+  if (!options.preserveMessage) clearMessage();
 
   try {
     const response = await fetch(endpoint, { headers: authorizationHeaders(), cache: 'no-store' });
@@ -492,7 +516,7 @@ async function connectTelegram() {
   const endpoint = getCommunityApiUrl('admin/notifications/telegram/connect');
   if (!endpoint) return;
   isConnectingTelegram.value = true;
-  message.value = '';
+  clearMessage();
 
   try {
     const response = await fetch(endpoint, { method: 'POST', headers: authorizationHeaders() });
@@ -520,7 +544,7 @@ async function connectTelegram() {
 async function moderate(id, status) {
   const endpoint = getCommunityApiUrl(`admin/registrations/${encodeURIComponent(id)}`);
   actionId.value = id;
-  message.value = '';
+  clearMessage();
   try {
     const response = await fetch(endpoint, {
       method: 'PATCH',
@@ -538,6 +562,7 @@ async function moderate(id, status) {
 }
 
 function openManagement(registration) {
+  clearMessage();
   managedRegistration.value = { ...registration };
   Object.assign(editForm, {
     publicName: registration.publicName,
@@ -552,6 +577,7 @@ function openManagement(registration) {
 async function saveRegistration() {
   if (!managedRegistration.value || !editForm.publicName.trim() || !editForm.socialProfile.trim())
     return;
+  clearMessage();
   actionName.value = 'save';
   try {
     const endpoint = getCommunityApiUrl(
@@ -570,9 +596,9 @@ async function saveRegistration() {
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     await reloadManagedRegistration();
-    showMessage(t('community.adminSaved'));
+    showMessage(t('community.adminSaved'), false, 'management');
   } catch {
-    showMessage(t('community.adminError'), true);
+    showMessage(t('community.adminError'), true, 'management');
   } finally {
     actionName.value = '';
   }
@@ -584,6 +610,7 @@ async function saveRegistration() {
 
 async function captureAvatar() {
   if (!managedRegistration.value) return;
+  clearMessage();
   actionName.value = 'avatar-capture';
   try {
     const endpoint = getCommunityApiUrl(
@@ -600,9 +627,9 @@ async function captureAvatar() {
     }
 
     await reloadManagedRegistration();
-    showMessage(t('community.adminPhotoCaptured'));
+    showMessage(t('community.adminPhotoCaptured'), false, 'management');
   } catch (error) {
-    showMessage(readAvatarCaptureErrorMessage(error), true);
+    showMessage(readAvatarCaptureErrorMessage(error), true, 'management');
   } finally {
     actionName.value = '';
   }
@@ -635,6 +662,7 @@ function readAvatarCaptureErrorMessage(error) {
 
 async function uploadAvatar() {
   if (!managedRegistration.value || !selectedAvatarFile.value) return;
+  clearMessage();
   actionName.value = 'avatar';
   try {
     const endpoint = getCommunityApiUrl(
@@ -648,9 +676,9 @@ async function uploadAvatar() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     selectedAvatarFile.value = null;
     await reloadManagedRegistration();
-    showMessage(t('community.adminPhotoSaved'));
+    showMessage(t('community.adminPhotoSaved'), false, 'management');
   } catch {
-    showMessage(t('community.adminPhotoError'), true);
+    showMessage(t('community.adminPhotoError'), true, 'management');
   } finally {
     actionName.value = '';
   }
@@ -658,6 +686,7 @@ async function uploadAvatar() {
 
 async function removeAvatar() {
   if (!managedRegistration.value) return;
+  clearMessage();
   actionName.value = 'avatar-remove';
   try {
     const endpoint = getCommunityApiUrl(
@@ -666,9 +695,9 @@ async function removeAvatar() {
     const response = await fetch(endpoint, { method: 'DELETE', headers: authorizationHeaders() });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     await reloadManagedRegistration();
-    showMessage(t('community.adminPhotoRemoved'));
+    showMessage(t('community.adminPhotoRemoved'), false, 'management');
   } catch {
-    showMessage(t('community.adminPhotoError'), true);
+    showMessage(t('community.adminPhotoError'), true, 'management');
   } finally {
     actionName.value = '';
   }
@@ -680,6 +709,7 @@ async function removeAvatar() {
 
 async function generateDeletionCode() {
   if (!managedRegistration.value) return;
+  clearMessage();
   actionName.value = 'deletion-code';
   try {
     const endpoint = getCommunityApiUrl(
@@ -697,7 +727,7 @@ async function generateDeletionCode() {
     deletionCodeOpen.value = true;
     await loadRegistrations({ preserveMessage: true });
   } catch {
-    showMessage(t('community.adminError'), true);
+    showMessage(t('community.adminError'), true, 'management');
   } finally {
     actionName.value = '';
   }
@@ -705,6 +735,7 @@ async function generateDeletionCode() {
 
 async function deleteManagedRegistration() {
   if (!managedRegistration.value) return;
+  clearMessage();
   actionName.value = 'delete';
   try {
     const endpoint = getCommunityApiUrl(
@@ -717,7 +748,7 @@ async function deleteManagedRegistration() {
     await loadRegistrations({ preserveMessage: true });
     showMessage(t('community.adminDeleted'));
   } catch {
-    showMessage(t('community.adminError'), true);
+    showMessage(t('community.adminError'), true, 'delete-confirmation');
   } finally {
     actionName.value = '';
   }
@@ -731,20 +762,27 @@ async function reloadManagedRegistration() {
 }
 
 async function copyDeletionLink() {
+  clearMessage();
   try {
     await navigator.clipboard.writeText(generatedDeletionLink.value);
-    showMessage(t('community.adminCopied'));
+    showMessage(t('community.adminCopied'), false, 'deletion-code');
   } catch {
-    showMessage(t('community.adminCopyError'), true);
+    showMessage(t('community.adminCopyError'), true, 'deletion-code');
   }
 }
 
 function showAvatarSizeError() {
-  showMessage(t('community.adminPhotoSizeError'), true);
+  showMessage(t('community.adminPhotoSizeError'), true, 'management');
 }
-function showMessage(text, error = false) {
+function showMessage(text, error = false, scope = 'page') {
   message.value = text;
   hasError.value = error;
+  messageScope.value = scope;
+}
+function clearMessage() {
+  message.value = '';
+  hasError.value = false;
+  messageScope.value = 'page';
 }
 
 function signOut() {
@@ -753,7 +791,7 @@ function signOut() {
   registrations.value = [];
   notificationStatus.value = { configured: null, connected: false, username: '' };
   isAuthorized.value = false;
-  message.value = '';
+  clearMessage();
 }
 
 function readSessionToken() {
@@ -933,6 +971,16 @@ function formatDate(value) {
 }
 .community-admin-message--error {
   color: #dc2626;
+}
+.community-admin-message--dialog {
+  width: 100%;
+  margin-top: 0;
+  padding: 12px 14px;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 12px;
+}
+.community-admin-message--dialog.community-admin-message--error {
+  background: rgba(220, 38, 38, 0.1);
 }
 .community-management-dialog,
 .community-code-dialog,

@@ -15,11 +15,10 @@ Estado validado em 24 de agosto de 2026:
 - cada push futuro na `main` pública passa a publicar automaticamente a página;
 - a publicação manual continua disponível para emergências.
 
-Em 25 de agosto, a mesma credencial ainda publicou Pages, mas o deploy do
-Worker retornou `Authentication error 10000`: o token atual não contém a
-permissão de Workers. O Worker correto já foi implantado por OAuth local; falta
-somente substituir o secret para que as próximas versões sejam inteiramente
-automáticas.
+Em 25 de agosto, o token existente recebeu também `Workers Scripts: Edit`. A
+execução pública `32802460935` realizou o deploy completo do Worker com
+sucesso. Página e API voltaram, portanto, a compartilhar uma publicação
+inteiramente automática.
 
 Para trocar ou revogar o token no futuro:
 
@@ -38,7 +37,7 @@ Para trocar ou revogar o token no futuro:
    ```
 
 6. Execute manualmente os workflows `Publicar API da comunidade` e
-   `Publicar no Cloudflare Pages` para validar o novo token. Não envie o valor
+   `Publicar no Cloudflare Pages` para validar um token novo. Não envie o valor
    do token em conversas ou capturas.
 
 O repositório privado possui o secret `PUBLIC_REPO_TOKEN`. O workflow
@@ -82,10 +81,10 @@ Passos:
 2. Selecione **Adicionar propriedade**.
 3. Para começar agora, escolha **Prefixo do URL** e informe exatamente
    `https://13calendar.pages.dev/`.
-4. Escolha **Tag HTML**, copie a tag `<meta ...>` completa e envie-a para ser
-   incorporada e publicada. A tag de verificação é pública por definição e não
-   concede acesso à conta Google.
-5. Depois da publicação da tag, clique em **Verificar** no Search Console.
+4. Escolha **Tag HTML**. A tag de verificação já está incorporada e publicada
+   no `<head>` da página principal; ela é pública por definição e não concede
+   acesso à conta Google.
+5. Clique em **Verificar** no Search Console.
 6. Na opção **Sitemaps**, informe `sitemap.xml` e envie. O endereço completo
    resultante será
    `https://13calendar.pages.dev/sitemap.xml`.
