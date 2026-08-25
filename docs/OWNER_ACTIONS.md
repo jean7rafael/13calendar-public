@@ -68,24 +68,24 @@ Após a aprovação serão feitos, nesta ordem:
 4. redirecionamento permanente dos endereços antigos;
 5. validação de todos os formulários e páginas.
 
-## 3. Google Search Console — propriedade verificada
+## 3. Google Search Console — configuração concluída
 
 Estado confirmado em 25 de agosto de 2026:
 
 - a propriedade de Prefixo do URL `https://13calendar.pages.dev/` foi criada;
 - a tag HTML publicada validou automaticamente a propriedade;
-- `sitemap.xml` está preenchido na tela de envio;
+- `sitemap.xml` foi enviado em 25 de agosto de 2026;
+- a página principal já consta no índice do Google;
+- a página educacional consta no sitemap e será descoberta na leitura
+  periódica; a solicitação manual adicional encontrou a cota diária do Google,
+  sem indicar erro no site;
 - a publicação técnica já oferece `robots.txt`, `sitemap.xml`, canonical e
   metadados próprios para a página principal e para a página educacional.
 
-Falta somente confirmar e executar estas ações na conta Google:
-
-1. Na opção **Sitemaps**, enviar o valor já preenchido `sitemap.xml`. O
-   endereço completo resultante será
-   `https://13calendar.pages.dev/sitemap.xml`.
-2. Em **Inspeção de URL**, solicitar a indexação de
-   `https://13calendar.pages.dev/` e de
-   `https://13calendar.pages.dev/reference-site/`.
+Na primeira leitura, o painel exibiu `Não foi possível ler o sitemap`, embora o
+arquivo responda HTTP 200, tenha XML válido e devolva o mesmo conteúdo ao
+Googlebot. O Search Console tentará novamente de forma periódica; apenas
+acompanhar o estado, sem reenviar repetidamente.
 
 Quando `13calendar.eu.org` estiver ativo, será criada uma propriedade de
 Domínio para ele e o sitemap canônico será reenviado.

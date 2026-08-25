@@ -887,9 +887,18 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   lint, builds, conversões, traduções, feriados, orçamento do pacote e
   auditorias de produção.
 - A propriedade de Prefixo do URL `https://13calendar.pages.dev/` foi criada e
-  verificada no Google Search Console pela tag HTML já publicada. O sitemap e
-  as duas solicitações de indexação aguardam somente a confirmação do
-  mantenedor imediatamente antes do envio externo.
+  verificada no Google Search Console pela tag HTML já publicada. O sitemap foi
+  enviado; a página principal já está indexada. A página educacional consta no
+  sitemap, mas a solicitação manual encontrou a cota diária do Google. A
+  primeira leitura do sitemap registrou uma falha transitória mesmo com HTTP
+  200, XML válido e resposta idêntica ao Googlebot; o Google fará novas leituras
+  automaticamente.
+- A migração D1 dos votos foi aplicada pela sessão Cloudflare autenticada e o
+  Worker `a33a409b-bee5-4a80-82b9-26729dddd0fa` foi publicado. Um voto real foi
+  criado, lido e removido em produção, deixando novamente os quatro totais em
+  zero. O token restrito da CI publica Pages e Workers, mas não altera D1; por
+  isso, migrações de banco continuam sendo uma operação deliberada do
+  mantenedor e não bloqueiam os deploys normais do Worker.
 
 ## Pendências atuais
 
@@ -900,9 +909,6 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
 - Aguardar a aprovação humana de `13calendar.eu.org`; depois associá-lo ao
   Cloudflare Pages e executar a troca coordenada descrita em
   `docs/OWNER_ACTIONS.md`.
-- Concluir a verificação de `https://13calendar.pages.dev/` no Google Search
-  Console: a propriedade já está verificada; enviar `sitemap.xml` e solicitar a
-  indexação das duas páginas depois da confirmação operacional do mantenedor.
 
 ## Protocolo de manutenção deste arquivo
 

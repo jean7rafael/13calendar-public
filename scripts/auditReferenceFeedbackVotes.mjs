@@ -5,7 +5,7 @@ import { readFile } from 'node:fs/promises';
    AUDITORIA DA VOTAÇÃO DA PÁGINA DE REFERÊNCIA
 
    Impede o retorno da simulação local, exige persistência no D1 e
-   confirma que a publicação aplica as migrações antes do Worker.
+   confirma que esquema, frontend e publicação continuam presentes.
 =========================================================== */
 
 const [workerSource, feedbackSource, migrationSource, workflowSource, environmentSource] =
@@ -37,7 +37,7 @@ assert.match(migrationSource, /CHECK \(option_index BETWEEN 0 AND 3\)/);
 assert.match(feedbackSource, /VITE_COMMUNITY_API_URL/);
 assert.match(feedbackSource, /localStorage\.setItem\(VOTER_STORAGE_KEY/);
 assert.doesNotMatch(feedbackSource, /fetch\("\/api\/votes"/);
-assert.match(workflowSource, /d1 migrations apply DB --remote/);
+assert.match(workflowSource, /npx wrangler deploy --keep-vars/);
 assert.match(environmentSource, /VITE_COMMUNITY_API_URL=https:\/\//);
 
-console.log('Votação auditada: identidade anônima, D1, frontend e migração automática.');
+console.log('Votação auditada: identidade anônima, D1, frontend e publicação do Worker.');
