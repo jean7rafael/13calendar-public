@@ -13,9 +13,11 @@
     >
       <div class="community-registration__fields">
         <q-input
+          ref="publicNameInput"
           v-model.trim="publicName"
           outlined
           dense
+          lazy-rules
           maxlength="60"
           :label="t('community.nameLabel')"
           :rules="[(value) => Boolean(value?.trim()) || t('community.required')]"
@@ -33,9 +35,11 @@
         />
 
         <q-input
+          ref="socialProfileInput"
           v-model.trim="socialProfile"
           outlined
           dense
+          lazy-rules
           maxlength="160"
           :label="t('community.profileLabel')"
           :rules="[(value) => Boolean(value?.trim()) || t('community.required')]"
@@ -97,6 +101,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+import { useSuccessfulFormReset } from 'src/composables/useSuccessfulFormReset';
 
 /* ===========================================================
    DADOS PÚBLICOS DO CADASTRO VOLUNTÁRIO
@@ -109,11 +114,14 @@ const consent = ref(false);
 const submissionState = ref('idle');
 const submissionMessage = ref('');
 const registrationForm = ref(null);
+const publicNameInput = ref(null);
+const socialProfileInput = ref(null);
 const registrationTitleId = 'community-registration-title';
 const deletionLink = ref('');
 
 const { t, locale } = useI18n({ useScope: 'global' });
 const router = useRouter();
+const { resetSuccessfulForm } = useSuccessfulFormReset();
 
 const socialNetworkOptions = computed(() => [
   { label: 'Instagram', value: 'instagram' },
@@ -260,8 +268,10 @@ async function submitRegistration() {
        inválida. Depois que o Vue aplicar a limpeza, removemos somente o
        resultado visual da validação anterior. Uma nova tentativa incompleta
        continua sendo validada normalmente pelo QForm. */
-    await nextTick();
-    registrationForm.value?.resetValidation();
+    await resetSuccessfulForm({
+      form: registrationForm.value,
+      fields: [publicNameInput.value, socialProfileInput.value],
+    });
 
     submissionState.value = 'success';
     submissionMessage.value = t('community.submitSuccess');

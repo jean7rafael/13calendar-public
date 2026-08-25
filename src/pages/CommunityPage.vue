@@ -242,10 +242,7 @@
           rel="noopener noreferrer"
           :aria-label="t('community.memberProfile', { name: member.publicName })"
         >
-          <span class="community-member__avatar" aria-hidden="true">
-            <img v-if="member.avatarUrl" :src="member.avatarUrl" alt="" />
-            <template v-else>{{ getMemberInitial(member.publicName) }}</template>
-          </span>
+          <AppProfileAvatar :image-url="member.avatarUrl" :name="member.publicName" />
           <span class="community-member__identity">
             <strong>{{ member.publicName }}</strong>
             <small>{{ getMemberProfileLabel(member) }}</small>
@@ -272,6 +269,7 @@ import { useI18n } from 'vue-i18n';
 import { useMeta } from 'quasar';
 import CommunityRegistration from 'src/components/CommunityRegistration.vue';
 import AppFooter from 'src/components/AppFooter.vue';
+import AppProfileAvatar from 'src/components/AppProfileAvatar.vue';
 import { getCommunityApiUrl } from 'src/services/communityApi';
 
 /* ===========================================================
@@ -701,10 +699,6 @@ function getPageLabel(path) {
   }
 
   return t('community.pageOther');
-}
-
-function getMemberInitial(name) {
-  return Array.from(String(name || '').trim())[0]?.toUpperCase() || '•';
 }
 
 function getMemberProfileLabel(member) {
@@ -1322,27 +1316,6 @@ function readPreferredHolidayCountry() {
   border-color: color-mix(in srgb, #8b5cf6 42%, var(--app-border));
   outline: none;
   transform: translateY(-2px);
-}
-
-.community-member__avatar {
-  width: 42px;
-  height: 42px;
-  flex: none;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  color: white;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
-  border-radius: 50%;
-  font-weight: 800;
-}
-
-.community-member__avatar img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  border-radius: inherit;
 }
 
 .community-member__identity {

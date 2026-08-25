@@ -69,6 +69,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useMeta } from 'quasar';
 import { useRoute } from 'vue-router';
+import { useSuccessfulFormReset } from 'src/composables/useSuccessfulFormReset';
 import { getCommunityApiUrl } from 'src/services/communityApi';
 
 /* ===========================================================
@@ -87,6 +88,7 @@ const turnstileContainer = ref(null);
 const turnstileToken = ref('');
 const turnstileSiteKey = String(import.meta.env.VITE_TURNSTILE_SITE_KEY || '').trim();
 const removalEndpoint = getCommunityApiUrl('registrations/remove');
+const { resetSuccessfulForm } = useSuccessfulFormReset();
 let turnstileWidgetId = null;
 
 const canSubmit = computed(
@@ -194,9 +196,10 @@ async function removeRegistration() {
     /* O formulário vazio após uma exclusão concluída representa o fim do
        processo, não uma nova tentativa inválida. A próxima tentativa sem
        código continuará acionando normalmente as regras obrigatórias. */
-    await nextTick();
-    deletionCodeInput.value?.resetValidation();
-    removalForm.value?.resetValidation();
+    await resetSuccessfulForm({
+      form: removalForm.value,
+      fields: [deletionCodeInput.value],
+    });
   } catch (error) {
     state.value = 'error';
     message.value =

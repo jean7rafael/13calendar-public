@@ -4,7 +4,7 @@ Este arquivo reúne somente tarefas que exigem login, confirmação de identidad
 ou uma decisão do proprietário. Nenhum segredo deve ser colado em conversas,
 commits ou capturas de tela.
 
-## 1. Publicação automática no Cloudflare Pages — concluída
+## 1. Publicação automática da página e do Worker
 
 Estado validado em 24 de agosto de 2026:
 
@@ -12,15 +12,23 @@ Estado validado em 24 de agosto de 2026:
   repositório público;
 - o workflow realizou build e deploy completos com sucesso na execução
   `32793984475`;
-- cada push futuro na `main` pública passa a publicar automaticamente;
+- cada push futuro na `main` pública passa a publicar automaticamente a página;
 - a publicação manual continua disponível para emergências.
+
+Em 25 de agosto, a mesma credencial ainda publicou Pages, mas o deploy do
+Worker retornou `Authentication error 10000`: o token atual não contém a
+permissão de Workers. O Worker correto já foi implantado por OAuth local; falta
+somente substituir o secret para que as próximas versões sejam inteiramente
+automáticas.
 
 Para trocar ou revogar o token no futuro:
 
 1. Abra <https://dash.cloudflare.com/profile/api-tokens>.
 2. Crie um **Custom token** com um nome como
-   `13calendar GitHub Pages Deploy`.
-3. Conceda somente `Account` → `Cloudflare Pages` → `Edit`.
+   `13calendar GitHub Production Deploy`.
+3. Conceda `Account` → `Cloudflare Pages` → `Edit` e use o modelo oficial
+   **Edit Cloudflare Workers**, que inclui `Workers Scripts` → `Edit` e as
+   leituras de conta/usuário necessárias ao Wrangler.
 4. Restrinja o token à conta que contém o projeto `13calendar`.
 5. No Mac, a partir de qualquer pasta, execute o comando abaixo e cole o token
    somente quando o próprio terminal solicitar:
@@ -29,8 +37,14 @@ Para trocar ou revogar o token no futuro:
    gh secret set CLOUDFLARE_API_TOKEN --repo jean7rafael/13calendar-public
    ```
 
-6. Execute manualmente o workflow `Publicar no Cloudflare Pages` para validar o
-   novo token. Não envie o valor do token em conversas ou capturas.
+6. Execute manualmente os workflows `Publicar API da comunidade` e
+   `Publicar no Cloudflare Pages` para validar o novo token. Não envie o valor
+   do token em conversas ou capturas.
+
+O repositório privado possui o secret `PUBLIC_REPO_TOKEN`. O workflow
+`Sincronizar versão pública` agora executa `npm run verify`, confere o pacote do
+Worker, espelha a mesma fonte no repositório público e deixa que esses dois
+workflows façam as publicações. Esse é o fluxo padrão para toda nova versão.
 
 ## 2. Ativar `13calendar.eu.org` — aguardando aprovação
 

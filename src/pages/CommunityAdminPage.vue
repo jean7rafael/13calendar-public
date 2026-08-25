@@ -118,10 +118,11 @@
         <div v-if="approvedRegistrations.length" class="community-admin-list">
           <article v-for="registration in approvedRegistrations" :key="registration.id">
             <div class="community-admin-identity">
-              <span class="community-admin-avatar" aria-hidden="true">
-                <img v-if="registration.avatarUrl" :src="registration.avatarUrl" alt="" />
-                <template v-else>{{ getMemberInitial(registration.publicName) }}</template>
-              </span>
+              <AppProfileAvatar
+                :image-url="registration.avatarUrl"
+                :name="registration.publicName"
+                :size="44"
+              />
               <div>
                 <strong>{{ registration.publicName }}</strong>
                 <small>{{ registration.socialNetwork }} · {{ registration.socialProfile }}</small>
@@ -188,14 +189,11 @@
           <!-- A imagem pública é importada automaticamente; o envio manual
                permanece como alternativa quando a rede social bloqueia a leitura. -->
           <div class="community-management-dialog__avatar">
-            <span class="community-admin-avatar community-admin-avatar--large">
-              <img
-                v-if="managedRegistration?.avatarUrl"
-                :src="managedRegistration.avatarUrl"
-                alt=""
-              />
-              <template v-else>{{ getMemberInitial(editForm.publicName) }}</template>
-            </span>
+            <AppProfileAvatar
+              :image-url="managedRegistration?.avatarUrl"
+              :name="editForm.publicName"
+              :size="70"
+            />
             <div>
               <strong>{{ t('community.adminPhotoTitle') }}</strong>
               <p>{{ t('community.adminPhotoDescription') }}</p>
@@ -382,6 +380,7 @@ import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useMeta } from 'quasar';
 import { useRouter } from 'vue-router';
+import AppProfileAvatar from 'src/components/AppProfileAvatar.vue';
 import { getCommunityApiUrl } from 'src/services/communityApi';
 
 /* ===========================================================
@@ -591,14 +590,47 @@ async function captureAvatar() {
       `admin/registrations/${encodeURIComponent(managedRegistration.value.id)}/avatar/capture`,
     );
     const response = await fetch(endpoint, { method: 'POST', headers: authorizationHeaders() });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      const captureError = new Error(payload?.error || 'avatar_capture_failed');
+      captureError.code = payload?.error || 'avatar_capture_failed';
+      captureError.status = response.status;
+      throw captureError;
+    }
+
     await reloadManagedRegistration();
     showMessage(t('community.adminPhotoCaptured'));
-  } catch {
-    showMessage(t('community.adminPhotoCaptureError'), true);
+  } catch (error) {
+    showMessage(readAvatarCaptureErrorMessage(error), true);
   } finally {
     actionName.value = '';
   }
+}
+
+/* A API preserva códigos estáveis para que cada falha indique uma ação útil.
+   Somente uma causa realmente desconhecida usa a mensagem genérica. */
+function readAvatarCaptureErrorMessage(error) {
+  const messageKeyByCode = {
+    unauthorized: 'adminPhotoCaptureCredentialError',
+    invalid_registration: 'adminPhotoCaptureRegistrationError',
+    registration_not_found: 'adminPhotoCaptureRegistrationError',
+    avatar_capture_unsupported: 'adminPhotoCaptureUnsupported',
+    avatar_profile_restricted: 'adminPhotoCaptureRestricted',
+    avatar_profile_not_found: 'adminPhotoCaptureProfileNotFound',
+    avatar_profile_unavailable: 'adminPhotoCaptureNetworkError',
+    avatar_image_not_found: 'adminPhotoCaptureImageNotFound',
+    avatar_image_unavailable: 'adminPhotoCaptureImageUnavailable',
+    avatar_browser_unavailable: 'adminPhotoCaptureBrowserUnavailable',
+    avatar_browser_busy: 'adminPhotoCaptureBusy',
+    avatar_too_large: 'adminPhotoCaptureTooLarge',
+  };
+  const errorCode = String(error?.code || error?.message || '');
+  const messageKey = messageKeyByCode[errorCode];
+
+  if (messageKey) return t(`community.${messageKey}`);
+  if (error instanceof TypeError) return t('community.adminPhotoCaptureNetworkError');
+  return t('community.adminPhotoCaptureError');
 }
 
 async function uploadAvatar() {
@@ -743,14 +775,6 @@ function getProfileUrl(registration) {
   return profile;
 }
 
-function getMemberInitial(name) {
-  return (
-    String(name || '?')
-      .trim()
-      .charAt(0)
-      .toUpperCase() || '?'
-  );
-}
 function getCountryFlag(code) {
   const country = String(code || '').toUpperCase();
   if (!/^[A-Z]{2}$/.test(country)) return '🌐';
@@ -874,7 +898,7 @@ function formatDate(value) {
   align-items: center;
   gap: 12px;
 }
-.community-admin-identity > span:not(.community-admin-avatar) {
+.community-admin-identity > span:not(.app-profile-avatar) {
   font-size: 23px;
 }
 .community-admin-identity strong,
@@ -896,29 +920,6 @@ function formatDate(value) {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-.community-admin-avatar {
-  width: 44px;
-  height: 44px;
-  flex: none;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  color: white;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
-  border-radius: 50%;
-  font-weight: 800;
-}
-.community-admin-avatar img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-}
-.community-admin-avatar--large {
-  width: 70px;
-  height: 70px;
-  font-size: 22px;
 }
 .community-admin-empty {
   margin: 32px 0 0;

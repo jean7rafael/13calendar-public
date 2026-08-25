@@ -21,6 +21,10 @@ const workerSource = await readFile(
   new URL('../cloudflare/community-registration-worker/src/index.js', import.meta.url),
   'utf8',
 );
+const adminPageSource = await readFile(
+  new URL('../src/pages/CommunityAdminPage.vue', import.meta.url),
+  'utf8',
+);
 
 assert.equal(normalizeDeletionCode(code), code);
 assert.equal(
@@ -65,6 +69,21 @@ assert.match(
   workerSource,
   /CASE WHEN status = 'pending' THEN created_at END DESC/,
   'A moderação deve mostrar os cadastros mais recentes primeiro.',
+);
+assert.match(
+  workerSource,
+  /avatar_profile_restricted/,
+  'A captura deve diferenciar perfil restrito de uma falha desconhecida.',
+);
+assert.match(
+  workerSource,
+  /avatar_browser_busy/,
+  'A captura deve diferenciar limite temporário do navegador.',
+);
+assert.match(
+  adminPageSource,
+  /readAvatarCaptureErrorMessage/,
+  'A moderação deve converter os códigos da captura em mensagens acionáveis.',
 );
 
 console.log('Fluxo comunitário auditado: links, códigos, fotos públicas e segredos.');

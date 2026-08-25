@@ -822,6 +822,30 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   incrementais. A auditoria de runtime confirmou os 206 países e a sequência
   completa de verificação concluiu com 16.890 ocorrências do calendário 13,
   orçamento de bundle aprovado e zero vulnerabilidades de produção.
+- Em 2026-08-25, os padrões reincidentes da interface deixaram de depender de
+  CSS e limpeza locais. `AppProfileAvatar` concentra proporção, fallback e
+  máscara circular para vitrine e moderação; `useSuccessfulFormReset` concentra
+  a limpeza posterior ao sucesso e os campos obrigatórios usam `lazy-rules`.
+  `npm run ui:audit`, incorporado ao `verify`, bloqueia avatar paralelo,
+  validação direta e campo obrigatório sem esse comportamento. O workflow
+  privado `Sincronizar versão pública`, autenticado por `PUBLIC_REPO_TOKEN`,
+  verifica todo o projeto e o Worker, espelha a fonte permitida e dispara os
+  dois deploys públicos. A página e as verificações públicas concluíram no
+  commit `f1d3d3a`; o workflow do Worker revelou que o token CI atual tem
+  permissão para Pages, mas não `Workers Scripts: Edit`. O Worker correto
+  `81648b9d-fb23-4183-970e-571c3b1caa4f` continua ativo por deploy local; a
+  troca da credencial CI ficou documentada em `OWNER_ACTIONS.md`.
+- Na mesma padronização, a captura automática da foto passou a preservar
+  códigos de falha do Worker até a interface. Perfil restrito, página
+  inexistente, foto não identificada ou bloqueada, limite temporário do
+  navegador, binding ausente, arquivo grande, credencial recusada e falha de
+  rede agora recebem explicações e próximos passos próprios; somente causas
+  desconhecidas usam o fallback genérico. A auditoria comunitária impede que
+  essa tradução de erros seja removida. O dry-run do Worker também passou a
+  usar o diretório correto no workflow unificado. A versão do Worker
+  `daa33955-f65b-46ab-9103-161ed20dc3ab` foi implantada por OAuth local com o
+  binding `BROWSER` e as variáveis existentes preservadas. `npm run verify` e
+  o dry-run específico do Worker concluíram sem erros.
 
 ## Pendências atuais
 
@@ -834,6 +858,9 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   `docs/OWNER_ACTIONS.md`.
 - Cadastrar `https://13calendar.pages.dev/` no Google Search Console. Essa etapa
   pode ser concluída antes da aprovação do domínio próprio.
+- Substituir o secret público `CLOUDFLARE_API_TOKEN` por um token restrito que
+  inclua Cloudflare Pages e o modelo `Edit Cloudflare Workers`; depois validar
+  os dois workflows de publicação.
 
 ## Protocolo de manutenção deste arquivo
 

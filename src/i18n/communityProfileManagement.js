@@ -46,7 +46,29 @@ const english = {
   adminPhotoCapture: 'Capture automatically',
   adminPhotoCaptured: 'Public profile photo captured.',
   adminPhotoCaptureError:
-    'The social network did not make the public photo available. Try again later or upload it manually.',
+    'The automatic capture failed for an unknown reason. Try again later or upload the photo manually.',
+  adminPhotoCaptureCredentialError:
+    'The moderation credential was refused. Sign in to the moderation page again and retry.',
+  adminPhotoCaptureRegistrationError:
+    'This profile no longer exists or is no longer published. Refresh the moderation list.',
+  adminPhotoCaptureUnsupported:
+    'Automatic capture is not supported for this social network. Upload the photo manually.',
+  adminPhotoCaptureRestricted:
+    'The profile is private or the social network required a login. Check the public link or upload the photo manually.',
+  adminPhotoCaptureProfileNotFound:
+    'The social profile page was not found. Check the registered link before retrying.',
+  adminPhotoCaptureNetworkError:
+    'The social network did not respond. Check the profile link and try again later.',
+  adminPhotoCaptureImageNotFound:
+    'The page opened, but no public profile photo could be identified. Upload the photo manually if it is visible to you.',
+  adminPhotoCaptureImageUnavailable:
+    'The photo was found, but the social network blocked its download. Upload it manually.',
+  adminPhotoCaptureBrowserUnavailable:
+    'The Cloudflare browser is not configured in the Worker. Publish the Worker with the BROWSER binding before retrying.',
+  adminPhotoCaptureBusy:
+    'The Cloudflare browser is temporarily at its usage or session limit. Wait a few seconds and retry.',
+  adminPhotoCaptureTooLarge:
+    'The detected photo exceeds 512 KB. Reduce the image and upload it manually.',
   adminPhotoSelect: 'Select cropped image',
   adminPhotoUpload: 'Upload photo',
   adminPhotoRemove: 'Remove photo',
@@ -121,7 +143,29 @@ export const communityProfileManagementMessages = {
     adminPhotoCapture: 'Capturar automaticamente',
     adminPhotoCaptured: 'Foto pública do perfil capturada.',
     adminPhotoCaptureError:
-      'A rede social não disponibilizou a foto pública. Tente novamente mais tarde ou envie-a manualmente.',
+      'A captura automática falhou por uma causa desconhecida. Tente novamente mais tarde ou envie a foto manualmente.',
+    adminPhotoCaptureCredentialError:
+      'A credencial da moderação foi recusada. Entre novamente na página de moderação e repita a captura.',
+    adminPhotoCaptureRegistrationError:
+      'Este perfil não existe mais ou deixou de estar publicado. Atualize a lista da moderação.',
+    adminPhotoCaptureUnsupported:
+      'A captura automática não é compatível com esta rede social. Envie a foto manualmente.',
+    adminPhotoCaptureRestricted:
+      'O perfil está privado ou a rede social exigiu login. Confira o link público ou envie a foto manualmente.',
+    adminPhotoCaptureProfileNotFound:
+      'A página do perfil social não foi encontrada. Confira o link cadastrado antes de tentar novamente.',
+    adminPhotoCaptureNetworkError:
+      'A rede social não respondeu. Confira o link do perfil e tente novamente mais tarde.',
+    adminPhotoCaptureImageNotFound:
+      'A página abriu, mas nenhuma foto pública de perfil foi identificada. Se ela estiver visível para você, envie-a manualmente.',
+    adminPhotoCaptureImageUnavailable:
+      'A foto foi encontrada, mas a rede social bloqueou o download. Envie-a manualmente.',
+    adminPhotoCaptureBrowserUnavailable:
+      'O navegador da Cloudflare não está configurado no Worker. Publique o Worker com o vínculo BROWSER antes de tentar novamente.',
+    adminPhotoCaptureBusy:
+      'O navegador da Cloudflare atingiu temporariamente o limite de uso ou de sessões. Aguarde alguns segundos e tente novamente.',
+    adminPhotoCaptureTooLarge:
+      'A foto encontrada ultrapassa 512 KB. Reduza a imagem e envie-a manualmente.',
     adminPhotoSelect: 'Selecionar imagem recortada',
     adminPhotoUpload: 'Enviar foto',
     adminPhotoRemove: 'Remover foto',

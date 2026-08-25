@@ -628,7 +628,7 @@ async function captureAvatarFromProfileMetadata(profileUrl) {
 
 async function captureAvatarWithBrowser(env, profileUrl, socialProfile) {
   if (!env.BROWSER) {
-    return { ok: false, error: 'avatar_browser_unavailable', status: 422 };
+    return { ok: false, error: 'avatar_browser_unavailable', status: 503 };
   }
 
   let browser;
@@ -642,7 +642,23 @@ async function captureAvatarWithBrowser(env, profileUrl, socialProfile) {
         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
     );
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
-    await page.goto(profileUrl, { waitUntil: 'domcontentloaded', timeout: 15_000 });
+    const navigationResponse = await page.goto(profileUrl, {
+      waitUntil: 'domcontentloaded',
+      timeout: 15_000,
+    });
+
+    if (navigationResponse?.status() === 401 || navigationResponse?.status() === 403) {
+      return { ok: false, error: 'avatar_profile_restricted', status: 422 };
+    }
+
+    if (navigationResponse?.status() === 404 || navigationResponse?.status() === 410) {
+      return { ok: false, error: 'avatar_profile_not_found', status: 404 };
+    }
+
+    if (navigationResponse?.status() === 429) {
+      return { ok: false, error: 'avatar_browser_busy', status: 503 };
+    }
+
     await page.waitForNetworkIdle({ idleTime: 500, timeout: 4_000 }).catch(() => undefined);
 
     /* Algumas redes inserem og:image somente depois de executar JavaScript. */
@@ -708,6 +724,28 @@ async function captureAvatarWithBrowser(env, profileUrl, socialProfile) {
     }
 
     if (!bestCandidate) {
+      const finalUrl = page.url().toLowerCase();
+      const pageText = await page
+        .$eval('body', (body) => String(body.innerText || '').toLowerCase().slice(0, 4_000))
+        .catch(() => '');
+
+      if (
+        /\/login|\/accounts\/login|\/checkpoint|\/challenge/.test(finalUrl) ||
+        /log in to continue|sign in to continue|faça login para continuar|inicie sessão para continuar/.test(
+          pageText,
+        )
+      ) {
+        return { ok: false, error: 'avatar_profile_restricted', status: 422 };
+      }
+
+      if (
+        /page isn't available|page not found|content isn't available|página não está disponível|página não encontrada/.test(
+          pageText,
+        )
+      ) {
+        return { ok: false, error: 'avatar_profile_not_found', status: 404 };
+      }
+
       return { ok: false, error: 'avatar_image_not_found', status: 422 };
     }
 
@@ -741,10 +779,26 @@ async function captureAvatarWithBrowser(env, profileUrl, socialProfile) {
         code: error?.name || 'unknown_error',
       }),
     );
-    return { ok: false, error: 'avatar_image_unavailable', status: 422 };
+    return classifyBrowserCaptureFailure(error);
   } finally {
     if (browser) await browser.close().catch(() => undefined);
   }
+}
+
+/* Erros internos do navegador mudam de texto entre versões. Esta classificação
+   converte somente causas reconhecíveis em códigos públicos estáveis. */
+function classifyBrowserCaptureFailure(error) {
+  const description = `${error?.name || ''} ${error?.message || ''}`.toLowerCase();
+
+  if (/429|rate.?limit|quota|limit exceeded|too many|session limit|capacity/.test(description)) {
+    return { ok: false, error: 'avatar_browser_busy', status: 503 };
+  }
+
+  if (/timeout|timed out|navigation|net::|network|dns|fetch/.test(description)) {
+    return { ok: false, error: 'avatar_profile_unavailable', status: 502 };
+  }
+
+  return { ok: false, error: 'avatar_image_unavailable', status: 422 };
 }
 
 async function downloadPublicAvatar(imageUrl) {
