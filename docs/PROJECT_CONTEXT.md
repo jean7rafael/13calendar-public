@@ -755,6 +755,10 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   sucesso na execução `32793984475`, gerando o deployment
   `f2419ee6.13calendar.pages.dev`. A partir desse ponto, cada push na `main` do
   repositório público publica o pacote completo sem intervenção manual.
+- O segundo teste, disparado automaticamente pelo push `ac21219`, também
+  concluiu build e publicação com sucesso na execução `32794144833`. O workflow
+  passou de `cloudflare/wrangler-action@v3` para `@v4`, versão oficial que usa o
+  runtime Node 24 e elimina o aviso de depreciação do Node 20.
 - O código original do projeto recebeu licença MIT em `LICENSE`. A página
   educacional adaptada permanece fora dessa licença e documentada em
   `THIRD_PARTY_NOTICES.md` e `vendor/13months-site/UPSTREAM.md`, pois o projeto
