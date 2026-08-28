@@ -1271,10 +1271,10 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   `0007` e publicou o Worker `6ec7e22c-0e28-46b8-9b3e-b5865a64dde8`. O banco
   foi atualizado antes do código, preservando a ordem segura do lançamento.
 - O CI do espelho público também revelou que `AGENTS.md` é deliberadamente
-  privado, mas a auditoria de continuidade tentava lê-lo novamente. O programa
-  agora reconhece apenas o repositório público conhecido e registra que o
-  protocolo já passou na fonte privada antes do espelhamento; qualquer outra
-  ausência de `AGENTS.md` continua sendo erro.
+  privado, mas as auditorias de continuidade e interface tentavam lê-lo
+  novamente. Ambas agora reconhecem apenas o repositório público conhecido e
+  registram que as regras já passaram na fonte privada antes do espelhamento;
+  qualquer outra ausência de `AGENTS.md` continua sendo erro.
 
 ## Pendências atuais
 

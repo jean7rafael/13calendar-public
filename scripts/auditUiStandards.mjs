@@ -74,7 +74,13 @@ const adminPage = fs.readFileSync(
   'utf8',
 );
 const appStyles = fs.readFileSync(path.join(sourceDirectory, 'css', 'app.scss'), 'utf8');
-const agents = fs.readFileSync(path.join(root, 'AGENTS.md'), 'utf8');
+const agentsPath = path.join(root, 'AGENTS.md');
+const isPublicRelease = process.env.GITHUB_REPOSITORY === 'jean7rafael/13calendar-public';
+const agents = fs.existsSync(agentsPath)
+  ? fs.readFileSync(agentsPath, 'utf8')
+  : isPublicRelease
+    ? ''
+    : fs.readFileSync(agentsPath, 'utf8');
 const footer = fs.readFileSync(path.join(sourceDirectory, 'components', 'AppFooter.vue'), 'utf8');
 const calendarContext = fs.readFileSync(
   path.join(sourceDirectory, 'components', 'CalendarContextSection.vue'),
@@ -572,11 +578,12 @@ if (
 }
 
 if (
-  !agents.includes('app-action--secondary') ||
-  !agents.includes('não usam o sufixo `-feira`') ||
-  !agents.includes('docs/UI_COLOR_PALETTE.md') ||
-  !agents.includes('Nunca use o seletor nativo `type="date"`') ||
-  !agents.includes('abreviatura `IFC`')
+  agents &&
+  (!agents.includes('app-action--secondary') ||
+    !agents.includes('não usam o sufixo `-feira`') ||
+    !agents.includes('docs/UI_COLOR_PALETTE.md') ||
+    !agents.includes('Nunca use o seletor nativo `type="date"`') ||
+    !agents.includes('abreviatura `IFC`'))
 ) {
   failures.push(
     'AGENTS.md: as regras de botões, dias comparativos e paleta precisam permanecer documentadas.',
