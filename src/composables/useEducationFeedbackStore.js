@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue';
 import { getCommunityApiUrl } from 'src/services/communityApi';
+import { saveCommunityProfileCode } from 'src/utils/communityProfileCredential';
 
 /* ===========================================================
    ESTADO COMPARTILHADO DA VOTAÇÃO E DOS RELATOS
@@ -115,6 +116,9 @@ async function saveFeedback(payload) {
     }
 
     applyPayload(responsePayload);
+    if (payload.attributionMode === 'community' && payload.communityCode) {
+      saveCommunityProfileCode(payload.communityCode);
+    }
     loadState.value = 'ready';
     return { ok: true };
   } catch {

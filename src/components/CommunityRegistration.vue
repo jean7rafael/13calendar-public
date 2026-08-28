@@ -1,5 +1,9 @@
 <template>
-  <section class="community-registration" :aria-labelledby="registrationTitleId">
+  <section
+    id="community-registration"
+    class="community-registration"
+    :aria-labelledby="registrationTitleId"
+  >
     <div class="community-registration__heading">
       <p>{{ t('community.joinEyebrow') }}</p>
       <h2 :id="registrationTitleId">{{ t('community.joinTitle') }}</h2>
@@ -109,6 +113,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { useSuccessfulFormReset } from 'src/composables/useSuccessfulFormReset';
+import { saveCommunityProfileCode } from 'src/utils/communityProfileCredential';
 
 /* ===========================================================
    DADOS PÚBLICOS DO CADASTRO VOLUNTÁRIO
@@ -266,6 +271,7 @@ async function submitRegistration() {
       query: { code: payload.deletionCode },
     });
     deletionLink.value = new URL(removalRoute.href, window.location.href).href;
+    saveCommunityProfileCode(payload.deletionCode);
 
     publicName.value = '';
     socialProfile.value = '';
@@ -324,6 +330,7 @@ function readPreferredHolidayCountry() {
 =========================================================== */
 
 .community-registration {
+  scroll-margin-top: 74px;
   margin-top: 28px;
   padding: clamp(24px, 5vw, 46px);
   background:

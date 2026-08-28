@@ -72,6 +72,10 @@ import { useMeta } from 'quasar';
 import { useRoute } from 'vue-router';
 import { useSuccessfulFormReset } from 'src/composables/useSuccessfulFormReset';
 import { getCommunityApiUrl } from 'src/services/communityApi';
+import {
+  clearCommunityProfileCode,
+  extractCommunityProfileCode,
+} from 'src/utils/communityProfileCredential';
 
 /* ===========================================================
    CÓDIGO PRIVADO ENTREGUE AO TITULAR
@@ -170,7 +174,7 @@ async function removeRegistration() {
   /* O campo aceita tanto o código isolado quanto o link completo que foi
      entregue pela moderação. A normalização também existe no Worker para
      manter a API segura diante de clientes antigos. */
-  const normalizedDeletionCode = extractDeletionCode(deletionCode.value);
+  const normalizedDeletionCode = extractCommunityProfileCode(deletionCode.value);
 
   try {
     const response = await fetch(removalEndpoint, {
@@ -191,6 +195,7 @@ async function removeRegistration() {
 
     state.value = 'success';
     message.value = t('community.removalSuccess');
+    clearCommunityProfileCode(normalizedDeletionCode);
     deletionCode.value = '';
     confirmed.value = false;
 
@@ -213,23 +218,6 @@ async function removeRegistration() {
   }
 }
 
-function extractDeletionCode(value) {
-  let candidate = String(value || '').trim();
-
-  if (!candidate) return '';
-
-  try {
-    const url = new URL(candidate);
-    const directCode = url.searchParams.get('code');
-    const hashQuery = url.hash.includes('?') ? url.hash.slice(url.hash.indexOf('?') + 1) : '';
-    candidate = directCode || new URLSearchParams(hashQuery).get('code') || candidate;
-  } catch {
-    const query = candidate.includes('?') ? candidate.slice(candidate.indexOf('?') + 1) : '';
-    candidate = new URLSearchParams(query).get('code') || candidate;
-  }
-
-  return candidate.trim();
-}
 </script>
 
 <style scoped>

@@ -41,6 +41,18 @@
             <span>{{ t('education.feedback.linkedProfile', { name: linkedProfileName }) }}</span>
           </div>
 
+          <div
+            v-if="!linkedProfileName && !communityCode"
+            class="education-attribution-dialog__registration"
+            role="note"
+          >
+            <q-icon name="person_add" aria-hidden="true" />
+            <span>
+              <strong>{{ t('community.joinTitle') }}</strong>
+              <small>{{ t('community.joinDescription') }}</small>
+            </span>
+          </div>
+
           <q-input
             v-model.trim="communityCode"
             outlined
@@ -54,7 +66,10 @@
             "
           />
 
-          <router-link :to="{ name: 'community' }" @click="emit('update:modelValue', false)">
+          <router-link
+            :to="{ name: 'community', hash: '#community-registration' }"
+            @click="emit('update:modelValue', false)"
+          >
             {{ t('education.feedback.communityProfiles') }}
             <q-icon name="arrow_forward" aria-hidden="true" />
           </router-link>
@@ -90,6 +105,7 @@
 <script setup>
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { readCommunityProfileCode } from 'src/utils/communityProfileCredential';
 
 const props = defineProps({
   modelValue: { type: Boolean, default: false },
@@ -109,7 +125,7 @@ watch(
   (isOpen) => {
     if (!isOpen) return;
     mode.value = props.initialMode === 'community' ? 'community' : 'anonymous';
-    communityCode.value = '';
+    communityCode.value = props.linkedProfileName ? '' : readCommunityProfileCode();
     emit('clear-error');
   },
 );
@@ -212,6 +228,40 @@ function confirm() {
   border-radius: 12px;
   font-size: 12px;
   font-weight: 700;
+}
+
+.education-attribution-dialog__registration {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px 14px;
+  color: var(--app-accent-purple-text);
+  background: var(--app-accent-purple-soft);
+  border: 1px solid var(--app-accent-purple-border);
+  border-radius: 14px;
+}
+
+.education-attribution-dialog__registration > .q-icon {
+  flex: none;
+  margin-top: 1px;
+  font-size: 22px;
+}
+
+.education-attribution-dialog__registration span,
+.education-attribution-dialog__registration small {
+  display: block;
+}
+
+.education-attribution-dialog__registration strong {
+  color: var(--app-text);
+  font-size: 13px;
+}
+
+.education-attribution-dialog__registration small {
+  margin-top: 4px;
+  color: var(--app-text-muted);
+  font-size: 11px;
+  line-height: 1.5;
 }
 
 .education-attribution-dialog__community > a {

@@ -1304,23 +1304,50 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   check manual `33183322321` aprovou páginas, indexação e API. A inspeção em
   `https://13calendar.pages.dev/tools` confirmou o botão habilitado, o diálogo
   publicado e nenhum erro de console.
+- Os testes manuais em produção de votação, relato, anonimato, identificação e
+  vínculo ao perfil comunitário foram concluídos pelo mantenedor com sucesso.
+  As rotas `/members`, `/analytics/stats` e `/feedback/votes` continuaram
+  respondendo HTTP 200 na conferência posterior.
+- O código privado longo do perfil permanece como credencial de recuperação e
+  uso em outro dispositivo, mas não precisa mais ser colado a cada voto ou
+  relato. Depois do cadastro ou do primeiro vínculo manual bem-sucedido, ele é
+  lembrado somente naquele navegador e preenche o campo protegido; a remoção do
+  perfil também apaga a cópia local correspondente. Se não houver perfil
+  vinculado nem código lembrado, o diálogo explica que o cadastro comunitário é
+  voluntário e oferece um link para `/community#community-registration`. A
+  seção de cadastro recebeu essa âncora e o roteador a posiciona 74 px abaixo
+  da barra superior.
+- As notificações de falha vistas no GitHub em 28 de agosto pertencem às
+  primeiras tentativas da publicação 2.0: o token sem `D1 Edit`, as auditorias
+  que ainda esperavam o `AGENTS.md` privado no espelho público e o health check
+  que esperava a marcação HTML não minimizada. Essas três causas foram
+  recuperadas ou corrigidas. No estado mais recente, sincronização privada,
+  verificação pública, Cloudflare Pages, GitHub Pages e health check terminaram
+  com sucesso; notificações antigas permanecem no histórico e não indicam uma
+  falha atual da produção.
+- O mesmo token guardado no GitHub recebeu `Account` → `D1` → `Edit`, sem troca
+  do segredo. A execução pública `33212407098` confirmou a correção: validação
+  do pacote, migrações remotas do D1 e publicação do Worker terminaram com
+  sucesso. A automação das próximas migrações está restaurada.
+- O Search Console ainda exibe o relatório de indexação em processamento, sem
+  apontar um erro do site. O painel EU.org continua sem listar o pedido e a
+  consulta DNS confirma que `13calendar.eu.org` ainda não foi delegado. Ambos
+  permanecem em espera pelos respectivos processamentos externos.
+- A verificação integral posterior ao refinamento do vínculo passou em 28 de
+  agosto: continuidade, lint, interface, educação, comunidade, conversões,
+  build, pacote de 693,7 KiB gzip, feriados e auditorias de produção sem
+  vulnerabilidades. A inspeção local confirmou o aviso voluntário e o salto
+  exato para a âncora do cadastro, sem enviar votos ou relatos de teste.
 
 ## Pendências atuais
 
 - Aguardar a aprovação humana de `13calendar.eu.org`; depois associá-lo ao
   Cloudflare Pages e executar a troca coordenada descrita em
   `docs/OWNER_ACTIONS.md`.
-- Acrescentar `Account` → `D1` → `Edit` ao token Cloudflare guardado como
-  `CLOUDFLARE_API_TOKEN` no repositório público e repetir manualmente o workflow
-  da API. A versão atual já foi recuperada e está publicada; essa ação restaura
-  a automação das próximas migrações.
 - Acompanhar no Google Search Console a leitura do sitemap 2.0, a indexação das
   novas rotas, a substituição do nome de site `Cloudflare` por `13 Calendar` e
   o desempenho em consultas genéricas. O domínio EU.org, quando aprovado,
   reforçará a identidade, mas não é requisito técnico para o nome próprio.
-- Executar manualmente em produção os fluxos de votação, envio de relato,
-  escolha entre anonimato e identificação e vínculo por código ao card da rede
-  social; confirmar também os ícones e diálogos públicos resultantes.
 
 ## Protocolo de manutenção deste arquivo
 

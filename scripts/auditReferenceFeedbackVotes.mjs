@@ -14,6 +14,8 @@ const [
   implementationSource,
   attributionDialogSource,
   feedbackStoreSource,
+  profileCredentialSource,
+  communityRegistrationSource,
   voteMigrationSource,
   responseMigrationSource,
   communityPageSource,
@@ -41,6 +43,11 @@ const [
       new URL('../src/composables/useEducationFeedbackStore.js', import.meta.url),
       'utf8',
     ),
+    readFile(
+      new URL('../src/utils/communityProfileCredential.js', import.meta.url),
+      'utf8',
+    ),
+    readFile(new URL('../src/components/CommunityRegistration.vue', import.meta.url), 'utf8'),
     readFile(
       new URL(
         '../cloudflare/community-registration-worker/migrations/0006_create_reference_feedback_votes.sql',
@@ -78,6 +85,13 @@ assert.match(implementationSource, /kind: 'response'/);
 assert.match(feedbackSource, /EducationAttributionDialog/);
 assert.match(implementationSource, /EducationAttributionDialog/);
 assert.match(attributionDialogSource, /communityCode/);
+assert.match(attributionDialogSource, /readCommunityProfileCode/);
+assert.match(attributionDialogSource, /#community-registration/);
+assert.match(feedbackStoreSource, /saveCommunityProfileCode/);
+assert.match(profileCredentialSource, /13calendar-community-profile-code/);
+assert.match(profileCredentialSource, /window\.localStorage\.setItem/);
+assert.match(communityRegistrationSource, /id="community-registration"/);
+assert.match(communityRegistrationSource, /saveCommunityProfileCode\(payload\.deletionCode\)/);
 assert.doesNotMatch(feedbackSource, /😄|🙂|🙁|😠/);
 assert.doesNotMatch(feedbackSource, /fetch\(["']\/api\/votes/);
 assert.match(workerSource, /verifyApprovedCommunityRegistration/);
