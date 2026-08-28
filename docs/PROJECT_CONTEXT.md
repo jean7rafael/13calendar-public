@@ -1338,6 +1338,17 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   build, pacote de 693,7 KiB gzip, feriados e auditorias de produção sem
   vulnerabilidades. A inspeção local confirmou o aviso voluntário e o salto
   exato para a âncora do cadastro, sem enviar votos ou relatos de teste.
+- A publicação do vínculo simplificado saiu da `main` nas revisões privadas
+  `8ca0f80` e `e22b54b` e chegou ao espelho público como `ac52c97`. A primeira
+  tentativa revelou novamente a diferença de compactação entre macOS e Linux:
+  o runner ficou somente 0,1 KiB acima do orçamento. O texto auxiliar dos 12
+  idiomas foi condensado sem perder a informação de armazenamento local, e o
+  runner passou com 698,1 KiB gzip dentro do limite de 698,2 KiB. Verificação,
+  sincronização pública, Cloudflare Pages, GitHub Pages e o health check
+  `33213513086` concluíram com sucesso. A produção respondeu 200 em `/`,
+  `/learn`, `/community`, nos novos pacotes e nos endpoints
+  `/feedback/votes`, `/members` e `/analytics/stats`; os pacotes publicados
+  contêm a âncora `#community-registration` e a mensagem da credencial lembrada.
 
 ## Pendências atuais
 
