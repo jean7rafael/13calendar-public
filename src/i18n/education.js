@@ -317,10 +317,25 @@ const english = {
       description:
         'The app stores its interface on your device. Live news and community totals still need an internet connection.',
       install: 'Install app',
+      instructions: 'See installation steps',
       ready: 'Installation is available in your browser menu.',
       available: 'The app is ready to install.',
       installed: 'The app is already installed.',
       privacy: 'Saved pages remain on this device and can be removed with browser data.',
+      helpTitle: 'Install 13 Calendar',
+      guides: {
+        iosSafari:
+          'In Safari: Share > Add to Home Screen > Open as Web App > Add.',
+        iosOther:
+          'On iPhone or iPad, open this page in Safari, then use Share > Add to Home Screen > Add.',
+        androidFirefox:
+          'In Firefox: menu ⋮ > Install. If unavailable, use Add to Home screen.',
+        androidChromium:
+          'Open menu ⋮, choose Install app or Add to Home screen, and confirm.',
+        desktop:
+          'Choose Install 13 Calendar in the browser menu. On Safari for Mac: File > Add to Dock.',
+      },
+      close: 'Close',
       update: 'A newer version is ready.',
       refresh: 'Update now',
     },
@@ -655,11 +670,26 @@ const portuguese = {
       description:
         'O aplicativo guarda a interface no dispositivo. Notícias ao vivo e totais da comunidade ainda exigem internet.',
       install: 'Instalar aplicativo',
+      instructions: 'Ver como instalar',
       ready: 'A instalação está disponível no menu do navegador.',
       available: 'O aplicativo está pronto para instalar.',
       installed: 'O aplicativo já está instalado.',
       privacy:
         'As páginas salvas ficam neste dispositivo e podem ser removidas com os dados do navegador.',
+      helpTitle: 'Instale o 13 Calendar',
+      guides: {
+        iosSafari:
+          'No Safari: Compartilhar > Adicionar à Tela de Início > Abrir como App da Web > Adicionar.',
+        iosOther:
+          'No iPhone ou iPad, abra esta página no Safari e use Compartilhar > Adicionar à Tela de Início > Adicionar.',
+        androidFirefox:
+          'No Firefox: menu ⋮ > Instalar. Se não aparecer, use Adicionar à tela inicial.',
+        androidChromium:
+          'Abra o menu ⋮, escolha Instalar aplicativo ou Adicionar à tela inicial e confirme.',
+        desktop:
+          'Escolha Instalar 13 Calendar no menu do navegador. No Safari do Mac: Arquivo > Adicionar ao Dock.',
+      },
+      close: 'Fechar',
       update: 'Uma versão mais nova está pronta.',
       refresh: 'Atualizar agora',
     },

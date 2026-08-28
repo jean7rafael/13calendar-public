@@ -868,6 +868,11 @@ function isCurrentFixedDay(month, day) {
   border-radius: 15px;
 }
 
+.education-year__months article:not(.education-year__month--special) {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+}
+
 .education-year__months header {
   display: flex;
   align-items: baseline;
@@ -891,6 +896,11 @@ function isCurrentFixedDay(month, day) {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 1px;
+}
+
+.education-year__days {
+  grid-template-rows: repeat(4, minmax(18px, 1fr));
+  align-items: stretch;
 }
 
 .education-year__weekdays span {

@@ -316,6 +316,16 @@ assert.match(pwaBootSource, /navigator\.serviceWorker\.register/);
 assert.match(pwaBootSource, /process\.env\.PROD/);
 assert.match(pwaBootSource, /beforeinstallprompt/);
 assert.match(pwaCardSource, /calendar-install-available/);
+assert.doesNotMatch(
+  pwaCardSource,
+  /:disable="!installAvailable"/,
+  'O acesso às instruções de instalação deve continuar disponível sem o prompt nativo.',
+);
+assert.match(pwaCardSource, /showsInstallHelp/);
+assert.match(pwaCardSource, /navigator\.share/);
+assert.match(pwaCardSource, /navigator\.standalone/);
+assert.match(pwaCardSource, /iosSafari/);
+assert.match(pageSource, /grid-template-rows: repeat\(4, minmax\(18px, 1fr\)\)/);
 assert.match(serviceWorkerSource, /CACHE_NAME/);
 assert.match(serviceWorkerSource, /request\.mode === 'navigate'/);
 assert.match(indexSource, /rel="manifest" href="manifest\.webmanifest"/);

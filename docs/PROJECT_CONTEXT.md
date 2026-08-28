@@ -1285,6 +1285,16 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   Quasar 2.0 minimiza o shell como `<div id=q-app>`. A verificação passou a
   aceitar as duas formas, conferir todas as rotas públicas, exigir o marcador
   `WebSite` e validar as seis rotas indexáveis no sitemap.
+- O card de acesso offline em Ferramentas nunca mais bloqueia a ação quando o
+  navegador não oferece o prompt automático. Nessa situação, abre um diálogo
+  opaco e responsivo com instruções próprias para Safari no iOS/iPadOS, outros
+  navegadores Apple, Firefox/Chromium no Android e desktop; o compartilhamento
+  nativo aparece somente quando existe e é tratado como apoio, não como garantia
+  de instalação. O modo instalado também reconhece `navigator.standalone`.
+  Os novos textos existem nos 12 idiomas. Na grade anual de Aprenda, cada mês
+  distribui as quatro semanas por toda a altura comum dos 14 cards. A inspeção
+  local confirmou botão habilitado, diálogo móvel a 390 px, ausência de erros,
+  alturas idênticas de 242 px em tela larga e 198 px no celular, sem overflow.
 
 ## Pendências atuais
 
