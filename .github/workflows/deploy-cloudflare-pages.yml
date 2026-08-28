@@ -54,13 +54,10 @@ jobs:
       - name: Instalar dependências do aplicativo
         run: npm ci
 
-      - name: Instalar dependências da página adaptada
-        run: npm ci --prefix vendor/13months-site
-
-      - name: Gerar o pacote completo
+      - name: Gerar o aplicativo Vue/Quasar
         run: npm run build
 
-      - name: Publicar aplicativo e página adaptada
+      - name: Publicar o aplicativo
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

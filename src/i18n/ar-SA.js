@@ -66,6 +66,7 @@ export default {
       'أداة مستقلة مكملة للتقويم الثابت الدولي. غير تابعة لموقع 13months.net أو لأي هيئة معايير.',
     linksLabel: 'روابط التذييل',
     dataSourcesLink: 'مصادر البيانات',
+    wikipediaLink: 'ويكيبيديا',
     sourceCodeLink: 'الشفرة المصدرية',
   },
 
@@ -168,6 +169,9 @@ export default {
     goToToday: 'الانتقال إلى اليوم',
     gregorianTitle: 'تقويمك',
     fixedCalendarTitle: 'التقويم الثابت الدولي',
+    calendar13Short: '13 شهرًا',
+    mobileComparisonHint:
+      'أدر الشاشة أو استخدم شاشة أكبر لمقارنة التقويمين جنبًا إلى جنب.',
     daysThisMonth: '{count} يومًا في هذا الشهر',
     daysEveryMonth: '{count} يومًا في كل شهر',
 

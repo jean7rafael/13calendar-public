@@ -14,7 +14,7 @@
     "ALLOWED_ORIGINS": "https://13calendar.pages.dev,https://13calendar.eu.org,https://jean7rafael.github.io,http://localhost:9000",
     "CLOUDFLARE_ACCOUNT_ID": "709c42e19af23594cb523ac2795643ee",
     "CLOUDFLARE_ANALYTICS_HOST": "13calendar.pages.dev",
-    "MODERATION_URL": "https://13calendar.pages.dev/#/community-admin",
+    "MODERATION_URL": "https://13calendar.pages.dev/community-admin",
     "TELEGRAM_ADMIN_USERNAME": "jean7rafael",
     "TURNSTILE_EXPECTED_ACTION": "community_registration",
     "TURNSTILE_DELETION_ACTION": "community_deletion",

@@ -53,6 +53,7 @@ export default {
       '국제 고정력을 위한 독립적인 보조 도구입니다. 13months.net 또는 표준화 기관과 관련이 없습니다.',
     linksLabel: '푸터 링크',
     dataSourcesLink: '데이터 출처',
+    wikipediaLink: '위키백과',
     sourceCodeLink: '소스 코드',
   },
 
@@ -152,6 +153,9 @@ export default {
     goToToday: '오늘로 이동',
     gregorianTitle: '내 달력',
     fixedCalendarTitle: '국제 고정 달력',
+    calendar13Short: '13개월',
+    mobileComparisonHint:
+      '화면을 가로로 돌리거나 더 큰 화면을 사용하면 두 달력을 나란히 비교할 수 있습니다.',
     daysThisMonth: '이번 달 {count}일',
     daysEveryMonth: '모든 달은 {count}일',
 

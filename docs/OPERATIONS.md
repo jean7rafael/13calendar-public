@@ -3,7 +3,7 @@
 ## Endereço canônico
 
 - Produção: <https://13calendar.pages.dev/>
-- Página educacional adaptada: <https://13calendar.pages.dev/reference-site/>
+- Página educacional nativa: <https://13calendar.pages.dev/learn>
 - Worker comunitário:
   `13calendar-community-registration.13calendar-community-registration-worker.workers.dev`
 
@@ -12,9 +12,9 @@ Os endereços alternativos e o procedimento de troca ficam em
 
 ## Publicação
 
-O build principal sempre gera primeiro os dados de execução e a página
-adaptada. Por isso, `npm run build` produz uma pasta `dist/spa` completa e não
-permite publicar somente metade da experiência.
+O build principal gera primeiro os dados de execução e depois uma única
+aplicação Vue/Quasar em `dist/spa`. Aprenda, Ferramentas, Calendários, Lua,
+Notícias e Comunidade são rotas do mesmo produto.
 
 Os segredos `CLOUDFLARE_ACCOUNT_ID` e `CLOUDFLARE_API_TOKEN` estão configurados
 no repositório público. O workflow `Publicar no Cloudflare Pages` publica cada
@@ -28,7 +28,7 @@ do mantenedor ficam centralizadas em [`OWNER_ACTIONS.md`](OWNER_ACTIONS.md).
 ## Monitoramento automatizado
 
 - O workflow `Verificar produção` roda diariamente e confere o aplicativo, a
-  página educacional, `robots.txt`, `sitemap.xml` e as rotas públicas da
+  rota nativa `/learn`, `robots.txt`, `sitemap.xml` e as rotas públicas da
   comunidade.
 - O workflow `Revisar fontes oficiais de feriados` roda em 20 de dezembro e 5
   de janeiro. Ele apenas abre candidatos para revisão; nenhuma data oficial é

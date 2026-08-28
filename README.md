@@ -1,164 +1,78 @@
-# International Fixed Calendar Companion
+# 13 Calendar
 
-An independent companion application for exploring the International Fixed
-Calendar alongside the Gregorian calendar. It extends the educational experience
-of [13months.net](https://www.13months.net/) with bidirectional date conversion,
-country-aware holidays, Moon phases, seasons and multilingual tools.
+An independent, open-source learning and productivity project for comparing the
+Gregorian calendar with the International Fixed Calendar (IFC).
 
-**Live site:** <https://13calendar.pages.dev/>
+**Stable site:** <https://13calendar.pages.dev/>
+**Version 2.0:** published from the private `main` source through the verified
+public release workflow.
 
-> **Project status:** the clean companion build and its adapted educational home
-> page are public for evaluation. A conversation with the creator of
-> `13months.net` remains open. The upstream repository currently has no
-> published license, so this project will promptly honor any attribution,
-> visual-change or removal request from its author.
+13 Calendar is no longer structured as a companion to another website. It has
+its own Vue/Quasar navigation, educational material, calendars, tools, news hub
+and privacy-first community area. External projects such as 13months.net and
+13cal.net remain credited research references, not product dependencies.
 
-## What the application does
+## Product areas
 
-### Side-by-side calendars
+The site root opens **Calendars**, the project’s original page. The navigation
+order remains Learn, Tools, Calendars, Moon, News and Community.
 
-- Converts selected dates between the Gregorian calendar and the International
-  Fixed Calendar.
-- Keeps Sunday as the first day of the week in both calendars.
-- Uses 13 regular months of 28 days, with **Sol** between June and July.
-- Presents **Year Day** and **Leap Day** as Special Days outside the weekly
-  cycle. Leap Day comes immediately after Year Day.
-- Provides month and year selectors without the former artificial 1900–2100
-  limit.
+- **Learn:** an evidence-aware introduction to the IFC, its history, promises,
+  limitations and the difference between a 28-day civil month and the 29.53-day
+  mean lunar cycle.
+- **Tools:** bidirectional conversion, shareable date cards, birthday comparison,
+  annual planning, ICS export, astronomy, local favorites, PWA access and a
+  compact IFC widget.
+- **Calendars:** synchronized Gregorian and 13-month views with holidays, Moon
+  phases, seasons and equivalent-date tooltips in both directions.
+- **News:** independent coverage of articles, research and other calendar
+  projects, with a clear no-endorsement notice.
+- **Community:** aggregate visit statistics and optional moderated public
+  profiles without social-network login.
 
-### Holidays for 251 countries and territories
+## Calendar experience
 
-- Keeps all 251 geographic options available in a region-based selector.
-- Supplies civil calendars for 206 countries and territories from the installed
-  international source.
-- Maintains an official-source appendix for the remaining 45 locations. When
-  official government dates are unavailable for a selected year, the Gregorian
-  holiday card explains that limitation without hiding astronomical events,
-  calculated religious dates or recurring commemorative dates.
-- Handles observed and substitute holidays without silently replacing the civil
-  date. The Gregorian side can show the original date and its observed date;
-  isolated observed dates that would not exist in the hypothetical 13-month
-  calendar are omitted there.
-- Merges equivalent entries, standardizes emoji meanings and avoids generic
-  labels such as “Holiday” whenever a specific name is available.
-- Calculates occurrences on demand for the selected year and a two-year window
-  on either side instead of storing a fixed 1900–2100 table.
+- Thirteen regular 28-day months, with **Solaris** between June and July.
+- **Year Day** and **Leap Day** outside the weekly cycle; in this project’s
+  adopted model, Leap Day follows Year Day.
+- Gregorian and IFC dates use the same tested conversion engine.
+- Both calendars include a Today action.
+- Holiday and Moon-phase cards show the equivalent date in the other calendar.
+- Desktop keeps both calendar columns visible. At the stacking breakpoint,
+  visitors switch between Gregorian and 13-month views while each calendar’s
+  holiday, date and Moon cards stay together.
+- Shared date fields accept keyboard entry and provide visual day, month and
+  year grids instead of the browser’s inconsistent native date picker.
 
-### Holidays adapted to a 13-month calendar
+## Holidays, astronomy and languages
 
-The International Fixed Calendar holiday card offers two interpretations:
+- 251 selectable countries and territories, with civil data for 206 locations
+  plus a reviewable official-source appendix.
+- Adapted and corresponding holiday interpretations for the IFC.
+- New Moon, First Quarter, Full Moon and Last Quarter events, plus equinoxes,
+  solstices, perihelion and aphelion.
+- 12 interface languages: Arabic, Chinese, English, French, German, Hindi,
+  Italian, Japanese, Korean, Portuguese, Russian and Spanish.
+- Light and dark themes with a documented semantic color system.
 
-- **Adapted dates:** fixed dates and weekday rules are reapplied to the equivalent
-  month in the 13-month system. Rules such as “the first Monday” therefore remain
-  meaningful in that calendar.
-- **Corresponding dates:** the same physical instant is converted from the
-  Gregorian calendar.
+## Privacy and architecture
 
-Western Easter and its dependent dates have a dedicated adapted calculation.
-Religious or lunisolar calendars without an equivalent month preserve the
-corresponding physical instant.
+- No account is required for calendars or tools.
+- Preferences and local favorites remain in the browser.
+- Cloudflare analytics are aggregate; voluntary profiles are separately
+  moderated and protected with Turnstile.
+- Vue 3, Quasar, Vue I18n, Astronomy Engine and curated civil-holiday data form
+  the independent application. The former incorporated reference site is being
+  retired rather than carried forward as a second frontend.
 
-### Moon phases and seasons
+## Version documents
 
-- Calculates New Moon, First Quarter, Full Moon and Last Quarter events.
-- Displays compact phase markers inside both calendars, with translated tooltips.
-- Shows phase dates and optional transition times in dedicated cards.
-- Calculates seasonal transitions and applies the correct Northern or Southern
-  Hemisphere interpretation for the selected country.
-
-### Languages, themes and responsive interface
-
-- 12 interface languages: English, Portuguese, German, French, Italian, Spanish,
-  Russian, Arabic, Hindi, Simplified Chinese, Japanese and Korean.
-- Curated calendar terminology prevents ambiguous machine translations such as
-  confusing Sunday with the month Sol or losing the fact that Leap Day follows
-  Year Day.
-- Light and dark themes share the visual language of the reference project.
-- Calendar cells remain square and aligned while cards adapt to the available
-  width without overlapping.
-- Long holiday lists use a compact internal scrollbar only when their real
-  content exceeds the five-line card area.
-
-### Community portrait
-
-- A consistent community button in the three top bars opens a dedicated,
-  multilingual dashboard without covering mobile content.
-- The page presents privacy-first, aggregated Cloudflare Web Analytics data:
-  estimated visits, page views, daily activity, countries, popular pages,
-  referrers and devices. Daily snapshots are preserved in D1 beyond the
-  analytics API window.
-- No individual visitor profile is published, and the interface never invents
-  figures while analytics collection is not configured.
-- Visitors may optionally submit a public name and social profile. The backend
-  stores the request as pending and exposes it only after moderation.
-- Each approved participant receives a private removal link that deletes only
-  their own profile. Full links and isolated private codes are accepted.
-- Instagram and Facebook profile pictures are imported automatically from
-  public page metadata when available, with moderated retry and manual upload
-  as fallbacks. No social-network login is used.
-- The public gallery preserves the historical order, while the moderation view
-  keeps the newest requests at the top.
-- The public data contract and setup boundary are documented in
-  [`docs/CLOUDFLARE_COMMUNITY_ANALYTICS.md`](docs/CLOUDFLARE_COMMUNITY_ANALYTICS.md).
-
-## Navigation integration with 13months.net
-
-The two experiences are designed to feel connected:
-
-1. The adapted reference page begins with a prominent
-   **“Date conversion, holidays & Moon phases”** button that opens this companion.
-2. The companion’s top bar keeps a clearly visible **X** button with the tooltip
-   **“Back to the home page”**.
-3. That **X button returns directly to the incorporated reference home page**.
-4. Language and light/dark theme preferences are shared in both directions.
-
-The adapted upstream source is isolated in `vendor/13months-site`; its generated
-static build is served from `public/reference-site`. Provenance and local changes
-are documented in [`vendor/13months-site/UPSTREAM.md`](vendor/13months-site/UPSTREAM.md).
-
-## Data quality and maintenance
-
-Holiday changes are protected by automated audits for:
-
-- country coverage and merge rules;
-- weekday-based holidays in both calendars;
-- adapted International Fixed Calendar rules;
-- translations, canonical names and emoji consistency;
-- official-source appendix validity;
-- unknown or unsupported date mechanisms.
-
-The official-source refresh process is designed for runs in late December and
-early January. Candidates remain reviewable and are not published automatically
-without validation. No paid translation API is required.
-
-The project standards are documented in:
-
-- [`docs/CALENDAR_13_STANDARD.md`](docs/CALENDAR_13_STANDARD.md)
-- [`docs/HOLIDAY_COUNTRY_STANDARD.md`](docs/HOLIDAY_COUNTRY_STANDARD.md)
-- [`docs/OFFICIAL_HOLIDAY_COVERAGE.md`](docs/OFFICIAL_HOLIDAY_COVERAGE.md)
-
-## Technology
-
-- Vue 3 and Quasar for the companion application
-- SolidJS and Vite for the adapted reference page
-- Astronomy Engine for lunar and seasonal calculations
-- `date-holidays` and curated official sources for civil holiday data
-- Vue I18n plus incremental, curated translation catalogs
-- Cloudflare Web Analytics integration prepared as an optional, cookie-free
-  aggregate data source
-- Cloudflare Worker, D1 and Turnstile for moderated voluntary community entries
-
-## License and adapted reference page
-
-Original 13 Calendar code and documentation are available under the MIT
-license in [`LICENSE`](LICENSE). The substantially adapted educational entrance
-in `vendor/13months-site`, and its generated `public/reference-site` build, are
-published as an integral part of this experience but remain outside that MIT
-grant while the upstream repository has no published license. See
-[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) and
-[`vendor/13months-site/UPSTREAM.md`](vendor/13months-site/UPSTREAM.md).
-
-The privacy notice is available inside the application and at `#/privacy`.
+- [Version 2.0 scope and detailed changes](docs/releases/README_2.0.md)
+- [Preserved version 1.0 presentation](docs/releases/README_1.0.md)
+- [Changelog](CHANGELOG.md)
+- [Calendar rules](docs/CALENDAR_13_STANDARD.md)
+- [Country and holiday rules](docs/HOLIDAY_COUNTRY_STANDARD.md)
+- [UI color palette](docs/UI_COLOR_PALETTE.md)
 
 ## Local development
 
@@ -167,48 +81,43 @@ npm install
 npm run dev
 ```
 
-Main quality checks:
+Full verification:
+
+```bash
+npm run verify
+```
+
+Focused checks:
 
 ```bash
 npm run lint
+npm run ui:audit
+npm run education:audit
+npm run calendar:conversion:audit
 npm run build
-npm run holidays:audit
-npm run holidays:weekday:audit
-npm run holidays:calendar13:audit
-npm run holidays:merge:audit
-npm run holidays:emoji:audit
-npm run holidays:translation:audit
-npm run holidays:official:audit
 ```
 
-## Collaboration proposal
+## Rights and attribution
 
-This project is intended as a complementary tool rather than a replacement for
-`13months.net`. A possible integration would keep the educational site as the
-home experience and expose the companion through a button or a subdomain for
-visitors who want to convert dates or explore holidays and Moon phases.
-
-The adapted demonstration is public while that review is pending. If the
-upstream creator requests attribution, visual changes, a different integration
-or removal, the public copy will be revised accordingly.
+The entire first-party 13 Calendar website and application—original source,
+interface assets, editorial content and documentation—is available under the
+MIT license in [`LICENSE`](LICENSE). Third-party material and historical adaptation
+boundaries are recorded in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+13 Calendar is independent and is not affiliated with 13months.net, 13cal.net or
+any calendar standardization body.
 
 <details>
 <summary><strong>Resumo em português</strong></summary>
 
-Este é um aplicativo complementar independente para comparar o calendário
-gregoriano com o Calendário Fixo Internacional. Ele converte datas nos dois
-sentidos, apresenta feriados de 251 países e territórios, adapta regras de
-feriados ao calendário de 13 meses, calcula fases da Lua e estações e oferece
-12 idiomas, temas claro e escuro e uma interface responsiva.
+O 13 Calendar 2.0 é um projeto educacional independente para comparar o
+calendário gregoriano e o Calendário Fixo Internacional. Reúne aprendizado,
+ferramentas, calendários, notícias e comunidade numa única aplicação Vue e
+Quasar. Outros sites continuam reconhecidos como referências, mas não definem
+mais a arquitetura nem a identidade do produto.
 
-A integração visual mantém a página educacional adaptada como página inicial:
-um botão abre o conversor e o botão **X**, em evidência na barra superior do
-aplicativo, volta diretamente a ela. Idioma e tema são compartilhados entre as
-experiências.
-
-A demonstração está pública enquanto a conversa com o criador de `13months.net`
-permanece aberta. Como o repositório original não possui licença publicada, o
-projeto atenderá prontamente qualquer solicitação de atribuição, mudança visual
-ou retirada feita pelo autor.
+A raiz do site abre Calendários, a primeira página desenvolvida no projeto. A
+ordem da barra continua Aprenda, Ferramentas, Calendários, Lua, Notícias e
+Comunidade. A versão 2.0 é publicada pela `main` por meio do fluxo verificado de
+release.
 
 </details>

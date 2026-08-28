@@ -5,7 +5,7 @@ export default defineConfig(() => ({
      INICIALIZAÇÃO E ESTILOS GLOBAIS
   ========================================================= */
 
-  boot: ['theme', 'i18n', 'cloudflareAnalytics'],
+  boot: ['theme', 'i18n', 'pwa', 'cloudflareAnalytics'],
 
   css: ['app.scss'],
 
@@ -40,7 +40,7 @@ export default defineConfig(() => ({
       vueShim: true,
     },
 
-    vueRouterMode: 'hash',
+    vueRouterMode: 'history',
   },
 
   /* =========================================================

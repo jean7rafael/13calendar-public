@@ -47,7 +47,7 @@ workflows façam as publicações. Esse é o fluxo padrão para toda nova versã
 
 ## 2. Ativar `13calendar.eu.org` — aguardando aprovação
 
-Estado confirmado em 25 de agosto de 2026:
+Estado confirmado novamente em 28 de agosto de 2026:
 
 - a zona `13calendar.eu.org` foi criada no plano gratuito do Cloudflare;
 - os dois nameservers atribuídos foram informados ao EU.org;
@@ -55,10 +55,22 @@ Estado confirmado em 25 de agosto de 2026:
   solicitação para análise humana;
 - o Cloudflare está verificando periodicamente a delegação e permanece em
   **Waiting for your registrar to propagate your new nameservers**.
+- `13calendar.eu.org` ainda não possui delegação pública, portanto a análise
+  humana continua pendente;
+- a zona principal `eu.org` recebeu atualizações DNS no próprio dia 28. Isso
+  confirma operação técnica ativa, mas não permite inferir o ritmo da fila de
+  moderadores;
+- a documentação oficial informa apenas que a intervenção humana pode levar
+  alguns dias. O pedido tem três dias e ainda não ultrapassou essa orientação.
 
 Não criar registros A, AAAA, CNAME ou MX enquanto a delegação estiver
 pendente. Não é necessário repetir a solicitação nem usar **Create Worker**.
 Quando o EU.org aprovar o pedido por e-mail, avise `domínio aprovado`.
+
+O lançamento não depende desse domínio: `13calendar.pages.dev` continua
+canônico e funcional. Se não houver resposta após 30 dias, reavaliar o pedido
+e considerar um domínio convencional como contingência, sem retirar o site do
+ar nem alterar antecipadamente canonical, sitemap ou CORS.
 
 Após a aprovação serão feitos, nesta ordem:
 
@@ -69,6 +81,9 @@ Após a aprovação serão feitos, nesta ordem:
 5. validação de todos os formulários e páginas.
 
 ## 3. Google Search Console — configuração concluída
+
+O Search Console é somente observabilidade de indexação, não uma dependência de
+funcionamento ou publicação do site.
 
 Estado confirmado em 25 de agosto de 2026:
 
@@ -89,10 +104,3 @@ acompanhar o estado, sem reenviar repetidamente.
 
 Quando `13calendar.eu.org` estiver ativo, será criada uma propriedade de
 Domínio para ele e o sitemap canônico será reenviado.
-
-## 4. Resposta do projeto de referência
-
-Acompanhe <https://github.com/Andree37/13-months/issues/2>. O pedido continua
-aberto e sem resposta desde 11 de agosto de 2026. Se houver resposta, envie o
-link ou uma captura; qualquer exigência de licença, atribuição, mudança ou
-remoção terá prioridade.

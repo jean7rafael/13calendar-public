@@ -6,6 +6,11 @@ import type { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
+    path: '/widget',
+    name: 'widget',
+    component: () => import('pages/WidgetPage.vue'),
+  },
+  {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
@@ -33,6 +38,26 @@ const routes: RouteRecordRaw[] = [
         path: 'privacy',
         name: 'privacy',
         component: () => import('pages/PrivacyPage.vue'),
+      },
+      {
+        path: 'learn',
+        name: 'education',
+        component: () => import('pages/EducationPage.vue'),
+      },
+      {
+        path: 'tools',
+        name: 'tools',
+        component: () => import('pages/ToolsPage.vue'),
+      },
+      {
+        path: 'moon',
+        name: 'moon',
+        component: () => import('pages/MoonPage.vue'),
+      },
+      {
+        path: 'news',
+        name: 'news',
+        component: () => import('pages/NewsPage.vue'),
       },
     ],
   },

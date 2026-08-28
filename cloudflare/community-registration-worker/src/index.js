@@ -15,6 +15,7 @@ const PENDING_RETENTION_DAYS = 60;
 const REJECTED_RETENTION_DAYS = 30;
 const FEEDBACK_OPTION_COUNT = 4;
 const MAXIMUM_VOTER_ID_LENGTH = 80;
+const MAXIMUM_FEEDBACK_SUGGESTION_LENGTH = 1_200;
 
 import puppeteer from '@cloudflare/puppeteer';
 import { refreshAndReadCommunityAnalytics, refreshCommunityAnalytics } from './analytics.js';
@@ -162,7 +163,7 @@ export default {
 
 async function readReferenceFeedbackVotes(env, corsHeaders, url) {
   const voterId = normalizeFeedbackVoterId(url.searchParams.get('voterId'));
-  const [votes, selectedVote] = await Promise.all([
+  const [votes, selectedVote, submission] = await Promise.all([
     readReferenceFeedbackTotals(env),
     voterId
       ? env.DB.prepare(
@@ -173,12 +174,23 @@ async function readReferenceFeedbackVotes(env, corsHeaders, url) {
           .bind(voterId)
           .first()
       : null,
+    voterId ? readReferenceFeedbackSubmission(env, voterId) : null,
   ]);
 
   return jsonResponse(
     {
       votes,
       userVote: Number.isInteger(selectedVote?.optionIndex) ? selectedVote.optionIndex : null,
+      submission: submission
+        ? {
+            title: submission.title || '',
+            suggestion: submission.suggestion || '',
+            voteAttributionMode: submission.voteAttributionMode || 'anonymous',
+            responseAttributionMode: submission.responseAttributionMode || 'anonymous',
+            voteCommunityProfileName: submission.voteCommunityProfileName || '',
+            responseCommunityProfileName: submission.responseCommunityProfileName || '',
+          }
+        : null,
     },
     200,
     corsHeaders,
@@ -189,45 +201,244 @@ async function readReferenceFeedbackVotes(env, corsHeaders, url) {
 async function saveReferenceFeedbackVote(request, env, corsHeaders) {
   const contentLength = Number(request.headers.get('Content-Length') || 0);
 
-  if (contentLength > 1_024) {
+  if (contentLength > 4_096) {
     return jsonResponse({ error: 'payload_too_large' }, 413, corsHeaders);
   }
 
   const payload = await request.json();
   const voterId = normalizeFeedbackVoterId(payload.voterId);
+  const kind = payload.kind === 'vote' || payload.kind === 'response' ? payload.kind : null;
   const optionIndex = Number(payload.index);
+  const suggestion = normalizeFeedbackSuggestion(payload.suggestion);
+  const title = normalizeFeedbackTitle(payload.title, suggestion);
+  const attributionMode = payload.attributionMode === 'community' ? 'community' : 'anonymous';
+  const locale = normalizeFeedbackLocale(payload.locale);
+
+  if (!voterId || !kind) {
+    return jsonResponse({ error: 'invalid_submission' }, 400, corsHeaders);
+  }
 
   if (
-    !voterId ||
-    !Number.isInteger(optionIndex) ||
-    optionIndex < 0 ||
-    optionIndex >= FEEDBACK_OPTION_COUNT
+    kind === 'vote' &&
+    (!Number.isInteger(optionIndex) || optionIndex < 0 || optionIndex >= FEEDBACK_OPTION_COUNT)
   ) {
     return jsonResponse({ error: 'invalid_vote' }, 400, corsHeaders);
   }
 
-  const now = new Date().toISOString();
+  if (kind === 'response' && (suggestion === null || !suggestion)) {
+    return jsonResponse({ error: 'invalid_suggestion' }, 400, corsHeaders);
+  }
 
-  await env.DB.prepare(
-    `INSERT INTO reference_feedback_votes (
-       voter_id, option_index, created_at, updated_at
-     ) VALUES (?, ?, ?, ?)
+  const now = new Date().toISOString();
+  const existingSubmission = await readReferenceFeedbackSubmission(env, voterId);
+  const publicId = existingSubmission?.publicId || crypto.randomUUID();
+  let communityRegistrationId = null;
+
+  if (attributionMode === 'community') {
+    const existingCommunityRegistrationId =
+      kind === 'vote'
+        ? existingSubmission?.voteCommunityRegistrationId
+        : existingSubmission?.responseCommunityRegistrationId;
+    communityRegistrationId = payload.communityCode
+      ? await verifyApprovedCommunityRegistration(env, payload.communityCode)
+      : existingCommunityRegistrationId || null;
+
+    if (!communityRegistrationId) {
+      return jsonResponse({ error: 'invalid_community_code' }, 400, corsHeaders);
+    }
+  }
+
+  const voteAttributionMode =
+    kind === 'vote'
+      ? attributionMode
+      : existingSubmission?.voteAttributionMode || 'anonymous';
+  const responseAttributionMode =
+    kind === 'response'
+      ? attributionMode
+      : existingSubmission?.responseAttributionMode || 'anonymous';
+  const voteCommunityRegistrationId =
+    kind === 'vote'
+      ? communityRegistrationId
+      : existingSubmission?.voteCommunityRegistrationId || null;
+  const responseCommunityRegistrationId =
+    kind === 'response'
+      ? communityRegistrationId
+      : existingSubmission?.responseCommunityRegistrationId || null;
+  const savedTitle = kind === 'response' ? title : existingSubmission?.title || '';
+  const savedSuggestion =
+    kind === 'response' ? suggestion : existingSubmission?.suggestion || '';
+
+  const responseStatement = env.DB.prepare(
+    `INSERT INTO reference_feedback_responses (
+       voter_id, public_id, title, suggestion,
+       vote_attribution_mode, vote_community_registration_id,
+       response_attribution_mode, response_community_registration_id,
+       locale, created_at, updated_at
+     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
      ON CONFLICT(voter_id) DO UPDATE SET
-       option_index = excluded.option_index,
+       title = excluded.title,
+       suggestion = excluded.suggestion,
+       vote_attribution_mode = excluded.vote_attribution_mode,
+       vote_community_registration_id = excluded.vote_community_registration_id,
+       response_attribution_mode = excluded.response_attribution_mode,
+       response_community_registration_id = excluded.response_community_registration_id,
+       locale = excluded.locale,
        updated_at = excluded.updated_at`,
+  ).bind(
+    voterId,
+    publicId,
+    savedTitle,
+    savedSuggestion,
+    voteAttributionMode,
+    voteCommunityRegistrationId,
+    responseAttributionMode,
+    responseCommunityRegistrationId,
+    locale,
+    now,
+    now,
+  );
+  const statements = [];
+
+  if (kind === 'vote') {
+    statements.push(
+      env.DB.prepare(
+        `INSERT INTO reference_feedback_votes (
+           voter_id, option_index, created_at, updated_at
+         ) VALUES (?, ?, ?, ?)
+         ON CONFLICT(voter_id) DO UPDATE SET
+           option_index = excluded.option_index,
+           updated_at = excluded.updated_at`,
+      ).bind(voterId, optionIndex, now, now),
+    );
+  }
+
+  if (kind === 'vote' && communityRegistrationId) {
+    statements.push(
+      env.DB.prepare(
+        `UPDATE reference_feedback_responses
+            SET vote_attribution_mode = 'anonymous',
+                vote_community_registration_id = NULL,
+                updated_at = ?
+          WHERE vote_community_registration_id = ?
+            AND voter_id <> ?`,
+      ).bind(now, communityRegistrationId, voterId),
+    );
+  }
+
+  if (kind === 'response' && communityRegistrationId) {
+    statements.push(
+      env.DB.prepare(
+        `UPDATE reference_feedback_responses
+            SET response_attribution_mode = 'anonymous',
+                response_community_registration_id = NULL,
+                updated_at = ?
+          WHERE response_community_registration_id = ?
+            AND voter_id <> ?`,
+      ).bind(now, communityRegistrationId, voterId),
+    );
+  }
+
+  statements.push(responseStatement);
+  await env.DB.batch(statements);
+
+  const savedSubmission = await readReferenceFeedbackSubmission(env, voterId);
+  const savedVote = await env.DB.prepare(
+    `SELECT option_index AS optionIndex
+       FROM reference_feedback_votes
+      WHERE voter_id = ?`,
   )
-    .bind(voterId, optionIndex, now, now)
-    .run();
+    .bind(voterId)
+    .first();
 
   return jsonResponse(
     {
       votes: await readReferenceFeedbackTotals(env),
-      userVote: optionIndex,
+      userVote: Number.isInteger(savedVote?.optionIndex) ? savedVote.optionIndex : null,
+      submission: {
+        title: savedSubmission?.title || '',
+        suggestion: savedSubmission?.suggestion || '',
+        voteAttributionMode: savedSubmission?.voteAttributionMode || 'anonymous',
+        responseAttributionMode: savedSubmission?.responseAttributionMode || 'anonymous',
+        voteCommunityProfileName: savedSubmission?.voteCommunityProfileName || '',
+        responseCommunityProfileName: savedSubmission?.responseCommunityProfileName || '',
+      },
     },
     200,
     corsHeaders,
     { 'Cache-Control': 'no-store' },
   );
+}
+
+async function readReferenceFeedbackSubmission(env, voterId) {
+  return env.DB.prepare(
+    `SELECT feedback.suggestion,
+            feedback.public_id AS publicId,
+            feedback.title,
+            feedback.vote_attribution_mode AS voteAttributionMode,
+            feedback.vote_community_registration_id AS voteCommunityRegistrationId,
+            feedback.response_attribution_mode AS responseAttributionMode,
+            feedback.response_community_registration_id AS responseCommunityRegistrationId,
+            vote_registration.public_name AS voteCommunityProfileName,
+            response_registration.public_name AS responseCommunityProfileName
+       FROM reference_feedback_responses feedback
+       LEFT JOIN community_registrations vote_registration
+         ON vote_registration.id = feedback.vote_community_registration_id
+        AND vote_registration.status = 'approved'
+       LEFT JOIN community_registrations response_registration
+         ON response_registration.id = feedback.response_community_registration_id
+        AND response_registration.status = 'approved'
+      WHERE feedback.voter_id = ?`,
+  )
+    .bind(voterId)
+    .first();
+}
+
+function normalizeFeedbackSuggestion(value) {
+  const suggestion = String(value || '').trim();
+
+  return suggestion.length <= MAXIMUM_FEEDBACK_SUGGESTION_LENGTH ? suggestion : null;
+}
+
+function normalizeFeedbackTitle(value, suggestion) {
+  const explicitTitle = String(value || '').trim().replace(/\s+/g, ' ').slice(0, 100);
+
+  if (explicitTitle) return explicitTitle;
+  if (!suggestion) return '';
+
+  const firstSentence = suggestion.split(/(?<=[.!?])\s|\n/)[0].trim();
+  const compact = firstSentence || suggestion;
+
+  return compact.length <= 88 ? compact : `${compact.slice(0, 85).trimEnd()}…`;
+}
+
+function normalizeFeedbackLocale(value) {
+  const locale = String(value || 'en-US').trim();
+
+  return /^[a-z]{2}(?:-[A-Z]{2})?$/.test(locale) ? locale : 'en-US';
+}
+
+async function verifyApprovedCommunityRegistration(env, suppliedCode) {
+  const deletionCode = normalizeDeletionCode(suppliedCode);
+  const separatorIndex = deletionCode.indexOf('.');
+  const id = deletionCode.slice(0, separatorIndex);
+  const deletionSecret = deletionCode.slice(separatorIndex + 1);
+
+  if (separatorIndex < 1 || !id || deletionSecret.length < 32) return null;
+
+  const registration = await env.DB.prepare(
+    `SELECT deletion_token_hash AS deletionTokenHash
+       FROM community_registrations
+      WHERE id = ?
+        AND status = 'approved'`,
+  )
+    .bind(id)
+    .first();
+
+  if (!registration?.deletionTokenHash) return null;
+
+  const suppliedHash = await hashText(deletionSecret);
+
+  return (await areEqualSecrets(suppliedHash, registration.deletionTokenHash)) ? id : null;
 }
 
 async function readReferenceFeedbackTotals(env) {
@@ -378,17 +589,39 @@ async function createRegistration(request, env, corsHeaders, context) {
 
 async function listApprovedMembers(request, env, corsHeaders) {
   const result = await env.DB.prepare(
-    `SELECT public_name AS publicName,
-            social_network AS socialNetwork,
-            social_profile AS socialProfile,
-            country,
-            id,
-            CASE WHEN avatar_data IS NULL THEN 0 ELSE 1 END AS hasAvatar,
-            avatar_updated_at AS avatarUpdatedAt
-       FROM community_registrations
-      WHERE status = 'approved'
-      ORDER BY created_at ASC, id ASC
+    `SELECT registration.public_name AS publicName,
+            registration.social_network AS socialNetwork,
+            registration.social_profile AS socialProfile,
+            registration.country,
+            registration.id,
+            CASE WHEN registration.avatar_data IS NULL THEN 0 ELSE 1 END AS hasAvatar,
+            registration.avatar_updated_at AS avatarUpdatedAt,
+            CASE WHEN vote.voter_id IS NULL THEN 0 ELSE 1 END AS hasVoted,
+            response_feedback.title AS feedbackTitle,
+            response_feedback.suggestion AS feedbackResponse
+       FROM community_registrations registration
+       LEFT JOIN reference_feedback_responses vote_feedback
+         ON vote_feedback.vote_community_registration_id = registration.id
+        AND vote_feedback.vote_attribution_mode = 'community'
+       LEFT JOIN reference_feedback_votes vote
+         ON vote.voter_id = vote_feedback.voter_id
+       LEFT JOIN reference_feedback_responses response_feedback
+         ON response_feedback.response_community_registration_id = registration.id
+        AND response_feedback.response_attribution_mode = 'community'
+        AND LENGTH(TRIM(response_feedback.suggestion)) > 0
+      WHERE registration.status = 'approved'
+      ORDER BY registration.created_at ASC, registration.id ASC
       LIMIT 500`,
+  ).all();
+  const anonymousResult = await env.DB.prepare(
+    `SELECT public_id AS id,
+            title,
+            suggestion AS response
+       FROM reference_feedback_responses
+      WHERE response_attribution_mode = 'anonymous'
+        AND LENGTH(TRIM(suggestion)) > 0
+      ORDER BY updated_at DESC
+      LIMIT 100`,
   ).all();
 
   const members = (result.results || []).map((member, sortOrder) => ({
@@ -397,12 +630,21 @@ async function listApprovedMembers(request, env, corsHeaders) {
     socialProfile: member.socialProfile,
     country: member.country,
     sortOrder,
+    hasVoted: Boolean(member.hasVoted),
+    feedbackTitle: String(member.feedbackTitle || ''),
+    feedbackResponse: String(member.feedbackResponse || ''),
     avatarUrl: member.hasAvatar
       ? createAvatarUrl(request, member.id, member.avatarUpdatedAt)
       : null,
   }));
 
-  return jsonResponse({ members }, 200, corsHeaders, {
+  const anonymousResponses = (anonymousResult.results || []).map((response) => ({
+    id: response.id,
+    title: String(response.title || ''),
+    response: String(response.response || ''),
+  }));
+
+  return jsonResponse({ members, anonymousResponses }, 200, corsHeaders, {
     'Cache-Control': 'public, max-age=300',
   });
 }

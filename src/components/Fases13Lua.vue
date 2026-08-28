@@ -101,10 +101,11 @@
                       </span>
                     </template>
 
-                    <q-tooltip v-if="fase.data">
-                      {{ fase.data.replace(/-/g, '/') }}
-                      ({{ $t('calendar.gregorian') }})
-                    </q-tooltip>
+                    <CalendarEquivalentDateTooltip
+                      v-if="fase.data"
+                      :date="fase.data"
+                      :calendar-label="$t('calendar.gregorian')"
+                    />
                   </q-item-section>
                 </q-item>
               </q-list>
@@ -126,6 +127,7 @@ import { useCalendarTranslations } from 'src/composables/useCalendarTranslations
 import { useYearWindow } from 'src/composables/useYearWindow';
 import { useMoonPhaseSettings } from 'src/composables/useMoonPhaseSettings';
 import MoonPhaseFilterMenu from 'src/components/MoonPhaseFilterMenu.vue';
+import CalendarEquivalentDateTooltip from 'src/components/CalendarEquivalentDateTooltip.vue';
 
 /* ===========================================================
    MÊS E ANO RECEBIDOS DO CALENDÁRIO DE 13 MESES

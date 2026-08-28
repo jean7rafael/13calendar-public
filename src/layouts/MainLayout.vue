@@ -19,23 +19,35 @@
           {{ toolbarTitle }}
         </q-toolbar-title>
 
-        <!-- A página dos calendários aponta para a comunidade; a
-             página comunitária oferece o caminho inverso. -->
-        <CommunityFloatingButton v-if="!isCommunityPage" />
+        <nav class="app-toolbar-navigation" :aria-label="t('productNavigation.ariaLabel')">
+          <q-btn
+            v-for="item in productNavigationItems"
+            :key="item.routeName"
+            flat
+            dense
+            no-caps
+            class="app-toolbar-button app-toolbar-button--section"
+            :class="{ 'app-toolbar-button--active': item.active }"
+            :to="{ name: item.routeName }"
+            :aria-label="item.label"
+            :aria-current="item.active ? 'page' : undefined"
+          >
+            <q-icon :name="item.icon" aria-hidden="true" />
+            <span class="app-toolbar-label">{{ item.label }}</span>
+            <q-tooltip>{{ item.label }}</q-tooltip>
+          </q-btn>
+        </nav>
 
         <q-btn
-          v-else
           flat
           dense
           round
-          icon="today"
-          class="app-toolbar-button"
-          :to="{ name: 'home' }"
-          :aria-label="t('community.backToCalendars')"
+          icon="apps"
+          class="app-toolbar-button app-toolbar-navigation-trigger"
+          :aria-label="t('productNavigation.open')"
+          @click="rightDrawerOpen = true"
         >
-          <q-tooltip>
-            {{ t('community.backToCalendars') }}
-          </q-tooltip>
+          <q-tooltip>{{ t('productNavigation.open') }}</q-tooltip>
         </q-btn>
 
         <q-btn
@@ -81,20 +93,6 @@
 
           <q-tooltip>
             {{ themeButtonLabel }}
-          </q-tooltip>
-        </q-btn>
-
-        <q-btn
-          flat
-          dense
-          round
-          icon="close"
-          class="app-toolbar-button"
-          :href="referenceSiteUrl"
-          :aria-label="t('navigation.backToHome')"
-        >
-          <q-tooltip>
-            {{ t('navigation.backToHome') }}
           </q-tooltip>
         </q-btn>
       </q-toolbar>
@@ -188,6 +186,45 @@
       </q-list>
     </q-drawer>
 
+    <!-- Em telas estreitas, os mesmos destinos da barra ficam
+         reunidos numa gaveta própria à direita. -->
+    <q-drawer
+      v-model="rightDrawerOpen"
+      side="right"
+      overlay
+      bordered
+      :width="300"
+      class="app-navigation-drawer"
+    >
+      <div class="app-navigation-drawer__header">
+        <strong>{{ t('productNavigation.ariaLabel') }}</strong>
+        <q-btn
+          flat
+          dense
+          round
+          icon="close"
+          class="app-toolbar-button"
+          :aria-label="t('productNavigation.close')"
+          @click="closeRightDrawer"
+        />
+      </div>
+
+      <q-list padding>
+        <q-item
+          v-for="item in productNavigationItems"
+          :key="item.routeName"
+          clickable
+          :active="item.active"
+          active-class="app-navigation-drawer__active"
+          :to="{ name: item.routeName }"
+          @click="closeRightDrawer"
+        >
+          <q-item-section avatar><q-icon :name="item.icon" /></q-item-section>
+          <q-item-section>{{ item.label }}</q-item-section>
+        </q-item>
+      </q-list>
+    </q-drawer>
+
     <!-- Confirmação do país após uma troca de idioma. -->
     <q-dialog v-model="holidayCountryDialogOpen">
       <q-card class="holiday-country-dialog">
@@ -208,27 +245,49 @@
         <q-separator />
 
         <q-card-actions align="right">
-          <q-btn flat no-caps color="primary" :label="t('holidaySettings.cancel')" v-close-popup />
+          <q-btn
+            unelevated
+            no-caps
+            class="app-action app-action--secondary"
+            :label="t('holidaySettings.cancel')"
+            v-close-popup
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
 
     <!-- Conteúdo da rota atual. -->
     <q-page-container>
+      <q-banner v-if="updateAvailable" class="app-update-banner" dense>
+        <template #avatar>
+          <q-icon name="system_update" color="primary" />
+        </template>
+        {{ t('education.tools.pwa.update') }}
+        <template #action>
+          <q-btn
+            unelevated
+            no-caps
+            class="app-action app-action--primary"
+            :label="t('education.tools.pwa.refresh')"
+            @click="reloadPage"
+          />
+        </template>
+      </q-banner>
       <router-view />
+      <AppFooter v-if="showsPublicFooter" />
     </q-page-container>
   </q-layout>
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useMeta, useQuasar } from 'quasar';
 import { useRoute } from 'vue-router';
 import { setAppLanguage } from 'src/boot/i18n';
 import { setAppDarkMode } from 'src/boot/theme';
-import CommunityFloatingButton from 'src/components/CommunityFloatingButton.vue';
 import HolidayCountrySelector from 'src/components/HolidayCountrySelector.vue';
+import AppFooter from 'src/components/AppFooter.vue';
 import { interfaceLanguages, type InterfaceLocale } from '../../shared/interfaceLanguages';
 
 /* ===========================================================
@@ -242,10 +301,12 @@ type AppLocale = InterfaceLocale;
 =========================================================== */
 
 const leftDrawerOpen = ref(false);
+const rightDrawerOpen = ref(false);
 const holidayCountryDialogOpen = ref(false);
 const drawerMenuList = ref(null);
 const drawerCountryListFits = ref(false);
 const drawerMenuAtEnd = ref(false);
+const updateAvailable = ref(false);
 
 /* ===========================================================
    IDIOMAS EXIBIDOS NO MENU
@@ -281,6 +342,66 @@ const isCommunityPage = computed(() => route.name === 'community');
 const isCommunityAdminPage = computed(() => route.name === 'community-admin');
 const isCommunityRemovalPage = computed(() => route.name === 'community-remove');
 const isPrivacyPage = computed(() => route.name === 'privacy');
+const isEducationPage = computed(() => route.name === 'education');
+const isToolsPage = computed(() => route.name === 'tools');
+const isMoonPage = computed(() => route.name === 'moon');
+const isNewsPage = computed(() => route.name === 'news');
+const publicFooterRoutes = new Set([
+  'home',
+  'community',
+  'privacy',
+  'education',
+  'tools',
+  'moon',
+  'news',
+]);
+const showsPublicFooter = computed(() => publicFooterRoutes.has(String(route.name)));
+const productNavigationItems = computed(() => {
+  const activeSection = ['community', 'community-admin', 'community-remove'].includes(
+    String(route.name),
+  )
+    ? 'community'
+    : String(route.name);
+
+  return [
+    {
+      routeName: 'education',
+      icon: 'auto_stories',
+      label: t('productNavigation.learn'),
+      active: activeSection === 'education',
+    },
+    {
+      routeName: 'tools',
+      icon: 'construction',
+      label: t('productNavigation.tools'),
+      active: activeSection === 'tools',
+    },
+    {
+      routeName: 'home',
+      icon: 'calendar_month',
+      label: t('productNavigation.calendars'),
+      active: activeSection === 'home',
+    },
+    {
+      routeName: 'moon',
+      icon: 'brightness_3',
+      label: t('productNavigation.moon'),
+      active: activeSection === 'moon',
+    },
+    {
+      routeName: 'news',
+      icon: 'newspaper',
+      label: t('productNavigation.news'),
+      active: activeSection === 'news',
+    },
+    {
+      routeName: 'community',
+      icon: 'groups',
+      label: t('productNavigation.community'),
+      active: activeSection === 'community',
+    },
+  ];
+});
 
 /* Páginas sem calendário compartilham a gaveta enxuta.
    Somente o conversor oferece a escolha de feriados. */
@@ -289,7 +410,11 @@ const usesLanguageOnlyDrawer = computed(
     isCommunityPage.value ||
     isCommunityAdminPage.value ||
     isCommunityRemovalPage.value ||
-    isPrivacyPage.value,
+    isPrivacyPage.value ||
+    isEducationPage.value ||
+    isToolsPage.value ||
+    isMoonPage.value ||
+    isNewsPage.value,
 );
 
 const toolbarTitle = computed(() => {
@@ -297,28 +422,118 @@ const toolbarTitle = computed(() => {
   if (isCommunityRemovalPage.value) return t('community.removalTitle');
   if (isCommunityPage.value) return t('community.headerTitle');
   if (isPrivacyPage.value) return t('privacy.title');
+  if (isEducationPage.value) return t('education.toolbarTitle');
+  if (isToolsPage.value) return t('education.tools.toolbarTitle');
+  if (isMoonPage.value) return t('productNavigation.moon');
+  if (isNewsPage.value) return t('education.resources.title');
   return t('app.title');
 });
 
-/* ===========================================================
-   TÍTULO LOCALIZADO DA ABA DO NAVEGADOR
+function markUpdateAvailable() {
+  updateAvailable.value = true;
+}
 
-   O nome da marca permanece estável, enquanto a descrição
-   acompanha imediatamente o idioma escolhido na interface.
+function reloadPage() {
+  window.location.reload();
+}
+
+onMounted(() => window.addEventListener('calendar-update-available', markUpdateAvailable));
+
+/* ===========================================================
+   METADADOS ÚNICOS POR ROTA
+
+   O HTML-base não mantém canonical nem descrições concorrentes.
+   Assim cada página pública expõe exatamente uma versão localizada
+   dessas informações e as páginas internas recebem noindex.
 =========================================================== */
 
-useMeta(() => ({
-  title: t('app.browserTitle'),
-}));
+const publicMetadata = computed(() => {
+  const entries: Record<
+    string,
+    { title: string; description: string; path?: string; noindex?: boolean }
+  > = {
+    home: {
+      title: t('app.browserTitle'),
+      description: t('introduction.description'),
+      path: '/',
+    },
+    community: {
+      title: t('community.browserTitle'),
+      description: t('community.description'),
+      path: '/community',
+    },
+    privacy: {
+      title: t('privacy.browserTitle'),
+      description: t('privacy.intro'),
+      path: '/privacy',
+    },
+    education: {
+      title: t('education.browserTitle'),
+      description: t('education.hero.description'),
+      path: '/learn',
+    },
+    tools: {
+      title: t('education.tools.browserTitle'),
+      description: t('education.tools.hero.description'),
+      path: '/tools',
+    },
+    moon: {
+      title: `13 Calendar — ${t('productNavigation.moon')}`,
+      description: t('education.moon.intro'),
+      path: '/moon',
+    },
+    news: {
+      title: `13 Calendar — ${t('education.resources.title')}`,
+      description: t('education.resources.description'),
+      path: '/news',
+    },
+    'community-admin': {
+      title: t('community.adminTitle'),
+      description: t('community.adminDescription'),
+      noindex: true,
+    },
+    'community-remove': {
+      title: t('community.removalBrowserTitle'),
+      description: t('community.removalDescription'),
+      noindex: true,
+    },
+  };
 
-/* ===========================================================
-   ROTA DA PÁGINA INICIAL DE REFERÊNCIA
-=========================================================== */
+  return entries[String(route.name)] || entries.home;
+});
 
-const configuredReferenceSiteUrl = String(import.meta.env.VITE_REFERENCE_SITE_URL || '').trim();
-const referenceSiteUrl = configuredReferenceSiteUrl
-  ? configuredReferenceSiteUrl
-  : new URL(`${import.meta.env.BASE_URL}reference-site/index.html`, window.location.origin).href;
+useMeta(() => {
+  const metadata = publicMetadata.value;
+  const canonical = metadata.path
+    ? `https://13calendar.pages.dev${metadata.path === '/' ? '/' : metadata.path}`
+    : '';
+  const meta = {
+    description: { name: 'description', content: metadata.description },
+    ogLocale: { property: 'og:locale', content: locale.value.replace('-', '_') },
+  };
+
+  if (metadata.noindex) {
+    meta.robots = { name: 'robots', content: 'noindex, nofollow' };
+  } else {
+    meta.ogTitle = { property: 'og:title', content: metadata.title };
+    meta.ogDescription = { property: 'og:description', content: metadata.description };
+    meta.ogUrl = { property: 'og:url', content: canonical };
+    meta.twitterTitle = { name: 'twitter:title', content: metadata.title };
+    meta.twitterDescription = { name: 'twitter:description', content: metadata.description };
+  }
+
+  return {
+    title: metadata.title,
+    meta,
+    ...(canonical
+      ? {
+          link: {
+            canonical: { rel: 'canonical', href: canonical },
+          },
+        }
+      : {}),
+  };
+});
 
 /* ===========================================================
    TEMA CLARO OU ESCURO
@@ -344,6 +559,10 @@ function closeLeftDrawer() {
   leftDrawerOpen.value = false;
 }
 
+function closeRightDrawer() {
+  rightDrawerOpen.value = false;
+}
+
 /* ===========================================================
    BLOQUEIO DA ROLAGEM DA PÁGINA COM A GAVETA ABERTA
 
@@ -361,10 +580,10 @@ function setPageScrollLocked(locked: boolean) {
   document.body.classList.toggle('drawer-page-scroll-locked', locked);
 }
 
-watch(leftDrawerOpen, async (isOpen) => {
-  setPageScrollLocked(isOpen);
+watch([leftDrawerOpen, rightDrawerOpen], async ([isLeftOpen, isRightOpen]) => {
+  setPageScrollLocked(isLeftOpen || isRightOpen);
 
-  if (isOpen) {
+  if (isLeftOpen) {
     await nextTick();
     updateDrawerMenuEndState();
   }
@@ -372,6 +591,7 @@ watch(leftDrawerOpen, async (isOpen) => {
 
 onBeforeUnmount(() => {
   setPageScrollLocked(false);
+  window.removeEventListener('calendar-update-available', markUpdateAvailable);
 });
 
 /* ===========================================================
@@ -456,6 +676,43 @@ async function setDrawerCountryListFits(countryListFits) {
   color: var(--app-text-muted);
 }
 
+.app-toolbar-navigation {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.app-toolbar-button--section {
+  min-height: 34px;
+  padding-inline: 9px;
+  border-radius: 10px;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.app-toolbar-button--section:hover,
+.app-toolbar-button--section:focus-visible,
+.app-toolbar-button--active {
+  color: var(--app-primary-text) !important;
+  background: var(--app-primary-soft) !important;
+}
+
+.app-toolbar-button--section :deep(.q-icon) {
+  font-size: 19px;
+}
+
+.app-toolbar-label {
+  margin-inline-start: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.app-toolbar-navigation-trigger {
+  display: none;
+}
+
 .app-theme-icon {
   width: 20px;
   height: 20px;
@@ -518,6 +775,34 @@ async function setDrawerCountryListFits(countryListFits) {
 
 .drawer-close-button {
   color: var(--app-text-muted);
+}
+
+.app-navigation-drawer__header {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 14px 0 20px;
+  border-bottom: 1px solid var(--app-border);
+}
+
+.app-navigation-drawer :deep(.q-item) {
+  min-height: 48px;
+  margin: 4px 8px;
+  color: var(--app-text-muted);
+  border-radius: 12px;
+}
+
+.app-navigation-drawer__active {
+  color: var(--app-primary-text) !important;
+  background: var(--app-primary-soft) !important;
+}
+
+.app-update-banner {
+  color: var(--app-text);
+  background: var(--app-primary-soft);
+  border-bottom: 1px solid var(--app-border);
 }
 
 .drawer-current-language {
@@ -615,6 +900,28 @@ async function setDrawerCountryListFits(countryListFits) {
   overscroll-behavior: none;
 }
 
+@media (max-width: 1120px) {
+  .app-toolbar-label {
+    display: none;
+  }
+
+  .app-toolbar-button--section {
+    width: 34px;
+    min-width: 34px;
+    padding-inline: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .app-toolbar-navigation {
+    display: none;
+  }
+
+  .app-toolbar-navigation-trigger {
+    display: inline-flex;
+  }
+}
+
 @media (max-width: 600px) {
   .app-toolbar {
     padding: 0 10px;
@@ -626,6 +933,25 @@ async function setDrawerCountryListFits(countryListFits) {
 
   .app-title {
     font-size: 15px;
+  }
+}
+
+@media (max-width: 430px) {
+  .app-toolbar {
+    gap: 2px;
+    padding-inline: 4px;
+  }
+
+  .app-toolbar-button {
+    width: 34px;
+    min-width: 34px;
+    height: 34px;
+    min-height: 34px;
+  }
+
+  .app-title {
+    padding-inline: 4px;
+    font-size: 13px;
   }
 }
 </style>

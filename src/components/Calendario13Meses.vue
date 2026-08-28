@@ -116,12 +116,15 @@
         </i18n-t>
       </div>
     </div>
+
+    <CalendarTodayButton />
   </q-card>
 </template>
 
 <script>
 import CarouselCalendario from 'src/components/CarouselCalendario.vue';
 import CarouselSeletores from 'src/components/Carousel13Seletores.vue';
+import CalendarTodayButton from 'src/components/CalendarTodayButton.vue';
 
 /* O QDate agrupa o seletor em blocos fixos de 20 anos e
    mostra também o primeiro ano do bloco seguinte. */
@@ -140,7 +143,7 @@ function getYearPageStart(year, minYear = 1) {
 =========================================================== */
 
 export default {
-  components: { CarouselCalendario, CarouselSeletores },
+  components: { CalendarTodayButton, CarouselCalendario, CarouselSeletores },
 
   /* Data selecionada, sincronizada por v-model. */
   props: {
@@ -308,6 +311,7 @@ export default {
   ESTILOS GERAIS DO CALENDÁRIO
 =========================================================== */
 .custom-calendar {
+  position: relative;
   width: 100%;
   min-width: var(--calendar-card-min-width, 320px);
   max-width: var(--calendar-card-max-width, 520px);

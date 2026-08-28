@@ -100,3 +100,61 @@ desconhecido.
   calendário oficial do país preservam a ocorrência calculada pela fonte.
 - Uma função nova da base internacional precisa ser classificada antes de ser
   aceita; a auditoria deve terminar com zero fallbacks desconhecidos.
+
+## Equivalência e responsividade da interface
+
+- O calendário gregoriano e o calendário de 13 meses usam o mesmo botão Hoje.
+- Cards de feriados e fases da Lua apresentam a data equivalente no calendário
+  oposto. A tooltip exibida no lado gregoriano usa somente a abreviatura `IFC`;
+  o título extenso não deve aumentar desnecessariamente a largura.
+- Em comparações diretas, a ordem entre o nome do mês e o número segue o padrão
+  de cada um dos 12 idiomas e é idêntica nos lados gregoriano e IFC. O ponto `·`
+  separa o dia da semana da data. A composição visual usa sempre duas linhas:
+  `dia da semana ·` acima e dia/mês abaixo, mantendo mês e número inseparáveis.
+- Uma ocorrência IFC adaptada aponta para sua `gregorianDate` calculada. Ela não
+  pode ser reconvertida como se fosse apenas uma data correspondente.
+- Enquanto houver espaço, as duas colunas ficam lado a lado. No breakpoint em
+  que começariam a empilhar, um seletor Gregoriano/13 meses deixa visível apenas
+  uma coluna por vez. Uma orientação localizada informa que girar a tela ou usar
+  uma tela maior permite comparar os calendários lado a lado.
+- A coluna ativa sempre contém, nesta ordem lógica, feriados, calendário e fases
+  da Lua; esses cards não são separados durante a alternância móvel.
+
+## Apresentação didática do ano completo
+
+- A visão anual de Aprenda apresenta os 13 meses regulares e Dias especiais na
+  mesma grade, sem uma segunda faixa resumida concorrente.
+- Em desktop, a grade possui sete colunas e duas fileiras: janeiro a Solaris na
+  primeira; julho a dezembro e Dias especiais na segunda. Em telas estreitas,
+  são duas colunas, de modo que Dias especiais fica ao lado de dezembro.
+- As duas fileiras usam a altura do maior card. As células numéricas não têm
+  fundo nem contorno colorido; domingo permanece rosado, sábado roxo e Solaris
+  recebe o destaque âmbar do mês.
+- O card final apresenta a aritmética real do ano selecionado: `364 + 1` em ano
+  comum e `364 + 1 + 1` em ano bissexto, totalizando 365 ou 366 dias. Não exibir
+  uma parcela zero no ano comum.
+- A navegação `‹ ano ›` permanece centralizada. O espaço de Hoje é reservado
+  inclusive quando a ação está invisível, para evitar deslocamento ao trocar de
+  ano.
+
+## Entradas de data
+
+- Entradas gregorianas usam `AppDateInput`: a pessoa pode digitar ou abrir as
+  grades de dia, mês e ano do Quasar.
+- Campos isolados de ano usam `AppYearInput`, com digitação e blocos visuais de
+  21 anos.
+- Datas IFC regulares usam `AppInternationalFixedDateInput`: um único campo
+  digitável abre a grade de 13 meses e 28 dias, sem duplicar seletores de mês e
+  dia. A ordem digitada segue o idioma.
+- No conversor IFC → Gregoriano, Dia Bissexto só pode ser selecionado em ano
+  gregoriano bissexto. Se o ano mudar para um ano comum, a seleção volta a Dia
+  regular. Ao ocultar o campo IFC nos dias especiais, seu espaço permanece
+  reservado para que o seletor de ano e os demais controles não saltem.
+- Os seletores compartilhados removem o espaço inferior invisível quando não há
+  mensagem. Formulários horizontais alinham o topo e a altura dos controles e
+  da ação principal.
+- O aniversário é a exceção sem redundância: primeiro se escolhe o ano da
+  comemoração; depois se escolhem dia e mês em um calendário limitado a esse
+  ano, para que os dias da semana gregorianos estejam corretos.
+- `type="date"` não é permitido porque sua aparência e navegação variam entre
+  navegadores de desktop.

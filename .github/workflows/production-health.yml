@@ -26,30 +26,16 @@ jobs:
           curl --fail --silent --show-error --location --retry 3 \
             https://13calendar.pages.dev/ --output main.html
           curl --fail --silent --show-error --location --retry 3 \
-            https://13calendar.pages.dev/reference-site/ --output reference.html
+            https://13calendar.pages.dev/learn --output learn.html
           curl --fail --silent --show-error --location --retry 3 \
             https://13calendar.pages.dev/robots.txt --output robots.txt
           curl --fail --silent --show-error --location --retry 3 \
             https://13calendar.pages.dev/sitemap.xml --output sitemap.xml
 
           grep -q 'https://13calendar.pages.dev/' main.html
+          grep -q '<div id="q-app"></div>' learn.html
           grep -q '13calendar.pages.dev/sitemap.xml' robots.txt
           grep -q '<urlset' sitemap.xml
-
-          reference_asset="$(grep -oE '(\./|/reference-site/)assets/index-[A-Za-z0-9_-]+\.js' reference.html | head -n 1)"
-          test -n "$reference_asset"
-          if [[ "$reference_asset" == ./* ]]; then
-            reference_url="https://13calendar.pages.dev/reference-site/${reference_asset#./}"
-          else
-            reference_url="https://13calendar.pages.dev${reference_asset}"
-          fi
-          curl --fail --silent --show-error --location --retry 3 \
-            "$reference_url" --output reference.js
-          grep -Fq 'Mês {month} de 13 · Semana {week} de 4' reference.js
-          if grep -Fq 'da 13ª' reference.js; then
-            echo 'A tradução ordinal antiga voltou ao pacote educacional.' >&2
-            exit 1
-          fi
 
       - name: Conferir API comunitária pública
         shell: bash

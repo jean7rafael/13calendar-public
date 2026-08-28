@@ -48,3 +48,6 @@ yarn-error.log*
 
 # Exportações locais e potencialmente sensíveis das conversas dos agentes
 /docs/agent-conversations/exports/
+
+# Estado transitório do trabalho em andamento; recriado pelo protocolo de retomada.
+/.codex-work-checkpoint.md

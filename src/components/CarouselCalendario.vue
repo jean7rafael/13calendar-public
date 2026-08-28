@@ -426,13 +426,13 @@ function isSelected(day, month, year) {
 }
 
 .special-day-card--leap {
-  background: rgb(245 158 11 / 5%);
-  border-color: rgb(245 158 11 / 28%);
+  background: var(--app-accent-amber-soft);
+  border-color: var(--app-accent-amber-border);
 }
 
 .special-day-card--leap strong,
 .special-day-card--leap .special-day-timing {
-  color: #b45309;
+  color: var(--app-accent-amber-text);
 }
 
 .special-day-card--inactive {
@@ -478,11 +478,11 @@ function isSelected(day, month, year) {
 }
 
 .special-days-summary .special-days-summary__year {
-  color: #10b981;
+  color: var(--app-accent-green);
 }
 
 .special-days-summary .special-days-summary__leap {
-  color: #f59e0b;
+  color: var(--app-accent-amber);
 }
 
 .special-days-summary__total {
@@ -503,14 +503,6 @@ body.body--dark .special-days-title {
 
 body.body--dark .special-day-card strong {
   color: #d1fae5;
-}
-
-body.body--dark .special-day-card--leap strong {
-  color: #fde68a;
-}
-
-body.body--dark .special-day-card--leap .special-day-timing {
-  color: #d97706;
 }
 
 body.body--dark .special-day-card--inactive strong,

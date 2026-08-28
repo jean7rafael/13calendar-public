@@ -53,6 +53,7 @@ export default {
       '国際固定暦の独立した補助ツールです。13months.net または標準化団体との提携関係はありません。',
     linksLabel: 'フッターリンク',
     dataSourcesLink: 'データ出典',
+    wikipediaLink: 'ウィキペディア',
     sourceCodeLink: 'ソースコード',
   },
 
@@ -152,6 +153,9 @@ export default {
     goToToday: '今日へ移動',
     gregorianTitle: 'あなたのカレンダー',
     fixedCalendarTitle: '国際固定暦',
+    calendar13Short: '13か月',
+    mobileComparisonHint:
+      '画面を横向きにするか、より大きな画面を使うと、2つの暦を並べて比較できます。',
     daysThisMonth: '今月は{count}日',
     daysEveryMonth: 'すべての月が{count}日',
 

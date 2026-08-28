@@ -112,10 +112,11 @@
                       {{ feriado.date13 ? feriado.date13.replace(/-/g, '/') : '' }}
                     </span>
 
-                    <q-tooltip v-if="feriado.gregorianDate">
-                      {{ feriado.gregorianDate.replace(/-/g, '/') }}
-                      ({{ $t('calendar.gregorian') }})
-                    </q-tooltip>
+                    <CalendarEquivalentDateTooltip
+                      v-if="feriado.gregorianDate"
+                      :date="feriado.gregorianDate"
+                      :calendar-label="$t('calendar.gregorian')"
+                    />
                   </q-item-section>
                 </q-item>
               </q-list>
@@ -152,6 +153,8 @@ import { findHolidayCountryConfig } from 'src/holidays/countryRegistry';
 import HolidayFilterMenu from 'src/components/HolidayFilterMenu.vue';
 
 import Calendar13HolidayModeMenu from 'src/components/Calendar13HolidayModeMenu.vue';
+
+import CalendarEquivalentDateTooltip from 'src/components/CalendarEquivalentDateTooltip.vue';
 
 import { useYearWindow } from 'src/composables/useYearWindow';
 

@@ -64,7 +64,7 @@
           unelevated
           no-caps
           color="primary"
-          class="app-primary-action"
+          class="app-action app-action--primary"
           type="submit"
           icon="person_add"
           :loading="submissionState === 'sending'"
@@ -90,7 +90,14 @@
           <strong>{{ t('community.deletionSaveTitle') }}</strong>
           <p>{{ t('community.deletionSaveDescription') }}</p>
           <q-input v-model="deletionLink" outlined readonly type="textarea" autogrow :label="t('community.deletionLinkLabel')" />
-          <q-btn flat no-caps icon="content_copy" :label="t('community.copyLink')" @click="copyDeletionLink" />
+          <q-btn
+            unelevated
+            no-caps
+            class="app-action app-action--tertiary"
+            icon="content_copy"
+            :label="t('community.copyLink')"
+            @click="copyDeletionLink"
+          />
         </div>
       </section>
     </q-form>

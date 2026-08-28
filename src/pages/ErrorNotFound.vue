@@ -7,9 +7,7 @@
       <div class="text-h2" style="opacity: 0.4">Oops. Nothing here...</div>
 
       <q-btn
-        class="q-mt-xl"
-        color="white"
-        text-color="blue"
+        class="app-action app-action--primary q-mt-xl"
         unelevated
         to="/"
         label="Go Home"

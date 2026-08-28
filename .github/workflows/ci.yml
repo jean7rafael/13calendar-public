@@ -31,9 +31,6 @@ jobs:
       - name: Instalar dependências do aplicativo
         run: npm ci
 
-      - name: Instalar dependências da página adaptada
-        run: npm ci --prefix vendor/13months-site
-
       - name: Instalar dependências do Worker
         run: npm ci --prefix cloudflare/community-registration-worker
 

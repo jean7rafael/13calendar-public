@@ -46,6 +46,12 @@
   feriados. Datas fixas e regras semanais são reaplicadas no modo adaptado;
   calendários religiosos/lunissolares sem mês homônimo preservam o instante
   físico. A Páscoa ocidental adaptada e suas dependências têm cálculo próprio.
+- Ambos os calendários usam o mesmo botão Hoje. Feriados e fases da Lua
+  apresentam a data equivalente do calendário oposto; no lado gregoriano, a
+  tooltip usa somente a abreviatura `IFC`.
+- As duas colunas permanecem lado a lado quando cabem. Abaixo de 760 px, o
+  seletor Gregoriano/13 meses deixa visível uma coluna por vez, sempre mantendo
+  juntos feriados, calendário e fases da Lua do lado ativo.
 
 ### Feriados e países
 
@@ -94,6 +100,15 @@
 
 - Idiomas atuais: português, inglês, alemão, francês, italiano, espanhol,
   russo, árabe, hindi, chinês, japonês e coreano.
+- Conteúdo público novo é entregue integralmente nos 12 idiomas. Fallback
+  editorial literal em inglês não é aceito em outro catálogo; as únicas
+  igualdades permitidas são nomes próprios, números históricos e templates sem
+  palavras traduzíveis. `education:audit` protege Aprenda, Ferramentas e
+  Notícias contra essa regressão.
+- Em Notícias, o título original da matéria permanece no idioma da publicação.
+  Resumos escritos pelo projeto e rótulos de idioma são localizados nos 12
+  idiomas em `educationResourceTranslations.js`; a auditoria exige cobertura
+  de todos os 11 IDs e impede retorno do resumo em inglês.
 - Na primeira visita, o idioma segue o idioma principal do navegador quando
   ele pertence aos 12 idiomas suportados; idiomas não reconhecidos usam
   inglês dos Estados Unidos. Nas visitas seguintes, prevalece a escolha salva.
@@ -127,6 +142,86 @@
   a decisão ou o resultado resumido.
 - Para mudanças comuns, executar `npm run lint` e `npm run build`. Para feriados,
   seguir a sequência completa de `docs/HOLIDAY_COUNTRY_STANDARD.md`.
+- Comparações diretas de datas usam o nome completo do dia da semana nos dois
+  calendários. Em português, remover sempre o sufixo `-feira`; quando o sistema
+  de escrita diferencia caixa, o nome destacado começa por maiúscula.
+- Botões textuais pertencem obrigatoriamente a uma das três famílias
+  compartilhadas: primário violeta, secundário neutro preenchido ou terciário
+  suave/contornado. Botões apenas de ícone e seletores segmentados são exceções
+  funcionais, não uma quarta família visual.
+- A barra superior mantém sempre, nesta ordem, Aprenda, Ferramentas,
+  Calendários, Lua, Notícias e Comunidade. A rota ativa usa o mesmo realce da
+  interação, o tema
+  é a última ação e, em telas pequenas, os cinco destinos passam para a gaveta
+  da direita sem desaparecer da navegação.
+- `AppFooter` é a única composição de rodapé das páginas públicas. Ele tem
+  altura uniforme e contém somente os quatro apontamentos com ícones: fontes
+  de dados, Wikipédia, código-fonte e aviso de privacidade. Não criar versões
+  compactas, estruturas paralelas nem links para as próprias páginas do
+  produto. A faixa `Datas merecem contexto` e seus cartões pertencem somente à
+  página dos calendários e ficam fora do rodapé.
+- No rodapé, Fontes de dados abre a seção homônima de
+  `docs/releases/README_2.0.md` no GitHub; Código-fonte abre a raiz do
+  repositório público. A documentação de fontes agrupa bases civis, apêndice
+  governamental, Astronomy Engine, NASA/GSFC, Sol, Lua e convenções do projeto.
+- Roxo, verde e âmbar são as famílias cromáticas oficiais, com papéis
+  semânticos uniformes nos temas claro e escuro descritos em
+  `docs/UI_COLOR_PALETTE.md`. Avisos reutilizam `AppNoticePanel`; não duplicar
+  cores nem geometrias locais.
+- Aberturas equivalentes usam `AppPageHero`: Calendários recebe o ícone de
+  calendário, Notícias o de jornal e somente Comunidade conserva o globo.
+- Aprenda preserva uma abertura própria de comparação: `Seu calendário` e IFC,
+  `vs.` central, gradientes, anos, dias reais do mês gregoriano, 28 dias do mês
+  fixo e relógio externo. As ações mantêm texto e seta na mesma linha. Sua visão
+  anual combina 13 meses e Dias especiais: sete colunas por duas fileiras no
+  desktop e duas colunas no celular, com o resumo ao lado de dezembro, células
+  numéricas sem caixas coloridas, alturas uniformes e soma `364 + 1`, com outro
+  `+ 1` surgindo somente em ano bissexto.
+  A navegação anual reserva o lugar de Hoje para manter `‹ ano ›` centralizado.
+- A grade anual ocupa até 1700 px e mantém sete colunas somente a partir de
+  1580 px; antes de as abreviações se sobreporem, passa a quatro e, até 860 px,
+  a duas. Os cabeçalhos usam fonte de 6 px. O dia atual usa fundo translúcido
+  roxo escuro ou rosa escuro no domingo, com contraste nos dois temas. Solaris
+  mantém os dias úteis na cor normal do tema.
+- A página Aprenda conserva cinco fatos estruturais, mês modelo com título
+  externo e domingos rosados, linha do tempo histórica alternada, seis perguntas
+  com hover uniforme, destaque Kodak e a seção integral do Sabá com duas
+  alternativas, ciclos comparados, limitações e fontes.
+- A resolução dos obstáculos é uma seção própria imediatamente depois do Sabá.
+  A Lua e a Metodologia vivem juntas na rota pública `/moon`, acessível pela
+  barra principal. Em tela larga, os quatro cards 2 × 2 da resolução igualam, em conjunto,
+  a altura do formulário; empilhados, retomam altura natural. A votação permanece
+  separada e usa quatro expressões Material nas cores verde, roxa, âmbar e rosa,
+  com a assinatura `13 ● MONTHS ● CALENDAR`. Voto e relato podem ser ligados
+  independentemente ao perfil aprovado da Comunidade mediante o código privado,
+  sem login. A API pública mostra somente que houve voto, nunca sua opção, e
+  abre o relato completo por um segundo ícone. Respostas anônimas são listadas
+  depois dos participantes apenas pelo título. `Faça parte` fica imediatamente
+  abaixo do aviso verde e antes da vitrine comunitária.
+- Toda comparação direta usa `buildDateComparisonPresentation`, mostra o ano
+  nos dois calendários e reserva a mesma altura para os rótulos, inclusive em
+  widgets, prévias e imagens geradas. A ordem mês/dia vem de `Intl` para cada
+  idioma e é igual nos dois lados. `AppComparisonDateTitle` impõe duas linhas
+  universais: `dia da semana ·` na primeira e dia/mês na segunda. No comparativo
+  de Aprenda, o maior texto do par define uma única escala para as duas colunas;
+  a redução nunca acontece em apenas um lado.
+- Na menor largura, o seletor Gregoriano/13 meses inclui uma orientação traduzida
+  nos 12 idiomas: girar a tela ou usar uma tela maior apresenta os calendários
+  lado a lado. O aviso permanece oculto quando as duas colunas já estão visíveis.
+- Seletores gregorianos usam `AppDateInput`, com digitação e janela de dia, mês
+  e ano; campos isolados de ano usam `AppYearInput`. `type="date"` é proibido e
+  auditado. No aniversário, o ano da comemoração vem primeiro e referencia o
+  seletor posterior de dia/mês, garantindo os dias da semana daquele ano sem
+  repetir a escolha do ano. Placeholders de formato ficam dentro do campo para
+  não alterar a altura das linhas. `hide-bottom-space`, alinhamento pelo topo e
+  ações de 56 px evitam degraus em formulários horizontais como Favoritos.
+- Datas IFC regulares usam `AppInternationalFixedDateInput`, com um único campo
+  e popup de 13 meses por 28 dias. No conversor IFC → Gregoriano, o campo fica
+  invisível mas conserva seu espaço nos dias especiais; o seletor de ano não
+  muda de posição. Dia Bissexto é desativado nos anos comuns e uma seleção
+  inválida volta automaticamente a Dia regular quando o ano muda.
+- A curadoria editorial é a página independente `/news`; `/learn` não deve
+  incorporar novamente a lista completa de notícias e outros projetos.
 
 ## Continuidade com modelo local
 
@@ -141,6 +236,16 @@
   `AGENTS.md`, ler este documento antes de agir e atualizá-lo ao terminar.
 - O modelo local compartilha os arquivos, mas não o histórico desta conversa;
   este documento é a principal passagem de contexto entre os agentes.
+- Trabalhos longos usam também `.codex-work-checkpoint.md`, arquivo local
+  ignorado pelo Git que registra a frente ativa, decisões, verificações,
+  bloqueios, a próxima ação exata e um retrato automático da branch. Este
+  documento continua reservado ao estado durável; o checkpoint serve apenas à
+  retomada do que ainda não terminou.
+- `npm run checkpoint --` cria ou atualiza o checkpoint, `checkpoint:show` o
+  exibe e `checkpoint:clear` só deve ser usado depois da conclusão real e da
+  atualização deste contexto. `docs/WORK_CONTINUITY_PROTOCOL.md` define a
+  ordem de retomada e `npm run continuity:audit` impede que o mecanismo seja
+  removido silenciosamente da verificação integral.
 - O histórico bruto das sessões do aplicativo e do CLI fica normalmente em
   `~/.codex/sessions`. O arquivo bruto desta tarefa está registrado em
   `docs/agent-conversations/INDEX.md`.
@@ -163,7 +268,7 @@
 
 ## Estado atual
 
-- **Última atividade:** 2026-08-25.
+- **Última atividade:** 2026-08-28.
 - Em 2026-08-11, a pasta `Programas de Programador` foi transferida do Desktop
   sincronizado pelo OneDrive para `/Users/jean7rafael/Downloads`. O repositório
   ativo deste aplicativo passou a ficar em
@@ -416,15 +521,11 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   idiomas. A linha curta e a descrição sempre informam que ele vem
   imediatamente depois do Dia do Ano, sem os sentidos incorretos de apenas
   citar o Dia do Ano ou dizer que ele está "incluído".
-- O `README.md` apresenta em inglês, com resumo em português, as funcionalidades
-  consolidadas, a integração bidirecional e o botão `X` de retorno. Ele também
-  registra que o repositório original `Andree37/13-months` não possui licença
-  publicada e que a demonstração integrada é experimental enquanto o autor é
-  consultado.
-- A solicitação de autorização e colaboração foi enviada ao autor em
-  `https://github.com/Andree37/13-months/issues/2`. Ela oferece uma demonstração
-  privada, resume as funcionalidades e destaca que o botão `X` retorna ao site
-  original. O pedido segue aberto; revisar a publicação quando houver resposta.
+- Na versão 1.0, o `README.md` ainda descrevia a demonstração adaptada e o pedido
+  de autorização enviado em `Andree37/13-months#2`. A versão 2.0 substituiu esse
+  frontend por conteúdo Vue/Quasar autoral; em 28 de agosto, a issue foi
+  reduzida a um aviso neutro de independência e referência e encerrada, sem
+  obrigação ou dependência pendente.
 - Em 2026-08-10, a troca de meses do QDate gregoriano passou a ocultar apenas a
   grade que sai. A nova grade mantém o movimento lateral nativo, coerente com
   os demais carrosséis, sem sobrepor números antigos e novos.
@@ -565,16 +666,11 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   A composição foi inspecionada localmente em desktop e a seção do Sabá, o
   cadastro e o rodapé também foram verificados em viewport móvel. `lint` e as
   compilações Solid e Quasar passaram.
-- A barra da página incorporada foi medida contra a barra Quasar: ações usam
-  caixas de aproximadamente 34 px, intervalo de 8 px e desenhos de 24 px para
-  menu e calendário. Isso eliminou a diferença de escala e espaçamento sem
-  aumentar os ícones de comunidade e tema. O rodapé agora aceita uma variação
-  compacta: a comunidade não repete “Datas merecem contexto”, mas mantém a
-  mesma faixa institucional inferior da página dos calendários. A versão
-  completa continua somente na página principal. O separador superior também
-  passou a pertencer ao componente compartilhado: nas duas páginas ele tem 2 px,
-  maior intensidade no centro e desaparece gradualmente nas bordas. `lint`,
-  compilação Solid, compilação Quasar e inspeção local passaram.
+- A barra da antiga página incorporada foi medida contra a barra Quasar: ações
+  usam caixas de aproximadamente 34 px, intervalo de 8 px e desenhos de 24 px.
+  A antiga variação compacta do rodapé foi posteriormente removida. Essa foi
+  uma etapa intermediária; a composição atual de `AppFooter` está consolidada
+  nas decisões funcionais e no registro de 27 de agosto abaixo.
 - As dependências do Worker comunitário foram instaladas com Wrangler 4.125.0.
   O cache global do npm apresentou `EEXIST/EACCES`; a instalação foi concluída
   de forma não destrutiva com um cache temporário em `/tmp`, sem mudar as
@@ -799,10 +895,12 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   `Name2` no EU.org e manter vazios os IPs. Para o Search Console, a propriedade
   provisória usa Prefixo do URL e verificação por tag HTML; o domínio próprio
   usará verificação DNS depois da aprovação.
-- O código original do projeto recebeu licença MIT em `LICENSE`. A página
-  educacional adaptada permanece fora dessa licença e documentada em
-  `THIRD_PARTY_NOTICES.md` e `vendor/13months-site/UPSTREAM.md`, pois o projeto
-  de origem ainda não publicou uma licença própria. `SECURITY.md`,
+- Todo o site e aplicativo autoral recebeu licença MIT em `LICENSE`, incluindo
+  fonte, interface, conteúdo editorial e documentação. O arquivo histórico em
+  `vendor/13months-site` permanece fora dessa licença e documentado em
+  `THIRD_PARTY_NOTICES.md` e `vendor/13months-site/UPSTREAM.md`; ele não é
+  instalado, compilado, publicado nem sincronizado ao repositório público.
+  `SECURITY.md`,
   `CHANGELOG.md`, a política de privacidade e a documentação operacional foram
   adicionados. O Cloudflare Pages é o endereço canônico atual; a publicação
   automática e o redirecionamento legado do GitHub Pages estão ativos.
@@ -880,10 +978,14 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   rejeitar a antiga forma ordinal.
 - A enquete visual da página educacional deixou de usar estado temporário ou
   serviço externo. O Worker oferece `GET/POST /feedback/votes`, identifica uma
-  escolha anônima por UUID salvo no navegador e persiste somente o voto e esse
-  identificador no D1. Não são armazenados IP, nome ou perfil. A migração
-  `0006_create_reference_feedback_votes.sql`, a auditoria dedicada e a
-  verificação diária de produção fazem parte do fluxo automático.
+  escolha por UUID aleatório salvo no navegador e mantém os totais agregados.
+  A migração `0006_create_reference_feedback_votes.sql` guarda o voto; a
+  `0007_create_reference_feedback_responses.sql` acrescenta título, relato,
+  idioma, atribuição anônima ou vínculo opcional a um perfil comunitário
+  aprovado. O vínculo é autorizado pelo hash do código privado existente. A
+  opção escolhida e o código enviado nunca são publicados; `GET /members`
+  expõe somente indicadores de participação e relato, além das respostas
+  anônimas sem identidade.
 - As dependências compatíveis foram atualizadas e os três pacotes de produção
   permanecem sem vulnerabilidades conhecidas. O único alerta completo restante
   é de desenvolvimento, vindo do navegador automatizado do Worker, sem versão
@@ -897,36 +999,284 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   primeira leitura do sitemap registrou uma falha transitória mesmo com HTTP
   200, XML válido e resposta idêntica ao Googlebot; o Google fará novas leituras
   automaticamente.
-- A migração D1 dos votos foi aplicada pela sessão Cloudflare autenticada e o
+- A migração D1 original dos votos foi aplicada pela sessão Cloudflare
+  autenticada e o
   Worker `a33a409b-bee5-4a80-82b9-26729dddd0fa` foi publicado. Um voto real foi
   criado, lido e removido em produção, deixando novamente os quatro totais em
-  zero. O token restrito da CI publica Pages e Workers, mas não altera D1; por
-  isso, migrações de banco continuam sendo uma operação deliberada do
-  mantenedor e não bloqueiam os deploys normais do Worker.
+  zero. Na versão 2.0, o workflow do Worker passou a executar
+  `npm run migrate:remote` antes do deploy; uma migração com falha interrompe a
+  publicação e impede que código novo chegue antes do esquema necessário.
 - O pente-fino final da tradução cardinal executou a verificação integral com
   Node 24, sem erros, e confirmou no navegador local a renderização
   `Mês 9 de 13`. O novo pacote educacional não contém `da 13ª`. As páginas e
   APIs públicas continuavam respondendo HTTP 200 antes da publicação dessa
   correção; o workflow diário passa a impedir que uma futura publicação volte
   a conter a expressão ordinal.
+- Em 26 de agosto de 2026 foi aberta e publicada a branch
+  `feature/vue-educational-migration` para substituir gradualmente a página
+  incorporada por uma experiência Quasar/Vue nativa. A rota `/learn` concentra
+  estrutura do ano 13 × 28, mês reutilizável, visão anual, história, discussão
+  sobre o ciclo semanal, conversão nos dois sentidos, Lua e votação. Conversor
+  e posições lunares usam os mesmos módulos compartilhados do aplicativo; a
+  votação reutiliza o mesmo endpoint D1 e a mesma identidade anônima local, sem
+  perder os totais existentes.
+- A política de produto e a análise científica da Lua foram consolidadas em
+  `docs/PRODUCT_ROADMAP_AND_LUNAR_POLICY.md`. A comunicação oficial deve separar
+  o mês civil fixo de 28 dias do ciclo sinódico médio de aproximadamente
+  29,5306 dias e não deve associar fases lunares a desintoxicação, hormônios,
+  parasitas, tratamento ou a um ciclo menstrual universal. Tradições culturais
+  só podem aparecer claramente identificadas e separadas de evidência
+  científica.
+- A página independente `/news`, `Notícias`, apresenta uma
+  curadoria editorial com publicação original, tipo, idioma, data e resumo. A
+  lista inicial inclui reportagens históricas e atuais e projetos como
+  `13months.net`, `13cal.net` e `fixedcalendar.org`; presença na lista não
+  representa endosso. Google e Google Notícias servem apenas à descoberta,
+  nunca como a fonte citada.
+- O menu superior agora leva sempre, nesta ordem, a Aprenda, Ferramentas,
+  Calendários, Lua, Notícias e Comunidade com componentes nativos. A
+  rota ativa mantém o realce; os textos somem quando necessário e, na menor
+  largura, os destinos passam para uma gaveta à direita. O tema permanece como
+  a última ação. A rota educativa e as páginas institucionais usam menu lateral
+  somente de idioma, sem abrir a escolha de país dos feriados. O
+  roteamento passou para URLs reais em modo history; favoritos antigos em
+  `/#/rota` são migrados no navegador. `/reference-site/*` redireciona para
+  `/learn`, a página incorporada saiu do prebuild e do sitemap, mas seus
+  arquivos permanecem temporariamente no diretório público como contingência.
+- `npm run education:audit`, incorporado a `npm run verify`, impede que uma
+  futura mudança remova a rota, duplique os motores de cálculo, perca votação,
+  idiomas, fontes, sitemap ou redirecionamento, ou volte a construir a página
+  incorporada. A nova experiência foi conferida em 1440, 390 e 320 px sem
+  rolagem horizontal; os dois Dias Especiais de 2028, a lista lunar ao vivo, a
+  curadoria e a migração dos links antigos passaram. A troca de idioma em
+  `/learn` também foi testada sem seletor nem popup do país dos feriados. A
+  verificação integral com Node 24 concluiu sem erros, incluindo lint, build,
+  orçamento do pacote, calendários, feriados e zero vulnerabilidades nos três
+  pacotes de produção.
+- A branch remota existe no GitHub ainda no commit-base. As alterações desta
+  migração permanecem deliberadamente sem commit até autorização explícita do
+  mantenedor, conforme `AGENTS.md`; portanto, a revisão no GitHub só ficará
+  disponível depois dessa autorização e do push dos novos commits.
+- Em 27 de agosto de 2026, a continuidade das frentes longas deixou de depender
+  da memória da conversa. `AGENTS.md` passou a exigir a leitura e atualização
+  de um checkpoint vivo depois de cada marco material e antes de operações
+  demoradas. O programa `scripts/manageWorkCheckpoint.mjs` preserva campos não
+  informados, atualiza automaticamente branch, último commit, arquivos e
+  estatísticas das diferenças, e oferece leitura, auditoria e encerramento
+  explícitos. O checkpoint atual registra toda a migração educativa ainda em
+  andamento, a proibição de mesclar ou publicar e a próxima ação concreta nos
+  idiomas. `npm run continuity:audit` e `npm run lint` passaram após a criação.
+- Ainda em 27 de agosto, a frente nativa ganhou `/tools` e `/widget`. As
+  ferramentas cobrem cartão de data, aniversário, PNG, links reproduzíveis,
+  compartilhamento social, planejador anual, ICS, impressão/PDF, equinócios,
+  solstícios, periélio, afélio, nascer/pôr do Sol opcional, favoritos locais,
+  cartões editoriais, instalação offline e widget sem beacon próprio. Todas as
+  conversões passam por `src/utils/calendarTools.js` e pelo motor compartilhado
+  em `shared/internationalFixedCalendar.js`.
+- A página de ferramentas possui catálogo próprio nos 12 idiomas. A auditoria
+  lê os catálogos brutos adicionais para impedir que chaves ausentes sejam
+  ocultadas por fallback. `/learn` e `/tools` têm canonical, Open Graph,
+  Twitter e dados estruturados; `/tools` entrou no sitemap e `/widget` ficou
+  com `noindex` e permissão de incorporação isolada em `public/_headers`.
+- O pacote público antigo `public/reference-site` foi retirado. O
+  redirecionamento `/reference-site/* -> /learn` continua, e a fonte em
+  `vendor/13months-site` permanece somente como arquivo privado de proveniência:
+  não é instalada, compilada, auditada, publicada nem sincronizada à fonte
+  pública. Não existe dependência externa de autorização ou colaboração.
+- O modo offline é registrado somente em produção, não é ativado dentro do
+  widget e guarda a interface e páginas abertas no dispositivo. Notícias e
+  totais comunitários continuam dependentes de rede. A localização astronômica
+  só é solicitada após ação explícita e as coordenadas não são enviadas ao
+  Worker. O Homebrew Node 26.7.0 é o padrão dos novos terminais do Mac; a
+  instalação 22.23.2 permanece instalada e desvinculada apenas como fallback.
+  A precedência do Homebrew está registrada em `~/.zprofile`, evitando que o
+  antigo Node 22.14.0 de `/usr/local` seja selecionado. As três opções antigas
+  exclusivas do pnpm foram removidas de `.npmrc`; o projeto usa npm e
+  `package-lock.json`, e os comandos do npm 11 não emitem mais esses avisos.
+- Em 27 de agosto, os dias destacados das comparações foram centralizados:
+  português exibe `Segunda`, `Terça`, `Quarta`, `Quinta`, `Sexta`, `Sábado` e
+  `Domingo`, sem abreviação nem `-feira`. O cartão `Hoje em dois calendários`
+  reserva as mesmas linhas para rótulo, data e ano, preservando o alinhamento
+  quando o título do Calendário Fixo Internacional quebra.
+- A mesma apresentação central passou a atender o widget, o conversor, os
+  cartões compartilháveis e de aniversário, favoritos, Lua, astronomia e
+  demais comparações. Ambos os lados mostram o mesmo ano e as três superfícies
+  que geram imagens foram auditadas; cartões editoriais sem comparação de
+  datas não recebem informação artificial.
+- Em 27 de agosto, o formatador central passou a consultar a ordem mês/dia de
+  cada uma das 12 localidades. Gregoriano e IFC usam o mesmo ponto intermediário
+  e preservam mês e número como bloco; a auditoria de conversões executa um caso
+  comparativo em todos os idiomas. O widget centraliza rótulos, datas, anos e
+  crédito nas duas colunas. O formulário de Favoritos também removeu o espaço
+  inferior invisível e igualou a altura de campos e ação.
+- As três famílias de botões foram incorporadas ao CSS compartilhado e aos
+  componentes existentes. `npm run ui:audit` rejeita novos botões textuais sem
+  família, o nome legado do botão ou mais de uma variante simultânea.
+- Todas as páginas públicas usam o mesmo `AppFooter`, com exatamente quatro
+  links institucionais acompanhados por ícones. `CalendarContextSection` mantém
+  `Datas merecem contexto` em `/` e fornece a mesma composição inferior à
+  Metodologia de `/moon`. A revisão mediu 106 px de altura do
+  rodapé em todas as rotas desktop e 222 px em todas as rotas móveis, sem
+  rolagem horizontal.
+- A paleta oficial roxa, verde e âmbar foi transformada em tokens para claro e
+  escuro. `AppNoticePanel` unificou os avisos da comunidade e o aviso editorial
+  âmbar de Notícias; `AppPageHero` unificou Calendários, Lua, Notícias e
+  Comunidade, reservando o globo à Comunidade e o crescente à Lua. A navegação
+  foi conferida na barra e na gaveta móvel na
+  ordem Aprenda, Ferramentas, Calendários, Lua, Notícias e Comunidade.
+- A sequência integral `npm run verify` passou com o Node 26.7.0 após essa
+  padronização. Ela incluiu continuidade, lint, interface, educação,
+  comunidade, conversões, compilação, pacote, feriados e duas auditorias de
+  produção, ambas sem vulnerabilidades. `git diff --check` também passou.
+- O Google Search Console permanece somente em observação: a propriedade está
+  verificada, o sitemap público responde com XML válido e o processamento e a
+  indexação seguem o prazo do Google. Não há correção técnica identificada nem
+  ação imediata que deva constar como pendência do projeto.
+- A frente 2.0 incorporou equivalência bidirecional nos quatro cards de
+  feriados/Lua, botão Hoje nos dois calendários e alternância móvel por coluna.
+  `CalendarEquivalentDateTooltip` centraliza o texto e usa `IFC` no sentido
+  gregoriano → fixo; ocorrências adaptadas preservam sua `gregorianDate` real.
+- Os cinco seletores nativos de data de Conversor, Compartilhamento,
+  Aniversário, Astronomia e Favoritos foram substituídos por `AppDateInput`.
+  `AppYearInput` uniformiza os anos do conversor IFC, aniversário, planejador,
+  astronomia e conteúdo lunar. Os popups têm uma única borda curva e aceitam
+  teclado; no aniversário, o ano é escolhido primeiro e passa a ser a referência
+  do calendário de dia/mês. Os resultados gregoriano/IFC são alinhados pelo
+  rótulo, título e ano, deixando a posição IFC como linha extra.
+- A apresentação antiga foi preservada em
+  `docs/releases/README_1.0.md`; `README.md`, `PUBLIC_README.md`,
+  `docs/releases/README_2.0.md` e `CHANGELOG.md` descrevem a nova identidade
+  independente. A versão passou a `2.0.0`, foi integrada à `main` e entrou no
+  fluxo público verificado de release em 28 de agosto.
+- Após esses refinamentos, `npm run verify` passou integralmente, incluindo
+  lint, build, auditorias de interface, educação, conversões, bundle, feriados e
+  dependências de produção. A prévia local confirmou as comparações nos 12
+  idiomas, a ordem mês/dia compartilhada e o widget russo centralizado. A
+  apresentação deixou de depender de quebras ocasionais: `AppComparisonDateTitle`
+  passou a fixar dia da semana e ponto acima de dia/mês em Aprenda, Conversor, Aniversário,
+  Compartilhamento, widget, prévias e imagens geradas. O formulário de Favoritos
+  ficou alinhado. Em português e inglês também confirmou
+  campos alinhados, seletor exclusivo de dia/mês no aniversário referenciado
+  pelo ano da comemoração, limites em janeiro/dezembro, recomposição dos dias da
+  semana entre 2026 e 2027, formatos `DD/MM` e `MM/DD`, grade de 21 anos, borda
+  única e alinhamento das duas datas pelo topo dos títulos. A inspeção final
+  confirmou ainda: widget russo e prévia incorporada com as duas quebras
+  simétricas, Aprenda usando a mesma regra, aviso móvel visível a 390 px e
+  oculto a 1260 px com as duas colunas restauradas. O `npm run verify` integral
+  permaneceu aprovado depois dessas mudanças.
+- Ainda em 27 de agosto, o conversor educativo IFC → Gregoriano substituiu os
+  campos independentes de mês e dia por `AppInternationalFixedDateInput`. A
+  inspeção local confirmou a grade 13 × 28, a altura estável entre Dia regular
+  e Dia do Ano, o Dia Bissexto desativado em 2026 e a interface editorial árabe
+  sem fallback em inglês. Os catálogos editoriais de Aprenda e Notícias foram
+  completados nos dez idiomas adicionais; Ferramentas já possuía o mesmo nível
+  de cobertura e seus dados estruturados passaram a reutilizar os títulos
+  traduzidos. O rodapé agora separa Fontes de dados de Código-fonte e a seção da
+  versão 2.0 reúne as fontes civis, governamentais, lunares e solares.
+  Uma segunda inspeção em árabe encontrou os resumos fixos em inglês nos cards
+  de Notícias; eles e os rótulos de idioma foram então localizados nos 12
+  idiomas. Os títulos das publicações continuam no original por atribuição. A
+  sequência final `npm run verify` e `git diff --check` passou depois dessa
+  correção, incluindo build, todas as auditorias e zero vulnerabilidades de
+  produção.
+- A revisão visual final de Aprenda recuperou em Vue/Quasar a composição
+  preferida da antiga página incorporada sem restaurar dependência em runtime.
+  O topo passou a comparar os calendários com gradientes, `vs.`, relógio externo
+  e contagens de dias; os botões mantêm a seta ao lado do texto e passam para
+  linhas separadas quando a coluna não comporta os dois sem colisão. A seção
+  estrutural passou a ter cinco cards e um mês modelo com domingos rosados. A
+  grade anual única reúne 13 meses e o resumo dos Dias especiais em duas
+  fileiras de sete no desktop; no celular, o resumo fica ao lado de dezembro.
+  Números perderam as caixas de cor, o ano comum omite a parcela zero da soma,
+  as alturas foram igualadas pelo maior card e o seletor reserva Hoje sem
+  deslocar o ano. A linha do tempo, as seis
+  perguntas, a Kodak e a seção completa do Sabá foram incorporadas nativamente
+  com catálogos completos nos 12 idiomas. O título histórico usa o mesmo peso
+  forte dos demais e a seção lunar inteira foi posicionada depois do Sabá. A
+  inspeção local cobriu 1280, 390 e
+  320 px, anos comum e bissexto; lint e as auditorias de interface e educação
+  passaram. A sequência integral `npm run verify` também passou: continuidade,
+  lint, interface, educação, comunidade, conversões, build, limite do pacote,
+  feriados e dependências de produção sem vulnerabilidades.
+- A revisão seguinte ampliou a grade anual até 1700 px e antecipou suas quebras
+  para 1579 e 860 px, com cabeçalhos de 6 px e sem colisão em 1900, 1580, 1579,
+  1000, 861, 860, 699 e 390 px. O destaque do dia atual passou a usar roxo
+  escuro translúcido ou rosa escuro translúcido aos domingos; Solaris preserva
+  a cor normal dos dias úteis. A resolução de implantação virou uma seção
+  própria logo depois do Sabá, com quatro obstáculos coloridos cuja altura
+  combinada iguala o formulário em tela larga. A votação permaneceu separada,
+  ganhou símbolos da paleta e a assinatura `13 ● MONTHS ● CALENDAR`. Voto e
+  relato possuem decisões independentes de anonimato ou vínculo ao card
+  comunitário. Na Comunidade, `Faça parte` aparece logo após o aviso verde;
+  perfis vinculados mostram somente os ícones de voto e relato, e respostas
+  anônimas ficam numa lista posterior com leitura em diálogo. Os novos textos e
+  o aviso de privacidade permanecem localizados nos 12 idiomas. Nenhuma migração
+  remota nem publicação foi executada nesta revisão.
+- A página Lua passou a usar o cabeçalho compartilhado com crescente roxo e a
+  mesma composição inferior de contexto da página dos calendários, preenchida
+  com os três tópicos de Metodologia. O topo comparativo de Aprenda ganhou
+  contenção simétrica: o maior texto define a escala das duas colunas. A
+  inspeção em 1440 px confirmou zero transbordamento e tamanhos idênticos nos
+  12 idiomas; o russo usa 32 px nos dois dias da semana e também passou nos
+  limites de 901, 900, 699 e 390 px. Em Ferramentas, os cards do ano solar e de
+  nascer/pôr do Sol agora têm a mesma altura lado a lado; o primeiro divide-a
+  em sete faixas iguais (cabeçalho e seis eventos) e volta à altura natural
+  abaixo de 860 px. `npm run verify`, o dry-run do Worker e `git diff --check`
+  passaram; nenhuma publicação ou migração remota foi executada.
+- Em 28 de agosto, `AppComparisonDateTitle` deixou de admitir quebra no meio de
+  palavras. Aprenda passa o herói inteiro para uma coluna até 1239 px e preserva
+  escala idêntica dos dois calendários. A inspeção do limiar de 1240 px e da
+  tela mínima de 320 px passou nos 12 idiomas sem transbordamento de título,
+  rótulo ou página; o russo também permaneceu inteiro. Os três cards de
+  Metodologia receberam textos inéditos e localizados sobre o papel da NASA,
+  da convenção civil e do roteiro editorial, igualmente conferidos nos 12
+  idiomas.
+- A versão 2.0 retirou os comandos, etapas de CI, publicação e monitoramento da
+  página adaptada. A sincronização pública exclui `vendor/`, e o health check
+  verifica `/learn`. A licença MIT declara todo o site autoral. A issue externa
+  foi convertida em aviso de independência e encerrada; 13months.net permanece
+  apenas como referência citada.
+- Em 28 de agosto, a zona principal `eu.org` apresentou serial SOA do próprio
+  dia, enquanto `13calendar.eu.org` ainda não tinha delegação. Isso confirma a
+  operação técnica do serviço, não a frequência da moderação. Como o pedido tem
+  três dias e a orientação oficial menciona alguns dias de intervenção humana,
+  a espera ainda está dentro do prazo declarado. Cloudflare Pages continua
+  canônico; após 30 dias sem resposta, deve-se reavaliar a alternativa de
+  domínio. O Google Search Console permanece apenas em observação.
+- A verificação final de 28 de agosto passou integralmente: protocolo de
+  continuidade, lint, interface, educação, comunidade, conversões, build,
+  orçamento do pacote (690,0 KiB gzip), feriados e as duas auditorias de
+  produção sem vulnerabilidades. O dry-run do Worker 4.125.0 gerou 148,72 KiB
+  gzip sem publicar, e `git diff --check` não encontrou erros.
+- A raiz `/` permanece ligada à página Calendários, a primeira desenvolvida no
+  projeto; Aprenda continua sendo o primeiro destino da barra, em `/learn`, sem
+  mudar a ordem de navegação. A auditoria educacional passou a impedir que uma
+  futura mudança troque silenciosamente essa entrada.
+- A identidade de busca da página inicial agora declara `13 Calendar` como
+  `WebSite`, com `13Calendar` e `13calendar.pages.dev` como alternativas, além
+  do `og:site_name` já existente. O resultado com o operador
+  `site:13calendar.pages.dev` confirma que a raiz está indexada, mas a consulta
+  genérica ainda tem visibilidade muito baixa e o Google ainda exibe
+  `Cloudflare` como nome do site até reprocessar os novos sinais. Indexação não
+  equivale a boa posição na busca.
+- A publicação completa da versão 2.0 foi autorizada para partir da `main` pelo
+  workflow `Sincronizar versão pública`, que repete as verificações, espelha a
+  fonte permitida e aciona Cloudflare Pages e o Worker. As migrações D1 são
+  aplicadas antes do código do Worker. O mantenedor fará depois os testes
+  manuais de voto, relato e vínculo com o perfil comunitário.
 
 ## Pendências atuais
 
-- Acompanhar `Andree37/13-months#2`. Em 2026-08-24, o pedido ainda está aberto e
-  o repositório de origem continua sem licença explícita. A demonstração
-  experimental foi publicada por decisão do mantenedor; aplicar prontamente
-  qualquer pedido de licença, atribuição, mudança visual ou retirada do autor.
 - Aguardar a aprovação humana de `13calendar.eu.org`; depois associá-lo ao
   Cloudflare Pages e executar a troca coordenada descrita em
   `docs/OWNER_ACTIONS.md`.
-- Acompanhar o Google Search Console. Em 25 de agosto, a propriedade ainda
-  informava que os dados estavam em processamento e a primeira leitura de
-  `/sitemap.xml` aparecia como “Não foi possível buscar”, apesar de o arquivo
-  público responder HTTP 200, ser XML válido e listar as duas páginas. Após o
-  processamento ou a renovação da cota diária, conferir a nova leitura,
-  reenviar o sitemap se necessário e solicitar a indexação da página
-  educacional. Esta pendência depende do processamento do Google, não de uma
-  falha conhecida no arquivo publicado.
+- Acompanhar no Google Search Console a leitura do sitemap 2.0, a indexação das
+  novas rotas, a substituição do nome de site `Cloudflare` por `13 Calendar` e
+  o desempenho em consultas genéricas. O domínio EU.org, quando aprovado,
+  reforçará a identidade, mas não é requisito técnico para o nome próprio.
+- Executar manualmente em produção os fluxos de votação, envio de relato,
+  escolha entre anonimato e identificação e vínculo por código ao card da rede
+  social; confirmar também os ícones e diálogos públicos resultantes.
 
 ## Protocolo de manutenção deste arquivo
 

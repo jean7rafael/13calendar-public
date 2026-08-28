@@ -47,6 +47,7 @@
               dense
               no-caps
               color="primary"
+              class="app-action app-action--tertiary"
               icon="restart_alt"
               :label="t('holidaySettings.filters.enableAll')"
               :disable="!hasDisabledFilters"

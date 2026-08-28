@@ -20,10 +20,30 @@
   --app-primary-soft: #eef2ff;
   --app-primary-soft-solid: #eef2ff;
   --app-primary-text: #4338ca;
+  /* Paleta semântica oficial: ação, segurança e atenção. */
+  --app-accent-purple-strong: #4f46e5;
+  --app-accent-purple: #8b5cf6;
+  --app-accent-purple-text: #6d28d9;
+  --app-accent-purple-border: #c4b5fd;
+  --app-accent-purple-soft: #f3f0ff;
+  --app-accent-green-strong: #047857;
+  --app-accent-green: #10b981;
+  --app-accent-green-text: #047857;
+  --app-accent-green-border: #a7f3d0;
+  --app-accent-green-soft: #ecfdf5;
+  --app-accent-amber-strong: #b45309;
+  --app-accent-amber: #f59e0b;
+  --app-accent-amber-text: #92400e;
+  --app-accent-amber-border: #fcd34d;
+  --app-accent-amber-soft: #fffbeb;
   --app-card-shadow: 0 12px 32px rgb(15 23 42 / 7%);
   --calendar-weekday-cell: #f7f7f6;
   --calendar-weekend-cell: #eef2ff;
   --calendar-weekend-text: #6366f1;
+  --calendar-sunday-cell: #fdf2f8;
+  --calendar-sunday-text: #db2777;
+  --calendar-current-day-cell: rgb(67 56 202 / 78%);
+  --calendar-current-sunday-cell: rgb(190 24 93 / 78%);
   --calendar-cell-hover: #e7e5e4;
   --calendar-selection-border: rgb(199 210 254 / 92%);
   --calendar-current-title: #94a3b8;
@@ -40,8 +60,7 @@
   --calendar-weekday-font-weight: 500;
   --calendar-weekday-line-height: 16px;
   --moon-emoji-outline: drop-shadow(0.5px 0 0 rgb(15 23 42 / 38%))
-    drop-shadow(-0.5px 0 0 rgb(15 23 42 / 38%))
-    drop-shadow(0 0.5px 0 rgb(15 23 42 / 38%))
+    drop-shadow(-0.5px 0 0 rgb(15 23 42 / 38%)) drop-shadow(0 0.5px 0 rgb(15 23 42 / 38%))
     drop-shadow(0 -0.5px 0 rgb(15 23 42 / 38%));
   --moon-emoji-ring: rgb(15 23 42 / 28%);
   --moon-emoji-ring-background: rgb(255 255 255 / 45%);
@@ -63,10 +82,29 @@ body.body--dark {
   --app-primary-soft: rgb(99 102 241 / 16%);
   --app-primary-soft-solid: #181d42;
   --app-primary-text: #a5b4fc;
+  --app-accent-purple-strong: #a78bfa;
+  --app-accent-purple: #8b5cf6;
+  --app-accent-purple-text: #c4b5fd;
+  --app-accent-purple-border: rgb(167 139 250 / 38%);
+  --app-accent-purple-soft: rgb(139 92 246 / 12%);
+  --app-accent-green-strong: #34d399;
+  --app-accent-green: #10b981;
+  --app-accent-green-text: #6ee7b7;
+  --app-accent-green-border: rgb(52 211 153 / 34%);
+  --app-accent-green-soft: rgb(16 185 129 / 10%);
+  --app-accent-amber-strong: #f59e0b;
+  --app-accent-amber: #f59e0b;
+  --app-accent-amber-text: #fcd34d;
+  --app-accent-amber-border: rgb(245 158 11 / 38%);
+  --app-accent-amber-soft: rgb(245 158 11 / 10%);
   --app-card-shadow: 0 18px 46px rgb(0 0 0 / 24%);
   --calendar-weekday-cell: rgb(255 255 255 / 2.5%);
   --calendar-weekend-cell: rgb(99 102 241 / 5%);
   --calendar-weekend-text: rgb(129 140 248 / 70%);
+  --calendar-sunday-cell: rgb(236 72 153 / 8%);
+  --calendar-sunday-text: #f472b6;
+  --calendar-current-day-cell: rgb(91 33 182 / 78%);
+  --calendar-current-sunday-cell: rgb(190 24 93 / 78%);
   --calendar-cell-hover: rgb(255 255 255 / 8%);
   --calendar-selection-border: rgb(165 180 252 / 74%);
   --calendar-current-title: #64748b;
@@ -76,8 +114,7 @@ body.body--dark {
   --calendar-fixed-summary: rgb(129 140 248 / 70%);
   --calendar-fixed-summary-number: #a5b4fc;
   --moon-emoji-outline: drop-shadow(0.6px 0 0 rgb(248 250 252 / 82%))
-    drop-shadow(-0.6px 0 0 rgb(248 250 252 / 82%))
-    drop-shadow(0 0.6px 0 rgb(248 250 252 / 82%))
+    drop-shadow(-0.6px 0 0 rgb(248 250 252 / 82%)) drop-shadow(0 0.6px 0 rgb(248 250 252 / 82%))
     drop-shadow(0 -0.6px 0 rgb(248 250 252 / 82%));
   --moon-emoji-ring: rgb(248 250 252 / 52%);
   --moon-emoji-ring-background: rgb(248 250 252 / 8%);
@@ -154,6 +191,16 @@ body,
   text-align: center;
 }
 
+/* QPopupProxy cria uma superfície própria ao redor do card. Os seletores
+   compartilhados removem essa segunda sombra para conservar uma única borda,
+   com a mesma curvatura do conteúdo interno. */
+.app-picker-popup-shell {
+  overflow: hidden !important;
+  border-radius: 20px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
 .q-item__label--caption,
 .text-grey-7,
 .body--dark .text-grey-4 {
@@ -161,30 +208,128 @@ body,
 }
 
 /* ===========================================================
-   AÇÃO PRIMÁRIA COMPARTILHADA
+   TRÊS FAMÍLIAS COMPARTILHADAS DE BOTÕES
 
-   Botões que representam a ação principal de uma tela usam
-   esta mesma pílula, evitando variações visuais entre áreas.
+   1. Primário: ação decisiva em violeta.
+   2. Secundário: alternativa neutra preenchida.
+   3. Terciário: ação complementar contornada.
+
+   Controles apenas de ícone e seletores segmentados preservam
+   sua forma funcional; todo botão textual usa uma destas três.
 =========================================================== */
 
-.app-primary-action {
-  min-height: 42px;
+.app-action {
+  min-height: 44px;
   padding-inline: 22px;
-  color: white !important;
-  background: linear-gradient(135deg, #4f46e5, #7c3aed) !important;
-  border: 1px solid rgb(167 139 250 / 32%);
+  border: 1px solid transparent;
   border-radius: 999px;
-  box-shadow: 0 12px 28px rgb(79 70 229 / 20%);
   font-weight: 700;
   transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
     transform 160ms ease,
     box-shadow 160ms ease;
 }
 
-.app-primary-action:not(.disabled):hover,
-.app-primary-action:not(.disabled):focus-visible {
+.app-action:not(.disabled):hover,
+.app-action:not(.disabled):focus-visible {
   transform: translateY(-1px);
+}
+
+.app-action--primary {
+  color: white !important;
+  background: linear-gradient(
+    135deg,
+    var(--app-accent-purple-strong),
+    var(--app-accent-purple)
+  ) !important;
+  border-color: rgb(167 139 250 / 32%) !important;
+  box-shadow: 0 12px 28px rgb(79 70 229 / 20%);
+}
+
+.app-action--primary:not(.disabled):hover,
+.app-action--primary:not(.disabled):focus-visible {
   box-shadow: 0 15px 32px rgb(79 70 229 / 28%);
+}
+
+.app-action--secondary {
+  color: var(--app-text) !important;
+  background: var(--app-hover) !important;
+  border-color: color-mix(in srgb, var(--app-border-strong) 70%, transparent) !important;
+  box-shadow: none;
+}
+
+.app-action--secondary:not(.disabled):hover,
+.app-action--secondary:not(.disabled):focus-visible {
+  background: color-mix(in srgb, var(--app-hover) 80%, var(--app-primary-soft)) !important;
+  border-color: var(--app-border-strong) !important;
+}
+
+.app-action--tertiary {
+  color: var(--app-primary-text) !important;
+  background: color-mix(in srgb, var(--app-primary-soft) 72%, transparent) !important;
+  border-color: color-mix(in srgb, var(--app-primary-text) 30%, var(--app-border)) !important;
+  box-shadow: none;
+}
+
+.app-action--tertiary:not(.disabled):hover,
+.app-action--tertiary:not(.disabled):focus-visible {
+  background: var(--app-primary-soft) !important;
+  border-color: color-mix(in srgb, var(--app-primary-text) 58%, var(--app-border)) !important;
+}
+
+.app-action--tertiary.text-negative {
+  color: var(--q-negative) !important;
+  background: color-mix(in srgb, var(--q-negative) 7%, transparent) !important;
+  border-color: color-mix(in srgb, var(--q-negative) 38%, var(--app-border)) !important;
+}
+
+/* ===========================================================
+   SEÇÕES DA EXPERIÊNCIA EDUCACIONAL NATIVA
+
+   Os componentes da migração compartilham espaçamento, títulos
+   e largura por esta regra global, evitando cópias divergentes.
+=========================================================== */
+
+.education-section {
+  padding: clamp(64px, 9vw, 110px) max(18px, calc((100vw - 1240px) / 2));
+}
+
+.education-section:nth-of-type(even) {
+  background: color-mix(in srgb, var(--app-surface) 46%, transparent);
+  border-block: 1px solid color-mix(in srgb, var(--app-border) 72%, transparent);
+}
+
+.education-section__heading {
+  max-width: 760px;
+  margin: 0 auto 44px;
+  text-align: center;
+}
+
+.education-section__heading h2 {
+  margin: 8px 0 14px;
+  color: var(--app-text);
+  font-size: clamp(30px, 5vw, 50px);
+  font-weight: 850;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.education-section__heading > p:not(.education-eyebrow) {
+  margin: 0;
+  color: var(--app-text-muted);
+  font-size: clamp(14px, 2vw, 17px);
+  line-height: 1.7;
+}
+
+.education-eyebrow {
+  margin: 0;
+  color: var(--app-accent-purple);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 /* ===========================================================
@@ -228,4 +373,42 @@ body .holiday-country-active {
 
 *:hover::-webkit-scrollbar-thumb {
   background: var(--app-text-faint);
+}
+
+/* ===========================================================
+   IMPRESSÃO ECONÔMICA DO PLANEJADOR
+=========================================================== */
+
+@media print {
+  body.printing-annual-planner {
+    background: white !important;
+  }
+
+  body.printing-annual-planner .q-header,
+  body.printing-annual-planner .q-drawer,
+  body.printing-annual-planner .app-update-banner,
+  body.printing-annual-planner .tools-hero,
+  body.printing-annual-planner .tools-page main > :not(.annual-planner-section),
+  body.printing-annual-planner .app-footer,
+  body.printing-annual-planner .annual-planner__toolbar > div,
+  body.printing-annual-planner .annual-planner__status {
+    display: none !important;
+  }
+
+  body.printing-annual-planner .q-page-container {
+    padding-top: 0 !important;
+    background: white !important;
+  }
+
+  body.printing-annual-planner .annual-planner-section {
+    display: block !important;
+    padding: 0 !important;
+  }
+
+  body.printing-annual-planner .annual-planner {
+    color: #111827 !important;
+    background: white !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
 }

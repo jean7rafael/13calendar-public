@@ -1,5 +1,6 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { formatComparisonWeekday } from 'src/utils/calendarTools';
 
 /* ===========================================================
    CHAVES DE TRADUÇÃO DAS FASES DA LUA
@@ -39,6 +40,10 @@ export function useCalendarTranslations() {
 
   const weekDaysShort = computed(() => createTranslatedList(t, 'calendar.weekDaysShort', 7));
 
+  const weekDaysComparison = computed(() =>
+    Array.from({ length: 7 }, (_, index) => formatComparisonWeekday(index, locale.value)),
+  );
+
   /* Traduz o nome interno de uma fase ou preserva o desconhecido. */
   function translateMoonPhase(name) {
     if (!name) return '';
@@ -69,6 +74,7 @@ export function useCalendarTranslations() {
     months13Long,
     months13Short,
     weekDaysShort,
+    weekDaysComparison,
     translateMoonPhase,
     formatMoonPhaseTime,
   };

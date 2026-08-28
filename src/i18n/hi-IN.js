@@ -66,6 +66,7 @@ export default {
       'अंतरराष्ट्रीय स्थिर कैलेंडर के लिए एक स्वतंत्र पूरक। 13months.net या किसी मानक निकाय से संबद्ध नहीं।',
     linksLabel: 'फुटर लिंक',
     dataSourcesLink: 'डेटा स्रोत',
+    wikipediaLink: 'विकिपीडिया',
     sourceCodeLink: 'स्रोत कोड',
   },
 
@@ -169,6 +170,9 @@ export default {
     goToToday: 'आज की तिथि पर जाएँ',
     gregorianTitle: 'आपका कैलेंडर',
     fixedCalendarTitle: 'अंतर्राष्ट्रीय स्थायी कैलेंडर',
+    calendar13Short: '13 महीने',
+    mobileComparisonHint:
+      'दोनों कैलेंडरों को साथ-साथ देखने के लिए स्क्रीन घुमाएँ या बड़ी स्क्रीन का उपयोग करें।',
     daysThisMonth: 'इस महीने {count} दिन',
     daysEveryMonth: 'हर महीने {count} दिन',
 

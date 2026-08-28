@@ -9,8 +9,15 @@ import { defineBoot } from '#q-app/wrappers';
 
 export default defineBoot(() => {
   const token = String(import.meta.env.VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN || '').trim();
+  const currentPath = window.location.pathname.replace(/\/+$/, '');
 
-  if (!token || document.querySelector('script[data-cf-beacon]')) {
+  /* O widget incorporável declara ausência de rastreamento próprio.
+     A página principal continua contabilizando acessos normalmente. */
+  if (
+    !token ||
+    currentPath.endsWith('/widget') ||
+    document.querySelector('script[data-cf-beacon]')
+  ) {
     return;
   }
 

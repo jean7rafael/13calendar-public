@@ -6,6 +6,7 @@ import {
   readOpenGraphImage,
 } from '../cloudflare/community-registration-worker/src/index.js';
 import { readFile } from 'node:fs/promises';
+import { communityFeedbackTranslations } from '../src/i18n/communityFeedbackTranslations.js';
 
 /* ===========================================================
    AUDITORIA DOS LINKS PRIVADOS E DA FOTO COMUNITÁRIA
@@ -23,6 +24,10 @@ const workerSource = await readFile(
 );
 const adminPageSource = await readFile(
   new URL('../src/pages/CommunityAdminPage.vue', import.meta.url),
+  'utf8',
+);
+const communityPageSource = await readFile(
+  new URL('../src/pages/CommunityPage.vue', import.meta.url),
   'utf8',
 );
 
@@ -57,9 +62,13 @@ assert.equal(await areEqualSecrets('same-secret', 'different-secret'), false);
 
 assert.match(
   workerSource,
-  /ORDER BY created_at ASC, id ASC/,
+  /ORDER BY registration\.created_at ASC, registration\.id ASC/,
   'A vitrine pública deve preservar a ordem histórica, com os primeiros participantes no início.',
 );
+assert.match(communityPageSource, /<CommunityRegistration\s*\/>[\s\S]*community-members/);
+assert.match(communityPageSource, /community-member__vote-icon/);
+assert.match(communityPageSource, /community-anonymous__list/);
+assert.equal(Object.keys(communityFeedbackTranslations).length, 12);
 assert.match(
   workerSource,
   /puppeteer\.launch\(env\.BROWSER\)/,

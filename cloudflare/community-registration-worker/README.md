@@ -57,10 +57,21 @@ código do navegador. Neste projeto, o segredo administrativo local fica no
 arquivo ignorado `.admin-token.local` e deve ser colado manualmente na tela de
 moderação somente quando necessário.
 
+Nos deploys automatizados, o workflow aplica `npm run migrate:remote` antes de
+publicar o Worker. Assim, a versão do código nunca é promovida antes das tabelas
+e colunas de que depende. A preparação manual acima continua necessária na
+primeira instalação ou em uma recuperação operacional.
+
 ## Rotas
 
 - `POST /registrations`: recebe um cadastro e o deixa pendente;
-- `GET /members`: devolve somente cadastros aprovados;
+- `GET /members`: devolve somente cadastros aprovados, indicadores públicos de
+  participação e relato, além dos relatos anônimos; nunca devolve a opção do
+  voto;
+- `GET /feedback/votes`: devolve os totais agregados e, para o identificador
+  informado, o próprio voto, relato e os dois modos de atribuição;
+- `POST /feedback/votes`: recebe `kind: "vote"` ou `kind: "response"` e cria
+  ou atualiza somente a participação correspondente, sem acoplar as duas;
 - `GET /analytics/stats`: atualiza e devolve o retrato comunitário agregado;
 - `GET /admin/registrations`: lista pendências com autorização administrativa;
 - `PATCH /admin/registrations/:id`: aprova ou rejeita uma pendência.
@@ -71,6 +82,22 @@ moderação somente quando necessário.
 - `GET /admin/notifications`: informa o estado dos canais de aviso;
 - `POST /admin/notifications/telegram/connect`: conecta a conversa privada e
   envia uma mensagem de teste.
+
+## Votação e relatos
+
+O voto continua identificado apenas por um UUID aleatório salvo no navegador.
+A migração `0007_create_reference_feedback_responses.sql` acrescenta o título,
+o relato, o idioma e modos/vínculos independentes para voto e resposta. Uma
+resposta anônima recebe um identificador público independente e aparece sem
+nome. Para ligar qualquer uma das participações a um perfil aprovado, o titular
+apresenta o mesmo código privado de gerenciamento do cadastro: o Worker confere
+seu hash e não inclui o código na resposta nem na API pública.
+
+No card público, `hasVoted` informa somente que houve participação. Quando há
+relato associado, `feedbackTitle` e `feedbackResponse` permitem a leitura em um
+diálogo. `anonymousResponses` fornece título e texto dos relatos sem identidade.
+Voto e relato podem ser associados ou mantidos anônimos separadamente. Em
+nenhum desses objetos a opção escolhida é publicada.
 
 ## Moderação
 

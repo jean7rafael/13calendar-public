@@ -145,6 +145,12 @@
 
                   <q-item-section class="fase-data">
                     <span>{{ feriado.date ? feriado.date.replace(/-/g, '/') : '' }}</span>
+
+                    <CalendarEquivalentDateTooltip
+                      v-if="feriado.date"
+                      :date="converterPara13Meses(feriado.date)"
+                      calendar-label="IFC"
+                    />
                   </q-item-section>
                 </q-item>
               </q-list>
@@ -180,6 +186,10 @@ import { getOfficialHolidayCoverage } from 'src/holidays/officialHolidayProvider
 import holidayCountryCatalog from 'src/holidays/generated/holidayCountries.json';
 
 import HolidayFilterMenu from 'src/components/HolidayFilterMenu.vue';
+
+import CalendarEquivalentDateTooltip from 'src/components/CalendarEquivalentDateTooltip.vue';
+
+import { converterPara13Meses } from 'src/utils/conversorDatas';
 
 import { useYearWindow } from 'src/composables/useYearWindow';
 

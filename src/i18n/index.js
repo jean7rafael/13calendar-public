@@ -14,7 +14,11 @@ import { communityMessages } from './community';
 import { communityRegistrationMessages } from './communityRegistration';
 import { communityOperationsMessages } from './communityOperations';
 import { communityProfileManagementMessages } from './communityProfileManagement';
+import { communityFeedbackTranslations } from './communityFeedbackTranslations';
 import { privacyMessages } from './privacy';
+import { educationMessages } from './education';
+import { productNavigationMessages } from './productNavigation';
+import { datePickerMessages } from './datePicker';
 
 /* ===========================================================
    REGISTRO DOS CATÁLOGOS DE TRADUÇÃO DA INTERFACE
@@ -45,8 +49,12 @@ Object.entries(messages).forEach(([locale, catalog]) => {
     ...communityRegistrationMessages[locale],
     ...communityOperationsMessages[locale],
     ...communityProfileManagementMessages[locale],
+    ...communityFeedbackTranslations[locale],
   };
   catalog.privacy = privacyMessages[locale];
+  catalog.education = educationMessages[locale];
+  catalog.productNavigation = productNavigationMessages[locale];
+  catalog.datePicker = datePickerMessages[locale];
 });
 
 export default messages;

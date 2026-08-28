@@ -100,6 +100,12 @@
                         {{ formatMoonPhaseTime(fase.instante) }}
                       </span>
                     </template>
+
+                    <CalendarEquivalentDateTooltip
+                      v-if="fase.data"
+                      :date="converterPara13Meses(fase.data)"
+                      calendar-label="IFC"
+                    />
                   </q-item-section>
                 </q-item>
               </q-list>
@@ -120,6 +126,8 @@ import { useCalendarTranslations } from 'src/composables/useCalendarTranslations
 import { useYearWindow } from 'src/composables/useYearWindow';
 import { useMoonPhaseSettings } from 'src/composables/useMoonPhaseSettings';
 import MoonPhaseFilterMenu from 'src/components/MoonPhaseFilterMenu.vue';
+import CalendarEquivalentDateTooltip from 'src/components/CalendarEquivalentDateTooltip.vue';
+import { converterPara13Meses } from 'src/utils/conversorDatas';
 
 /* ===========================================================
    MÊS E ANO RECEBIDOS DO CALENDÁRIO GREGORIANO

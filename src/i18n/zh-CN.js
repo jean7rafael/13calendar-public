@@ -52,6 +52,7 @@ export default {
       '国际固定历的独立辅助工具，与 13months.net 及任何标准化机构均无隶属关系。',
     linksLabel: '页脚链接',
     dataSourcesLink: '数据来源',
+    wikipediaLink: '维基百科',
     sourceCodeLink: '源代码',
   },
 
@@ -151,6 +152,8 @@ export default {
     goToToday: '转到今天',
     gregorianTitle: '您的日历',
     fixedCalendarTitle: '国际固定历',
+    calendar13Short: '13个月',
+    mobileComparisonHint: '旋转屏幕或使用更大的显示器，即可并排比较两个日历。',
     daysThisMonth: '本月 {count} 天',
     daysEveryMonth: '每个月 {count} 天',
 

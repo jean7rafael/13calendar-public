@@ -66,6 +66,7 @@ export default {
       'Complemento indipendente per il Calendario fisso internazionale. Non affiliato a 13months.net o ad alcun organismo di normazione.',
     linksLabel: 'Link del piè di pagina',
     dataSourcesLink: 'Fonti dei dati',
+    wikipediaLink: 'Wikipedia',
     sourceCodeLink: 'Codice sorgente',
   },
 
@@ -168,6 +169,9 @@ export default {
     goToToday: 'Vai alla data di oggi',
     gregorianTitle: 'Il Tuo Calendario',
     fixedCalendarTitle: 'Calendario Fisso Internazionale',
+    calendar13Short: '13 mesi',
+    mobileComparisonHint:
+      'Ruota lo schermo o usa un display più grande per confrontare i due calendari affiancati.',
     daysThisMonth: '{count} giorni questo mese',
     daysEveryMonth: '{count} giorni ogni mese',
 

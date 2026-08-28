@@ -22,16 +22,15 @@
       </section>
 
       <q-btn
-        outline
+        unelevated
         no-caps
-        color="primary"
+        class="app-action app-action--tertiary"
         icon="today"
         :to="{ name: 'home' }"
         :label="t('privacy.back')"
       />
     </article>
 
-    <AppFooter :show-context="false" />
   </q-page>
 </template>
 
@@ -39,7 +38,6 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useMeta } from 'quasar';
-import AppFooter from 'src/components/AppFooter.vue';
 
 /* ===========================================================
    AVISO PÚBLICO E LOCALIZADO

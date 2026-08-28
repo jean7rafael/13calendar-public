@@ -66,6 +66,7 @@ export default {
       'An independent companion for the International Fixed Calendar. Not affiliated with 13months.net or any standards body.',
     linksLabel: 'Footer links',
     dataSourcesLink: 'Data sources',
+    wikipediaLink: 'Wikipedia',
     sourceCodeLink: 'Source code',
   },
 
@@ -167,6 +168,9 @@ export default {
     goToToday: 'Go to today',
     gregorianTitle: 'Your Calendar',
     fixedCalendarTitle: 'International Fixed Calendar',
+    calendar13Short: '13-month',
+    mobileComparisonHint:
+      'Rotate your screen or use a larger display to compare both calendars side by side.',
     daysThisMonth: '{count} days this month',
     daysEveryMonth: '{count} days every month',
 

@@ -22,7 +22,7 @@
           unelevated
           no-caps
           color="primary"
-          class="app-primary-action"
+          class="app-action app-action--primary"
           type="submit"
           icon="login"
           :loading="isLoading"
@@ -42,9 +42,10 @@
           </div>
           <q-btn
             v-if="notificationStatus.configured"
-            outline
+            unelevated
             no-caps
             color="primary"
+            class="app-action app-action--tertiary"
             icon="send"
             :loading="isConnectingTelegram"
             :label="t('community.adminTelegramConnect')"
@@ -75,9 +76,10 @@
             </div>
             <div class="community-admin-actions">
               <q-btn
-                outline
+                unelevated
                 no-caps
                 color="negative"
+                class="app-action app-action--tertiary"
                 icon="close"
                 :loading="actionId === registration.id"
                 :label="t('community.adminReject')"
@@ -86,7 +88,7 @@
               <q-btn
                 unelevated
                 no-caps
-                color="positive"
+                class="app-action app-action--primary"
                 icon="check"
                 :loading="actionId === registration.id"
                 :label="t('community.adminApprove')"
@@ -144,9 +146,9 @@
                 }}</q-tooltip>
               </q-btn>
               <q-btn
-                outline
+                unelevated
                 no-caps
-                color="primary"
+                class="app-action app-action--tertiary"
                 icon="manage_accounts"
                 :label="t('community.adminManage')"
                 @click="openManagement(registration)"
@@ -213,18 +215,18 @@
           </q-file>
           <div class="community-management-dialog__row-actions">
             <q-btn
-              outline
+              unelevated
               no-caps
-              color="primary"
+              class="app-action app-action--secondary"
               icon="photo_camera"
               :loading="actionName === 'avatar-capture'"
               :label="t('community.adminPhotoCapture')"
               @click="captureAvatar"
             />
             <q-btn
-              outline
+              unelevated
               no-caps
-              color="primary"
+              class="app-action app-action--tertiary"
               icon="upload"
               :disable="!selectedAvatarFile"
               :loading="actionName === 'avatar'"
@@ -233,9 +235,10 @@
             />
             <q-btn
               v-if="managedRegistration?.avatarUrl"
-              flat
+              unelevated
               no-caps
               color="negative"
+              class="app-action app-action--tertiary"
               icon="hide_image"
               :loading="actionName === 'avatar-remove'"
               :label="t('community.adminPhotoRemove')"
@@ -278,7 +281,7 @@
             unelevated
             no-caps
             color="primary"
-            class="app-primary-action"
+            class="app-action app-action--primary"
             icon="save"
             :loading="actionName === 'save'"
             :label="t('community.adminSave')"
@@ -291,10 +294,10 @@
               <strong>{{ t('community.adminDeletionTitle') }}</strong>
               <p>{{ t('community.adminDeletionDescription') }}</p>
             </div>
-            <q-btn
-              outline
-              no-caps
-              color="primary"
+          <q-btn
+            unelevated
+            no-caps
+            class="app-action app-action--tertiary"
               icon="key"
               :loading="actionName === 'deletion-code'"
               :label="
@@ -308,9 +311,10 @@
             />
           </section>
           <q-btn
-            outline
+            unelevated
             no-caps
             color="negative"
+            class="app-action app-action--tertiary"
             icon="delete_forever"
             :label="t('community.adminDelete')"
             @click="deleteConfirmationOpen = true"
@@ -346,8 +350,9 @@
         </q-card-section>
         <q-card-actions align="right">
           <q-btn
-            flat
+            unelevated
             no-caps
+            class="app-action app-action--tertiary"
             icon="content_copy"
             :label="t('community.adminCopy')"
             @click="copyDeletionLink"
@@ -355,7 +360,7 @@
           <q-btn
             unelevated
             no-caps
-            color="primary"
+            class="app-action app-action--primary"
             :label="t('community.adminDone')"
             v-close-popup
           />
@@ -383,11 +388,18 @@
           </p>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn flat no-caps :label="t('holidaySettings.cancel')" v-close-popup />
+          <q-btn
+            unelevated
+            no-caps
+            class="app-action app-action--secondary"
+            :label="t('holidaySettings.cancel')"
+            v-close-popup
+          />
           <q-btn
             unelevated
             no-caps
             color="negative"
+            class="app-action app-action--tertiary"
             icon="delete_forever"
             :loading="actionName === 'delete'"
             :label="t('community.adminDelete')"

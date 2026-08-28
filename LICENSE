@@ -1,3 +1,11 @@
+13 Calendar — License scope
+
+Except for third-party components identified in THIRD_PARTY_NOTICES.md, the
+MIT License below applies to the entire first-party 13 Calendar website and
+application: original source code, interface assets, editorial content and
+documentation. Third-party dependencies and the historical provenance archive
+remain governed by their own licenses or notices and are not relicensed here.
+
 MIT License
 
 Copyright (c) 2026 Jean Rafael Martins

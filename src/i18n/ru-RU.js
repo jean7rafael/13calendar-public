@@ -66,6 +66,7 @@ export default {
       'Независимое дополнение к Международному фиксированному календарю. Не связано с 13months.net или органами стандартизации.',
     linksLabel: 'Ссылки в подвале',
     dataSourcesLink: 'Источники данных',
+    wikipediaLink: 'Википедия',
     sourceCodeLink: 'Исходный код',
   },
 
@@ -169,6 +170,9 @@ export default {
     goToToday: 'Перейти к сегодняшней дате',
     gregorianTitle: 'Ваш Календарь',
     fixedCalendarTitle: 'Международный Фиксированный Календарь',
+    calendar13Short: '13 месяцев',
+    mobileComparisonHint:
+      'Поверните экран или используйте более крупный дисплей, чтобы сравнить оба календаря рядом.',
     daysThisMonth: '{count} дней в этом месяце',
     daysEveryMonth: '{count} дней в каждом месяце',
 

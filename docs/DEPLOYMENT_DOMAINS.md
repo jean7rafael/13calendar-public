@@ -16,8 +16,7 @@ Arquivos que usam o endereço canônico:
 - `public/robots.txt` e `public/sitemap.xml` — indexação;
 - `cloudflare/community-registration-worker/wrangler.jsonc` — moderação,
   Analytics, CORS e hostnames aceitos pelo Turnstile;
-- `.env.production` — endereço público exposto ao aplicativo;
-- `vendor/13months-site/index.html` — metadados da página institucional.
+- `.env.production` — endereço público exposto ao aplicativo.
 
 As três origens podem permanecer na lista de segurança durante a transição.
 Isso não as torna canônicas: apenas permite que formulários legítimos continuem

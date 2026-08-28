@@ -1,15 +1,12 @@
 <template>
   <q-page class="community-page">
     <!-- Identidade da comunidade inspirada no painel de perfil. -->
-    <section class="community-hero">
-      <div class="community-orbit" aria-hidden="true">
-        <q-icon name="public" />
-      </div>
-
-      <p class="community-eyebrow">{{ t('community.eyebrow') }}</p>
-      <h1>{{ t('community.title') }}</h1>
-      <p class="community-description">{{ t('community.description') }}</p>
-
+    <AppPageHero
+      icon="public"
+      :eyebrow="t('community.eyebrow')"
+      :title="t('community.title')"
+      :description="t('community.description')"
+    >
       <q-select
         v-model="selectedScope"
         outlined
@@ -21,23 +18,21 @@
         :label="t('community.scopeLabel')"
         class="community-scope-select"
       />
-    </section>
+    </AppPageHero>
 
     <!-- Aviso honesto enquanto a coleta ainda não está conectada. -->
-    <section
+    <AppNoticePanel
       v-if="!isReady"
       class="community-status"
-      :class="{ 'community-status--error': loadFailed }"
+      :tone="loadFailed ? 'amber' : 'purple'"
+      :icon="loadFailed ? 'cloud_off' : 'query_stats'"
+      :title="t(loadFailed ? 'community.unavailableTitle' : 'community.waitingTitle')"
       role="status"
     >
-      <q-icon :name="loadFailed ? 'cloud_off' : 'query_stats'" size="24px" />
-      <div>
-        <h2>{{ t(loadFailed ? 'community.unavailableTitle' : 'community.waitingTitle') }}</h2>
-        <p>
-          {{ t(loadFailed ? 'community.unavailableDescription' : 'community.waitingDescription') }}
-        </p>
-      </div>
-    </section>
+      <p>
+        {{ t(loadFailed ? 'community.unavailableDescription' : 'community.waitingDescription') }}
+      </p>
+    </AppNoticePanel>
 
     <!-- Faixa compacta com os números principais. -->
     <section class="community-metrics" :aria-label="t('community.title')">
@@ -189,27 +184,34 @@
     </div>
 
     <!-- Transparência sobre fonte, privacidade e interpretação. -->
-    <section class="community-privacy">
-      <q-icon name="shield" size="26px" />
-      <div>
-        <h2>{{ t('community.privacyTitle') }}</h2>
-        <p>{{ t('community.privacyDescription') }}</p>
-        <p>{{ t('community.approximateNote') }}</p>
-        <small>{{ t('community.dataSource') }}</small>
-      </div>
+    <AppNoticePanel
+      class="community-privacy"
+      tone="green"
+      icon="shield"
+      :title="t('community.privacyTitle')"
+    >
+      <p>{{ t('community.privacyDescription') }}</p>
+      <p>{{ t('community.approximateNote') }}</p>
+      <small>{{ t('community.dataSource') }}</small>
+
       <!-- Acesso discreto: a rota continua protegida pelo segredo administrativo. -->
-      <q-btn
-        class="community-corner-action community-privacy__admin"
-        flat
-        round
-        dense
-        icon="admin_panel_settings"
-        :to="{ name: 'community-admin' }"
-        :aria-label="t('community.adminAccess')"
-      >
-        <q-tooltip>{{ t('community.adminAccess') }}</q-tooltip>
-      </q-btn>
-    </section>
+      <template #action>
+        <q-btn
+          class="community-corner-action"
+          flat
+          round
+          dense
+          icon="admin_panel_settings"
+          :to="{ name: 'community-admin' }"
+          :aria-label="t('community.adminAccess')"
+        >
+          <q-tooltip>{{ t('community.adminAccess') }}</q-tooltip>
+        </q-btn>
+      </template>
+    </AppNoticePanel>
+
+    <!-- O convite vem antes da vitrine para não ficar oculto após os dados públicos. -->
+    <CommunityRegistration />
 
     <!-- Perfis voluntários aparecem somente após moderação. -->
     <section class="community-members" :aria-labelledby="membersTitleId">
@@ -233,33 +235,101 @@
       </header>
 
       <div v-if="approvedMembers.length" class="community-members__grid">
-        <a
+        <article
           v-for="member in approvedMembers"
           :key="`${member.socialNetwork}:${member.socialProfile}`"
           class="community-member"
-          :href="getMemberProfileUrl(member)"
-          target="_blank"
-          rel="noopener noreferrer"
-          :aria-label="t('community.memberProfile', { name: member.publicName })"
         >
-          <AppProfileAvatar :image-url="member.avatarUrl" :name="member.publicName" />
-          <span class="community-member__identity">
-            <strong>{{ member.publicName }}</strong>
-            <small>{{ getMemberProfileLabel(member) }}</small>
+          <a
+            class="community-member__profile"
+            :href="getMemberProfileUrl(member)"
+            target="_blank"
+            rel="noopener noreferrer"
+            :aria-label="t('community.memberProfile', { name: member.publicName })"
+          >
+            <AppProfileAvatar :image-url="member.avatarUrl" :name="member.publicName" />
+            <span class="community-member__identity">
+              <strong>{{ member.publicName }}</strong>
+              <small>{{ getMemberProfileLabel(member) }}</small>
+            </span>
+            <span class="community-member__country" :title="getCountryName(member.country)">
+              {{ getCountryFlag(member.country) }}
+            </span>
+          </a>
+
+          <span v-if="member.hasVoted" class="community-member__feedback">
+            <q-icon name="how_to_vote" class="community-member__vote-icon">
+              <q-tooltip>{{ t('community.memberVoted', { name: member.publicName }) }}</q-tooltip>
+            </q-icon>
+            <q-btn
+              v-if="member.feedbackResponse"
+              flat
+              round
+              dense
+              icon="forum"
+              class="community-member__response-button"
+              :aria-label="t('community.memberResponse', { name: member.publicName })"
+              @click="openMemberResponse(member)"
+            >
+              <q-tooltip>{{
+                t('community.memberResponse', { name: member.publicName })
+              }}</q-tooltip>
+            </q-btn>
           </span>
-          <span class="community-member__country" :title="getCountryName(member.country)">
-            {{ getCountryFlag(member.country) }}
-          </span>
-        </a>
+        </article>
       </div>
       <p v-else class="community-members__empty">{{ t('community.membersEmpty') }}</p>
     </section>
 
-    <!-- Cadastro voluntário separado visualmente do painel e do rodapé. -->
-    <CommunityRegistration />
+    <section
+      v-if="anonymousResponses.length"
+      class="community-anonymous"
+      :aria-labelledby="anonymousResponsesTitleId"
+    >
+      <header class="community-members__heading">
+        <p>{{ t('community.anonymousEyebrow') }}</p>
+        <h2 :id="anonymousResponsesTitleId">{{ t('community.anonymousTitle') }}</h2>
+        <span>{{ t('community.anonymousDescription') }}</span>
+      </header>
+
+      <div class="community-anonymous__list">
+        <button
+          v-for="response in anonymousResponses"
+          :key="response.id"
+          type="button"
+          @click="openAnonymousResponse(response)"
+        >
+          <q-icon name="chat_bubble_outline" aria-hidden="true" />
+          <span>{{ response.title || t('community.anonymousFallbackTitle') }}</span>
+          <q-icon name="arrow_forward" aria-hidden="true" />
+        </button>
+      </div>
+    </section>
+
+    <q-dialog v-model="responseDialogOpen">
+      <q-card class="community-response-dialog">
+        <q-card-section class="community-response-dialog__header">
+          <div>
+            <small>{{ activeResponse.eyebrow }}</small>
+            <h2>{{ activeResponse.title }}</h2>
+          </div>
+          <q-btn
+            v-close-popup
+            flat
+            round
+            dense
+            icon="close"
+            :aria-label="t('community.closeResponse')"
+          />
+        </q-card-section>
+        <q-separator />
+        <q-card-section class="community-response-dialog__body">
+          <p>{{ activeResponse.response }}</p>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
 
     <!-- Rodapé institucional compartilhado, sem repetir o bloco explicativo. -->
-    <AppFooter :show-context="false" />
   </q-page>
 </template>
 
@@ -268,8 +338,9 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n';
 import { useMeta } from 'quasar';
 import CommunityRegistration from 'src/components/CommunityRegistration.vue';
-import AppFooter from 'src/components/AppFooter.vue';
 import AppProfileAvatar from 'src/components/AppProfileAvatar.vue';
+import AppNoticePanel from 'src/components/AppNoticePanel.vue';
+import AppPageHero from 'src/components/AppPageHero.vue';
 import { getCommunityApiUrl } from 'src/services/communityApi';
 
 /* ===========================================================
@@ -290,11 +361,15 @@ const EMPTY_DATA = {
 
 const communityData = ref(EMPTY_DATA);
 const approvedMembers = ref([]);
+const anonymousResponses = ref([]);
+const responseDialogOpen = ref(false);
+const activeResponse = ref({ eyebrow: '', title: '', response: '' });
 const loadFailed = ref(false);
 const selectedScope = ref('world');
 const activityBarViewport = ref(null);
 const visibleActivityRange = ref({ start: 0, end: 1 });
 const membersTitleId = 'community-members-title';
+const anonymousResponsesTitleId = 'community-anonymous-responses-title';
 let activityResizeObserver = null;
 let activityScrollFrame = 0;
 
@@ -359,6 +434,9 @@ async function loadApprovedMembers() {
 
     const payload = await response.json();
     const members = Array.isArray(payload?.members) ? payload.members : [];
+    anonymousResponses.value = Array.isArray(payload?.anonymousResponses)
+      ? payload.anonymousResponses
+      : [];
 
     /* A vitrine preserva a ordem de chegada mesmo se uma versão antiga da
        API devolver os perfis em outra sequência. Registros sem data mantêm
@@ -725,6 +803,25 @@ function getMemberProfileUrl(member) {
   return '#';
 }
 
+function openMemberResponse(member) {
+  activeResponse.value = {
+    eyebrow: member.publicName,
+    title:
+      member.feedbackTitle || t('community.memberResponseTitle', { name: member.publicName }),
+    response: member.feedbackResponse,
+  };
+  responseDialogOpen.value = true;
+}
+
+function openAnonymousResponse(response) {
+  activeResponse.value = {
+    eyebrow: t('community.anonymousEyebrow'),
+    title: response.title || t('community.anonymousFallbackTitle'),
+    response: response.response,
+  };
+  responseDialogOpen.value = true;
+}
+
 function readPreferredHolidayCountry() {
   try {
     return String(window.localStorage.getItem('calendar-app-holiday-country') || '').toUpperCase();
@@ -747,57 +844,6 @@ function readPreferredHolidayCountry() {
   color: var(--app-text);
 }
 
-/* ===========================================================
-   IDENTIDADE E FILTRO DE ESCOPO
-=========================================================== */
-
-.community-hero {
-  max-width: 760px;
-  margin: 20px auto 32px;
-  text-align: center;
-}
-
-.community-orbit {
-  width: 78px;
-  height: 78px;
-  display: grid;
-  place-items: center;
-  margin: 0 auto 18px;
-  color: white;
-  background:
-    radial-gradient(circle at 32% 24%, rgb(255 255 255 / 28%), transparent 28%),
-    linear-gradient(135deg, #2563eb, #7c3aed);
-  border: 1px solid rgb(255 255 255 / 18%);
-  border-radius: 50%;
-  box-shadow: 0 18px 44px rgb(79 70 229 / 26%);
-  font-size: 34px;
-}
-
-.community-eyebrow {
-  margin: 0 0 10px;
-  color: #8b5cf6;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.community-hero h1 {
-  margin: 0;
-  font-size: clamp(28px, 5vw, 48px);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.04em;
-}
-
-.community-description {
-  max-width: 620px;
-  margin: 18px auto 0;
-  color: var(--app-text-muted);
-  font-size: 16px;
-  line-height: 1.65;
-}
-
 .community-scope-select {
   width: min(100%, 290px);
   margin: 24px auto 0;
@@ -808,36 +854,7 @@ function readPreferredHolidayCountry() {
 =========================================================== */
 
 .community-status {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
   margin-bottom: 18px;
-  padding: 16px 18px;
-  color: #6d28d9;
-  background: color-mix(in srgb, #8b5cf6 9%, var(--app-surface));
-  border: 1px solid color-mix(in srgb, #8b5cf6 28%, var(--app-border));
-  border-radius: 16px;
-}
-
-.community-status--error {
-  color: #b45309;
-  background: color-mix(in srgb, #f59e0b 8%, var(--app-surface));
-  border-color: color-mix(in srgb, #f59e0b 28%, var(--app-border));
-}
-
-.community-status h2 {
-  margin: 0 0 3px;
-  color: var(--app-text);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.35;
-}
-
-.community-status p {
-  margin: 0;
-  color: var(--app-text-muted);
-  font-size: 12px;
-  line-height: 1.5;
 }
 
 .community-metrics {
@@ -1164,37 +1181,7 @@ function readPreferredHolidayCountry() {
 =========================================================== */
 
 .community-privacy {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
   margin-top: 18px;
-  padding: 22px 58px 22px 22px;
-  color: #059669;
-  background: color-mix(in srgb, #10b981 7%, var(--app-surface));
-  border: 1px solid color-mix(in srgb, #10b981 24%, var(--app-border));
-  border-radius: 18px;
-}
-
-.community-privacy h2 {
-  margin: 0 0 7px;
-  color: var(--app-text);
-  font-size: 14px;
-  line-height: 1.35;
-}
-
-.community-privacy p {
-  margin: 3px 0;
-  color: var(--app-text-muted);
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.community-privacy small {
-  display: block;
-  margin-top: 8px;
-  color: var(--app-text-faint);
-  font-size: 10px;
 }
 
 .community-corner-action {
@@ -1212,25 +1199,9 @@ function readPreferredHolidayCountry() {
 
 .community-corner-action:hover,
 .community-corner-action:focus-visible {
-  color: #8b5cf6;
-  background: color-mix(in srgb, #8b5cf6 10%, transparent);
+  color: var(--app-accent-purple);
+  background: color-mix(in srgb, var(--app-accent-purple) 10%, transparent);
   opacity: 1;
-}
-
-.community-privacy__admin {
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
-}
-
-[dir='rtl'] .community-privacy {
-  padding-right: 22px;
-  padding-left: 58px;
-}
-
-[dir='rtl'] .community-privacy__admin {
-  right: auto;
-  left: 14px;
 }
 
 /* ===========================================================
@@ -1295,19 +1266,30 @@ function readPreferredHolidayCountry() {
 
 .community-member {
   min-width: 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 12px;
-  padding: 13px 15px;
+  gap: 8px;
+  padding: 7px 9px 7px 7px;
   color: var(--app-text);
   background: color-mix(in srgb, #8b5cf6 5%, var(--app-surface));
   border: 1px solid var(--app-border);
   border-radius: 15px;
-  text-decoration: none;
   transition:
     transform 160ms ease,
     border-color 160ms ease,
     background 160ms ease;
+}
+
+.community-member__profile {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 8px;
+  color: inherit;
+  border-radius: 11px;
+  text-decoration: none;
 }
 
 .community-member:hover,
@@ -1316,6 +1298,12 @@ function readPreferredHolidayCountry() {
   border-color: color-mix(in srgb, #8b5cf6 42%, var(--app-border));
   outline: none;
   transform: translateY(-2px);
+}
+
+.community-member__profile:focus-visible,
+.community-member__response-button:focus-visible {
+  outline: 2px solid var(--app-accent-purple-border);
+  outline-offset: 2px;
 }
 
 .community-member__identity {
@@ -1343,6 +1331,118 @@ function readPreferredHolidayCountry() {
   flex: none;
   font-size: 21px;
 }
+
+.community-member__feedback {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.community-member__vote-icon {
+  padding: 8px;
+  color: var(--app-accent-green-strong);
+  font-size: 20px;
+}
+
+.community-member__response-button {
+  color: var(--app-accent-purple-text);
+}
+
+.community-anonymous {
+  margin-top: 18px;
+  padding: clamp(24px, 5vw, 42px);
+  background: color-mix(in srgb, var(--app-accent-purple-soft) 38%, var(--app-surface));
+  border: 1px solid var(--app-accent-purple-border);
+  border-radius: 20px;
+  box-shadow: var(--app-card-shadow);
+}
+
+.community-anonymous__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.community-anonymous__list button {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  color: var(--app-text);
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: 14px;
+  text-align: start;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.community-anonymous__list button:hover,
+.community-anonymous__list button:focus-visible {
+  background: var(--app-accent-purple-soft);
+  border-color: var(--app-accent-purple-border);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.community-anonymous__list button > .q-icon:first-child {
+  color: var(--app-accent-purple-text);
+}
+
+.community-anonymous__list button span {
+  overflow: hidden;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.community-response-dialog {
+  width: min(620px, calc(100vw - 28px));
+  max-height: min(80vh, 720px);
+  border-radius: 22px;
+}
+
+.community-response-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 24px;
+}
+
+.community-response-dialog__header small {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--app-accent-purple-text);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.community-response-dialog__header h2 {
+  margin: 0;
+  color: var(--app-text);
+  font-size: clamp(20px, 4vw, 28px);
+}
+
+.community-response-dialog__body {
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.community-response-dialog__body p {
+  margin: 0;
+  color: var(--app-text-muted);
+  font-size: 15px;
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
 .community-members__empty {
   margin: 0;
   color: var(--app-text-faint);
@@ -1354,12 +1454,8 @@ function readPreferredHolidayCountry() {
     padding: 16px 12px 28px;
   }
 
-  .community-hero {
-    margin-top: 8px;
-  }
-
-  .community-description {
-    font-size: 14px;
+  .community-anonymous__list {
+    grid-template-columns: 1fr;
   }
 
   .community-metrics {

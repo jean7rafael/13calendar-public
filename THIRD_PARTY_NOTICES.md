@@ -1,21 +1,26 @@
 # Third-party notices
 
-The MIT license in [`LICENSE`](LICENSE) applies only to original 13 Calendar
-code and documentation authored for this project.
+The MIT license in [`LICENSE`](LICENSE) applies to the entire first-party live
+13 Calendar website and application, including original source code, interface
+assets, editorial content and documentation.
 
-## Adapted educational reference page
+## Historical provenance archive
 
-`vendor/13months-site` and the generated `public/reference-site` directory are
-an experimental adaptation of [Andree37/13-months](https://github.com/Andree37/13-months).
-The upstream repository did not publish a license when it was imported. Those
-directories are therefore **not** granted under this project's MIT license.
-Their provenance, pinned revision and local changes are recorded in
+`vendor/13months-site` is a private historical archive of an earlier
+experimental adaptation of
+[Andree37/13-months](https://github.com/Andree37/13-months). It is not installed,
+built, published or used at runtime, and the public sync explicitly excludes
+it. The former generated `public/reference-site` package has been removed.
+
+The upstream repository did not publish a license when it was imported, so the
+archive is **not** granted under this project's MIT license. Its provenance,
+pinned revision and past local changes remain recorded in
 [`vendor/13months-site/UPSTREAM.md`](vendor/13months-site/UPSTREAM.md).
 
-Permission and collaboration have been requested from the upstream author in
-[Andree37/13-months#2](https://github.com/Andree37/13-months/issues/2). Any
-license, attribution, visual-change or removal request from that author will be
-applied promptly.
+The earlier collaboration request was replaced by a neutral independence and
+reference notice, then closed. The live project has no permission, build or
+runtime dependency on that repository; it may cite 13months.net only as an
+external historical or comparative reference.
 
 ## Main open-source dependencies
 

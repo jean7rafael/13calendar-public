@@ -35,7 +35,7 @@
           unelevated
           no-caps
           color="negative"
-          class="app-primary-action community-removal-submit"
+          class="app-action app-action--tertiary community-removal-submit"
           type="submit"
           icon="delete_forever"
           :loading="state === 'sending'"
@@ -54,8 +54,9 @@
       </q-form>
 
       <q-btn
-        flat
+        unelevated
         no-caps
+        class="app-action app-action--secondary"
         icon="arrow_back"
         :to="{ name: 'community' }"
         :label="t('community.removalBack')"

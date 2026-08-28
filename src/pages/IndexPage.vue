@@ -1,83 +1,106 @@
 <template>
   <q-page class="calendar-page" @wheel.capture="containCardWheel">
     <!-- Apresentação preservada da antiga prévia visual. -->
-    <section class="calendar-introduction">
-      <div class="calendar-introduction__orbit" aria-hidden="true">
-        <q-icon name="public" />
-      </div>
-
-      <p class="calendar-introduction__eyebrow">
-        {{ $t('introduction.eyebrow') }}
-      </p>
-
-      <h1>{{ $t('introduction.title') }}</h1>
-
-      <p class="calendar-introduction__description">
-        {{ $t('introduction.description') }}
-      </p>
-    </section>
+    <AppPageHero
+      icon="calendar_month"
+      :eyebrow="$t('introduction.eyebrow')"
+      :title="$t('introduction.title')"
+      :description="$t('introduction.description')"
+    />
 
     <!-- Legenda comum aos indicadores lunares dos dois calendários. -->
     <MoonPhaseLegend class="calendar-moon-legend" />
 
-    <!-- Linha 1 -->
-    <div class="linha">
-      <div class="coluna">
+    <!-- Na largura em que as colunas deixariam de caber, o mesmo
+         seletor simples da referência escolhe qual conjunto exibir. -->
+    <div class="calendar-mobile-view">
+      <div
+        class="calendar-mobile-view-switch"
+        role="group"
+        :aria-label="$t('introduction.title')"
+      >
+        <span
+          :class="{ 'calendar-mobile-view-switch__label--active': !showFixedCalendarMobile }"
+        >
+          {{ $t('calendar.gregorian') }}
+        </span>
+
+        <q-toggle
+          v-model="showFixedCalendarMobile"
+          color="primary"
+          keep-color
+          size="44px"
+          :aria-label="$t('introduction.title')"
+        />
+
+        <span :class="{ 'calendar-mobile-view-switch__label--active': showFixedCalendarMobile }">
+          {{ $t('calendar.calendar13Short') }}
+        </span>
+      </div>
+
+      <p class="calendar-mobile-view__hint">
+        <q-icon name="screen_rotation" aria-hidden="true" />
+        <span>{{ $t('calendar.mobileComparisonHint') }}</span>
+      </p>
+    </div>
+
+    <!-- Cada coluna reúne calendário, feriados e fases do mesmo
+         sistema. No desktop as duas continuam lado a lado. -->
+    <div class="calendar-comparison">
+      <section
+        class="calendar-column calendar-column--gregorian"
+        :class="{ 'calendar-column--active': !showFixedCalendarMobile }"
+        :aria-label="$t('calendar.gregorianTitle')"
+      >
         <Feriados12Calendario
           :mes12Fases="mes12Fases"
           :ano12Fases="ano12Fases"
           @update:modelValue="converterParaCalendario13"
         />
-      </div>
-      <div class="coluna">
-        <Feriados13Calendario
-          :mes13Fases="mes13Fases"
-          :ano13Fases="ano13Fases"
-          @update:modelValue="converterParaCalendario12"
-        />
-      </div>
-    </div>
 
-    <!-- Linha 2 -->
-    <div class="linha">
-      <div class="coluna">
         <Calendario12Meses
           v-model="dataSelecionada"
           @update:modelValue="converterParaCalendario13"
           @update:mes12="mes12Fases = $event"
           @update:ano12="ano12Fases = $event"
         />
-      </div>
-      <div class="coluna">
+
+        <Fases12Lua
+          :mes12Fases="mes12Fases"
+          :ano12Fases="ano12Fases"
+          @update:modelValue="converterParaCalendario13"
+        />
+      </section>
+
+      <section
+        class="calendar-column calendar-column--fixed"
+        :class="{ 'calendar-column--active': showFixedCalendarMobile }"
+        :aria-label="$t('calendar.fixedCalendarTitle')"
+      >
+        <Feriados13Calendario
+          :mes13Fases="mes13Fases"
+          :ano13Fases="ano13Fases"
+          @update:modelValue="converterParaCalendario12"
+        />
+
         <Calendario13Meses
           v-model="dataConvertida"
           @update:modelValue="converterParaCalendario12"
           @update:mes13="mes13Fases = $event"
           @update:ano13="ano13Fases = $event"
         />
-      </div>
-    </div>
 
-    <!-- Linha 3 -->
-    <div class="linha">
-      <div class="coluna">
-        <Fases12Lua
-          :mes12Fases="mes12Fases"
-          :ano12Fases="ano12Fases"
-          @update:modelValue="converterParaCalendario13"
-        />
-      </div>
-      <div class="coluna">
         <Fases13Lua
           :mes13Fases="mes13Fases"
           :ano13Fases="ano13Fases"
           @update:modelValue="converterParaCalendario12"
         />
-      </div>
+      </section>
     </div>
 
-    <!-- Rodapé comum com fontes, privacidade e limites dos dados. -->
-    <AppFooter />
+    <!-- Fontes, privacidade e limites pertencem somente aos calendários. -->
+    <CalendarContextSection />
+
   </q-page>
 </template>
 
@@ -90,7 +113,8 @@ import Feriados13Calendario from 'src/components/Feriados13Calendario.vue';
 import Fases12Lua from 'src/components/Fases12Lua.vue';
 import Fases13Lua from 'src/components/Fases13Lua.vue';
 import MoonPhaseLegend from 'src/components/MoonPhaseLegend.vue';
-import AppFooter from 'src/components/AppFooter.vue';
+import CalendarContextSection from 'src/components/CalendarContextSection.vue';
+import AppPageHero from 'src/components/AppPageHero.vue';
 import { converterPara13Meses, converterParaGregoriano } from 'src/utils/conversorDatas';
 import { useTodayNavigation } from 'src/composables/useTodayNavigation';
 
@@ -124,6 +148,10 @@ const ano12Fases = ref(dataInicial.getFullYear());
 
 const mes13Fases = ref(Number(dataConvertida.value.split('-')[1]));
 const ano13Fases = ref(Number(dataConvertida.value.split('-')[0]));
+
+/* O gregoriano é a primeira visão móvel; a escolha afeta apenas
+   a apresentação e não desmonta nem dessincroniza o outro lado. */
+const showFixedCalendarMobile = ref(false);
 
 /* ===========================================================
    PEDIDO GLOBAL PARA VOLTAR À DATA DE HOJE
@@ -277,81 +305,68 @@ watch(todayRequest, () => {
 }
 
 /* ===========================================================
-   APRESENTAÇÃO DA IDENTIDADE VISUAL
+   DUAS COLUNAS SINCRONIZADAS
 =========================================================== */
 
-.calendar-introduction {
-  max-width: 720px;
-  margin: 20px auto 2px;
-  text-align: center;
-}
-
-/* O mesmo globo identifica as páginas principal e comunitária. */
-.calendar-introduction__orbit {
-  width: 78px;
-  height: 78px;
-  display: grid;
-  place-items: center;
-  margin: 0 auto 18px;
-  color: white;
-  background:
-    radial-gradient(circle at 32% 24%, rgb(255 255 255 / 28%), transparent 28%),
-    linear-gradient(135deg, #2563eb, #7c3aed);
-  border: 1px solid rgb(255 255 255 / 18%);
-  border-radius: 50%;
-  box-shadow: 0 18px 44px rgb(79 70 229 / 26%);
-  font-size: 34px;
-}
-
-.calendar-introduction__eyebrow {
-  margin: 0 0 10px;
-  color: #8b5cf6;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.calendar-introduction h1 {
-  margin: 0;
-  color: var(--app-text);
-  font-size: clamp(28px, 5vw, 48px);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.04em;
-}
-
-.calendar-introduction__description {
-  max-width: 620px;
-  margin: 18px auto 0;
-  color: var(--app-text-muted);
-  font-size: 16px;
-  line-height: 1.65;
-}
-
-/* ===========================================================
-   LINHAS COM DOIS CALENDÁRIOS
-
-   As duas colunas possuem sempre a mesma largura.
-=========================================================== */
-
-.linha {
+.calendar-comparison {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, minmax(var(--calendar-card-min-width), 1fr));
   gap: 22px;
 }
 
-/* ===========================================================
-   POSICIONAMENTO DOS ENCARTES
-=========================================================== */
-
-.coluna {
+.calendar-column {
   width: 100%;
   min-width: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 20px;
+}
+
+/* O seletor reproduz a lógica Standard ↔ 13-Mo da referência,
+   mas usa os nomes localizados dos calendários do projeto. */
+.calendar-mobile-view {
+  display: none;
+}
+
+.calendar-mobile-view-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--app-text-muted);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.calendar-mobile-view-switch span {
+  transition: color 160ms ease;
+}
+
+.calendar-mobile-view-switch__label--active {
+  color: var(--app-primary-text);
+  font-weight: 600;
+}
+
+.calendar-mobile-view__hint {
+  max-width: 430px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--app-text-faint);
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.calendar-mobile-view__hint .q-icon {
+  flex: 0 0 auto;
+  margin-top: 1px;
+  font-size: 16px;
 }
 
 /* ===========================================================
@@ -473,25 +488,34 @@ watch(todayRequest, () => {
 /* ===========================================================
    JANELAS ESTREITAS
 
-   Os encartes passam a ficar um abaixo do outro,
-   preservando a largura mínima de 320px.
+   Um único calendário e seus dois encartes permanecem visíveis.
 =========================================================== */
 
 @media (max-width: 760px) {
   .calendar-page {
+    --calendar-card-min-width: 0px;
+
     padding: 16px 12px 28px;
   }
 
-  .linha {
-    grid-template-columns: minmax(var(--calendar-card-min-width), 1fr);
+  .calendar-mobile-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
   }
 
-  .calendar-introduction {
-    margin-top: 8px;
+  .calendar-comparison {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .calendar-introduction__description {
-    font-size: 14px;
+  .calendar-column {
+    display: none;
   }
+
+  .calendar-column--active {
+    display: flex;
+  }
+
 }
 </style>
