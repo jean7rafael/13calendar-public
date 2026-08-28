@@ -1264,12 +1264,27 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   fonte permitida e aciona Cloudflare Pages e o Worker. As migrações D1 são
   aplicadas antes do código do Worker. O mantenedor fará depois os testes
   manuais de voto, relato e vínculo com o perfil comunitário.
+- O primeiro release público 2.0 sincronizou a revisão privada `1aa4bab` no
+  commit público `0d8bc31`. Cloudflare Pages concluiu, mas o token do GitHub
+  recusou a migração D1 com o código 7403 porque ainda não possui `D1 Edit`.
+  A sessão OAuth local, que tem essa permissão, aplicou com sucesso a migração
+  `0007` e publicou o Worker `6ec7e22c-0e28-46b8-9b3e-b5865a64dde8`. O banco
+  foi atualizado antes do código, preservando a ordem segura do lançamento.
+- O CI do espelho público também revelou que `AGENTS.md` é deliberadamente
+  privado, mas a auditoria de continuidade tentava lê-lo novamente. O programa
+  agora reconhece apenas o repositório público conhecido e registra que o
+  protocolo já passou na fonte privada antes do espelhamento; qualquer outra
+  ausência de `AGENTS.md` continua sendo erro.
 
 ## Pendências atuais
 
 - Aguardar a aprovação humana de `13calendar.eu.org`; depois associá-lo ao
   Cloudflare Pages e executar a troca coordenada descrita em
   `docs/OWNER_ACTIONS.md`.
+- Acrescentar `Account` → `D1` → `Edit` ao token Cloudflare guardado como
+  `CLOUDFLARE_API_TOKEN` no repositório público e repetir manualmente o workflow
+  da API. A versão atual já foi recuperada e está publicada; essa ação restaura
+  a automação das próximas migrações.
 - Acompanhar no Google Search Console a leitura do sitemap 2.0, a indexação das
   novas rotas, a substituição do nome de site `Cloudflare` por `13 Calendar` e
   o desempenho em consultas genéricas. O domínio EU.org, quando aprovado,

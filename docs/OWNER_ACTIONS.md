@@ -17,17 +17,25 @@ Estado validado em 24 de agosto de 2026:
 
 Em 25 de agosto, o token existente recebeu também `Workers Scripts: Edit`. A
 execução pública `32802460935` realizou o deploy completo do Worker com
-sucesso. Página e API voltaram, portanto, a compartilhar uma publicação
-inteiramente automática.
+sucesso. Em 28 de agosto, a primeira migração automática revelou que o mesmo
+token ainda não possui `D1 Edit`: a página foi publicada, mas a etapa do banco
+parou com o código 7403 antes do deploy do Worker. A migração `0007` e o Worker
+foram recuperados pela sessão OAuth local, sem deixar produção incompleta.
+
+Para restaurar a automação integral, edite o token usado pelo secret
+`CLOUDFLARE_API_TOKEN` e acrescente `Account` → `D1` → `Edit`, restrito à mesma
+conta. Depois execute manualmente `Publicar API da comunidade`; não é preciso
+reaplicar migrações que já constem como concluídas.
 
 Para trocar ou revogar o token no futuro:
 
 1. Abra <https://dash.cloudflare.com/profile/api-tokens>.
 2. Crie um **Custom token** com um nome como
    `13calendar GitHub Production Deploy`.
-3. Conceda `Account` → `Cloudflare Pages` → `Edit` e use o modelo oficial
-   **Edit Cloudflare Workers**, que inclui `Workers Scripts` → `Edit` e as
-   leituras de conta/usuário necessárias ao Wrangler.
+3. Conceda `Account` → `Cloudflare Pages` → `Edit`, `Account` → `D1` → `Edit`
+   e use o modelo oficial **Edit Cloudflare Workers**, que inclui
+   `Workers Scripts` → `Edit` e as leituras de conta/usuário necessárias ao
+   Wrangler.
 4. Restrinja o token à conta que contém o projeto `13calendar`.
 5. No Mac, a partir de qualquer pasta, execute o comando abaixo e cole o token
    somente quando o próprio terminal solicitar:

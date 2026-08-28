@@ -217,7 +217,20 @@ ${unstagedStat}
 }
 
 function auditProtocol() {
-  const agents = readFileSync(resolve(projectRoot, 'AGENTS.md'), 'utf8')
+  const agentsPath = resolve(projectRoot, 'AGENTS.md')
+  const isPublicRelease =
+    process.env.GITHUB_REPOSITORY === 'jean7rafael/13calendar-public'
+
+  /* AGENTS.md contém instruções internas e é excluído deliberadamente do
+     espelho público. A fonte privada já executa esta auditoria antes de
+     sincronizar; no CI público, a ausência conhecida não deve invalidar o
+     restante da mesma revisão. */
+  if (!existsSync(agentsPath) && isPublicRelease) {
+    console.log('✓ protocolo de continuidade validado na fonte privada antes do espelhamento')
+    return
+  }
+
+  const agents = readFileSync(agentsPath, 'utf8')
   const gitignore = readFileSync(resolve(projectRoot, '.gitignore'), 'utf8')
   const packageJson = JSON.parse(readFileSync(resolve(projectRoot, 'package.json'), 'utf8'))
   const protocol = existsSync(protocolPath) ? readFileSync(protocolPath, 'utf8') : ''
