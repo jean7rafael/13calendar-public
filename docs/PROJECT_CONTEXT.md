@@ -1275,6 +1275,16 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   novamente. Ambas agora reconhecem apenas o repositório público conhecido e
   registram que as regras já passaram na fonte privada antes do espelhamento;
   qualquer outra ausência de `AGENTS.md` continua sendo erro.
+- A verificação manual pós-release confirmou HTTP 200 em `/`, `/learn`,
+  `/tools`, `/moon`, `/news`, `/community`, `/privacy`, `/widget`, `robots.txt`
+  e `sitemap.xml`; `/reference-site/` respondeu 302 para `/learn`. O HTML
+  publicado contém `WebSite`, `alternateName` e `og:site_name`; o sitemap lista
+  as novas rotas com data de 28 de agosto. `/members`, `/analytics/stats` e
+  `/feedback/votes` responderam 200, e o D1 não tem migrações pendentes.
+- O health check antigo exigia literalmente `<div id="q-app"></div>`, mas o
+  Quasar 2.0 minimiza o shell como `<div id=q-app>`. A verificação passou a
+  aceitar as duas formas, conferir todas as rotas públicas, exigir o marcador
+  `WebSite` e validar as seis rotas indexáveis no sitemap.
 
 ## Pendências atuais
 

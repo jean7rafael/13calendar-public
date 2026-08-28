@@ -25,17 +25,24 @@ jobs:
           set -euo pipefail
           curl --fail --silent --show-error --location --retry 3 \
             https://13calendar.pages.dev/ --output main.html
-          curl --fail --silent --show-error --location --retry 3 \
-            https://13calendar.pages.dev/learn --output learn.html
+          for site_route in learn tools moon news community privacy widget; do
+            curl --fail --silent --show-error --location --retry 3 \
+              "https://13calendar.pages.dev/$site_route" --output "$site_route.html"
+            grep -Eq '<div id=("q-app"|q-app)>' "$site_route.html"
+          done
           curl --fail --silent --show-error --location --retry 3 \
             https://13calendar.pages.dev/robots.txt --output robots.txt
           curl --fail --silent --show-error --location --retry 3 \
             https://13calendar.pages.dev/sitemap.xml --output sitemap.xml
 
           grep -q 'https://13calendar.pages.dev/' main.html
-          grep -q '<div id="q-app"></div>' learn.html
+          grep -Eq '<div id=("q-app"|q-app)>' main.html
+          grep -q '"@type": "WebSite"' main.html
           grep -q '13calendar.pages.dev/sitemap.xml' robots.txt
           grep -q '<urlset' sitemap.xml
+          for indexed_route in learn tools moon news community privacy; do
+            grep -q "<loc>https://13calendar.pages.dev/$indexed_route</loc>" sitemap.xml
+          done
 
       - name: Conferir API comunitária pública
         shell: bash
