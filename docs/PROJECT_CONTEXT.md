@@ -1295,6 +1295,15 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   distribui as quatro semanas por toda a altura comum dos 14 cards. A inspeção
   local confirmou botão habilitado, diálogo móvel a 390 px, ausência de erros,
   alturas idênticas de 242 px em tela larga e 198 px no celular, sem overflow.
+- A primeira tentativa de sincronizar esse refinamento revelou diferença de
+  compactação entre o Mac e o runner do GitHub e ultrapassou o orçamento por
+  1,9 KiB antes do espelhamento. As instruções foram condensadas sem retirar
+  plataformas; o build público passou com 697,6 KiB gzip dentro do limite.
+  A revisão privada `ca44aa4` chegou ao espelho público como `34bcc8f`.
+  Verificação pública, Cloudflare Pages e GitHub Pages concluíram; o health
+  check manual `33183322321` aprovou páginas, indexação e API. A inspeção em
+  `https://13calendar.pages.dev/tools` confirmou o botão habilitado, o diálogo
+  publicado e nenhum erro de console.
 
 ## Pendências atuais
 
