@@ -1375,7 +1375,16 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   702,7 KiB com o mesmo conteúdo por diferença de versão do zlib. Por isso o
   orçamento compactado passou de 698,2 para 708,0 KiB, ainda abaixo do teto bruto
   de 3 MB e com margem explícita para evitar falsos negativos entre plataformas.
-  A revisão está pronta para commit e publicação.
+  A primeira sincronização pública desta revisão parou antes de copiar arquivos:
+  o pacote idêntico mediu 702,7 KiB no zlib do Linux, acima do teto anterior de
+  698,2 KiB, embora medisse 698,0 KiB localmente. Não houve falha funcional nem
+  de credencial. O commit privado `91564c8` fixou a margem multiplataforma e a
+  sincronização `33271782849` publicou o commit público `91890b7`. Verificação
+  privada e pública, GitHub Pages (`33271821430`), Cloudflare Pages
+  (`33271821995`) e o health check `33271878873` terminaram com sucesso. A
+  implantação Cloudflare é `3973ac5c.13calendar.pages.dev`; o alias principal
+  respondeu 200 em `/learn` e `/tools`, o GitHub Pages respondeu 200 e a inspeção
+  visual da produção não encontrou avisos ou erros no console.
 
 ## Pendências atuais
 
