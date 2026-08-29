@@ -41,17 +41,23 @@
             <span>{{ t('education.feedback.linkedProfile', { name: linkedProfileName }) }}</span>
           </div>
 
-          <div
+          <router-link
             v-if="!linkedProfileName && !communityCode"
             class="education-attribution-dialog__registration"
-            role="note"
+            :to="{ name: 'community', hash: '#community-registration' }"
+            @click="emit('update:modelValue', false)"
           >
             <q-icon name="person_add" aria-hidden="true" />
             <span>
               <strong>{{ t('community.joinTitle') }}</strong>
               <small>{{ t('community.joinDescription') }}</small>
             </span>
-          </div>
+            <q-icon
+              class="education-attribution-dialog__registration-arrow"
+              name="arrow_forward"
+              aria-hidden="true"
+            />
+          </router-link>
 
           <q-input
             v-model.trim="communityCode"
@@ -65,14 +71,6 @@
                 : t('education.feedback.communityCodeHint')
             "
           />
-
-          <router-link
-            :to="{ name: 'community', hash: '#community-registration' }"
-            @click="emit('update:modelValue', false)"
-          >
-            {{ t('education.feedback.communityProfiles') }}
-            <q-icon name="arrow_forward" aria-hidden="true" />
-          </router-link>
         </div>
 
         <p v-if="error" class="education-attribution-dialog__error" aria-live="polite">
@@ -239,12 +237,31 @@ function confirm() {
   background: var(--app-accent-purple-soft);
   border: 1px solid var(--app-accent-purple-border);
   border-radius: 14px;
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.education-attribution-dialog__registration:hover,
+.education-attribution-dialog__registration:focus-visible {
+  border-color: var(--app-accent-purple-strong);
+  box-shadow: 0 10px 26px rgb(99 102 241 / 16%);
+  outline: none;
+  transform: translateY(-1px);
 }
 
 .education-attribution-dialog__registration > .q-icon {
   flex: none;
   margin-top: 1px;
   font-size: 22px;
+}
+
+.education-attribution-dialog__registration > .education-attribution-dialog__registration-arrow {
+  align-self: center;
+  margin-inline-start: auto;
+  font-size: 18px;
 }
 
 .education-attribution-dialog__registration span,
@@ -262,17 +279,6 @@ function confirm() {
   color: var(--app-text-muted);
   font-size: 11px;
   line-height: 1.5;
-}
-
-.education-attribution-dialog__community > a {
-  justify-self: start;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--app-primary-text);
-  font-size: 12px;
-  font-weight: 700;
-  text-decoration: none;
 }
 
 .education-attribution-dialog__error {

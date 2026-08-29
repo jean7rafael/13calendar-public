@@ -40,9 +40,30 @@
 
     <q-card flat bordered class="education-moon__live">
       <q-card-section class="education-moon__live-heading">
-        <div>
-          <h3>{{ t('education.moon.liveTitle', { year: selectedYear }) }}</h3>
+        <div class="education-moon__live-copy">
+          <h3>{{ translateMoonPhase(selectedPhase) }} · {{ selectedYear }}</h3>
           <p>{{ t('education.moon.liveText') }}</p>
+        </div>
+
+        <div
+          class="education-moon__phase-filter"
+          role="radiogroup"
+          :aria-label="t('panels.moonPhases')"
+        >
+          <button
+            v-for="phase in phaseOptions"
+            :key="phase"
+            type="button"
+            role="radio"
+            :aria-label="translateMoonPhase(phase)"
+            :aria-checked="selectedPhase === phase"
+            :class="{ 'education-moon__phase-filter-button--active': selectedPhase === phase }"
+            @click="selectedPhase = phase"
+          >
+            <span aria-hidden="true">{{ getMoonPhaseEmoji(phase) }}</span>
+            <span class="education-moon__phase-filter-label">{{ translateMoonPhase(phase) }}</span>
+            <q-tooltip>{{ translateMoonPhase(phase) }}</q-tooltip>
+          </button>
         </div>
 
         <AppYearInput
@@ -62,9 +83,9 @@
           <q-spinner color="primary" size="28px" />
         </div>
 
-        <div v-else-if="fullMoonPositions.length" class="education-moon__positions" role="list">
-          <article v-for="position in fullMoonPositions" :key="position.instant" role="listitem">
-            <span class="education-moon__phase" aria-hidden="true">🌕</span>
+        <div v-else-if="moonPhasePositions.length" class="education-moon__positions" role="list">
+          <article v-for="position in moonPhasePositions" :key="position.instant" role="listitem">
+            <span class="education-moon__phase" aria-hidden="true">{{ position.emoji }}</span>
             <div>
               <strong>{{ position.fixedTitle }}</strong>
               <span>{{ position.gregorianTitle }}</span>
@@ -73,7 +94,7 @@
           </article>
         </div>
 
-        <p v-else class="education-moon__empty">{{ t('education.moon.noFullMoons') }}</p>
+        <p v-else class="education-moon__empty">{{ t('panels.noMoonPhases') }}</p>
       </q-card-section>
     </q-card>
 
@@ -115,6 +136,7 @@ import { useCalendarTranslations } from 'src/composables/useCalendarTranslations
 import AppNoticePanel from 'src/components/AppNoticePanel.vue';
 import AppYearInput from 'src/components/AppYearInput.vue';
 import { obterFasesLuaDoAno } from 'src/utils/fasesLua';
+import { getMoonPhaseEmoji } from 'src/utils/moonPhaseMarkers';
 import { buildDateComparisonPresentation } from 'src/utils/calendarTools';
 
 defineProps({
@@ -125,11 +147,13 @@ defineProps({
 });
 
 const { t, locale } = useI18n({ useScope: 'global' });
-const { months13Long, weekDaysComparison } = useCalendarTranslations();
+const { months13Long, weekDaysComparison, translateMoonPhase } = useCalendarTranslations();
 
 const selectedYear = ref(new Date().getFullYear());
+const selectedPhase = ref('Cheia');
 const loading = ref(true);
-const fullMoons = ref([]);
+const moonPhases = ref([]);
+const phaseOptions = Object.freeze(['Nova', 'Crescente', 'Cheia', 'Minguante']);
 
 const measures = computed(() => [
   { label: t('education.moon.fixedMonth'), value: localeNumber(28, 0), width: '93.6%' },
@@ -156,11 +180,11 @@ function localeNumber(value, maximumFractionDigits) {
   }).format(value);
 }
 
-async function loadFullMoons(year) {
+async function loadMoonPhases(year) {
   const numericYear = Number(year);
 
   if (!Number.isInteger(numericYear) || numericYear < 1600 || numericYear > 2600) {
-    fullMoons.value = [];
+    moonPhases.value = [];
     loading.value = false;
     return;
   }
@@ -168,8 +192,7 @@ async function loadFullMoons(year) {
   loading.value = true;
 
   try {
-    const phases = await obterFasesLuaDoAno(numericYear);
-    fullMoons.value = phases.filter((phase) => phase.fase === 'Cheia');
+    moonPhases.value = await obterFasesLuaDoAno(numericYear);
   } finally {
     loading.value = false;
   }
@@ -205,12 +228,15 @@ function createMoonPosition(phase) {
       hour: '2-digit',
       minute: '2-digit',
     }).format(instantDate),
+    emoji: getMoonPhaseEmoji(phase.fase),
   };
 }
 
-const fullMoonPositions = computed(() => fullMoons.value.map(createMoonPosition));
+const moonPhasePositions = computed(() =>
+  moonPhases.value.filter((phase) => phase.fase === selectedPhase.value).map(createMoonPosition),
+);
 
-watch(selectedYear, loadFullMoons, { immediate: true });
+watch(selectedYear, loadMoonPhases, { immediate: true });
 </script>
 
 <style scoped>
@@ -320,16 +346,53 @@ watch(selectedYear, loadFullMoons, { immediate: true });
 }
 
 .education-moon__live-heading {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto 120px;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
+  gap: 18px;
   padding: 24px;
+}
+
+.education-moon__live-copy {
+  min-width: 0;
 }
 
 .education-moon__year {
   width: 120px;
-  flex: 0 0 auto;
+}
+
+.education-moon__phase-filter {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.education-moon__phase-filter button {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  color: var(--app-text-muted);
+  background: var(--app-surface-raised);
+  border: 1px solid var(--app-border);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.education-moon__phase-filter button:hover,
+.education-moon__phase-filter button:focus-visible,
+.education-moon__phase-filter-button--active {
+  color: var(--app-primary-text) !important;
+  background: var(--app-primary-soft) !important;
+  border-color: var(--app-accent-purple-border) !important;
+  outline: none;
 }
 
 .education-moon__loading {
@@ -416,13 +479,44 @@ watch(selectedYear, loadFullMoons, { immediate: true });
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 900px) {
   .education-moon__live-heading {
-    flex-direction: column;
+    grid-template-columns: minmax(180px, 1fr) auto 112px;
+    gap: 12px;
   }
 
   .education-moon__year {
+    width: 112px;
+  }
+
+  .education-moon__phase-filter button {
+    width: 32px;
+    min-width: 32px;
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .education-moon__phase-filter-label {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .education-moon__live-heading {
+    grid-template-columns: minmax(0, 1fr) 108px;
+  }
+
+  .education-moon__phase-filter {
+    grid-column: 1 / -1;
+    grid-row: 2;
     width: 100%;
+    justify-content: flex-start;
+  }
+
+  .education-moon__year {
+    grid-column: 2;
+    grid-row: 1;
+    width: 108px;
   }
 
   .education-moon__drift-line {

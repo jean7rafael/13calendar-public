@@ -47,6 +47,18 @@
 
     <div class="education-resources__grid" role="list">
       <article v-for="item in visibleItems" :key="item.url" role="listitem">
+        <div class="education-resources__brand" :title="item.publisher" aria-hidden="true">
+          <span>{{ publisherInitials(item.publisher) }}</span>
+          <img
+            :src="sourceLogoUrl(item)"
+            alt=""
+            width="32"
+            height="32"
+            loading="lazy"
+            @error="handleLogoError($event, item)"
+          />
+        </div>
+
         <div class="education-resources__meta">
           <q-chip dense square color="primary" text-color="white">
             {{ t(`education.resources.types.${item.type}`) }}
@@ -133,6 +145,31 @@ function formatPublishedDate(isoDate) {
     timeZone: 'UTC',
   }).format(new Date(Date.UTC(year, month - 1, day)));
 }
+
+function sourceLogoUrl(item) {
+  return `${new URL(item.url).origin}/favicon.ico`;
+}
+
+function handleLogoError(event, item) {
+  const image = event.currentTarget;
+
+  if (!image.dataset.fallback) {
+    image.dataset.fallback = 'google';
+    image.src = `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(item.url)}&sz=128`;
+    return;
+  }
+
+  image.hidden = true;
+}
+
+function publisherInitials(publisher) {
+  return publisher
+    .split(/\s+/u)
+    .slice(0, 2)
+    .map((part) => Array.from(part)[0])
+    .join('')
+    .toLocaleUpperCase(locale.value);
+}
 </script>
 
 <style scoped>
@@ -158,6 +195,7 @@ function formatPublishedDate(isoDate) {
 }
 
 .education-resources__grid article {
+  position: relative;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -168,6 +206,36 @@ function formatPublishedDate(isoDate) {
   box-shadow: 0 8px 24px rgb(15 23 42 / 4%);
 }
 
+.education-resources__brand {
+  position: absolute;
+  top: 18px;
+  inset-inline-end: 18px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--app-text-muted);
+  background: #fff;
+  border: 1px solid var(--app-border-strong);
+  border-radius: 11px;
+  box-shadow: 0 6px 16px rgb(15 23 42 / 10%);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.education-resources__brand > span,
+.education-resources__brand > img {
+  grid-area: 1 / 1;
+}
+
+.education-resources__brand > img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
 .education-resources__meta {
   display: flex;
   flex-wrap: wrap;
@@ -175,6 +243,7 @@ function formatPublishedDate(isoDate) {
   gap: 8px;
   color: var(--app-text-faint);
   font-size: 10px;
+  padding-inline-end: 48px;
 }
 
 .education-resources__meta .q-chip {
@@ -184,6 +253,7 @@ function formatPublishedDate(isoDate) {
 
 .education-resources__grid h3 {
   margin: 18px 0 9px;
+  padding-inline-end: 58px;
   font-size: 18px;
   line-height: 1.35;
 }

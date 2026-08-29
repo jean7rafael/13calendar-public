@@ -180,7 +180,7 @@
   A navegação anual reserva o lugar de Hoje para manter `‹ ano ›` centralizado.
 - A grade anual ocupa até 1700 px e mantém sete colunas somente a partir de
   1580 px; antes de as abreviações se sobreporem, passa a quatro e, até 860 px,
-  a duas. Os cabeçalhos usam fonte de 6 px. O dia atual usa fundo translúcido
+  a duas. Os cabeçalhos usam fonte de 8 px. O dia atual usa fundo translúcido
   roxo escuro ou rosa escuro no domingo, com contraste nos dois temas. Solaris
   mantém os dias úteis na cor normal do tema.
 - A página Aprenda conserva cinco fatos estruturais, mês modelo com título
@@ -268,7 +268,7 @@
 
 ## Estado atual
 
-- **Última atividade:** 2026-08-28.
+- **Última atividade:** 2026-08-29.
 - Em 2026-08-11, a pasta `Programas de Programador` foi transferida do Desktop
   sincronizado pelo OneDrive para `/Users/jean7rafael/Downloads`. O repositório
   ativo deste aplicativo passou a ficar em
@@ -1199,7 +1199,7 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   lint, interface, educação, comunidade, conversões, build, limite do pacote,
   feriados e dependências de produção sem vulnerabilidades.
 - A revisão seguinte ampliou a grade anual até 1700 px e antecipou suas quebras
-  para 1579 e 860 px, com cabeçalhos de 6 px e sem colisão em 1900, 1580, 1579,
+  para 1579 e 860 px, com cabeçalhos de 8 px e sem colisão em 1900, 1580, 1579,
   1000, 861, 860, 699 e 390 px. O destaque do dia atual passou a usar roxo
   escuro translúcido ou rosa escuro translúcido aos domingos; Solaris preserva
   a cor normal dos dias úteis. A resolução de implantação virou uma seção
@@ -1349,6 +1349,33 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   `/learn`, `/community`, nos novos pacotes e nos endpoints
   `/feedback/votes`, `/members` e `/analytics/stats`; os pacotes publicados
   contêm a âncora `#community-registration` e a mensagem da credencial lembrada.
+- Em 29 de agosto, o aviso de cadastro do diálogo de voto/relato virou o próprio
+  link para a âncora comunitária e o apontamento textual redundante foi
+  removido. As comparações passaram a preservar cedilhas, acentos e hastes
+  inferiores na própria caixa tipográfica, sem usar distância excessiva como
+  correção: o espaço entre as duas linhas é de 4 px no desktop e no widget e de
+  3 px no celular. A medição de Aprenda e do widget nos 12 idiomas não encontrou
+  recorte, transbordamento ou diferença entre os lados. As abreviações dos mini
+  calendários passaram de 6 para 8 px. Ferramentas oferece os 12 conteúdos
+  distintos na ordem editorial definida pelo mantenedor, divididos em quatro
+  coloridos, quatro claros e quatro escuros, com as quatro cores do tema. O
+  carrossel mantém três visíveis no desktop, altura fixa de 390 px, setas
+  circulares, fila para cliques rápidos e loop infinito contínuo nos dois
+  sentidos; rajadas de 25 cliques foram testadas sem travamento. Títulos e corpos
+  reservam linhas completas iguais, inclusive o título de três linhas da Kodak,
+  e os botões seguem respectivamente os padrões primário, terciário e secundário.
+  Os arquivos continuam em 1080 × 1080 e todos os cards exibem ícone no topo,
+  também reproduzido no PNG. Lua alterna as quatro fases por filtros entre título
+  e ano; abaixo de 900 px o texto recolhe, permanecendo emoji com tooltip
+  traduzida. Notícias exibe a marca de cada fonte numa caixa superior padronizada
+  e todos os títulos reservam a mesma faixa horizontal para não colidir com ela.
+  A inspeção local confirmou fases, loop, alturas, botões, 11 marcas e tipografia.
+  `npm run verify` passou integralmente, com 698,0 KiB gzip local e zero
+  vulnerabilidades; `git diff --check` também passou. O runner Linux produz até
+  702,7 KiB com o mesmo conteúdo por diferença de versão do zlib. Por isso o
+  orçamento compactado passou de 698,2 para 708,0 KiB, ainda abaixo do teto bruto
+  de 3 MB e com margem explícita para evitar falsos negativos entre plataformas.
+  A revisão está pronta para commit e publicação.
 
 ## Pendências atuais
 

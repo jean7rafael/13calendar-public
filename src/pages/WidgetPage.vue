@@ -2,13 +2,13 @@
   <div class="widget-page">
     <main>
       <div class="widget-page__brand" aria-hidden="true">13</div>
-      <div class="widget-page__date">
+      <div class="widget-page__date" :class="comparisonFitClasses">
         <span>{{ t('education.hero.gregorian') }}</span>
         <AppComparisonDateTitle :title="gregorianTitle" />
         <small>{{ comparisonYear }}</small>
       </div>
       <div class="widget-page__divider" aria-hidden="true">↔</div>
-      <div class="widget-page__date widget-page__date--fixed">
+      <div class="widget-page__date widget-page__date--fixed" :class="comparisonFitClasses">
         <span>{{ t('education.hero.fixed') }}</span>
         <AppComparisonDateTitle :title="fixedTitle" />
         <small>{{ comparisonYear }}</small>
@@ -27,7 +27,7 @@ import { useRoute } from 'vue-router';
 import { useMeta, useQuasar } from 'quasar';
 import AppComparisonDateTitle from 'src/components/AppComparisonDateTitle.vue';
 import { useCalendarTranslations } from 'src/composables/useCalendarTranslations';
-import { buildDateComparisonPresentation } from 'src/utils/calendarTools';
+import { buildDateComparisonPresentation, splitComparisonTitle } from 'src/utils/calendarTools';
 
 const supportedLocales = new Set([
   'pt-BR',
@@ -77,6 +77,28 @@ const comparison = computed(() =>
 const gregorianTitle = computed(() => comparison.value?.gregorianTitle || '');
 const fixedTitle = computed(() => comparison.value?.fixedTitle || '');
 const comparisonYear = computed(() => comparison.value?.year || '');
+const comparisonFitClasses = computed(() => {
+  const titleParts = [gregorianTitle.value, fixedTitle.value]
+    .map((title) => splitComparisonTitle(title))
+    .filter(Boolean);
+
+  return [
+    `widget-page__date--weekday-${comparisonFitTier(titleParts.map(({ weekday }) => weekday))}`,
+    `widget-page__date--calendar-${comparisonFitTier(titleParts.map(({ date }) => date))}`,
+  ];
+});
+
+function comparisonFitTier(values) {
+  const maximumLength = Math.max(
+    0,
+    ...values.map((value) => Array.from(String(value || '').replace(/\s/gu, '')).length),
+  );
+
+  if (maximumLength >= 11) return 'dense';
+  if (maximumLength >= 8) return 'compact';
+
+  return 'regular';
+}
 
 onMounted(() => {
   const requestedLocale = String(route.query.lang || '');
@@ -156,11 +178,27 @@ onBeforeUnmount(() => window.clearInterval(clockInterval));
   text-transform: uppercase;
 }
 
-.widget-page__date > strong {
-  min-height: 2.5em;
+.widget-page__date :deep(.app-comparison-date-title) {
+  --app-comparison-date-row-gap: 4px;
+
+  min-height: 2.8em;
   font-size: clamp(14px, 3vw, 19px);
-  line-height: 1.25;
   white-space: normal;
+}
+
+.widget-page__date :deep(.app-comparison-date-title > span:first-child),
+.widget-page__date :deep(.app-comparison-date-title > span:last-child) {
+  font-size: 1em;
+}
+
+.widget-page__date--weekday-compact :deep(.app-comparison-date-title > span:first-child),
+.widget-page__date--calendar-compact :deep(.app-comparison-date-title > span:last-child) {
+  font-size: 0.9em;
+}
+
+.widget-page__date--weekday-dense :deep(.app-comparison-date-title > span:first-child),
+.widget-page__date--calendar-dense :deep(.app-comparison-date-title > span:last-child) {
+  font-size: 0.8em;
 }
 
 .widget-page__date small {
@@ -170,7 +208,7 @@ onBeforeUnmount(() => window.clearInterval(clockInterval));
   line-height: 1.4;
 }
 
-.widget-page__date--fixed strong {
+.widget-page__date--fixed :deep(.app-comparison-date-title) {
   color: var(--app-primary-text);
 }
 

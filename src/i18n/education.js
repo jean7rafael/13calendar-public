@@ -354,6 +354,8 @@ const english = {
         'From 1928 to 1989, Kodak used the system internally for accounting and planning while keeping Gregorian dates outside.',
       download: 'Download card',
       downloaded: 'Editorial card downloaded.',
+      previousCard: 'Previous card',
+      nextCard: 'Next card',
     },
     cta: {
       title: 'Free tools, without an account',
@@ -708,6 +710,8 @@ const portuguese = {
         'De 1928 a 1989, a Kodak usou o sistema internamente na contabilidade e no planejamento, mantendo datas gregorianas externamente.',
       download: 'Baixar cartão',
       downloaded: 'Cartão editorial baixado.',
+      previousCard: 'Cartão anterior',
+      nextCard: 'Próximo cartão',
     },
     cta: {
       title: 'Ferramentas gratuitas, sem conta',

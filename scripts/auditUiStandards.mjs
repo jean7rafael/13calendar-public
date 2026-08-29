@@ -413,7 +413,7 @@ for (const [surfaceName, source] of [
 }
 
 if (
-  !widgetPage.includes('min-height: 2.5em') ||
+  !widgetPage.includes('min-height: 2.8em') ||
   !widgetPage.includes('align-items: flex-end') ||
   !widgetPage.includes('justify-items: center') ||
   !widgetPage.includes('white-space: normal') ||

@@ -42,9 +42,11 @@ function fitClass(value) {
   width: 100%;
   min-width: 0;
   display: grid;
+  grid-template-rows: repeat(2, max-content);
   grid-auto-flow: row;
   justify-items: center;
   align-content: center;
+  row-gap: var(--app-comparison-date-row-gap, 6px);
   box-sizing: border-box;
   white-space: normal;
 }
@@ -52,11 +54,16 @@ function fitClass(value) {
 .app-comparison-date-title > span {
   width: 100%;
   min-width: 0;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   max-width: 100%;
   overflow-wrap: normal;
+  padding-block: 0.04em 0.08em;
+  line-height: 1.2;
   text-align: center;
   word-break: normal;
   white-space: nowrap;
+  overflow: visible;
 }
 </style>

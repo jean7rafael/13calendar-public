@@ -160,6 +160,8 @@ export const localizedToolMessages = {
         'De 1928 a 1989, Kodak lo usó internamente para contabilidad y planificación, manteniendo las fechas gregorianas fuera de la empresa.',
       download: 'Descargar tarjeta',
       downloaded: 'Tarjeta editorial descargada.',
+      previousCard: 'Tarjeta anterior',
+      nextCard: 'Tarjeta siguiente',
     },
     cta: {
       title: 'Herramientas gratuitas, sin cuenta',
@@ -319,6 +321,8 @@ export const localizedToolMessages = {
         'De 1928 à 1989, Kodak l’a utilisé en interne pour la comptabilité et la planification, tout en gardant les dates grégoriennes à l’extérieur.',
       download: 'Télécharger la carte',
       downloaded: 'Carte éditoriale téléchargée.',
+      previousCard: 'Carte précédente',
+      nextCard: 'Carte suivante',
     },
     cta: {
       title: 'Des outils gratuits, sans compte',
@@ -477,6 +481,8 @@ export const localizedToolMessages = {
         'Von 1928 bis 1989 nutzte Kodak ihn intern für Buchhaltung und Planung, während extern gregorianische Daten galten.',
       download: 'Karte herunterladen',
       downloaded: 'Redaktionelle Karte heruntergeladen.',
+      previousCard: 'Vorherige Karte',
+      nextCard: 'Nächste Karte',
     },
     cta: {
       title: 'Kostenlose Werkzeuge, ohne Konto',
@@ -633,6 +639,8 @@ export const localizedToolMessages = {
         'Dal 1928 al 1989 Kodak lo ha usato internamente per contabilità e pianificazione, mantenendo fuori le date gregoriane.',
       download: 'Scarica scheda',
       downloaded: 'Scheda editoriale scaricata.',
+      previousCard: 'Scheda precedente',
+      nextCard: 'Scheda successiva',
     },
     cta: {
       title: 'Strumenti gratuiti, senza account',
@@ -789,6 +797,8 @@ export const localizedToolMessages = {
         'С 1928 по 1989 год Kodak применяла его внутри компании для учёта и планирования, сохраняя внешние григорианские даты.',
       download: 'Скачать карточку',
       downloaded: 'Редакционная карточка скачана.',
+      previousCard: 'Предыдущая карточка',
+      nextCard: 'Следующая карточка',
     },
     cta: {
       title: 'Бесплатные инструменты без аккаунта',
@@ -941,6 +951,8 @@ export const localizedToolMessages = {
       kodakText: '1928至1989年间，柯达内部将其用于会计和规划，对外仍使用公历日期。',
       download: '下载卡片',
       downloaded: '知识卡片已下载。',
+      previousCard: '上一张卡片',
+      nextCard: '下一张卡片',
     },
     cta: {
       title: '免费工具，无需账户',
@@ -1093,6 +1105,8 @@ export const localizedToolMessages = {
       kodakText: '1928年から1989年まで、Kodakは社内の会計と計画に使い、社外ではグレゴリオ暦を維持しました。',
       download: 'カードをダウンロード',
       downloaded: '解説カードをダウンロードしました。',
+      previousCard: '前のカード',
+      nextCard: '次のカード',
     },
     cta: {
       title: '登録不要の無料ツール',
@@ -1248,6 +1262,8 @@ export const localizedToolMessages = {
       kodakText: 'بين 1928 و1989 استخدمته كوداك داخليًا للمحاسبة والتخطيط مع إبقاء التواريخ الميلادية خارجيًا.',
       download: 'تنزيل البطاقة',
       downloaded: 'تم تنزيل البطاقة التحريرية.',
+      previousCard: 'البطاقة السابقة',
+      nextCard: 'البطاقة التالية',
     },
     cta: {
       title: 'أدوات مجانية بلا حساب',
@@ -1401,6 +1417,8 @@ export const localizedToolMessages = {
       kodakText: '1928 से 1989 तक Kodak ने इसे लेखांकन और योजना में भीतर उपयोग किया, बाहर ग्रेगोरियन तारीखें रखीं।',
       download: 'कार्ड डाउनलोड करें',
       downloaded: 'संपादकीय कार्ड डाउनलोड हो गया।',
+      previousCard: 'पिछला कार्ड',
+      nextCard: 'अगला कार्ड',
     },
     cta: {
       title: 'बिना खाते के निःशुल्क उपकरण',
@@ -1553,6 +1571,8 @@ export const localizedToolMessages = {
       kodakText: '1928년부터 1989년까지 Kodak은 내부 회계와 계획에 이를 쓰고 외부에는 그레고리력 날짜를 유지했습니다.',
       download: '카드 다운로드',
       downloaded: '편집 카드를 다운로드했습니다.',
+      previousCard: '이전 카드',
+      nextCard: '다음 카드',
     },
     cta: {
       title: '계정 없는 무료 도구',

@@ -12,7 +12,8 @@ import { gzipSync } from 'node:zlib';
 
 const limits = {
   totalRaw: 3_000_000,
-  totalGzip: 715_000,
+  // Reserva a variação observada entre as versões do zlib do macOS e do runner Linux.
+  totalGzip: 725_000,
   largestRaw: 1_900_000,
   largestGzip: 360_000,
 };

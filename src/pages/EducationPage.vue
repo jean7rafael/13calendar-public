@@ -515,7 +515,7 @@ function isCurrentFixedDay(month, day) {
 .education-today__calendar {
   min-width: 0;
   display: grid;
-  grid-template-rows: 48px minmax(112px, auto) 28px 44px;
+  grid-template-rows: 48px minmax(124px, auto) 28px 44px;
   align-items: center;
   text-align: center;
 }
@@ -540,9 +540,10 @@ function isCurrentFixedDay(month, day) {
 }
 
 .education-today__calendar :deep(.app-comparison-date-title) {
-  min-height: 112px;
+  --app-comparison-date-row-gap: 4px;
+
+  min-height: 124px;
   display: grid;
-  gap: 4px;
   place-items: center;
   align-content: center;
   font-weight: 800;
@@ -550,7 +551,7 @@ function isCurrentFixedDay(month, day) {
 
 .education-today__calendar :deep(.app-comparison-date-title > span:first-child) {
   font-size: clamp(27px, 4vw, 48px);
-  line-height: 1.05;
+  line-height: 1.18;
   letter-spacing: -0.035em;
 }
 
@@ -569,7 +570,7 @@ function isCurrentFixedDay(month, day) {
 .education-today__calendar :deep(.app-comparison-date-title > span:last-child) {
   color: var(--app-text);
   font-size: clamp(21px, 3vw, 36px);
-  line-height: 1.12;
+  line-height: 1.2;
   letter-spacing: -0.025em;
 }
 
@@ -908,7 +909,7 @@ function isCurrentFixedDay(month, day) {
   padding-block: 2px;
   overflow: hidden;
   color: var(--app-text-faint);
-  font-size: 6px;
+  font-size: 8px;
   letter-spacing: -0.04em;
   text-align: center;
   text-overflow: clip;
@@ -1147,7 +1148,7 @@ function isCurrentFixedDay(month, day) {
   }
 
   .education-today__calendar {
-    grid-template-rows: 42px minmax(84px, auto) 24px 38px;
+    grid-template-rows: 42px minmax(94px, auto) 24px 38px;
   }
 
   .education-today__calendar > span {
@@ -1156,7 +1157,9 @@ function isCurrentFixedDay(month, day) {
   }
 
   .education-today__calendar :deep(.app-comparison-date-title) {
-    min-height: 84px;
+    --app-comparison-date-row-gap: 3px;
+
+    min-height: 94px;
   }
 
   .education-today__calendar :deep(.app-comparison-date-title > span:first-child) {
@@ -1242,7 +1245,7 @@ function isCurrentFixedDay(month, day) {
   }
 
   .education-year__weekdays span {
-    font-size: 6px;
+    font-size: 8px;
   }
 
   .education-cta {
