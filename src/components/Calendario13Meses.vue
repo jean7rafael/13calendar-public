@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-pa-md custom-calendar">
+  <q-card class="q-pa-md custom-calendar app-no-double-tap" @dblclick.prevent>
     <div class="calendar-card-title">
       {{ $t('calendar.fixedCalendarTitle') }}
     </div>

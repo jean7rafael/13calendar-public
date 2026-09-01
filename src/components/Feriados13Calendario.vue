@@ -1,5 +1,5 @@
 <template>
-  <q-card class="fases-lua">
+  <q-card class="fases-lua app-no-double-tap" @dblclick.prevent>
     <!-- Cabeçalho -->
     <q-item class="linha-cabecalho no-wrap">
       <q-item-section class="cabeçalho-nome" side>

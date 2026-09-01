@@ -97,7 +97,7 @@
           />
         </div>
 
-        <div class="education-feedback__share">
+        <div class="education-feedback__share app-action-group">
           <q-btn
             no-caps
             unelevated
@@ -473,10 +473,10 @@ onMounted(loadFeedback);
 }
 
 .education-feedback__share {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
+  --app-action-group-max: 520px;
+  --app-action-min-width: 220px;
+
+  margin-inline: auto;
   margin-top: 18px;
 }
 

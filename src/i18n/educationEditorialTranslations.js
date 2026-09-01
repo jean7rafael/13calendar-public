@@ -37,37 +37,63 @@ export const localizedEditorialMessages = {
     },
     moon: {
       driftTitle: 'Aproximadamente 1,53 días de desplazamiento por mes',
-      driftText: 'Si hubiera Luna nueva el mes 1, día 1, la siguiente llegaría cerca del mes 2, día 2,53, y la diferencia seguiría acumulándose.',
-      liveText: 'Estas posiciones se calculan ahora con Astronomy Engine y se convierten con el motor IFC compartido del proyecto.',
+      driftText:
+        'Si hubiera Luna nueva el mes 1, día 1, la siguiente llegaría cerca del mes 2, día 2,53, y la diferencia seguiría acumulándose.',
+      liveText:
+        'Estas posiciones se calculan ahora con Astronomy Engine y se convierten con el motor IFC compartido del proyecto.',
       phasePosition: '{gregorian} · {fixed}',
       specialPosition: '{gregorian} · {specialDay}',
       exactTitle: 'Un instante exacto, mostrado en tu zona horaria',
-      exactText: 'Una fase nombrada es un instante astronómico. Su apariencia visible cambia gradualmente durante varias noches y su fecha local puede variar según la zona horaria.',
+      exactText:
+        'Una fase nombrada es un instante astronómico. Su apariencia visible cambia gradualmente durante varias noches y su fecha local puede variar según la zona horaria.',
       claimsTitle: 'La astronomía no es un protocolo de salud',
-      claimsText: 'El proyecto no afirma que las fases lunares desintoxiquen el cuerpo, controlen hormonas, traten parásitos o impongan un ciclo menstrual universal. Las tradiciones culturales solo se describen cuando están claramente separadas de la evidencia científica.',
+      claimsText:
+        'El proyecto no afirma que las fases lunares desintoxiquen el cuerpo, controlen hormonas, traten parásitos o impongan un ciclo menstrual universal. Las tradiciones culturales solo se describen cuando están claramente separadas de la evidencia científica.',
     },
     history: {
-      description: 'El calendario fijo se desarrolló como una reforma civil moderna. Sus ventajas eran reales, pero también lo eran los problemas de coordinación y las objeciones religiosas.',
+      description:
+        'El calendario fijo se desarrolló como una reforma civil moderna. Sus ventajas eran reales, pero también lo eran los problemas de coordinación y las objeciones religiosas.',
       events: [
-        { year: '1902', title: 'Cotsworth publica la propuesta', text: 'Moses B. Cotsworth presenta un plan de 13 meses iguales.' },
-        { year: '1923', title: 'La reforma del calendario gana una organización', text: 'George Eastman apoya la Liga del Calendario Fijo Internacional.' },
-        { year: '1928–1989', title: 'Kodak lo usa internamente', text: 'Kodak mantuvo el sistema para contabilidad y planificación mientras usaba fechas gregorianas externamente.' },
-        { year: '1937', title: 'La reforma internacional pierde impulso', text: 'Las objeciones religiosas a los días fuera del ciclo semanal fueron un obstáculo central.' },
+        {
+          year: '1902',
+          title: 'Cotsworth publica la propuesta',
+          text: 'Moses B. Cotsworth presenta un plan de 13 meses iguales.',
+        },
+        {
+          year: '1923',
+          title: 'La reforma del calendario gana una organización',
+          text: 'George Eastman apoya la Liga del Calendario Fijo Internacional.',
+        },
+        {
+          year: '1928–1989',
+          title: 'Kodak lo usa internamente',
+          text: 'Kodak mantuvo el sistema para contabilidad y planificación mientras usaba fechas gregorianas externamente.',
+        },
+        {
+          year: '1937',
+          title: 'La reforma internacional pierde impulso',
+          text: 'Las objeciones religiosas a los días fuera del ciclo semanal fueron un obstáculo central.',
+        },
       ],
     },
     sabbath: {
       title: '¿Qué ocurre con el ciclo ininterrumpido de siete días?',
-      intro: 'El Día del Año y el Día Bisiesto fuera de la semana civil hacen predecible cada fecha regular, pero entran en conflicto con tradiciones que cuentan cada séptimo amanecer sin interrupción.',
+      intro:
+        'El Día del Año y el Día Bisiesto fuera de la semana civil hacen predecible cada fecha regular, pero entran en conflicto con tradiciones que cuentan cada séptimo amanecer sin interrupción.',
       civilTitle: 'Días fijos de la semana civil',
-      civilText: 'Mantener los días especiales fuera de la semana civil hace que las fechas mensuales permanezcan siempre alineadas.',
+      civilText:
+        'Mantener los días especiales fuera de la semana civil hace que las fechas mensuales permanezcan siempre alineadas.',
       continuousTitle: 'Cuenta continua de siete días',
-      continuousText: 'Asignar un día de la semana a cada día transcurrido mantiene alineados el conteo religioso y el civil, pero desplaza los días mensuales después de un Día Especial.',
-      conclusion: 'Esta es una elección social auténtica, no un problema que las matemáticas puedan resolver para todos.',
+      continuousText:
+        'Asignar un día de la semana a cada día transcurrido mantiene alineados el conteo religioso y el civil, pero desplaza los días mensuales después de un Día Especial.',
+      conclusion:
+        'Esta es una elección social auténtica, no un problema que las matemáticas puedan resolver para todos.',
     },
     sources: {
       eyebrow: 'Metodología',
       title: 'Fuentes antes que certezas',
-      description: 'Las conversiones se prueban localmente, las fases lunares proceden de Astronomy Engine y las afirmaciones educativas enlazan fuentes primarias o autorizadas.',
+      description:
+        'Las conversiones se prueban localmente, las fases lunares proceden de Astronomy Engine y las afirmaciones educativas enlazan fuentes primarias o autorizadas.',
       nasa: 'Fases lunares de la NASA',
       calendarPolicy: 'Convención del calendario',
       productRoadmap: 'Política del producto y de la Luna',
@@ -75,16 +101,19 @@ export const localizedEditorialMessages = {
     resources: {
       eyebrow: 'Noticias y la web',
       title: 'Lo que otros publican sobre calendarios de 13 meses',
-      description: 'Una selección de reportajes, cobertura histórica, páginas de referencia y proyectos independientes. Los enlaces llevan al editor original; Google se usa solo para descubrir material nuevo.',
+      description:
+        'Una selección de reportajes, cobertura histórica, páginas de referencia y proyectos independientes. Los enlaces llevan al editor original; Google se usa solo para descubrir material nuevo.',
       news: 'Artículos y reportajes',
       sites: 'Proyectos y sitios web',
       open: 'Abrir la fuente original',
       searchGoogle: 'Buscar el tema en Google',
       searchNews: 'Buscar cobertura reciente en Google News',
       updated: 'Lista revisada el {date}',
-      notice: 'Aparecer en la lista no supone respaldo. Las ofertas comerciales, opiniones y afirmaciones científicas siguen siendo responsabilidad de cada editor.',
+      notice:
+        'Aparecer en la lista no supone respaldo. Las ofertas comerciales, opiniones y afirmaciones científicas siguen siendo responsabilidad de cada editor.',
       types: {
         reporting: 'Reportaje',
+        discussion: 'Debate comunitario',
         historical: 'Cobertura histórica',
         explainer: 'Explicación',
         project: 'Proyecto independiente',
@@ -97,10 +126,22 @@ export const localizedEditorialMessages = {
   'fr-FR': {
     idea: {
       facts: [
-        { title: '13 mois égaux', text: 'Chaque mois ordinaire compte exactement quatre semaines et suit la même disposition.' },
-        { title: 'Un mois nommé Solaris', text: 'Solaris est inséré entre juin et juillet sans renommer les autres mois.' },
-        { title: 'Jour de l’An', text: 'Le 365e jour vient après le 28 décembre et n’appartient à aucun mois ni jour de la semaine civile.' },
-        { title: 'Jour bissextile', text: 'Les années bissextiles, le 366e jour vient immédiatement après le Jour de l’An selon la convention de ce projet.' },
+        {
+          title: '13 mois égaux',
+          text: 'Chaque mois ordinaire compte exactement quatre semaines et suit la même disposition.',
+        },
+        {
+          title: 'Un mois nommé Solaris',
+          text: 'Solaris est inséré entre juin et juillet sans renommer les autres mois.',
+        },
+        {
+          title: 'Jour de l’An',
+          text: 'Le 365e jour vient après le 28 décembre et n’appartient à aucun mois ni jour de la semaine civile.',
+        },
+        {
+          title: 'Jour bissextile',
+          text: 'Les années bissextiles, le 366e jour vient immédiatement après le Jour de l’An selon la convention de ce projet.',
+        },
       ],
     },
     converter: {
@@ -111,38 +152,64 @@ export const localizedEditorialMessages = {
     },
     moon: {
       driftTitle: 'Environ 1,53 jour de décalage par mois',
-      driftText: 'Si une Nouvelle Lune avait lieu le mois 1, jour 1, la suivante arriverait vers le mois 2, jour 2,53, et l’écart continuerait de s’accumuler.',
-      liveText: 'Ces positions sont calculées avec Astronomy Engine puis converties par le moteur IFC partagé du projet.',
+      driftText:
+        'Si une Nouvelle Lune avait lieu le mois 1, jour 1, la suivante arriverait vers le mois 2, jour 2,53, et l’écart continuerait de s’accumuler.',
+      liveText:
+        'Ces positions sont calculées avec Astronomy Engine puis converties par le moteur IFC partagé du projet.',
       phasePosition: '{gregorian} · {fixed}',
       specialPosition: '{gregorian} · {specialDay}',
       exactTitle: 'Un instant exact, affiché dans votre fuseau horaire',
-      exactText: 'Une phase nommée est un instant astronomique. Son apparence visible évolue progressivement pendant plusieurs nuits et sa date locale peut varier selon le fuseau horaire.',
+      exactText:
+        'Une phase nommée est un instant astronomique. Son apparence visible évolue progressivement pendant plusieurs nuits et sa date locale peut varier selon le fuseau horaire.',
       claimsTitle: 'L’astronomie n’est pas un protocole de santé',
-      claimsText: 'Le projet n’affirme pas que les phases lunaires détoxifient le corps, contrôlent les hormones, traitent les parasites ou imposent un cycle menstruel universel. Les traditions culturelles ne sont décrites que lorsqu’elles sont clairement séparées des preuves scientifiques.',
+      claimsText:
+        'Le projet n’affirme pas que les phases lunaires détoxifient le corps, contrôlent les hormones, traitent les parasites ou imposent un cycle menstruel universel. Les traditions culturelles ne sont décrites que lorsqu’elles sont clairement séparées des preuves scientifiques.',
     },
     history: {
-      description: 'Le calendrier fixe a été conçu comme une réforme civile moderne. Ses avantages étaient réels, tout comme les difficultés de coordination et les objections religieuses.',
+      description:
+        'Le calendrier fixe a été conçu comme une réforme civile moderne. Ses avantages étaient réels, tout comme les difficultés de coordination et les objections religieuses.',
       events: [
-        { year: '1902', title: 'Cotsworth publie la proposition', text: 'Moses B. Cotsworth présente un plan de 13 mois égaux.' },
-        { year: '1923', title: 'La réforme du calendrier se dote d’une organisation', text: 'George Eastman soutient la Ligue internationale du calendrier fixe.' },
-        { year: '1928–1989', title: 'Kodak l’utilise en interne', text: 'Kodak conserve le système pour la comptabilité et la planification tout en utilisant les dates grégoriennes à l’extérieur.' },
-        { year: '1937', title: 'La réforme internationale perd son élan', text: 'Les objections religieuses aux jours hors du cycle hebdomadaire constituent un obstacle majeur.' },
+        {
+          year: '1902',
+          title: 'Cotsworth publie la proposition',
+          text: 'Moses B. Cotsworth présente un plan de 13 mois égaux.',
+        },
+        {
+          year: '1923',
+          title: 'La réforme du calendrier se dote d’une organisation',
+          text: 'George Eastman soutient la Ligue internationale du calendrier fixe.',
+        },
+        {
+          year: '1928–1989',
+          title: 'Kodak l’utilise en interne',
+          text: 'Kodak conserve le système pour la comptabilité et la planification tout en utilisant les dates grégoriennes à l’extérieur.',
+        },
+        {
+          year: '1937',
+          title: 'La réforme internationale perd son élan',
+          text: 'Les objections religieuses aux jours hors du cycle hebdomadaire constituent un obstacle majeur.',
+        },
       ],
     },
     sabbath: {
       title: 'Qu’en est-il du cycle ininterrompu de sept jours ?',
-      intro: 'Le Jour de l’An et le Jour bissextile hors de la semaine civile rendent chaque date ordinaire prévisible, mais s’opposent aux traditions qui comptent chaque septième lever de soleil sans interruption.',
+      intro:
+        'Le Jour de l’An et le Jour bissextile hors de la semaine civile rendent chaque date ordinaire prévisible, mais s’opposent aux traditions qui comptent chaque septième lever de soleil sans interruption.',
       civilTitle: 'Jours fixes de la semaine civile',
-      civilText: 'Garder les jours spéciaux hors de la semaine civile maintient les dates mensuelles définitivement alignées.',
+      civilText:
+        'Garder les jours spéciaux hors de la semaine civile maintient les dates mensuelles définitivement alignées.',
       continuousTitle: 'Décompte continu de sept jours',
-      continuousText: 'Attribuer un jour de semaine à chaque jour écoulé maintient les comptes religieux et civils alignés, mais décale les jours mensuels après un Jour spécial.',
-      conclusion: 'Il s’agit d’un véritable choix de société, pas d’un problème que les mathématiques peuvent résoudre pour tout le monde.',
+      continuousText:
+        'Attribuer un jour de semaine à chaque jour écoulé maintient les comptes religieux et civils alignés, mais décale les jours mensuels après un Jour spécial.',
+      conclusion:
+        'Il s’agit d’un véritable choix de société, pas d’un problème que les mathématiques peuvent résoudre pour tout le monde.',
     },
     feedback: { voteCount: '{count} voix | {count} voix' },
     sources: {
       eyebrow: 'Méthodologie',
       title: 'Les sources avant les certitudes',
-      description: 'Les conversions sont testées localement, les phases lunaires proviennent d’Astronomy Engine et les affirmations pédagogiques renvoient à des sources primaires ou faisant autorité.',
+      description:
+        'Les conversions sont testées localement, les phases lunaires proviennent d’Astronomy Engine et les affirmations pédagogiques renvoient à des sources primaires ou faisant autorité.',
       nasa: 'Phases de la Lune de la NASA',
       calendarPolicy: 'Convention du calendrier',
       productRoadmap: 'Politique du produit et de la Lune',
@@ -150,16 +217,19 @@ export const localizedEditorialMessages = {
     resources: {
       eyebrow: 'Actualités et web élargi',
       title: 'Ce que d’autres publient sur les calendriers de 13 mois',
-      description: 'Une sélection d’articles, de contenus historiques, de pages de référence et de projets indépendants. Les liens mènent à l’éditeur d’origine ; Google sert uniquement à découvrir de nouveaux contenus.',
+      description:
+        'Une sélection d’articles, de contenus historiques, de pages de référence et de projets indépendants. Les liens mènent à l’éditeur d’origine ; Google sert uniquement à découvrir de nouveaux contenus.',
       news: 'Articles et reportages',
       sites: 'Projets et sites web',
       open: 'Ouvrir la source originale',
       searchGoogle: 'Rechercher le sujet sur Google',
       searchNews: 'Rechercher les articles récents sur Google Actualités',
       updated: 'Liste vérifiée le {date}',
-      notice: 'La présence dans la liste ne constitue pas une approbation. Les offres commerciales, opinions et affirmations scientifiques restent sous la responsabilité de chaque éditeur.',
+      notice:
+        'La présence dans la liste ne constitue pas une approbation. Les offres commerciales, opinions et affirmations scientifiques restent sous la responsabilité de chaque éditeur.',
       types: {
         reporting: 'Reportage',
+        discussion: 'Discussion communautaire',
         historical: 'Contenu historique',
         explainer: 'Explication',
         project: 'Projet indépendant',
@@ -172,10 +242,22 @@ export const localizedEditorialMessages = {
   'de-DE': {
     idea: {
       facts: [
-        { title: '13 gleiche Monate', text: 'Jeder reguläre Monat hat genau vier Wochen und denselben Aufbau.' },
-        { title: 'Ein Monat namens Solaris', text: 'Solaris wird zwischen Juni und Juli eingefügt, ohne die übrigen Monate umzubenennen.' },
-        { title: 'Jahrestag', text: 'Der 365. Tag folgt auf den 28. Dezember und gehört weder zu einem Monat noch zu einem bürgerlichen Wochentag.' },
-        { title: 'Schalttag', text: 'In Schaltjahren folgt der 366. Tag nach der Konvention dieses Projekts unmittelbar auf den Jahrestag.' },
+        {
+          title: '13 gleiche Monate',
+          text: 'Jeder reguläre Monat hat genau vier Wochen und denselben Aufbau.',
+        },
+        {
+          title: 'Ein Monat namens Solaris',
+          text: 'Solaris wird zwischen Juni und Juli eingefügt, ohne die übrigen Monate umzubenennen.',
+        },
+        {
+          title: 'Jahrestag',
+          text: 'Der 365. Tag folgt auf den 28. Dezember und gehört weder zu einem Monat noch zu einem bürgerlichen Wochentag.',
+        },
+        {
+          title: 'Schalttag',
+          text: 'In Schaltjahren folgt der 366. Tag nach der Konvention dieses Projekts unmittelbar auf den Jahrestag.',
+        },
       ],
     },
     converter: {
@@ -186,37 +268,63 @@ export const localizedEditorialMessages = {
     },
     moon: {
       driftTitle: 'Etwa 1,53 Tage Verschiebung pro Monat',
-      driftText: 'Fände ein Neumond in Monat 1 an Tag 1 statt, läge der nächste ungefähr in Monat 2 an Tag 2,53 – und die Differenz würde weiter anwachsen.',
-      liveText: 'Diese Positionen werden mit Astronomy Engine berechnet und durch die gemeinsame IFC-Logik des Projekts umgerechnet.',
+      driftText:
+        'Fände ein Neumond in Monat 1 an Tag 1 statt, läge der nächste ungefähr in Monat 2 an Tag 2,53 – und die Differenz würde weiter anwachsen.',
+      liveText:
+        'Diese Positionen werden mit Astronomy Engine berechnet und durch die gemeinsame IFC-Logik des Projekts umgerechnet.',
       phasePosition: '{gregorian} · {fixed}',
       specialPosition: '{gregorian} · {specialDay}',
       exactTitle: 'Ein exakter Zeitpunkt in Ihrer Zeitzone',
-      exactText: 'Eine benannte Phase ist ein astronomischer Zeitpunkt. Ihr sichtbares Erscheinungsbild verändert sich über mehrere Nächte allmählich, und ihr lokales Datum kann je nach Zeitzone abweichen.',
+      exactText:
+        'Eine benannte Phase ist ein astronomischer Zeitpunkt. Ihr sichtbares Erscheinungsbild verändert sich über mehrere Nächte allmählich, und ihr lokales Datum kann je nach Zeitzone abweichen.',
       claimsTitle: 'Astronomie ist kein Gesundheitsprotokoll',
-      claimsText: 'Das Projekt behauptet nicht, Mondphasen würden den Körper entgiften, Hormone steuern, Parasiten behandeln oder einen universellen Menstruationszyklus vorgeben. Kulturelle Traditionen werden nur beschrieben, wenn sie klar von wissenschaftlichen Belegen getrennt sind.',
+      claimsText:
+        'Das Projekt behauptet nicht, Mondphasen würden den Körper entgiften, Hormone steuern, Parasiten behandeln oder einen universellen Menstruationszyklus vorgeben. Kulturelle Traditionen werden nur beschrieben, wenn sie klar von wissenschaftlichen Belegen getrennt sind.',
     },
     history: {
-      description: 'Der Fixkalender wurde als moderne bürgerliche Reform entwickelt. Seine Vorteile waren real, ebenso die Koordinationsprobleme und religiösen Einwände.',
+      description:
+        'Der Fixkalender wurde als moderne bürgerliche Reform entwickelt. Seine Vorteile waren real, ebenso die Koordinationsprobleme und religiösen Einwände.',
       events: [
-        { year: '1902', title: 'Cotsworth veröffentlicht den Vorschlag', text: 'Moses B. Cotsworth stellt einen Plan mit 13 gleichen Monaten vor.' },
-        { year: '1923', title: 'Die Kalenderreform erhält eine Organisation', text: 'George Eastman unterstützt die Internationale Fixkalender-Liga.' },
-        { year: '1928–1989', title: 'Kodak nutzt ihn intern', text: 'Kodak verwendet das System für Buchhaltung und Planung, während nach außen gregorianische Daten gelten.' },
-        { year: '1937', title: 'Die internationale Reform verliert an Schwung', text: 'Religiöse Einwände gegen Tage außerhalb des Wochenzyklus sind ein zentrales Hindernis.' },
+        {
+          year: '1902',
+          title: 'Cotsworth veröffentlicht den Vorschlag',
+          text: 'Moses B. Cotsworth stellt einen Plan mit 13 gleichen Monaten vor.',
+        },
+        {
+          year: '1923',
+          title: 'Die Kalenderreform erhält eine Organisation',
+          text: 'George Eastman unterstützt die Internationale Fixkalender-Liga.',
+        },
+        {
+          year: '1928–1989',
+          title: 'Kodak nutzt ihn intern',
+          text: 'Kodak verwendet das System für Buchhaltung und Planung, während nach außen gregorianische Daten gelten.',
+        },
+        {
+          year: '1937',
+          title: 'Die internationale Reform verliert an Schwung',
+          text: 'Religiöse Einwände gegen Tage außerhalb des Wochenzyklus sind ein zentrales Hindernis.',
+        },
       ],
     },
     sabbath: {
       title: 'Was ist mit dem ununterbrochenen Sieben-Tage-Zyklus?',
-      intro: 'Jahrestag und Schalttag außerhalb der bürgerlichen Woche machen jedes reguläre Datum vorhersehbar, widersprechen aber Traditionen, die ohne Unterbrechung jeden siebten Sonnenaufgang zählen.',
+      intro:
+        'Jahrestag und Schalttag außerhalb der bürgerlichen Woche machen jedes reguläre Datum vorhersehbar, widersprechen aber Traditionen, die ohne Unterbrechung jeden siebten Sonnenaufgang zählen.',
       civilTitle: 'Feste bürgerliche Wochentage',
-      civilText: 'Sondertage außerhalb der bürgerlichen Woche halten die Monatsdaten dauerhaft ausgerichtet.',
+      civilText:
+        'Sondertage außerhalb der bürgerlichen Woche halten die Monatsdaten dauerhaft ausgerichtet.',
       continuousTitle: 'Fortlaufende Sieben-Tage-Zählung',
-      continuousText: 'Jeder vergangene Tag erhält eine Wochentagsposition. Religiöse und bürgerliche Zählung bleiben gleich, doch die Wochentage der Monatsdaten verschieben sich nach einem Sondertag.',
-      conclusion: 'Dies ist eine echte gesellschaftliche Entscheidung und kein Problem, das Mathematik für alle lösen kann.',
+      continuousText:
+        'Jeder vergangene Tag erhält eine Wochentagsposition. Religiöse und bürgerliche Zählung bleiben gleich, doch die Wochentage der Monatsdaten verschieben sich nach einem Sondertag.',
+      conclusion:
+        'Dies ist eine echte gesellschaftliche Entscheidung und kein Problem, das Mathematik für alle lösen kann.',
     },
     sources: {
       eyebrow: 'Methodik',
       title: 'Quellen vor Gewissheit',
-      description: 'Umrechnungen werden lokal getestet, Mondphasen stammen aus Astronomy Engine und pädagogische Aussagen verweisen auf Primärquellen oder maßgebliche Quellen.',
+      description:
+        'Umrechnungen werden lokal getestet, Mondphasen stammen aus Astronomy Engine und pädagogische Aussagen verweisen auf Primärquellen oder maßgebliche Quellen.',
       nasa: 'NASA-Mondphasen',
       calendarPolicy: 'Kalenderkonvention',
       productRoadmap: 'Produkt- und Mondrichtlinie',
@@ -224,16 +332,19 @@ export const localizedEditorialMessages = {
     resources: {
       eyebrow: 'Nachrichten und das weitere Web',
       title: 'Was andere über 13-Monats-Kalender veröffentlichen',
-      description: 'Eine kuratierte Übersicht aus Berichten, historischen Beiträgen, Referenzseiten und unabhängigen Projekten. Links führen zum ursprünglichen Herausgeber; Google dient nur zum Auffinden neuer Inhalte.',
+      description:
+        'Eine kuratierte Übersicht aus Berichten, historischen Beiträgen, Referenzseiten und unabhängigen Projekten. Links führen zum ursprünglichen Herausgeber; Google dient nur zum Auffinden neuer Inhalte.',
       news: 'Artikel und Berichte',
       sites: 'Projekte und Websites',
       open: 'Originalquelle öffnen',
       searchGoogle: 'Thema auf Google suchen',
       searchNews: 'Aktuelle Beiträge auf Google News suchen',
       updated: 'Liste geprüft am {date}',
-      notice: 'Die Aufnahme in die Liste ist keine Empfehlung. Kommerzielle Angebote, Meinungen und wissenschaftliche Behauptungen liegen weiterhin in der Verantwortung des jeweiligen Herausgebers.',
+      notice:
+        'Die Aufnahme in die Liste ist keine Empfehlung. Kommerzielle Angebote, Meinungen und wissenschaftliche Behauptungen liegen weiterhin in der Verantwortung des jeweiligen Herausgebers.',
       types: {
         reporting: 'Bericht',
+        discussion: 'Community-Diskussion',
         historical: 'Historischer Beitrag',
         explainer: 'Erklärung',
         project: 'Unabhängiges Projekt',
@@ -246,10 +357,22 @@ export const localizedEditorialMessages = {
   'it-IT': {
     idea: {
       facts: [
-        { title: '13 mesi uguali', text: 'Ogni mese regolare ha esattamente quattro settimane e la stessa disposizione.' },
-        { title: 'Un mese chiamato Solaris', text: 'Solaris viene inserito tra giugno e luglio senza rinominare gli altri mesi.' },
-        { title: 'Giorno dell’Anno', text: 'Il 365º giorno viene dopo il 28 dicembre e non appartiene a nessun mese né giorno della settimana civile.' },
-        { title: 'Giorno Bisestile', text: 'Negli anni bisestili, il 366º giorno viene subito dopo il Giorno dell’Anno secondo la convenzione di questo progetto.' },
+        {
+          title: '13 mesi uguali',
+          text: 'Ogni mese regolare ha esattamente quattro settimane e la stessa disposizione.',
+        },
+        {
+          title: 'Un mese chiamato Solaris',
+          text: 'Solaris viene inserito tra giugno e luglio senza rinominare gli altri mesi.',
+        },
+        {
+          title: 'Giorno dell’Anno',
+          text: 'Il 365º giorno viene dopo il 28 dicembre e non appartiene a nessun mese né giorno della settimana civile.',
+        },
+        {
+          title: 'Giorno Bisestile',
+          text: 'Negli anni bisestili, il 366º giorno viene subito dopo il Giorno dell’Anno secondo la convenzione di questo progetto.',
+        },
       ],
     },
     converter: {
@@ -260,37 +383,63 @@ export const localizedEditorialMessages = {
     },
     moon: {
       driftTitle: 'Circa 1,53 giorni di scarto al mese',
-      driftText: 'Se una Luna nuova avvenisse nel mese 1, giorno 1, la successiva arriverebbe intorno al mese 2, giorno 2,53, e la differenza continuerebbe ad accumularsi.',
-      liveText: 'Queste posizioni vengono calcolate con Astronomy Engine e convertite dal motore IFC condiviso del progetto.',
+      driftText:
+        'Se una Luna nuova avvenisse nel mese 1, giorno 1, la successiva arriverebbe intorno al mese 2, giorno 2,53, e la differenza continuerebbe ad accumularsi.',
+      liveText:
+        'Queste posizioni vengono calcolate con Astronomy Engine e convertite dal motore IFC condiviso del progetto.',
       phasePosition: '{gregorian} · {fixed}',
       specialPosition: '{gregorian} · {specialDay}',
       exactTitle: 'Un istante esatto, mostrato nel tuo fuso orario',
-      exactText: 'Una fase denominata è un istante astronomico. Il suo aspetto visibile cambia gradualmente per diverse notti e la data locale può variare in base al fuso orario.',
+      exactText:
+        'Una fase denominata è un istante astronomico. Il suo aspetto visibile cambia gradualmente per diverse notti e la data locale può variare in base al fuso orario.',
       claimsTitle: 'L’astronomia non è un protocollo sanitario',
-      claimsText: 'Il progetto non sostiene che le fasi lunari disintossichino il corpo, controllino gli ormoni, curino i parassiti o impongano un ciclo mestruale universale. Le tradizioni culturali vengono descritte solo quando sono chiaramente separate dalle prove scientifiche.',
+      claimsText:
+        'Il progetto non sostiene che le fasi lunari disintossichino il corpo, controllino gli ormoni, curino i parassiti o impongano un ciclo mestruale universale. Le tradizioni culturali vengono descritte solo quando sono chiaramente separate dalle prove scientifiche.',
     },
     history: {
-      description: 'Il calendario fisso è stato sviluppato come riforma civile moderna. I suoi vantaggi erano reali, così come i problemi di coordinamento e le obiezioni religiose.',
+      description:
+        'Il calendario fisso è stato sviluppato come riforma civile moderna. I suoi vantaggi erano reali, così come i problemi di coordinamento e le obiezioni religiose.',
       events: [
-        { year: '1902', title: 'Cotsworth pubblica la proposta', text: 'Moses B. Cotsworth presenta un piano di 13 mesi uguali.' },
-        { year: '1923', title: 'La riforma del calendario ottiene un’organizzazione', text: 'George Eastman sostiene la Lega Internazionale del Calendario Fisso.' },
-        { year: '1928–1989', title: 'Kodak lo usa internamente', text: 'Kodak mantiene il sistema per contabilità e pianificazione, usando all’esterno le date gregoriane.' },
-        { year: '1937', title: 'La riforma internazionale perde slancio', text: 'Le obiezioni religiose ai giorni fuori dal ciclo settimanale costituiscono un ostacolo centrale.' },
+        {
+          year: '1902',
+          title: 'Cotsworth pubblica la proposta',
+          text: 'Moses B. Cotsworth presenta un piano di 13 mesi uguali.',
+        },
+        {
+          year: '1923',
+          title: 'La riforma del calendario ottiene un’organizzazione',
+          text: 'George Eastman sostiene la Lega Internazionale del Calendario Fisso.',
+        },
+        {
+          year: '1928–1989',
+          title: 'Kodak lo usa internamente',
+          text: 'Kodak mantiene il sistema per contabilità e pianificazione, usando all’esterno le date gregoriane.',
+        },
+        {
+          year: '1937',
+          title: 'La riforma internazionale perde slancio',
+          text: 'Le obiezioni religiose ai giorni fuori dal ciclo settimanale costituiscono un ostacolo centrale.',
+        },
       ],
     },
     sabbath: {
       title: 'E il ciclo ininterrotto di sette giorni?',
-      intro: 'Il Giorno dell’Anno e il Giorno Bisestile fuori dalla settimana civile rendono prevedibile ogni data regolare, ma entrano in conflitto con le tradizioni che contano ogni settimo sorgere del sole senza interruzione.',
+      intro:
+        'Il Giorno dell’Anno e il Giorno Bisestile fuori dalla settimana civile rendono prevedibile ogni data regolare, ma entrano in conflitto con le tradizioni che contano ogni settimo sorgere del sole senza interruzione.',
       civilTitle: 'Giorni fissi della settimana civile',
-      civilText: 'Mantenere i giorni speciali fuori dalla settimana civile lascia le date mensili permanentemente allineate.',
+      civilText:
+        'Mantenere i giorni speciali fuori dalla settimana civile lascia le date mensili permanentemente allineate.',
       continuousTitle: 'Conteggio continuo di sette giorni',
-      continuousText: 'Assegnare a ogni giorno trascorso una posizione nella settimana mantiene allineati il conteggio religioso e quello civile, ma sposta i giorni mensili dopo un Giorno speciale.',
-      conclusion: 'Questa è una vera scelta sociale, non un problema che la matematica possa risolvere per tutti.',
+      continuousText:
+        'Assegnare a ogni giorno trascorso una posizione nella settimana mantiene allineati il conteggio religioso e quello civile, ma sposta i giorni mensili dopo un Giorno speciale.',
+      conclusion:
+        'Questa è una vera scelta sociale, non un problema che la matematica possa risolvere per tutti.',
     },
     sources: {
       eyebrow: 'Metodologia',
       title: 'Le fonti prima delle certezze',
-      description: 'Le conversioni vengono verificate localmente, le fasi lunari provengono da Astronomy Engine e le affermazioni didattiche rimandano a fonti primarie o autorevoli.',
+      description:
+        'Le conversioni vengono verificate localmente, le fasi lunari provengono da Astronomy Engine e le affermazioni didattiche rimandano a fonti primarie o autorevoli.',
       nasa: 'Fasi lunari della NASA',
       calendarPolicy: 'Convenzione del calendario',
       productRoadmap: 'Politica del prodotto e della Luna',
@@ -298,16 +447,19 @@ export const localizedEditorialMessages = {
     resources: {
       eyebrow: 'Notizie e web',
       title: 'Cosa pubblicano gli altri sui calendari di 13 mesi',
-      description: 'Una selezione di articoli, approfondimenti storici, pagine di riferimento e progetti indipendenti. I link portano all’editore originale; Google viene usato solo per scoprire nuovi contenuti.',
+      description:
+        'Una selezione di articoli, approfondimenti storici, pagine di riferimento e progetti indipendenti. I link portano all’editore originale; Google viene usato solo per scoprire nuovi contenuti.',
       news: 'Articoli e notizie',
       sites: 'Progetti e siti web',
       open: 'Apri la fonte originale',
       searchGoogle: 'Cerca l’argomento su Google',
       searchNews: 'Cerca notizie recenti su Google News',
       updated: 'Elenco revisionato il {date}',
-      notice: 'La presenza nell’elenco non costituisce un’approvazione. Offerte commerciali, opinioni e affermazioni scientifiche restano sotto la responsabilità di ogni editore.',
+      notice:
+        'La presenza nell’elenco non costituisce un’approvazione. Offerte commerciali, opinioni e affermazioni scientifiche restano sotto la responsabilità di ogni editore.',
       types: {
         reporting: 'Notizia',
+        discussion: 'Discussione della comunità',
         historical: 'Approfondimento storico',
         explainer: 'Spiegazione',
         project: 'Progetto indipendente',
@@ -320,22 +472,37 @@ export const localizedEditorialMessages = {
   'ru-RU': {
     hero: {
       eyebrow: 'Исследуйте идею',
-      description: 'Познакомьтесь с Международным фиксированным календарём, сравните даты и узнайте, где расходятся история, астрономия и решения нашего проекта.',
+      description:
+        'Познакомьтесь с Международным фиксированным календарём, сравните даты и узнайте, где расходятся история, астрономия и решения нашего проекта.',
       todayTitle: 'Сегодня в двух календарях',
       openCalendars: 'Открыть календари',
     },
     idea: {
       eyebrow: 'Структура',
       title: 'Вся идея за 30 секунд',
-      description: 'Тринадцать равных месяцев по 28 дней образуют 364 обычных дня. День года и, при необходимости, Високосный день находятся вне месяцев и гражданской недели.',
+      description:
+        'Тринадцать равных месяцев по 28 дней образуют 364 обычных дня. День года и, при необходимости, Високосный день находятся вне месяцев и гражданской недели.',
       facts: [
-        { title: '13 равных месяцев', text: 'В каждом обычном месяце ровно четыре недели и одинаковая структура.' },
-        { title: 'Месяц Солярис', text: 'Солярис вставлен между июнем и июлем без переименования остальных месяцев.' },
-        { title: 'День года', text: '365-й день следует после 28 декабря и не относится ни к месяцу, ни к гражданскому дню недели.' },
-        { title: 'Високосный день', text: 'В високосные годы 366-й день по правилам проекта следует сразу после Дня года.' },
+        {
+          title: '13 равных месяцев',
+          text: 'В каждом обычном месяце ровно четыре недели и одинаковая структура.',
+        },
+        {
+          title: 'Месяц Солярис',
+          text: 'Солярис вставлен между июнем и июлем без переименования остальных месяцев.',
+        },
+        {
+          title: 'День года',
+          text: '365-й день следует после 28 декабря и не относится ни к месяцу, ни к гражданскому дню недели.',
+        },
+        {
+          title: 'Високосный день',
+          text: 'В високосные годы 366-й день по правилам проекта следует сразу после Дня года.',
+        },
       ],
       monthTitle: 'Один повторяемый месяц',
-      monthDescription: 'Первое число всегда приходится на первый день недели, а 28-е — на последний.',
+      monthDescription:
+        'Первое число всегда приходится на первый день недели, а 28-е — на последний.',
       yearTitle: 'Полный гражданский год',
       regularDays: '364 обычных дня',
       specialDays: '1 или 2 Особых дня',
@@ -359,43 +526,69 @@ export const localizedEditorialMessages = {
     },
     moon: {
       eyebrow: 'Луна без мифов',
-      intro: 'Календарь делит солнечный год на равные блоки. Средний цикл лунных фаз длится 29,53 дня, поэтому фазы смещаются по фиксированным месяцам.',
+      intro:
+        'Календарь делит солнечный год на равные блоки. Средний цикл лунных фаз длится 29,53 дня, поэтому фазы смещаются по фиксированным месяцам.',
       fixedMonth: 'Фиксированный месяц',
       synodicCycle: 'Средний цикл лунных фаз',
       phaseInterval: 'Средний интервал между основными фазами',
       days: '{value} дня',
       driftTitle: 'Около 1,53 дня смещения в месяц',
-      driftText: 'Если Новолуние произошло бы в месяце 1, день 1, следующее наступило бы примерно в месяце 2, день 2,53, и разница продолжала бы накапливаться.',
+      driftText:
+        'Если Новолуние произошло бы в месяце 1, день 1, следующее наступило бы примерно в месяце 2, день 2,53, и разница продолжала бы накапливаться.',
       liveTitle: 'Полнолуния в {year} году',
-      liveText: 'Эти положения рассчитываются с помощью Astronomy Engine и преобразуются общим механизмом IFC проекта.',
+      liveText:
+        'Эти положения рассчитываются с помощью Astronomy Engine и преобразуются общим механизмом IFC проекта.',
       phasePosition: '{gregorian} · {fixed}',
       specialPosition: '{gregorian} · {specialDay}',
       exactTitle: 'Точный момент в вашем часовом поясе',
-      exactText: 'Названная фаза — это астрономический момент. Её вид постепенно меняется в течение нескольких ночей, а местная дата может различаться в зависимости от часового пояса.',
+      exactText:
+        'Названная фаза — это астрономический момент. Её вид постепенно меняется в течение нескольких ночей, а местная дата может различаться в зависимости от часового пояса.',
       claimsTitle: 'Астрономия — не медицинский протокол',
-      claimsText: 'Проект не утверждает, что фазы Луны очищают организм, управляют гормонами, лечат паразитов или задают единый менструальный цикл. Культурные традиции описываются только при чётком отделении от научных данных.',
+      claimsText:
+        'Проект не утверждает, что фазы Луны очищают организм, управляют гормонами, лечат паразитов или задают единый менструальный цикл. Культурные традиции описываются только при чётком отделении от научных данных.',
       methodology: 'Прочитать научную и редакционную политику',
       noFullMoons: 'Полнолуния для этого года не найдены.',
     },
     history: {
       eyebrow: 'История и применение',
       title: 'Практическое предложение, а не скрытый древний календарь',
-      description: 'Фиксированный календарь создавался как современная гражданская реформа. Его преимущества были реальны, как и трудности координации и религиозные возражения.',
+      description:
+        'Фиксированный календарь создавался как современная гражданская реформа. Его преимущества были реальны, как и трудности координации и религиозные возражения.',
       events: [
-        { year: '1902', title: 'Котсуорт публикует предложение', text: 'Мозес Б. Котсуорт представляет план из 13 равных месяцев.' },
-        { year: '1923', title: 'У календарной реформы появляется организация', text: 'Джордж Истмен поддерживает Международную лигу фиксированного календаря.' },
-        { year: '1928–1989', title: 'Kodak использует календарь внутри компании', text: 'Kodak применяет систему в бухгалтерии и планировании, сохраняя григорианские даты для внешних контактов.' },
-        { year: '1937', title: 'Международная реформа теряет поддержку', text: 'Религиозные возражения против дней вне недельного цикла становятся одним из главных препятствий.' },
+        {
+          year: '1902',
+          title: 'Котсуорт публикует предложение',
+          text: 'Мозес Б. Котсуорт представляет план из 13 равных месяцев.',
+        },
+        {
+          year: '1923',
+          title: 'У календарной реформы появляется организация',
+          text: 'Джордж Истмен поддерживает Международную лигу фиксированного календаря.',
+        },
+        {
+          year: '1928–1989',
+          title: 'Kodak использует календарь внутри компании',
+          text: 'Kodak применяет систему в бухгалтерии и планировании, сохраняя григорианские даты для внешних контактов.',
+        },
+        {
+          year: '1937',
+          title: 'Международная реформа теряет поддержку',
+          text: 'Религиозные возражения против дней вне недельного цикла становятся одним из главных препятствий.',
+        },
       ],
     },
     sabbath: {
       title: 'Что происходит с непрерывным семидневным циклом?',
-      intro: 'День года и Високосный день вне гражданской недели делают обычные даты предсказуемыми, но противоречат традициям, которые без перерыва отсчитывают каждый седьмой восход.',
+      intro:
+        'День года и Високосный день вне гражданской недели делают обычные даты предсказуемыми, но противоречат традициям, которые без перерыва отсчитывают каждый седьмой восход.',
       civilTitle: 'Фиксированные гражданские дни недели',
-      civilText: 'Особые дни вне гражданской недели сохраняют постоянное соответствие месячных дат.',
+      civilText:
+        'Особые дни вне гражданской недели сохраняют постоянное соответствие месячных дат.',
       continuousTitle: 'Непрерывный семидневный счёт',
-      continuousText: 'Каждому прошедшему дню назначается день недели. Религиозный и гражданский счёт остаются согласованными, но после Особого дня дни недели в месяце смещаются.',
-      conclusion: 'Это реальный общественный выбор, а не задача, которую математика может решить одинаково для всех.',
+      continuousText:
+        'Каждому прошедшему дню назначается день недели. Религиозный и гражданский счёт остаются согласованными, но после Особого дня дни недели в месяце смещаются.',
+      conclusion:
+        'Это реальный общественный выбор, а не задача, которую математика может решить одинаково для всех.',
     },
     feedback: {
       title: 'Что вы думаете об этой идее?',
@@ -412,7 +605,8 @@ export const localizedEditorialMessages = {
     sources: {
       eyebrow: 'Методика',
       title: 'Сначала источники, потом уверенность',
-      description: 'Преобразования проверяются локально, фазы Луны рассчитывает Astronomy Engine, а образовательные утверждения ведут к первичным или авторитетным источникам.',
+      description:
+        'Преобразования проверяются локально, фазы Луны рассчитывает Astronomy Engine, а образовательные утверждения ведут к первичным или авторитетным источникам.',
       nasa: 'Фазы Луны по данным NASA',
       calendarPolicy: 'Правила календаря',
       productRoadmap: 'Политика продукта и лунных данных',
@@ -420,16 +614,19 @@ export const localizedEditorialMessages = {
     resources: {
       eyebrow: 'Новости и другие сайты',
       title: 'Что другие публикуют о календарях из 13 месяцев',
-      description: 'Подборка статей, исторических материалов, справочных страниц и независимых проектов. Ссылки ведут к исходному издателю; Google используется только для поиска новых материалов.',
+      description:
+        'Подборка статей, исторических материалов, справочных страниц и независимых проектов. Ссылки ведут к исходному издателю; Google используется только для поиска новых материалов.',
       news: 'Статьи и публикации',
       sites: 'Проекты и сайты',
       open: 'Открыть исходный источник',
       searchGoogle: 'Искать тему в Google',
       searchNews: 'Искать свежие публикации в Google News',
       updated: 'Список проверен {date}',
-      notice: 'Присутствие в списке не означает одобрения. Коммерческие предложения, мнения и научные заявления остаются ответственностью каждого издателя.',
+      notice:
+        'Присутствие в списке не означает одобрения. Коммерческие предложения, мнения и научные заявления остаются ответственностью каждого издателя.',
       types: {
         reporting: 'Публикация',
+        discussion: 'Обсуждение сообщества',
         historical: 'Исторический материал',
         explainer: 'Объяснение',
         project: 'Независимый проект',
@@ -439,7 +636,8 @@ export const localizedEditorialMessages = {
     },
     cta: {
       title: 'Теперь сравните дату самостоятельно',
-      description: 'Откройте полные календари или познакомьтесь с добровольным сообществом, уважающим конфиденциальность.',
+      description:
+        'Откройте полные календари или познакомьтесь с добровольным сообществом, уважающим конфиденциальность.',
       calendars: 'Открыть календари',
       community: 'Перейти в сообщество',
     },
@@ -455,7 +653,8 @@ export const localizedEditorialMessages = {
     idea: {
       eyebrow: '结构',
       title: '30 秒看懂完整构想',
-      description: '13 个相同的月份，每月 28 天，共组成 364 个常规日。年日以及需要时的闰日位于月份和民用星期之外。',
+      description:
+        '13 个相同的月份，每月 28 天，共组成 364 个常规日。年日以及需要时的闰日位于月份和民用星期之外。',
       facts: [
         { title: '13 个相同的月份', text: '每个常规月都恰好有四周，并采用相同布局。' },
         { title: '名为 Solaris 的月份', text: 'Solaris 插在六月和七月之间，其他月份无需改名。' },
@@ -487,42 +686,61 @@ export const localizedEditorialMessages = {
     },
     moon: {
       eyebrow: '没有迷思的月亮',
-      intro: '日历把太阳年分成相等区块。月相的平均周期为 29.53 天，因此月相会在固定月份中逐渐移动。',
+      intro:
+        '日历把太阳年分成相等区块。月相的平均周期为 29.53 天，因此月相会在固定月份中逐渐移动。',
       fixedMonth: '固定月',
       synodicCycle: '平均月相周期',
       phaseInterval: '主要月相之间的平均间隔',
       days: '{value} 天',
       driftTitle: '每月约偏移 1.53 天',
-      driftText: '如果新月出现在第 1 月 1 日，下一次大约会在第 2 月 2.53 日到来，而且差异会继续累积。',
+      driftText:
+        '如果新月出现在第 1 月 1 日，下一次大约会在第 2 月 2.53 日到来，而且差异会继续累积。',
       liveTitle: '{year} 年的满月',
       liveText: '这些位置由 Astronomy Engine 实时计算，再由本项目共享的 IFC 引擎转换。',
       phasePosition: '{gregorian} · {fixed}',
       specialPosition: '{gregorian} · {specialDay}',
       exactTitle: '按你的时区显示精确时刻',
-      exactText: '一个有名称的月相代表一个天文时刻。它的可见外观会在数夜间逐渐变化，本地日期也可能因时区而不同。',
+      exactText:
+        '一个有名称的月相代表一个天文时刻。它的可见外观会在数夜间逐渐变化，本地日期也可能因时区而不同。',
       claimsTitle: '天文学不是健康方案',
-      claimsText: '本项目不宣称月相能够排毒、控制激素、治疗寄生虫或规定统一的月经周期。只有在与科学证据明确区分时，才会介绍文化传统。',
+      claimsText:
+        '本项目不宣称月相能够排毒、控制激素、治疗寄生虫或规定统一的月经周期。只有在与科学证据明确区分时，才会介绍文化传统。',
       methodology: '阅读科学与编辑政策',
       noFullMoons: '未找到该年份的满月。',
     },
     history: {
       eyebrow: '历史与采用',
       title: '现代实用提案，而非隐藏的古代历法',
-      description: '固定历是作为现代民用改革而提出的。它的优势确实存在，协调难题和宗教异议也同样真实。',
+      description:
+        '固定历是作为现代民用改革而提出的。它的优势确实存在，协调难题和宗教异议也同样真实。',
       events: [
-        { year: '1902', title: '科茨沃思发表提案', text: '摩西·B·科茨沃思提出由 13 个相同月份组成的方案。' },
+        {
+          year: '1902',
+          title: '科茨沃思发表提案',
+          text: '摩西·B·科茨沃思提出由 13 个相同月份组成的方案。',
+        },
         { year: '1923', title: '日历改革成立组织', text: '乔治·伊士曼支持国际固定历联盟。' },
-        { year: '1928–1989', title: '柯达在内部使用', text: '柯达在会计与规划中使用该体系，对外仍采用公历日期。' },
-        { year: '1937', title: '国际改革失去动力', text: '宗教界对周循环之外日期的反对成为主要障碍。' },
+        {
+          year: '1928–1989',
+          title: '柯达在内部使用',
+          text: '柯达在会计与规划中使用该体系，对外仍采用公历日期。',
+        },
+        {
+          year: '1937',
+          title: '国际改革失去动力',
+          text: '宗教界对周循环之外日期的反对成为主要障碍。',
+        },
       ],
     },
     sabbath: {
       title: '不中断的七日周期怎么办？',
-      intro: '位于民用星期之外的年日和闰日让每个常规日期都可预测，但这与持续计算每第七次日出的传统相冲突。',
+      intro:
+        '位于民用星期之外的年日和闰日让每个常规日期都可预测，但这与持续计算每第七次日出的传统相冲突。',
       civilTitle: '固定的民用星期',
       civilText: '把特殊日留在民用星期之外，月内日期就能永久保持一致。',
       continuousTitle: '连续七日计数',
-      continuousText: '给每个经过的日期分配星期位置，可让宗教与民用计数保持一致，但特殊日之后的月内星期会发生移动。',
+      continuousText:
+        '给每个经过的日期分配星期位置，可让宗教与民用计数保持一致，但特殊日之后的月内星期会发生移动。',
       conclusion: '这是真实的社会选择，并不是数学能够替所有人决定的问题。',
     },
     feedback: {
@@ -540,7 +758,8 @@ export const localizedEditorialMessages = {
     sources: {
       eyebrow: '方法',
       title: '先看来源，再下结论',
-      description: '日期转换在本地测试，月相来自 Astronomy Engine，教育性陈述则链接到原始或权威来源。',
+      description:
+        '日期转换在本地测试，月相来自 Astronomy Engine，教育性陈述则链接到原始或权威来源。',
       nasa: 'NASA 月相资料',
       calendarPolicy: '日历约定',
       productRoadmap: '产品与月相政策',
@@ -548,7 +767,8 @@ export const localizedEditorialMessages = {
     resources: {
       eyebrow: '新闻与更广阔的网络',
       title: '其他人如何介绍 13 个月日历',
-      description: '这里汇集报道、历史资料、参考页面和独立项目。链接会前往原始发布者；Google 只用于发现新内容。',
+      description:
+        '这里汇集报道、历史资料、参考页面和独立项目。链接会前往原始发布者；Google 只用于发现新内容。',
       news: '文章与报道',
       sites: '项目与网站',
       open: '打开原始来源',
@@ -558,6 +778,7 @@ export const localizedEditorialMessages = {
       notice: '列入清单并不代表认可。商业服务、观点和科学主张仍由各发布者自行负责。',
       types: {
         reporting: '报道',
+        discussion: '社区讨论',
         historical: '历史资料',
         explainer: '解读',
         project: '独立项目',
@@ -576,19 +797,30 @@ export const localizedEditorialMessages = {
   'ja-JP': {
     hero: {
       eyebrow: 'アイデアを知る',
-      description: '国際固定暦を理解し、日付を比較しながら、歴史・天文学・このプロジェクトの選択がどこで異なるかを見てみましょう。',
+      description:
+        '国際固定暦を理解し、日付を比較しながら、歴史・天文学・このプロジェクトの選択がどこで異なるかを見てみましょう。',
       todayTitle: '2つの暦で見る今日',
       openCalendars: 'カレンダーを開く',
     },
     idea: {
       eyebrow: '仕組み',
       title: '30秒でわかる全体像',
-      description: '28日からなる同じ長さの13か月で、通常日は364日になります。年日と、必要な年の閏日は、月と民間の週の外に置かれます。',
+      description:
+        '28日からなる同じ長さの13か月で、通常日は364日になります。年日と、必要な年の閏日は、月と民間の週の外に置かれます。',
       facts: [
         { title: '同じ長さの13か月', text: 'すべての通常月は正確に4週間で、同じ配置になります。' },
-        { title: 'Solarisという月', text: 'Solarisは他の月の名前を変えずに、6月と7月の間へ挿入されます。' },
-        { title: '年日', text: '365日目は12月28日の後に置かれ、どの月にも民間の曜日にも属しません。' },
-        { title: '閏日', text: '閏年には、このプロジェクトの規則により366日目が年日の直後に置かれます。' },
+        {
+          title: 'Solarisという月',
+          text: 'Solarisは他の月の名前を変えずに、6月と7月の間へ挿入されます。',
+        },
+        {
+          title: '年日',
+          text: '365日目は12月28日の後に置かれ、どの月にも民間の曜日にも属しません。',
+        },
+        {
+          title: '閏日',
+          text: '閏年には、このプロジェクトの規則により366日目が年日の直後に置かれます。',
+        },
       ],
       monthTitle: '繰り返し使える1か月',
       monthDescription: '1日は常に週の初日、28日は常に最終日です。',
@@ -615,43 +847,68 @@ export const localizedEditorialMessages = {
     },
     moon: {
       eyebrow: '迷信を除いた月',
-      intro: 'カレンダーは太陽年を均等な区画に分けます。一方、月相の平均周期は29.53日なので、月相は固定月の中を少しずつ移動します。',
+      intro:
+        'カレンダーは太陽年を均等な区画に分けます。一方、月相の平均周期は29.53日なので、月相は固定月の中を少しずつ移動します。',
       fixedMonth: '固定月',
       synodicCycle: '月相の平均周期',
       phaseInterval: '主な月相間の平均間隔',
       days: '{value}日',
       driftTitle: '1か月あたり約1.53日のずれ',
-      driftText: '新月が第1月1日に起きた場合、次の新月は第2月2.53日ごろになり、その差はさらに積み重なります。',
+      driftText:
+        '新月が第1月1日に起きた場合、次の新月は第2月2.53日ごろになり、その差はさらに積み重なります。',
       liveTitle: '{year}年の満月',
-      liveText: 'これらの位置はAstronomy Engineで計算し、プロジェクト共通のIFCエンジンで変換しています。',
+      liveText:
+        'これらの位置はAstronomy Engineで計算し、プロジェクト共通のIFCエンジンで変換しています。',
       phasePosition: '{gregorian} · {fixed}',
       specialPosition: '{gregorian} · {specialDay}',
       exactTitle: 'あなたのタイムゾーンで示す正確な瞬間',
-      exactText: '名前の付いた月相は天文学上の一瞬です。見た目は数夜かけて徐々に変化し、現地の日付もタイムゾーンによって異なる場合があります。',
+      exactText:
+        '名前の付いた月相は天文学上の一瞬です。見た目は数夜かけて徐々に変化し、現地の日付もタイムゾーンによって異なる場合があります。',
       claimsTitle: '天文学は健康法ではありません',
-      claimsText: 'このプロジェクトは、月相が身体を解毒する、ホルモンを制御する、寄生虫を治療する、または普遍的な月経周期を決めるとは主張しません。文化的伝統は、科学的根拠と明確に区別できる場合にのみ紹介します。',
+      claimsText:
+        'このプロジェクトは、月相が身体を解毒する、ホルモンを制御する、寄生虫を治療する、または普遍的な月経周期を決めるとは主張しません。文化的伝統は、科学的根拠と明確に区別できる場合にのみ紹介します。',
       methodology: '科学・編集方針を読む',
       noFullMoons: 'この年の満月は見つかりませんでした。',
     },
     history: {
       eyebrow: '歴史と採用',
       title: '隠された古代暦ではなく、実用的な提案',
-      description: '固定暦は近代的な民間改革として開発されました。利点は現実のものでしたが、調整の難しさや宗教上の反対も現実に存在しました。',
+      description:
+        '固定暦は近代的な民間改革として開発されました。利点は現実のものでしたが、調整の難しさや宗教上の反対も現実に存在しました。',
       events: [
-        { year: '1902', title: 'コッツワースが提案を発表', text: 'モーゼス・B・コッツワースが、同じ長さの13か月案を提示します。' },
-        { year: '1923', title: '暦改革に組織が誕生', text: 'ジョージ・イーストマンが国際固定暦連盟を支援します。' },
-        { year: '1928–1989', title: 'Kodakが社内で使用', text: 'Kodakは会計と計画にこの方式を使い、社外ではグレゴリオ暦を維持しました。' },
-        { year: '1937', title: '国際的な改革が勢いを失う', text: '週の周期外に日を置くことへの宗教上の反対が、大きな障害となりました。' },
+        {
+          year: '1902',
+          title: 'コッツワースが提案を発表',
+          text: 'モーゼス・B・コッツワースが、同じ長さの13か月案を提示します。',
+        },
+        {
+          year: '1923',
+          title: '暦改革に組織が誕生',
+          text: 'ジョージ・イーストマンが国際固定暦連盟を支援します。',
+        },
+        {
+          year: '1928–1989',
+          title: 'Kodakが社内で使用',
+          text: 'Kodakは会計と計画にこの方式を使い、社外ではグレゴリオ暦を維持しました。',
+        },
+        {
+          year: '1937',
+          title: '国際的な改革が勢いを失う',
+          text: '週の周期外に日を置くことへの宗教上の反対が、大きな障害となりました。',
+        },
       ],
     },
     sabbath: {
       title: '途切れない7日周期はどうなるのでしょうか？',
-      intro: '民間の週の外に年日と閏日を置くと通常日は予測可能になりますが、7回目の日の出を途切れなく数える伝統とは両立しません。',
+      intro:
+        '民間の週の外に年日と閏日を置くと通常日は予測可能になりますが、7回目の日の出を途切れなく数える伝統とは両立しません。',
       civilTitle: '固定された民間の曜日',
       civilText: '特別日を民間の週の外に置けば、月内の日付と曜日は永続的に揃います。',
       continuousTitle: '連続する7日間の数え方',
-      continuousText: '経過したすべての日に曜日を与えると、宗教上と民間の数え方は一致しますが、特別日の後は月内の曜日がずれます。',
-      conclusion: 'これは実際の社会的選択であり、数学がすべての人に代わって解決できる問題ではありません。',
+      continuousText:
+        '経過したすべての日に曜日を与えると、宗教上と民間の数え方は一致しますが、特別日の後は月内の曜日がずれます。',
+      conclusion:
+        'これは実際の社会的選択であり、数学がすべての人に代わって解決できる問題ではありません。',
     },
     feedback: {
       title: 'このアイデアをどう思いますか？',
@@ -668,7 +925,8 @@ export const localizedEditorialMessages = {
     sources: {
       eyebrow: '方法',
       title: '確信より先に出典を',
-      description: '変換はローカルで検証し、月相はAstronomy Engineから取得し、教育的な主張には一次資料または信頼できる出典を示します。',
+      description:
+        '変換はローカルで検証し、月相はAstronomy Engineから取得し、教育的な主張には一次資料または信頼できる出典を示します。',
       nasa: 'NASAの月相情報',
       calendarPolicy: 'カレンダーの規則',
       productRoadmap: '製品と月相の方針',
@@ -676,7 +934,8 @@ export const localizedEditorialMessages = {
     resources: {
       eyebrow: 'ニュースとウェブ',
       title: '13か月暦について他の人が発信していること',
-      description: '報道、歴史資料、参考ページ、独立プロジェクトを選んで紹介します。リンクは元の発行者へ移動し、Googleは新しい情報を見つけるためだけに使います。',
+      description:
+        '報道、歴史資料、参考ページ、独立プロジェクトを選んで紹介します。リンクは元の発行者へ移動し、Googleは新しい情報を見つけるためだけに使います。',
       news: '記事と報道',
       sites: 'プロジェクトとウェブサイト',
       open: '元の情報源を開く',
@@ -686,6 +945,7 @@ export const localizedEditorialMessages = {
       notice: '掲載は推奨を意味しません。商業的な提案、意見、科学的主張は各発行者の責任です。',
       types: {
         reporting: '報道',
+        discussion: 'コミュニティの議論',
         historical: '歴史資料',
         explainer: '解説',
         project: '独立プロジェクト',
@@ -695,7 +955,8 @@ export const localizedEditorialMessages = {
     },
     cta: {
       title: '自分で日付を比べてみましょう',
-      description: '完全なカレンダーを開くか、プライバシーを尊重する任意参加のコミュニティをご覧ください。',
+      description:
+        '完全なカレンダーを開くか、プライバシーを尊重する任意参加のコミュニティをご覧ください。',
       calendars: 'カレンダーを開く',
       community: 'コミュニティを見る',
     },
@@ -704,19 +965,33 @@ export const localizedEditorialMessages = {
   'ko-KR': {
     hero: {
       eyebrow: '아이디어 살펴보기',
-      description: '국제 고정 달력을 이해하고 날짜를 비교하며 역사, 천문학, 이 프로젝트의 선택이 어디에서 다른지 살펴보세요.',
+      description:
+        '국제 고정 달력을 이해하고 날짜를 비교하며 역사, 천문학, 이 프로젝트의 선택이 어디에서 다른지 살펴보세요.',
       todayTitle: '두 달력으로 보는 오늘',
       openCalendars: '달력 열기',
     },
     idea: {
       eyebrow: '구조',
       title: '30초 만에 이해하는 전체 아이디어',
-      description: '28일로 된 같은 길이의 13개월은 364개의 정규일을 이룹니다. 연말일과 필요한 해의 윤일은 월과 시민 주간 밖에 놓입니다.',
+      description:
+        '28일로 된 같은 길이의 13개월은 364개의 정규일을 이룹니다. 연말일과 필요한 해의 윤일은 월과 시민 주간 밖에 놓입니다.',
       facts: [
-        { title: '같은 길이의 13개월', text: '모든 정규월은 정확히 4주이며 같은 배치를 사용합니다.' },
-        { title: 'Solaris라는 달', text: 'Solaris는 다른 달의 이름을 바꾸지 않고 6월과 7월 사이에 들어갑니다.' },
-        { title: '연말일', text: '365번째 날은 12월 28일 뒤에 오며 어떤 월이나 시민 요일에도 속하지 않습니다.' },
-        { title: '윤일', text: '윤년에는 이 프로젝트의 규칙에 따라 366번째 날이 연말일 바로 뒤에 옵니다.' },
+        {
+          title: '같은 길이의 13개월',
+          text: '모든 정규월은 정확히 4주이며 같은 배치를 사용합니다.',
+        },
+        {
+          title: 'Solaris라는 달',
+          text: 'Solaris는 다른 달의 이름을 바꾸지 않고 6월과 7월 사이에 들어갑니다.',
+        },
+        {
+          title: '연말일',
+          text: '365번째 날은 12월 28일 뒤에 오며 어떤 월이나 시민 요일에도 속하지 않습니다.',
+        },
+        {
+          title: '윤일',
+          text: '윤년에는 이 프로젝트의 규칙에 따라 366번째 날이 연말일 바로 뒤에 옵니다.',
+        },
       ],
       monthTitle: '반복해서 쓰는 하나의 월',
       monthDescription: '1일은 항상 주의 첫날이고 28일은 항상 마지막 날입니다.',
@@ -743,43 +1018,67 @@ export const localizedEditorialMessages = {
     },
     moon: {
       eyebrow: '미신을 뺀 달',
-      intro: '달력은 태양년을 같은 블록으로 나눕니다. 달의 평균 위상 주기는 29.53일이므로 위상은 고정된 월 사이를 계속 이동합니다.',
+      intro:
+        '달력은 태양년을 같은 블록으로 나눕니다. 달의 평균 위상 주기는 29.53일이므로 위상은 고정된 월 사이를 계속 이동합니다.',
       fixedMonth: '고정 월',
       synodicCycle: '평균 달 위상 주기',
       phaseInterval: '주요 위상 사이의 평균 간격',
       days: '{value}일',
       driftTitle: '한 달에 약 1.53일씩 이동',
-      driftText: '초승달이 1월 1일에 나타났다면 다음 초승달은 2월 2.53일 무렵에 오며 차이는 계속 누적됩니다.',
+      driftText:
+        '초승달이 1월 1일에 나타났다면 다음 초승달은 2월 2.53일 무렵에 오며 차이는 계속 누적됩니다.',
       liveTitle: '{year}년의 보름달',
       liveText: '이 위치는 Astronomy Engine으로 계산하고 프로젝트의 공유 IFC 엔진으로 변환합니다.',
       phasePosition: '{gregorian} · {fixed}',
       specialPosition: '{gregorian} · {specialDay}',
       exactTitle: '사용자 시간대에 표시되는 정확한 순간',
-      exactText: '이름 붙은 위상은 천문학적 순간입니다. 보이는 모습은 여러 밤에 걸쳐 서서히 변하고 현지 날짜도 시간대에 따라 달라질 수 있습니다.',
+      exactText:
+        '이름 붙은 위상은 천문학적 순간입니다. 보이는 모습은 여러 밤에 걸쳐 서서히 변하고 현지 날짜도 시간대에 따라 달라질 수 있습니다.',
       claimsTitle: '천문학은 건강 지침이 아닙니다',
-      claimsText: '이 프로젝트는 달의 위상이 몸을 해독하거나 호르몬을 조절하고 기생충을 치료하거나 보편적인 생리 주기를 정한다고 주장하지 않습니다. 문화적 전통은 과학적 근거와 명확히 구분될 때만 소개합니다.',
+      claimsText:
+        '이 프로젝트는 달의 위상이 몸을 해독하거나 호르몬을 조절하고 기생충을 치료하거나 보편적인 생리 주기를 정한다고 주장하지 않습니다. 문화적 전통은 과학적 근거와 명확히 구분될 때만 소개합니다.',
       methodology: '과학 및 편집 정책 읽기',
       noFullMoons: '이 연도에는 보름달을 찾지 못했습니다.',
     },
     history: {
       eyebrow: '역사와 도입',
       title: '숨겨진 고대 달력이 아닌 실용적인 제안',
-      description: '고정 달력은 현대적인 시민 개혁안으로 개발되었습니다. 장점이 실제였던 만큼 조정의 어려움과 종교적 반대도 실제였습니다.',
+      description:
+        '고정 달력은 현대적인 시민 개혁안으로 개발되었습니다. 장점이 실제였던 만큼 조정의 어려움과 종교적 반대도 실제였습니다.',
       events: [
-        { year: '1902', title: '코츠워스가 제안을 발표', text: '모지스 B. 코츠워스가 같은 길이의 13개월 계획을 제시합니다.' },
-        { year: '1923', title: '달력 개혁 단체가 만들어지다', text: '조지 이스트먼이 국제 고정 달력 연맹을 지원합니다.' },
-        { year: '1928–1989', title: 'Kodak이 사내에서 사용', text: 'Kodak은 회계와 계획에 이 체계를 쓰면서 외부에서는 그레고리력 날짜를 유지했습니다.' },
-        { year: '1937', title: '국제 개혁이 추진력을 잃다', text: '주간 주기 밖의 날에 대한 종교적 반대가 핵심 장애물이 되었습니다.' },
+        {
+          year: '1902',
+          title: '코츠워스가 제안을 발표',
+          text: '모지스 B. 코츠워스가 같은 길이의 13개월 계획을 제시합니다.',
+        },
+        {
+          year: '1923',
+          title: '달력 개혁 단체가 만들어지다',
+          text: '조지 이스트먼이 국제 고정 달력 연맹을 지원합니다.',
+        },
+        {
+          year: '1928–1989',
+          title: 'Kodak이 사내에서 사용',
+          text: 'Kodak은 회계와 계획에 이 체계를 쓰면서 외부에서는 그레고리력 날짜를 유지했습니다.',
+        },
+        {
+          year: '1937',
+          title: '국제 개혁이 추진력을 잃다',
+          text: '주간 주기 밖의 날에 대한 종교적 반대가 핵심 장애물이 되었습니다.',
+        },
       ],
     },
     sabbath: {
       title: '끊기지 않는 7일 주기는 어떻게 될까요?',
-      intro: '시민 주간 밖의 연말일과 윤일은 모든 정규 날짜를 예측 가능하게 하지만, 일곱 번째 일출을 중단 없이 세는 전통과 충돌합니다.',
+      intro:
+        '시민 주간 밖의 연말일과 윤일은 모든 정규 날짜를 예측 가능하게 하지만, 일곱 번째 일출을 중단 없이 세는 전통과 충돌합니다.',
       civilTitle: '고정된 시민 요일',
       civilText: '특별일을 시민 주간 밖에 두면 월별 날짜와 요일이 영구적으로 맞춰집니다.',
       continuousTitle: '연속되는 7일 계산',
-      continuousText: '지나간 모든 날에 요일을 부여하면 종교적 계산과 시민 계산은 일치하지만 특별일 뒤에는 월별 요일이 이동합니다.',
-      conclusion: '이것은 실제 사회적 선택이며 수학이 모두를 대신해 해결할 수 있는 문제가 아닙니다.',
+      continuousText:
+        '지나간 모든 날에 요일을 부여하면 종교적 계산과 시민 계산은 일치하지만 특별일 뒤에는 월별 요일이 이동합니다.',
+      conclusion:
+        '이것은 실제 사회적 선택이며 수학이 모두를 대신해 해결할 수 있는 문제가 아닙니다.',
     },
     feedback: {
       title: '이 아이디어를 어떻게 생각하세요?',
@@ -796,7 +1095,8 @@ export const localizedEditorialMessages = {
     sources: {
       eyebrow: '방법론',
       title: '확신보다 먼저 출처를',
-      description: '변환은 로컬에서 시험하고, 달의 위상은 Astronomy Engine에서 가져오며, 교육적 주장은 1차 자료나 권위 있는 출처로 연결합니다.',
+      description:
+        '변환은 로컬에서 시험하고, 달의 위상은 Astronomy Engine에서 가져오며, 교육적 주장은 1차 자료나 권위 있는 출처로 연결합니다.',
       nasa: 'NASA 달 위상 자료',
       calendarPolicy: '달력 규칙',
       productRoadmap: '제품 및 달 정책',
@@ -804,16 +1104,19 @@ export const localizedEditorialMessages = {
     resources: {
       eyebrow: '뉴스와 더 넓은 웹',
       title: '다른 곳에서 13개월 달력을 다루는 방식',
-      description: '보도, 역사 자료, 참고 페이지, 독립 프로젝트를 선별해 소개합니다. 링크는 원래 게시자로 연결되며 Google은 새 자료를 찾는 데만 사용합니다.',
+      description:
+        '보도, 역사 자료, 참고 페이지, 독립 프로젝트를 선별해 소개합니다. 링크는 원래 게시자로 연결되며 Google은 새 자료를 찾는 데만 사용합니다.',
       news: '기사와 보도',
       sites: '프로젝트와 웹사이트',
       open: '원문 출처 열기',
       searchGoogle: 'Google에서 주제 검색',
       searchNews: 'Google 뉴스에서 최근 보도 검색',
       updated: '목록 검토일: {date}',
-      notice: '목록에 포함되었다고 해서 지지를 뜻하지는 않습니다. 상업적 제안, 의견, 과학적 주장은 각 게시자의 책임입니다.',
+      notice:
+        '목록에 포함되었다고 해서 지지를 뜻하지는 않습니다. 상업적 제안, 의견, 과학적 주장은 각 게시자의 책임입니다.',
       types: {
         reporting: '보도',
+        discussion: '커뮤니티 토론',
         historical: '역사 자료',
         explainer: '해설',
         project: '독립 프로젝트',
@@ -832,19 +1135,30 @@ export const localizedEditorialMessages = {
   'ar-SA': {
     hero: {
       eyebrow: 'استكشف الفكرة',
-      description: 'تعرّف إلى التقويم الدولي الثابت، وقارن التواريخ، وشاهد أين يختلف التاريخ وعلم الفلك وخيارات مشروعنا.',
+      description:
+        'تعرّف إلى التقويم الدولي الثابت، وقارن التواريخ، وشاهد أين يختلف التاريخ وعلم الفلك وخيارات مشروعنا.',
       todayTitle: 'اليوم في تقويمين',
       openCalendars: 'افتح التقويمين',
     },
     idea: {
       eyebrow: 'البنية',
       title: 'الفكرة كاملة في 30 ثانية',
-      description: 'ثلاثة عشر شهرًا متساويًا، في كل منها 28 يومًا، تكوّن 364 يومًا عاديًا. ويقع يوم السنة، واليوم الكبيس عند الحاجة، خارج الأشهر والأسبوع المدني.',
+      description:
+        'ثلاثة عشر شهرًا متساويًا، في كل منها 28 يومًا، تكوّن 364 يومًا عاديًا. ويقع يوم السنة، واليوم الكبيس عند الحاجة، خارج الأشهر والأسبوع المدني.',
       facts: [
         { title: '13 شهرًا متساويًا', text: 'لكل شهر عادي أربعة أسابيع بالضبط والتخطيط نفسه.' },
-        { title: 'شهر اسمه سولاريس', text: 'يُضاف سولاريس بين يونيو ويوليو من دون تغيير أسماء بقية الأشهر.' },
-        { title: 'يوم السنة', text: 'يأتي اليوم 365 بعد 28 ديسمبر، ولا ينتمي إلى أي شهر أو يوم من أيام الأسبوع المدني.' },
-        { title: 'اليوم الكبيس', text: 'في السنوات الكبيسة يأتي اليوم 366 بعد يوم السنة مباشرة وفق قاعدة هذا المشروع.' },
+        {
+          title: 'شهر اسمه سولاريس',
+          text: 'يُضاف سولاريس بين يونيو ويوليو من دون تغيير أسماء بقية الأشهر.',
+        },
+        {
+          title: 'يوم السنة',
+          text: 'يأتي اليوم 365 بعد 28 ديسمبر، ولا ينتمي إلى أي شهر أو يوم من أيام الأسبوع المدني.',
+        },
+        {
+          title: 'اليوم الكبيس',
+          text: 'في السنوات الكبيسة يأتي اليوم 366 بعد يوم السنة مباشرة وفق قاعدة هذا المشروع.',
+        },
       ],
       monthTitle: 'شهر واحد قابل للتكرار',
       monthDescription: 'اليوم الأول هو دائمًا أول أيام الأسبوع، واليوم 28 هو دائمًا آخرها.',
@@ -871,42 +1185,67 @@ export const localizedEditorialMessages = {
     },
     moon: {
       eyebrow: 'القمر بلا خرافات',
-      intro: 'يقسم التقويم السنة الشمسية إلى أجزاء متساوية. أما القمر فيحافظ على دورة أطوار متوسطة طولها 29.53 يومًا، لذلك تنتقل الأطوار عبر الأشهر الثابتة.',
+      intro:
+        'يقسم التقويم السنة الشمسية إلى أجزاء متساوية. أما القمر فيحافظ على دورة أطوار متوسطة طولها 29.53 يومًا، لذلك تنتقل الأطوار عبر الأشهر الثابتة.',
       fixedMonth: 'الشهر الثابت',
       synodicCycle: 'متوسط دورة أطوار القمر',
       phaseInterval: 'متوسط الفاصل بين الأطوار الرئيسية',
       days: '{value} يومًا',
       driftTitle: 'انزياح بنحو 1.53 يوم كل شهر',
-      driftText: 'إذا وقع المحاق في الشهر 1، اليوم 1، فسيأتي المحاق التالي قرابة الشهر 2، اليوم 2.53، وسيستمر الفرق في التراكم.',
+      driftText:
+        'إذا وقع المحاق في الشهر 1، اليوم 1، فسيأتي المحاق التالي قرابة الشهر 2، اليوم 2.53، وسيستمر الفرق في التراكم.',
       liveTitle: 'الأقمار المكتملة في {year}',
-      liveText: 'تُحسب هذه المواضع الآن بواسطة Astronomy Engine، ثم يحولها محرك IFC المشترك في المشروع.',
+      liveText:
+        'تُحسب هذه المواضع الآن بواسطة Astronomy Engine، ثم يحولها محرك IFC المشترك في المشروع.',
       phasePosition: '{gregorian} · {fixed}',
       specialPosition: '{gregorian} · {specialDay}',
       exactTitle: 'لحظة دقيقة معروضة حسب منطقتك الزمنية',
-      exactText: 'الطور المسمّى هو لحظة فلكية. يتغير مظهره المرئي تدريجيًا على مدى عدة ليال، وقد يختلف تاريخه المحلي باختلاف المنطقة الزمنية.',
+      exactText:
+        'الطور المسمّى هو لحظة فلكية. يتغير مظهره المرئي تدريجيًا على مدى عدة ليال، وقد يختلف تاريخه المحلي باختلاف المنطقة الزمنية.',
       claimsTitle: 'علم الفلك ليس بروتوكولًا صحيًا',
-      claimsText: 'لا يدّعي المشروع أن أطوار القمر تزيل السموم من الجسم أو تتحكم بالهرمونات أو تعالج الطفيليات أو تفرض دورة شهرية عالمية. ولا تُعرض التقاليد الثقافية إلا عند فصلها بوضوح عن الأدلة العلمية.',
+      claimsText:
+        'لا يدّعي المشروع أن أطوار القمر تزيل السموم من الجسم أو تتحكم بالهرمونات أو تعالج الطفيليات أو تفرض دورة شهرية عالمية. ولا تُعرض التقاليد الثقافية إلا عند فصلها بوضوح عن الأدلة العلمية.',
       methodology: 'اقرأ السياسة العلمية والتحريرية',
       noFullMoons: 'لم يُعثر على قمر مكتمل في هذه السنة.',
     },
     history: {
       eyebrow: 'التاريخ والتبنّي',
       title: 'اقتراح عملي، لا تقويم قديم مخفي',
-      description: 'طُوّر التقويم الثابت بوصفه إصلاحًا مدنيًا حديثًا. كانت مزاياه حقيقية، وكذلك كانت صعوبات التنسيق والاعتراضات الدينية.',
+      description:
+        'طُوّر التقويم الثابت بوصفه إصلاحًا مدنيًا حديثًا. كانت مزاياه حقيقية، وكذلك كانت صعوبات التنسيق والاعتراضات الدينية.',
       events: [
-        { year: '1902', title: 'كوتسوورث ينشر الاقتراح', text: 'يقدّم موزس ب. كوتسوورث خطة من 13 شهرًا متساويًا.' },
-        { year: '1923', title: 'إصلاح التقويم يكتسب تنظيمًا', text: 'يدعم جورج إيستمان رابطة التقويم الدولي الثابت.' },
-        { year: '1928–1989', title: 'كوداك تستخدمه داخليًا', text: 'استخدمت كوداك النظام للمحاسبة والتخطيط، مع إبقاء التواريخ الميلادية في التعاملات الخارجية.' },
-        { year: '1937', title: 'الإصلاح الدولي يفقد زخمه', text: 'كانت الاعتراضات الدينية على الأيام الواقعة خارج الدورة الأسبوعية عائقًا رئيسيًا.' },
+        {
+          year: '1902',
+          title: 'كوتسوورث ينشر الاقتراح',
+          text: 'يقدّم موزس ب. كوتسوورث خطة من 13 شهرًا متساويًا.',
+        },
+        {
+          year: '1923',
+          title: 'إصلاح التقويم يكتسب تنظيمًا',
+          text: 'يدعم جورج إيستمان رابطة التقويم الدولي الثابت.',
+        },
+        {
+          year: '1928–1989',
+          title: 'كوداك تستخدمه داخليًا',
+          text: 'استخدمت كوداك النظام للمحاسبة والتخطيط، مع إبقاء التواريخ الميلادية في التعاملات الخارجية.',
+        },
+        {
+          year: '1937',
+          title: 'الإصلاح الدولي يفقد زخمه',
+          text: 'كانت الاعتراضات الدينية على الأيام الواقعة خارج الدورة الأسبوعية عائقًا رئيسيًا.',
+        },
       ],
     },
     sabbath: {
       title: 'ماذا عن دورة الأيام السبعة المتواصلة؟',
-      intro: 'يجعل وضع يوم السنة واليوم الكبيس خارج الأسبوع المدني كل تاريخ عادي قابلًا للتوقع، لكنه يتعارض مع التقاليد التي تعدّ كل شروق سابع بلا انقطاع.',
+      intro:
+        'يجعل وضع يوم السنة واليوم الكبيس خارج الأسبوع المدني كل تاريخ عادي قابلًا للتوقع، لكنه يتعارض مع التقاليد التي تعدّ كل شروق سابع بلا انقطاع.',
       civilTitle: 'أيام أسبوع مدنية ثابتة',
-      civilText: 'إبقاء الأيام الخاصة خارج الأسبوع المدني يجعل تواريخ الشهر متطابقة دائمًا مع أيام الأسبوع.',
+      civilText:
+        'إبقاء الأيام الخاصة خارج الأسبوع المدني يجعل تواريخ الشهر متطابقة دائمًا مع أيام الأسبوع.',
       continuousTitle: 'عدّ متواصل لسبعة أيام',
-      continuousText: 'إعطاء كل يوم منقضٍ موضعًا في الأسبوع يبقي العدّ الديني والمدني متوافقين، لكنه يزيح أيام الأسبوع الشهرية بعد اليوم الخاص.',
+      continuousText:
+        'إعطاء كل يوم منقضٍ موضعًا في الأسبوع يبقي العدّ الديني والمدني متوافقين، لكنه يزيح أيام الأسبوع الشهرية بعد اليوم الخاص.',
       conclusion: 'هذا خيار اجتماعي حقيقي، وليس مسألة تستطيع الرياضيات حسمها نيابة عن الجميع.',
     },
     feedback: {
@@ -924,7 +1263,8 @@ export const localizedEditorialMessages = {
     sources: {
       eyebrow: 'المنهجية',
       title: 'المصادر قبل اليقين',
-      description: 'تُختبر التحويلات محليًا، وتأتي أطوار القمر من Astronomy Engine، وترتبط الادعاءات التعليمية بمصادر أولية أو موثوقة.',
+      description:
+        'تُختبر التحويلات محليًا، وتأتي أطوار القمر من Astronomy Engine، وترتبط الادعاءات التعليمية بمصادر أولية أو موثوقة.',
       nasa: 'بيانات أطوار القمر من ناسا',
       calendarPolicy: 'قاعدة التقويم',
       productRoadmap: 'سياسة المنتج والقمر',
@@ -932,16 +1272,19 @@ export const localizedEditorialMessages = {
     resources: {
       eyebrow: 'الأخبار والويب الأوسع',
       title: 'ما ينشره الآخرون عن تقاويم الأشهر الثلاثة عشر',
-      description: 'خريطة منتقاة من التقارير والتغطية التاريخية والصفحات المرجعية والمشروعات المستقلة. تقود الروابط إلى الناشر الأصلي، ويُستخدم Google لاكتشاف المواد الجديدة فقط.',
+      description:
+        'خريطة منتقاة من التقارير والتغطية التاريخية والصفحات المرجعية والمشروعات المستقلة. تقود الروابط إلى الناشر الأصلي، ويُستخدم Google لاكتشاف المواد الجديدة فقط.',
       news: 'المقالات والتقارير',
       sites: 'المشروعات والمواقع',
       open: 'افتح المصدر الأصلي',
       searchGoogle: 'ابحث عن الموضوع في Google',
       searchNews: 'ابحث عن أحدث التغطيات في أخبار Google',
       updated: 'رُوجعت القائمة في {date}',
-      notice: 'الإدراج في القائمة لا يعني التأييد. تبقى العروض التجارية والآراء والادعاءات العلمية مسؤولية كل ناشر.',
+      notice:
+        'الإدراج في القائمة لا يعني التأييد. تبقى العروض التجارية والآراء والادعاءات العلمية مسؤولية كل ناشر.',
       types: {
         reporting: 'تقرير',
+        discussion: 'نقاش مجتمعي',
         historical: 'تغطية تاريخية',
         explainer: 'شرح',
         project: 'مشروع مستقل',
@@ -960,19 +1303,33 @@ export const localizedEditorialMessages = {
   'hi-IN': {
     hero: {
       eyebrow: 'विचार को समझें',
-      description: 'अंतरराष्ट्रीय स्थिर कैलेंडर को समझें, तारीखों की तुलना करें और देखें कि इतिहास, खगोल विज्ञान तथा हमारे प्रोजेक्ट के निर्णय कहाँ अलग हैं।',
+      description:
+        'अंतरराष्ट्रीय स्थिर कैलेंडर को समझें, तारीखों की तुलना करें और देखें कि इतिहास, खगोल विज्ञान तथा हमारे प्रोजेक्ट के निर्णय कहाँ अलग हैं।',
       todayTitle: 'आज दो कैलेंडरों में',
       openCalendars: 'कैलेंडर खोलें',
     },
     idea: {
       eyebrow: 'संरचना',
       title: '30 सेकंड में पूरी अवधारणा',
-      description: '28 दिनों के तेरह समान महीने 364 नियमित दिन बनाते हैं। वर्ष दिवस और आवश्यकता होने पर लीप दिवस, महीनों और नागरिक सप्ताह से बाहर रहते हैं।',
+      description:
+        '28 दिनों के तेरह समान महीने 364 नियमित दिन बनाते हैं। वर्ष दिवस और आवश्यकता होने पर लीप दिवस, महीनों और नागरिक सप्ताह से बाहर रहते हैं।',
       facts: [
-        { title: '13 समान महीने', text: 'हर नियमित महीने में ठीक चार सप्ताह और एक जैसा विन्यास होता है।' },
-        { title: 'सोलारिस नाम का महीना', text: 'बाकी महीनों के नाम बदले बिना सोलारिस को जून और जुलाई के बीच रखा जाता है।' },
-        { title: 'वर्ष दिवस', text: '365वाँ दिन 28 दिसंबर के बाद आता है और किसी महीने या नागरिक सप्ताह-दिन का हिस्सा नहीं होता।' },
-        { title: 'लीप दिवस', text: 'लीप वर्ष में, इस प्रोजेक्ट के नियम के अनुसार 366वाँ दिन वर्ष दिवस के तुरंत बाद आता है।' },
+        {
+          title: '13 समान महीने',
+          text: 'हर नियमित महीने में ठीक चार सप्ताह और एक जैसा विन्यास होता है।',
+        },
+        {
+          title: 'सोलारिस नाम का महीना',
+          text: 'बाकी महीनों के नाम बदले बिना सोलारिस को जून और जुलाई के बीच रखा जाता है।',
+        },
+        {
+          title: 'वर्ष दिवस',
+          text: '365वाँ दिन 28 दिसंबर के बाद आता है और किसी महीने या नागरिक सप्ताह-दिन का हिस्सा नहीं होता।',
+        },
+        {
+          title: 'लीप दिवस',
+          text: 'लीप वर्ष में, इस प्रोजेक्ट के नियम के अनुसार 366वाँ दिन वर्ष दिवस के तुरंत बाद आता है।',
+        },
       ],
       monthTitle: 'बार-बार उपयोग होने वाला एक महीना',
       monthDescription: 'पहला दिन हमेशा सप्ताह का पहला दिन और 28वाँ हमेशा अंतिम दिन होता है।',
@@ -999,42 +1356,67 @@ export const localizedEditorialMessages = {
     },
     moon: {
       eyebrow: 'मिथकों से परे चंद्रमा',
-      intro: 'कैलेंडर सौर वर्ष को समान खंडों में बाँटता है। चंद्रमा का औसत कलाचक्र 29.53 दिन का रहता है, इसलिए उसकी कलाएँ स्थिर महीनों में आगे बढ़ती रहती हैं।',
+      intro:
+        'कैलेंडर सौर वर्ष को समान खंडों में बाँटता है। चंद्रमा का औसत कलाचक्र 29.53 दिन का रहता है, इसलिए उसकी कलाएँ स्थिर महीनों में आगे बढ़ती रहती हैं।',
       fixedMonth: 'स्थिर महीना',
       synodicCycle: 'औसत चंद्र कलाचक्र',
       phaseInterval: 'मुख्य कलाओं के बीच औसत अंतराल',
       days: '{value} दिन',
       driftTitle: 'हर महीने लगभग 1.53 दिन का खिसकाव',
-      driftText: 'यदि अमावस्या महीना 1 के दिन 1 पर हो, तो अगली अमावस्या महीना 2 के दिन 2.53 के आसपास आएगी और अंतर बढ़ता रहेगा।',
+      driftText:
+        'यदि अमावस्या महीना 1 के दिन 1 पर हो, तो अगली अमावस्या महीना 2 के दिन 2.53 के आसपास आएगी और अंतर बढ़ता रहेगा।',
       liveTitle: '{year} में पूर्णिमाएँ',
-      liveText: 'इन स्थितियों की गणना अभी Astronomy Engine से होती है और प्रोजेक्ट का साझा IFC इंजन उनका रूपांतरण करता है।',
+      liveText:
+        'इन स्थितियों की गणना अभी Astronomy Engine से होती है और प्रोजेक्ट का साझा IFC इंजन उनका रूपांतरण करता है।',
       phasePosition: '{gregorian} · {fixed}',
       specialPosition: '{gregorian} · {specialDay}',
       exactTitle: 'आपके समय क्षेत्र में दिखाई गई सटीक घड़ी',
-      exactText: 'नामित कला एक खगोलीय क्षण है। उसका दिखाई देने वाला रूप कई रातों में धीरे-धीरे बदलता है और स्थानीय तारीख समय क्षेत्र के अनुसार अलग हो सकती है।',
+      exactText:
+        'नामित कला एक खगोलीय क्षण है। उसका दिखाई देने वाला रूप कई रातों में धीरे-धीरे बदलता है और स्थानीय तारीख समय क्षेत्र के अनुसार अलग हो सकती है।',
       claimsTitle: 'खगोल विज्ञान स्वास्थ्य उपचार नहीं है',
-      claimsText: 'यह प्रोजेक्ट यह दावा नहीं करता कि चंद्र कलाएँ शरीर से विष निकालती हैं, हार्मोन नियंत्रित करती हैं, परजीवियों का इलाज करती हैं या कोई सार्वभौमिक मासिक चक्र तय करती हैं। सांस्कृतिक परंपराएँ तभी बताई जाती हैं जब उन्हें वैज्ञानिक प्रमाण से स्पष्ट रूप से अलग रखा जा सके।',
+      claimsText:
+        'यह प्रोजेक्ट यह दावा नहीं करता कि चंद्र कलाएँ शरीर से विष निकालती हैं, हार्मोन नियंत्रित करती हैं, परजीवियों का इलाज करती हैं या कोई सार्वभौमिक मासिक चक्र तय करती हैं। सांस्कृतिक परंपराएँ तभी बताई जाती हैं जब उन्हें वैज्ञानिक प्रमाण से स्पष्ट रूप से अलग रखा जा सके।',
       methodology: 'वैज्ञानिक और संपादकीय नीति पढ़ें',
       noFullMoons: 'इस वर्ष कोई पूर्णिमा नहीं मिली।',
     },
     history: {
       eyebrow: 'इतिहास और अपनाया जाना',
       title: 'एक व्यावहारिक प्रस्ताव, कोई छिपा प्राचीन कैलेंडर नहीं',
-      description: 'स्थिर कैलेंडर को आधुनिक नागरिक सुधार के रूप में विकसित किया गया था। इसके लाभ वास्तविक थे, लेकिन समन्वय की कठिनाइयाँ और धार्मिक आपत्तियाँ भी वास्तविक थीं।',
+      description:
+        'स्थिर कैलेंडर को आधुनिक नागरिक सुधार के रूप में विकसित किया गया था। इसके लाभ वास्तविक थे, लेकिन समन्वय की कठिनाइयाँ और धार्मिक आपत्तियाँ भी वास्तविक थीं।',
       events: [
-        { year: '1902', title: 'कॉट्सवर्थ प्रस्ताव प्रकाशित करते हैं', text: 'मोज़ेस बी. कॉट्सवर्थ समान महीनों वाली 13-महीने की योजना प्रस्तुत करते हैं।' },
-        { year: '1923', title: 'कैलेंडर सुधार को संगठन मिलता है', text: 'जॉर्ज ईस्टमैन अंतरराष्ट्रीय स्थिर कैलेंडर लीग का समर्थन करते हैं।' },
-        { year: '1928–1989', title: 'कोडक इसका आंतरिक उपयोग करती है', text: 'कोडक ने लेखांकन और योजना में यह प्रणाली रखी, जबकि बाहर ग्रेगोरियन तारीखें उपयोग कीं।' },
-        { year: '1937', title: 'अंतरराष्ट्रीय सुधार की गति घटती है', text: 'साप्ताहिक चक्र से बाहर के दिनों पर धार्मिक आपत्तियाँ एक मुख्य बाधा थीं।' },
+        {
+          year: '1902',
+          title: 'कॉट्सवर्थ प्रस्ताव प्रकाशित करते हैं',
+          text: 'मोज़ेस बी. कॉट्सवर्थ समान महीनों वाली 13-महीने की योजना प्रस्तुत करते हैं।',
+        },
+        {
+          year: '1923',
+          title: 'कैलेंडर सुधार को संगठन मिलता है',
+          text: 'जॉर्ज ईस्टमैन अंतरराष्ट्रीय स्थिर कैलेंडर लीग का समर्थन करते हैं।',
+        },
+        {
+          year: '1928–1989',
+          title: 'कोडक इसका आंतरिक उपयोग करती है',
+          text: 'कोडक ने लेखांकन और योजना में यह प्रणाली रखी, जबकि बाहर ग्रेगोरियन तारीखें उपयोग कीं।',
+        },
+        {
+          year: '1937',
+          title: 'अंतरराष्ट्रीय सुधार की गति घटती है',
+          text: 'साप्ताहिक चक्र से बाहर के दिनों पर धार्मिक आपत्तियाँ एक मुख्य बाधा थीं।',
+        },
       ],
     },
     sabbath: {
       title: 'बिना रुके चलने वाले सात-दिवसीय चक्र का क्या होगा?',
-      intro: 'नागरिक सप्ताह से बाहर वर्ष दिवस और लीप दिवस हर नियमित तारीख को अनुमानित बनाते हैं, लेकिन हर सातवें सूर्योदय को बिना रुकावट गिनने वाली परंपराओं से टकराते हैं।',
+      intro:
+        'नागरिक सप्ताह से बाहर वर्ष दिवस और लीप दिवस हर नियमित तारीख को अनुमानित बनाते हैं, लेकिन हर सातवें सूर्योदय को बिना रुकावट गिनने वाली परंपराओं से टकराते हैं।',
       civilTitle: 'स्थिर नागरिक सप्ताह-दिन',
-      civilText: 'विशेष दिनों को नागरिक सप्ताह से बाहर रखने पर मासिक तारीखें स्थायी रूप से समान रहती हैं।',
+      civilText:
+        'विशेष दिनों को नागरिक सप्ताह से बाहर रखने पर मासिक तारीखें स्थायी रूप से समान रहती हैं।',
       continuousTitle: 'लगातार सात-दिवसीय गणना',
-      continuousText: 'हर बीते दिन को सप्ताह में स्थान देने पर धार्मिक और नागरिक गणना साथ रहती है, लेकिन विशेष दिन के बाद मासिक सप्ताह-दिन खिसकते हैं।',
+      continuousText:
+        'हर बीते दिन को सप्ताह में स्थान देने पर धार्मिक और नागरिक गणना साथ रहती है, लेकिन विशेष दिन के बाद मासिक सप्ताह-दिन खिसकते हैं।',
       conclusion: 'यह एक वास्तविक सामाजिक चुनाव है, ऐसी समस्या नहीं जिसे गणित सबके लिए तय कर सके।',
     },
     feedback: {
@@ -1052,7 +1434,8 @@ export const localizedEditorialMessages = {
     sources: {
       eyebrow: 'कार्यप्रणाली',
       title: 'निश्चितता से पहले स्रोत',
-      description: 'रूपांतरणों का स्थानीय परीक्षण होता है, चंद्र कलाएँ Astronomy Engine से आती हैं और शैक्षिक दावे प्राथमिक या प्रामाणिक स्रोतों से जुड़े हैं।',
+      description:
+        'रूपांतरणों का स्थानीय परीक्षण होता है, चंद्र कलाएँ Astronomy Engine से आती हैं और शैक्षिक दावे प्राथमिक या प्रामाणिक स्रोतों से जुड़े हैं।',
       nasa: 'NASA चंद्र कला डेटा',
       calendarPolicy: 'कैलेंडर नियम',
       productRoadmap: 'प्रोडक्ट और चंद्र नीति',
@@ -1060,16 +1443,19 @@ export const localizedEditorialMessages = {
     resources: {
       eyebrow: 'समाचार और व्यापक वेब',
       title: 'दूसरे लोग 13 महीने वाले कैलेंडरों के बारे में क्या प्रकाशित करते हैं',
-      description: 'रिपोर्टिंग, ऐतिहासिक सामग्री, संदर्भ पृष्ठों और स्वतंत्र प्रोजेक्टों का चुना हुआ मानचित्र। लिंक मूल प्रकाशक तक जाते हैं; Google का उपयोग केवल नई सामग्री खोजने के लिए होता है।',
+      description:
+        'रिपोर्टिंग, ऐतिहासिक सामग्री, संदर्भ पृष्ठों और स्वतंत्र प्रोजेक्टों का चुना हुआ मानचित्र। लिंक मूल प्रकाशक तक जाते हैं; Google का उपयोग केवल नई सामग्री खोजने के लिए होता है।',
       news: 'लेख और रिपोर्टिंग',
       sites: 'प्रोजेक्ट और वेबसाइटें',
       open: 'मूल स्रोत खोलें',
       searchGoogle: 'Google पर विषय खोजें',
       searchNews: 'Google समाचार पर हाल की रिपोर्ट खोजें',
       updated: 'सूची की समीक्षा {date} को हुई',
-      notice: 'सूची में होना समर्थन नहीं है। व्यावसायिक पेशकशों, विचारों और वैज्ञानिक दावों की जिम्मेदारी प्रत्येक प्रकाशक की है।',
+      notice:
+        'सूची में होना समर्थन नहीं है। व्यावसायिक पेशकशों, विचारों और वैज्ञानिक दावों की जिम्मेदारी प्रत्येक प्रकाशक की है।',
       types: {
         reporting: 'रिपोर्टिंग',
+        discussion: 'सामुदायिक चर्चा',
         historical: 'ऐतिहासिक सामग्री',
         explainer: 'व्याख्या',
         project: 'स्वतंत्र प्रोजेक्ट',

@@ -296,20 +296,60 @@ function nextGregorianDay(parts) {
   };
 }
 
-function createIcsEvent({ date, summary, uid }) {
-  return [
+function createIcsEvent({ date, summary, uid, description = '' }) {
+  const lines = [
     'BEGIN:VEVENT',
     `UID:${uid}@13calendar.pages.dev`,
     `DTSTAMP:${new Date().toISOString().replaceAll(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z')}`,
     `DTSTART;VALUE=DATE:${toIcsDate(date)}`,
     `DTEND;VALUE=DATE:${toIcsDate(nextGregorianDay(date))}`,
     `SUMMARY:${escapeIcsText(summary)}`,
-    'TRANSP:TRANSPARENT',
-    'END:VEVENT',
   ];
+
+  if (description) {
+    lines.push(`DESCRIPTION:${escapeIcsText(description)}`);
+  }
+
+  lines.push('TRANSP:TRANSPARENT', 'END:VEVENT');
+  return lines;
 }
 
-export function createAnnualPlannerIcs(year, monthNames, specialLabels) {
+function foldIcsLine(line) {
+  const encoder = new TextEncoder();
+  const folded = [];
+  let segment = '';
+
+  for (const character of String(line)) {
+    const byteLimit = folded.length ? 74 : 75;
+    if (segment && encoder.encode(`${segment}${character}`).length > byteLimit) {
+      folded.push(segment);
+      segment = character;
+    } else {
+      segment += character;
+    }
+  }
+
+  if (segment || !folded.length) folded.push(segment);
+  return folded.map((value, index) => (index ? ` ${value}` : value));
+}
+
+function createIcsCalendar(calendarName, events) {
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//13 Calendar//International Fixed Calendar//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    `X-WR-CALNAME:${escapeIcsText(calendarName)}`,
+    ...events,
+    'END:VCALENDAR',
+    '',
+  ];
+
+  return lines.flatMap(foldIcsLine).join('\r\n');
+}
+
+export function createAnnualPlannerIcs(year, monthNames, specialLabels, calendarName = `IFC ${year}`) {
   const plan = buildInternationalFixedYear(year);
   const events = plan.months.flatMap((month) =>
     createIcsEvent({
@@ -331,17 +371,55 @@ export function createAnnualPlannerIcs(year, monthNames, specialLabels) {
     );
   }
 
-  return [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//13 Calendar//Annual IFC Planner//EN',
-    'CALSCALE:GREGORIAN',
-    'METHOD:PUBLISH',
-    `X-WR-CALNAME:IFC ${year}`,
-    ...events,
-    'END:VCALENDAR',
-    '',
-  ].join('\r\n');
+  return createIcsCalendar(calendarName, events);
+}
+
+export function createDailyInternationalFixedIcs(year, labels, locale) {
+  const numericYear = Number(year);
+  const cursor = new Date(Date.UTC(numericYear, 0, 1));
+  const events = [];
+
+  while (cursor.getUTCFullYear() === numericYear) {
+    const date = {
+      year: cursor.getUTCFullYear(),
+      month: cursor.getUTCMonth() + 1,
+      day: cursor.getUTCDate(),
+    };
+    const fixed = describeInternationalFixedDate(date, labels, locale);
+    const gregorian = formatGregorianComparison(date, locale);
+
+    events.push(
+      ...createIcsEvent({
+        date,
+        summary: `${fixed.title} — IFC`,
+        description: `${labels.gregorianDate}: ${gregorian}\n${labels.fixedDate}: ${fixed.title}`,
+        uid: `${gregorianPartsToIso(date)}-ifc-daily`,
+      }),
+    );
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+
+  return createIcsCalendar(labels.calendarName, events);
+}
+
+export function createFavoriteDatesIcs(favorites, labels, locale) {
+  const events = favorites.flatMap((favorite) => {
+    const date = isoToGregorianParts(favorite.date);
+    if (!date) return [];
+
+    const fixed = describeInternationalFixedDate(date, labels, locale);
+    const gregorian = formatGregorianComparison(date, locale);
+    const summary = favorite.label || fixed.title;
+
+    return createIcsEvent({
+      date,
+      summary,
+      description: `${labels.gregorianDate}: ${gregorian}\n${labels.fixedDate}: ${fixed.title}`,
+      uid: `${favorite.date}-ifc-favorite`,
+    });
+  });
+
+  return createIcsCalendar(labels.calendarName, events);
 }
 
 export function downloadBlob(blob, filename) {

@@ -24,24 +24,15 @@
           {{ t('community.removalConfirmation') }}
         </q-checkbox>
 
-        <!-- A autoexclusão usa uma ação Turnstile própria e um token por envio. -->
-        <div
-          v-if="turnstileSiteKey"
-          ref="turnstileContainer"
-          class="community-removal-turnstile"
-        ></div>
-
-        <q-btn
-          unelevated
-          no-caps
-          color="negative"
-          class="app-action app-action--tertiary community-removal-submit"
-          type="submit"
-          icon="delete_forever"
-          :loading="state === 'sending'"
-          :disable="!canSubmit"
-          :label="t(state === 'sending' ? 'community.removalSending' : 'community.removalSubmit')"
-        />
+        <!-- A verificação ocupa uma faixa própria e não participa do cálculo
+             de tamanho ou alinhamento dos botões. -->
+        <div class="community-removal-verification">
+          <div
+            v-if="turnstileSiteKey"
+            ref="turnstileContainer"
+            class="community-removal-turnstile"
+          ></div>
+        </div>
 
         <p
           v-if="message"
@@ -51,16 +42,29 @@
         >
           {{ message }}
         </p>
-      </q-form>
 
-      <q-btn
-        unelevated
-        no-caps
-        class="app-action app-action--secondary"
-        icon="arrow_back"
-        :to="{ name: 'community' }"
-        :label="t('community.removalBack')"
-      />
+        <div class="community-removal-actions app-action-group">
+          <q-btn
+            unelevated
+            no-caps
+            color="negative"
+            class="app-action app-action--tertiary community-removal-submit"
+            type="submit"
+            icon="delete_forever"
+            :loading="state === 'sending'"
+            :disable="!canSubmit"
+            :label="t(state === 'sending' ? 'community.removalSending' : 'community.removalSubmit')"
+          />
+          <q-btn
+            unelevated
+            no-caps
+            class="app-action app-action--secondary"
+            icon="arrow_back"
+            :to="{ name: 'community' }"
+            :label="t('community.removalBack')"
+          />
+        </div>
+      </q-form>
     </section>
   </q-page>
 </template>
@@ -141,6 +145,7 @@ async function mountTurnstile() {
       sitekey: turnstileSiteKey,
       action: 'community_deletion',
       theme: 'auto',
+      size: 'flexible',
       callback: (token) => {
         turnstileToken.value = token;
       },
@@ -278,11 +283,26 @@ async function removeRegistration() {
 .community-removal-confirmation {
   color: var(--app-text-muted);
 }
+.community-removal-actions {
+  --app-action-group-max: 540px;
+  --app-action-min-width: 250px;
+
+  justify-self: center;
+}
+.community-removal-verification {
+  width: min(100%, 300px);
+  min-height: 65px;
+  display: grid;
+  place-items: center;
+  justify-self: center;
+}
 .community-removal-turnstile {
+  width: 300px;
+  max-width: 100%;
   min-height: 65px;
 }
 .community-removal-submit {
-  justify-self: end;
+  width: 100%;
 }
 .community-removal-message {
   margin: 0;
@@ -299,9 +319,15 @@ async function removeRegistration() {
   background: rgb(239 68 68 / 10%);
 }
 
-@media (max-width: 560px) {
-  .community-removal-submit {
-    width: 100%;
+@media (max-width: 700px) {
+  .community-removal-actions {
+    --app-action-min-width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .community-removal-card {
+    padding: 24px;
   }
 }
 </style>

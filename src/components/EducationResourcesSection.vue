@@ -9,7 +9,7 @@
       <p>{{ t('education.resources.description') }}</p>
     </div>
 
-    <div class="education-resources__searches">
+    <div class="education-resources__searches app-action-group">
       <q-btn
         no-caps
         unelevated
@@ -71,7 +71,7 @@
 
         <!-- O título identifica a publicação original; o resumo é sempre
              editorial e localizado pelo 13 Calendar. -->
-        <h3 lang="en">{{ item.title }}</h3>
+        <h3 :lang="item.titleLanguage || 'en'">{{ item.title }}</h3>
         <p :lang="locale.split('-')[0]">{{ localizedSummary(item) }}</p>
 
         <div class="education-resources__footer">
@@ -110,7 +110,7 @@ defineProps({
 
 const { t, locale } = useI18n({ useScope: 'global' });
 const activeCollection = ref('news');
-const reviewedDate = computed(() => formatPublishedDate('2026-08-26'));
+const reviewedDate = computed(() => formatPublishedDate('2026-08-31'));
 
 const collectionOptions = computed(() => [
   { label: t('education.resources.news'), value: 'news', icon: 'newspaper' },
@@ -174,9 +174,9 @@ function publisherInitials(publisher) {
 
 <style scoped>
 .education-resources__searches {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
+  --app-action-group-max: 840px;
+  --app-action-min-width: 320px;
+
   margin: -18px auto 26px;
 }
 
@@ -301,7 +301,7 @@ function publisherInitials(publisher) {
   }
 
   .education-resources__searches {
-    flex-direction: column;
+    --app-action-min-width: 100%;
   }
 }
 

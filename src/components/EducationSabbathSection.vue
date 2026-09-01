@@ -1,5 +1,9 @@
 <template>
-  <section id="education-sabbath" class="education-sabbath-reference" aria-labelledby="education-sabbath-title">
+  <section
+    id="education-sabbath"
+    class="education-sabbath-reference"
+    aria-labelledby="education-sabbath-title"
+  >
     <div class="education-sabbath-reference__heading">
       <p class="education-sabbath-reference__eyebrow">{{ copy.eyebrow }}</p>
       <h2 id="education-sabbath-title">{{ copy.title }}</h2>
@@ -8,13 +12,17 @@
 
     <div class="education-sabbath-reference__panel">
       <div class="education-sabbath-reference__alternatives">
-        <article class="education-sabbath-reference__option education-sabbath-reference__option--purple">
+        <article
+          class="education-sabbath-reference__option education-sabbath-reference__option--purple"
+        >
           <span aria-hidden="true">1</span>
           <h3>{{ copy.solutionTitle }}</h3>
           <p>{{ copy.solutionText }}</p>
         </article>
 
-        <article class="education-sabbath-reference__option education-sabbath-reference__option--amber">
+        <article
+          class="education-sabbath-reference__option education-sabbath-reference__option--pink"
+        >
           <span aria-hidden="true">2</span>
           <h3>{{ copy.alternativeTitle }}</h3>
           <p>{{ copy.alternativeText }}</p>
@@ -23,11 +31,15 @@
       </div>
 
       <div class="education-sabbath-reference__explanations">
-        <article class="education-sabbath-reference__explanation education-sabbath-reference__explanation--purple">
+        <article
+          class="education-sabbath-reference__explanation education-sabbath-reference__explanation--green"
+        >
           <h4>{{ copy.civilTitle }}</h4>
           <p>{{ copy.civilText }}</p>
         </article>
-        <article class="education-sabbath-reference__explanation education-sabbath-reference__explanation--green">
+        <article
+          class="education-sabbath-reference__explanation education-sabbath-reference__explanation--amber"
+        >
           <h4>{{ copy.continuousTitle }}</h4>
           <p>{{ copy.continuousText }}</p>
         </article>
@@ -38,10 +50,16 @@
           <p>{{ copy.civilLabel }}</p>
           <div>
             <template v-for="(value, index) in civilSequence" :key="value">
-              <span class="education-sabbath-reference__sequence-item education-sabbath-reference__sequence-item--purple">
+              <span
+                class="education-sabbath-reference__sequence-item education-sabbath-reference__sequence-item--green"
+              >
                 {{ value }}
               </span>
-              <q-icon v-if="index < civilSequence.length - 1" name="arrow_forward" aria-hidden="true" />
+              <q-icon
+                v-if="index < civilSequence.length - 1"
+                name="arrow_forward"
+                aria-hidden="true"
+              />
             </template>
           </div>
         </div>
@@ -50,10 +68,16 @@
           <p>{{ copy.continuousLabel }}</p>
           <div>
             <template v-for="(value, index) in continuousSequence" :key="value">
-              <span class="education-sabbath-reference__sequence-item education-sabbath-reference__sequence-item--green">
+              <span
+                class="education-sabbath-reference__sequence-item education-sabbath-reference__sequence-item--amber"
+              >
                 {{ value }}
               </span>
-              <q-icon v-if="index < continuousSequence.length - 1" name="arrow_forward" aria-hidden="true" />
+              <q-icon
+                v-if="index < continuousSequence.length - 1"
+                name="arrow_forward"
+                aria-hidden="true"
+              />
             </template>
           </div>
         </div>
@@ -70,13 +94,15 @@
           href="https://www.jta.org/archive/religious-protests-move-league-to-drop-calendar-reform-agenda"
           target="_blank"
           rel="noopener noreferrer"
-        >JTA, 1 Oct. 1937</a>
+          >JTA, 1 Oct. 1937</a
+        >
         ·
         <a
           href="https://www.un.org/en/about-us/history-of-the-un"
           target="_blank"
           rel="noopener noreferrer"
-        >United Nations, 1945</a>
+          >United Nations, 1945</a
+        >
       </p>
     </div>
   </section>
@@ -208,8 +234,7 @@ const continuousSequence = computed(() => [
   line-height: 1.55;
 }
 
-.education-sabbath-reference__option--purple,
-.education-sabbath-reference__explanation--purple {
+.education-sabbath-reference__option--purple {
   color: var(--app-accent-purple-text);
   background: var(--app-accent-purple-soft);
   border-color: var(--app-accent-purple-border);
@@ -219,15 +244,21 @@ const continuousSequence = computed(() => [
   background: color-mix(in srgb, var(--app-accent-purple) 18%, transparent);
 }
 
-.education-sabbath-reference__option--amber,
+.education-sabbath-reference__option--pink {
+  color: var(--calendar-sunday-text);
+  background: var(--calendar-sunday-cell);
+  border-color: color-mix(in srgb, var(--calendar-sunday-text) 34%, transparent);
+}
+
+.education-sabbath-reference__option--pink > span {
+  background: color-mix(in srgb, var(--calendar-sunday-text) 18%, transparent);
+}
+
+.education-sabbath-reference__explanation--amber,
 .education-sabbath-reference__limitation {
   color: var(--app-accent-amber-text);
   background: var(--app-accent-amber-soft);
   border-color: var(--app-accent-amber-border);
-}
-
-.education-sabbath-reference__option--amber > span {
-  background: color-mix(in srgb, var(--app-accent-amber) 18%, transparent);
 }
 
 .education-sabbath-reference__explanation--green {
@@ -288,16 +319,16 @@ const continuousSequence = computed(() => [
   text-align: center;
 }
 
-.education-sabbath-reference__sequence-item--purple {
-  color: var(--app-accent-purple-text);
-  background: var(--app-accent-purple-soft);
-  border-color: var(--app-accent-purple-border);
-}
-
 .education-sabbath-reference__sequence-item--green {
   color: var(--app-accent-green-text);
   background: var(--app-accent-green-soft);
   border-color: var(--app-accent-green-border);
+}
+
+.education-sabbath-reference__sequence-item--amber {
+  color: var(--app-accent-amber-text);
+  background: var(--app-accent-amber-soft);
+  border-color: var(--app-accent-amber-border);
 }
 
 .education-sabbath-reference__sources {

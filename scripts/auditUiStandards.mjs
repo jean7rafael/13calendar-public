@@ -21,6 +21,9 @@ for (const filePath of vueFiles) {
   const source = fs.readFileSync(filePath, 'utf8');
   const inputTags = source.match(/<q-input\b[\s\S]*?>/g) || [];
   const buttonTags = source.match(/<q-btn\b[\s\S]*?>/g) || [];
+  const styleBlocks = [...source.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/g)].map(
+    (match) => match[1],
+  );
 
   for (const inputTag of inputTags) {
     if (/\btype=["']date["']/.test(inputTag)) {
@@ -51,6 +54,33 @@ for (const filePath of vueFiles) {
     }
   }
 
+  /* O tamanho dos botões textuais pertence ao contrato global. Esta leitura
+     dos estilos locais impede tanto uma altura fixa em `app-action` quanto uma
+     regra genérica de `q-btn` que volte a vencer o contrato por especificidade. */
+  for (const styleBlock of styleBlocks) {
+    for (const ruleMatch of styleBlock.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      const selector = ruleMatch[1].trim();
+      const declarations = ruleMatch[2];
+      const fixesButtonHeight = /(?:^|;)\s*(?:min-|max-)?(?:height|block-size)\s*:/m.test(
+        declarations,
+      );
+
+      if (!fixesButtonHeight) continue;
+
+      if (selector.includes('.app-action') && !selector.includes(':not(.app-action)')) {
+        failures.push(
+          `${relativePath}: a altura de app-action pertence ao contrato global; use --app-action-min-height somente quando precisar de um mínimo maior.`,
+        );
+      }
+
+      if (selector.includes('.q-btn') && !selector.includes(':not(.app-action)')) {
+        failures.push(
+          `${relativePath}: regra local de altura para q-btn deve excluir explicitamente .app-action.`,
+        );
+      }
+    }
+  }
+
   if (/app-primary-action/.test(source)) {
     failures.push(`${relativePath}: a classe antiga app-primary-action não pode reaparecer.`);
   }
@@ -68,12 +98,16 @@ for (const filePath of vueFiles) {
   }
 }
 
-const communityPage = fs.readFileSync(path.join(sourceDirectory, 'pages', 'CommunityPage.vue'), 'utf8');
+const communityPage = fs.readFileSync(
+  path.join(sourceDirectory, 'pages', 'CommunityPage.vue'),
+  'utf8',
+);
 const adminPage = fs.readFileSync(
   path.join(sourceDirectory, 'pages', 'CommunityAdminPage.vue'),
   'utf8',
 );
 const appStyles = fs.readFileSync(path.join(sourceDirectory, 'css', 'app.scss'), 'utf8');
+const buttonLayout = fs.readFileSync(path.join(sourceDirectory, 'boot', 'buttonLayout.js'), 'utf8');
 const agentsPath = path.join(root, 'AGENTS.md');
 const isPublicRelease = process.env.GITHUB_REPOSITORY === 'jean7rafael/13calendar-public';
 const agents = fs.existsSync(agentsPath)
@@ -87,7 +121,10 @@ const calendarContext = fs.readFileSync(
   'utf8',
 );
 const layout = fs.readFileSync(path.join(sourceDirectory, 'layouts', 'MainLayout.vue'), 'utf8');
-const calendarTools = fs.readFileSync(path.join(sourceDirectory, 'utils', 'calendarTools.js'), 'utf8');
+const calendarTools = fs.readFileSync(
+  path.join(sourceDirectory, 'utils', 'calendarTools.js'),
+  'utf8',
+);
 const comparisonDateTitle = fs.readFileSync(
   path.join(sourceDirectory, 'components', 'AppComparisonDateTitle.vue'),
   'utf8',
@@ -96,7 +133,10 @@ const noticePanel = fs.readFileSync(
   path.join(sourceDirectory, 'components', 'AppNoticePanel.vue'),
   'utf8',
 );
-const pageHero = fs.readFileSync(path.join(sourceDirectory, 'components', 'AppPageHero.vue'), 'utf8');
+const pageHero = fs.readFileSync(
+  path.join(sourceDirectory, 'components', 'AppPageHero.vue'),
+  'utf8',
+);
 const resourcesSection = fs.readFileSync(
   path.join(sourceDirectory, 'components', 'EducationResourcesSection.vue'),
   'utf8',
@@ -154,6 +194,32 @@ const annualPlanner = fs.readFileSync(
   path.join(sourceDirectory, 'components', 'ToolsAnnualPlanner.vue'),
   'utf8',
 );
+const annualPlannerPrint = fs.readFileSync(
+  path.join(sourceDirectory, 'components', 'ToolsAnnualPlannerPrint.vue'),
+  'utf8',
+);
+const plannerPdf = fs.readFileSync(path.join(sourceDirectory, 'utils', 'plannerPdf.js'), 'utf8');
+const editorialCards = fs.readFileSync(
+  path.join(sourceDirectory, 'components', 'ToolsEditorialCards.vue'),
+  'utf8',
+);
+const attributionDialog = fs.readFileSync(
+  path.join(sourceDirectory, 'components', 'EducationAttributionDialog.vue'),
+  'utf8',
+);
+const feedback = fs.readFileSync(
+  path.join(sourceDirectory, 'components', 'EducationFeedback.vue'),
+  'utf8',
+);
+const pwaCard = fs.readFileSync(
+  path.join(sourceDirectory, 'components', 'ToolsPwaCard.vue'),
+  'utf8',
+);
+const toolsPage = fs.readFileSync(path.join(sourceDirectory, 'pages', 'ToolsPage.vue'), 'utf8');
+const removalPage = fs.readFileSync(
+  path.join(sourceDirectory, 'pages', 'CommunityRemovalPage.vue'),
+  'utf8',
+);
 const calendar12 = fs.readFileSync(
   path.join(sourceDirectory, 'components', 'Calendario12Meses.vue'),
   'utf8',
@@ -191,6 +257,138 @@ for (const variant of buttonVariants) {
   if (!appStyles.includes(`.${variant}`)) {
     failures.push(`src/css/app.scss: falta o modelo compartilhado ${variant}.`);
   }
+}
+
+if (
+  !appStyles.includes('.app-action-group') ||
+  !appStyles.includes('--app-action-min-height: 44px') ||
+  !appStyles.includes('--app-action-min-width: 200px') ||
+  !appStyles.includes('--app-action-content-width: 0px') ||
+  !appStyles.includes('flex-wrap: wrap') ||
+  !appStyles.includes('var(--app-action-content-width)') ||
+  !appStyles.includes('height: auto !important;') ||
+  !appStyles.includes('.app-action .q-btn__content') ||
+  !appStyles.includes('column-gap: 12px') ||
+  !appStyles.includes('.q-icon:is(.on-left, .on-right)') ||
+  !appStyles.includes('@media (max-width: 430px)') ||
+  !appStyles.includes('overflow-wrap: break-word')
+) {
+  failures.push(
+    'src/css/app.scss: o contrato universal deve priorizar uma linha, reorganizar o grupo e igualar alturas quando a quebra móvel for inevitável.',
+  );
+}
+
+if (
+  !buttonLayout.includes("querySelectorAll('.app-action-group')") ||
+  !buttonLayout.includes("querySelector('.q-btn__content')") ||
+  !buttonLayout.includes("setProperty('--app-action-content-width'") ||
+  !buttonLayout.includes('ACTION_WIDTH_SAFETY_PX = 8') ||
+  !buttonLayout.includes('getIntrinsicContentWidth') ||
+  !buttonLayout.includes('childrenWidth + gap') ||
+  !buttonLayout.includes("closest('.app-action-group')") ||
+  !buttonLayout.includes('MutationObserver') ||
+  !buttonLayout.includes('document.fonts?.ready')
+) {
+  failures.push(
+    'src/boot/buttonLayout.js: a maior tradução deve definir a largura do grupo antes da interação.',
+  );
+}
+
+if (
+  !appStyles.includes('.app-no-double-tap') ||
+  !appStyles.includes('touch-action: manipulation')
+) {
+  failures.push(
+    'src/css/app.scss: as navegações laterais devem impedir somente o zoom por toque duplo.',
+  );
+}
+
+for (const [surfaceName, source] of [
+  ['EducationPage.vue', educationPage],
+  ['ToolsEditorialCards.vue', editorialCards],
+  ['Calendario12Meses.vue', calendar12],
+  ['Calendario13Meses.vue', calendar13],
+  ['Feriados12Calendario.vue', holidays12],
+  ['Feriados13Calendario.vue', holidays13],
+  ['Fases12Lua.vue', moonPhases12],
+  ['Fases13Lua.vue', moonPhases13],
+  ['AppDateInput.vue', appDateInput],
+  ['AppInternationalFixedDateInput.vue', appInternationalFixedDateInput],
+  ['AppYearInput.vue', appYearInput],
+]) {
+  if (!source.includes('app-no-double-tap')) {
+    failures.push(`${surfaceName}: a navegação lateral deve usar a proteção móvel compartilhada.`);
+  }
+}
+
+for (const [surfaceName, source, requiredFragment] of [
+  ['ToolsPage.vue', toolsPage, 'tools-hero__actions app-action-group'],
+  ['EducationPage.vue', educationPage, 'education-hero__actions app-action-group'],
+  ['ToolsShareCard.vue', shareCard, 'share-tool__actions app-action-group'],
+  ['ToolsBirthdayCard.vue', birthdayCard, '<div class="app-action-group">'],
+  ['ToolsAnnualPlanner.vue', annualPlanner, 'annual-planner-ics-dialog__actions app-action-group'],
+  [
+    'EducationResourcesSection.vue',
+    resourcesSection,
+    'education-resources__searches app-action-group',
+  ],
+  ['EducationFeedback.vue', feedback, 'education-feedback__share app-action-group'],
+  ['EducationAttributionDialog.vue', attributionDialog, 'class="app-action-group"'],
+  ['ToolsPwaCard.vue', pwaCard, 'class="app-action-group"'],
+  ['CommunityRemovalPage.vue', removalPage, 'community-removal-actions app-action-group'],
+]) {
+  if (!source.includes(requiredFragment)) {
+    failures.push(`${surfaceName}: ações vizinhas devem usar o grupo compartilhado.`);
+  }
+}
+
+if (
+  !removalPage.includes("size: 'flexible'") ||
+  removalPage.indexOf('community-removal-verification') >
+    removalPage.indexOf('community-removal-actions app-action-group')
+) {
+  failures.push(
+    'CommunityRemovalPage.vue: o Turnstile responsivo deve permanecer independente dos botões.',
+  );
+}
+
+if (
+  !editorialCards.includes('maximumGestureSteps') ||
+  !editorialCards.includes('physicalIndex.value += step') ||
+  !editorialCards.includes('rapidMovement.value') ||
+  !editorialCards.includes('loopCopies = 7')
+) {
+  failures.push(
+    'ToolsEditorialCards.vue: o carrossel deve aceitar deslocamentos múltiplos e cliques contínuos.',
+  );
+}
+
+if (
+  annualPlanner.includes('calendar_add_on') ||
+  !annualPlanner.includes('event_available') ||
+  !annualPlanner.includes('align="center"') ||
+  !annualPlanner.includes('--app-action-group-max: 520px')
+) {
+  failures.push(
+    'ToolsAnnualPlanner.vue: o diálogo ICS deve manter ícone compatível e três ações compactas.',
+  );
+}
+
+if (
+  !annualPlannerPrint.includes('const notePages = computed') ||
+  !annualPlannerPrint.includes('Array.from({ length: 7 }') ||
+  !annualPlannerPrint.includes("key: 'special-days'") ||
+  !annualPlannerPrint.includes('height: 297mm') ||
+  !annualPlannerPrint.includes("'planner-print--export': exporting") ||
+  !annualPlannerPrint.includes('getPageElements') ||
+  !plannerPdf.includes('ANNUAL_PLANNER_PAGE_COUNT = 40') ||
+  !plannerPdf.includes('pageElements.length !== ANNUAL_PLANNER_PAGE_COUNT') ||
+  annualPlanner.includes('window.print()') ||
+  appStyles.includes('printing-annual-planner')
+) {
+  failures.push(
+    'Planejador PDF: o download deve preservar 40 folhas A4, sete páginas de notas e paginação independente do navegador.',
+  );
 }
 
 const publicPageNames = [
@@ -234,7 +432,7 @@ if (/defineProps|showContext|footer\.(?:title|sourcesTitle|limitationsTitle)/.te
 
 if (
   !layout.includes('<AppFooter v-if="showsPublicFooter"') ||
-  !layout.includes("const publicFooterRoutes = new Set")
+  !layout.includes('const publicFooterRoutes = new Set')
 ) {
   failures.push('MainLayout.vue: o rodapé público deve ser renderizado uma vez pelo layout.');
 }
@@ -283,8 +481,8 @@ if (!layout.includes('app-toolbar-button--active') || !layout.includes('side="ri
   failures.push('MainLayout.vue: a navegação precisa de estado ativo e gaveta móvel à direita.');
 }
 
-const navigationOrder = ['education', 'tools', 'home', 'moon', 'news', 'community'].map((routeName) =>
-  layout.indexOf(`routeName: '${routeName}'`),
+const navigationOrder = ['education', 'tools', 'home', 'moon', 'news', 'community'].map(
+  (routeName) => layout.indexOf(`routeName: '${routeName}'`),
 );
 if (
   navigationOrder.some((position) => position < 0) ||
@@ -326,7 +524,9 @@ if (
   !communityPage.includes('tone="green"') ||
   !resourcesSection.includes('tone="amber"')
 ) {
-  failures.push('Os avisos de Comunidade e Notícias devem usar AppNoticePanel e a paleta semântica.');
+  failures.push(
+    'Os avisos de Comunidade e Notícias devem usar AppNoticePanel e a paleta semântica.',
+  );
 }
 
 for (const family of ['purple', 'green', 'amber']) {
@@ -394,7 +594,9 @@ for (const [surfaceName, source] of [
   ['EducationDateConverter.vue', dateConverter],
 ]) {
   if (!source.includes('AppComparisonDateTitle')) {
-    failures.push(`${surfaceName}: comparações diretas devem usar a quebra universal em duas linhas.`);
+    failures.push(
+      `${surfaceName}: comparações diretas devem usar a quebra universal em duas linhas.`,
+    );
   }
 }
 
@@ -475,9 +677,7 @@ if (!birthdayCard.includes(':reference-year="celebrationYear"')) {
 }
 
 if (birthdayCard.indexOf('<AppYearInput') > birthdayCard.indexOf('<AppDateInput')) {
-  failures.push(
-    'ToolsBirthdayCard.vue: o ano deve ser escolhido antes do dia e do mês.',
-  );
+  failures.push('ToolsBirthdayCard.vue: o ano deve ser escolhido antes do dia e do mês.');
 }
 
 if (!appDateInput.includes('effectiveReferenceYear')) {
@@ -512,7 +712,9 @@ if (/:hint=|formatHint/.test(appDateInput)) {
 }
 
 if (!appDateInput.includes('hide-bottom-space') || !appYearInput.includes('hide-bottom-space')) {
-  failures.push('Seletores compartilhados: o espaço inferior invisível não deve desalinhár linhas.');
+  failures.push(
+    'Seletores compartilhados: o espaço inferior invisível não deve desalinhár linhas.',
+  );
 }
 
 if (

@@ -179,6 +179,7 @@ const english = {
       'Being listed is not an endorsement. Commercial offers, opinions and scientific claims remain the responsibility of each publisher.',
     types: {
       reporting: 'Reporting',
+      discussion: 'Community discussion',
       historical: 'Historical coverage',
       explainer: 'Explainer',
       project: 'Independent project',
@@ -219,7 +220,8 @@ const english = {
       cardFooter: 'Free, independent and privacy-friendly',
       whatsapp: 'WhatsApp',
       facebook: 'Facebook',
-      x: 'X',
+      x: 'X/Twitter',
+      telegram: 'Telegram',
       networks: 'Share on social networks',
     },
     birthday: {
@@ -324,14 +326,11 @@ const english = {
       privacy: 'Saved pages remain on this device and can be removed with browser data.',
       helpTitle: 'Install 13 Calendar',
       guides: {
-        iosSafari:
-          'In Safari: Share > Add to Home Screen > Open as Web App > Add.',
+        iosSafari: 'In Safari: Share > Add to Home Screen > Open as Web App > Add.',
         iosOther:
           'On iPhone or iPad, open this page in Safari, then use Share > Add to Home Screen > Add.',
-        androidFirefox:
-          'In Firefox: menu ⋮ > Install. If unavailable, use Add to Home screen.',
-        androidChromium:
-          'Open menu ⋮, choose Install app or Add to Home screen, and confirm.',
+        androidFirefox: 'In Firefox: menu ⋮ > Install. If unavailable, use Add to Home screen.',
+        androidChromium: 'Open menu ⋮, choose Install app or Add to Home screen, and confirm.',
         desktop:
           'Choose Install 13 Calendar in the browser menu. On Safari for Mac: File > Add to Dock.',
       },
@@ -530,6 +529,7 @@ const portuguese = {
       'A presença na lista não representa endosso. Ofertas comerciais, opiniões e alegações científicas continuam sob responsabilidade de cada publicação.',
     types: {
       reporting: 'Reportagem',
+      discussion: 'Discussão comunitária',
       historical: 'Cobertura histórica',
       explainer: 'Explicação',
       project: 'Projeto independente',
@@ -558,8 +558,7 @@ const portuguese = {
     share: {
       eyebrow: 'Data compartilhável',
       title: 'Hoje em dois calendários',
-      description:
-        'Baixe uma imagem privada gerada no seu navegador ou compartilhe o link atual.',
+      description: 'Baixe uma imagem privada gerada no seu navegador ou compartilhe o link atual.',
       date: 'Data do cartão',
       download: 'Baixar imagem',
       native: 'Compartilhar',
@@ -572,7 +571,8 @@ const portuguese = {
       cardFooter: 'Gratuito, independente e respeitoso à privacidade',
       whatsapp: 'WhatsApp',
       facebook: 'Facebook',
-      x: 'X',
+      x: 'X/Twitter',
+      telegram: 'Telegram',
       networks: 'Compartilhar nas redes sociais',
     },
     birthday: {
@@ -634,8 +634,7 @@ const portuguese = {
       sunset: 'Pôr do Sol',
       locationDenied:
         'A localização não ficou disponível. Digite latitude e longitude manualmente.',
-      invalidCoordinates:
-        'Digite latitude válida entre −90 e 90 e longitude entre −180 e 180.',
+      invalidCoordinates: 'Digite latitude válida entre −90 e 90 e longitude entre −180 e 180.',
       noSunEvent: 'Nenhum evento nesta data',
     },
     favorites: {

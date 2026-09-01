@@ -206,6 +206,7 @@ async function mountTurnstile() {
       sitekey: turnstileSiteKey,
       action: turnstileAction,
       theme: 'auto',
+      size: 'flexible',
       callback: (token) => {
         turnstileToken.value = token;
       },
@@ -388,6 +389,7 @@ function readPreferredHolidayCountry() {
 }
 
 .community-turnstile {
+  width: min(100%, 300px);
   min-height: 65px;
   margin-bottom: 18px;
 }

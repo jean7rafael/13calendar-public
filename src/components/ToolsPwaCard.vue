@@ -41,7 +41,7 @@
           <p>{{ installGuideText }}</p>
         </q-card-section>
 
-        <q-card-actions align="right">
+        <q-card-actions align="right" class="app-action-group">
           <q-btn
             no-caps
             unelevated
@@ -257,7 +257,10 @@ onBeforeUnmount(() => {
 }
 
 .pwa-install-dialog .q-card__actions {
-  gap: 10px;
+  --app-action-group-max: 100%;
+  --app-action-min-width: 210px;
+
+  margin-inline-start: auto;
   padding: 22px 26px 26px;
 }
 
@@ -277,8 +280,8 @@ onBeforeUnmount(() => {
   }
 
   .pwa-install-dialog .q-card__actions {
-    display: grid;
-    grid-template-columns: 1fr;
+    --app-action-min-width: 100%;
+
     padding: 18px 20px 22px;
   }
 }

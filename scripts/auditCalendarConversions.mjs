@@ -16,6 +16,9 @@ import {
 import { converterPara13Meses, converterParaGregoriano } from '../src/utils/conversorDatas.js';
 import {
   buildDateComparisonPresentation,
+  createAnnualPlannerIcs,
+  createDailyInternationalFixedIcs,
+  createFavoriteDatesIcs,
   formatComparisonWeekday,
 } from '../src/utils/calendarTools.js';
 
@@ -128,6 +131,76 @@ for (const locale of supportedLocales) {
   );
 }
 
+/* ===========================================================
+   EXPORTAÇÕES PARA APLICATIVOS DE CALENDÁRIO
+
+   O ICS continua gregoriano por compatibilidade, mas precisa
+   preservar a equivalência IFC nos três níveis de detalhe.
+=========================================================== */
+
+const icsLabels = {
+  months: [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'Solaris',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ],
+  weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  yearDay: 'Year Day',
+  leapDay: 'Leap Day',
+  specialDays: 'Special Days',
+  position: (month, week) => `${month}/${week}`,
+  gregorianDate: 'Gregorian date',
+  fixedDate: 'IFC date',
+  calendarName: 'IFC 2026',
+};
+
+const milestoneIcs = createAnnualPlannerIcs(
+  2026,
+  icsLabels.months,
+  icsLabels,
+  icsLabels.calendarName,
+);
+const dailyIcs = createDailyInternationalFixedIcs(2026, icsLabels, 'en-US');
+const leapDailyIcs = createDailyInternationalFixedIcs(
+  2028,
+  { ...icsLabels, calendarName: 'IFC 2028' },
+  'en-US',
+);
+const favoriteIcs = createFavoriteDatesIcs(
+  [{ date: '2026-08-29', label: 'Review' }],
+  icsLabels,
+  'en-US',
+);
+const countEvents = (contents) => (contents.match(/BEGIN:VEVENT/g) || []).length;
+const longestIcsLine = (contents) =>
+  Math.max(
+    ...contents
+      .split('\r\n')
+      .map((line) => new TextEncoder().encode(line).length),
+  );
+
+assert.equal(countEvents(milestoneIcs), 14);
+assert.equal(countEvents(dailyIcs), 365);
+assert.equal(countEvents(leapDailyIcs), 366);
+assert.equal(countEvents(favoriteIcs), 1);
+assert.ok(milestoneIcs.includes('DTSTART;VALUE=DATE:20260910'));
+assert.ok(milestoneIcs.includes('SUMMARY:September 1 — IFC'));
+assert.ok(dailyIcs.includes('SUMMARY:Year Day — IFC'));
+assert.ok(favoriteIcs.includes('SUMMARY:Review'));
+assert.ok(longestIcsLine(milestoneIcs) <= 75);
+assert.ok(longestIcsLine(dailyIcs) <= 75);
+assert.ok(longestIcsLine(favoriteIcs) <= 75);
+
 console.log(
-  'Conversões compartilhadas auditadas: Dias Especiais e comparações nos 12 idiomas estão consistentes.',
+  'Conversões compartilhadas auditadas: Dias Especiais, comparações nos 12 idiomas e três modos ICS estão consistentes.',
 );

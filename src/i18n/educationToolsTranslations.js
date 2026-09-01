@@ -21,7 +21,8 @@ export const localizedToolMessages = {
     share: {
       eyebrow: 'Fecha para compartir',
       title: 'Hoy en dos calendarios',
-      description: 'Descarga una imagen privada creada en tu navegador o comparte el enlace actual.',
+      description:
+        'Descarga una imagen privada creada en tu navegador o comparte el enlace actual.',
       date: 'Fecha de la tarjeta',
       download: 'Descargar imagen',
       native: 'Compartir',
@@ -34,7 +35,8 @@ export const localizedToolMessages = {
       cardFooter: 'Gratis, independiente y respetuoso con la privacidad',
       whatsapp: 'WhatsApp',
       facebook: 'Facebook',
-      x: 'X',
+      x: 'X/Twitter',
+      telegram: 'Telegram',
       networks: 'Compartir en redes sociales',
     },
     birthday: {
@@ -46,7 +48,8 @@ export const localizedToolMessages = {
       celebrationYear: 'Año de celebración',
       gregorian: 'Cumpleaños gregoriano',
       fixed: 'Cumpleaños IFC',
-      weekdayFact: 'Los cumpleaños IFC regulares siempre vuelven al mismo día de la semana del IFC.',
+      weekdayFact:
+        'Los cumpleaños IFC regulares siempre vuelven al mismo día de la semana del IFC.',
       invalidLeap: 'El 29 de febrero no existe en el año gregoriano seleccionado.',
       cardTitle: 'Mi cumpleaños en el calendario de 13 meses',
       chooseDate: 'Elige tu fecha de nacimiento.',
@@ -101,7 +104,8 @@ export const localizedToolMessages = {
     favorites: {
       eyebrow: 'Favoritos locales',
       title: 'Guarda fechas importantes en este dispositivo',
-      description: 'Los favoritos quedan solo en este navegador. No usamos cuenta, correo ni servidor.',
+      description:
+        'Los favoritos quedan solo en este navegador. No usamos cuenta, correo ni servidor.',
       label: 'Etiqueta opcional',
       date: 'Fecha gregoriana',
       add: 'Guardar favorito',
@@ -113,7 +117,8 @@ export const localizedToolMessages = {
     widget: {
       eyebrow: 'Widget gratuito',
       title: 'Muestra la fecha IFC de hoy en otro sitio',
-      description: 'Copia el iframe. La vista compacta no tiene rastreo propio y siempre acredita la fuente.',
+      description:
+        'Copia el iframe. La vista compacta no tiene rastreo propio y siempre acredita la fuente.',
       copy: 'Copiar código de inserción',
       copied: 'Código de inserción copiado.',
       preview: 'Vista previa del widget',
@@ -134,14 +139,20 @@ export const localizedToolMessages = {
       ready: 'La instalación está disponible en el menú del navegador.',
       available: 'La aplicación está lista para instalar.',
       installed: 'La aplicación ya está instalada.',
-      privacy: 'Las páginas guardadas permanecen en este dispositivo y se borran con los datos del navegador.',
+      privacy:
+        'Las páginas guardadas permanecen en este dispositivo y se borran con los datos del navegador.',
       helpTitle: 'Instala 13 Calendar',
       guides: {
-        iosSafari: 'En Safari: Compartir > Añadir a pantalla de inicio > Abrir como app web > Añadir.',
-        iosOther: 'En iPhone o iPad, abre esta página en Safari y usa Compartir > Añadir a pantalla de inicio > Añadir.',
-        androidFirefox: 'En Firefox: menú ⋮ > Instalar. Si no aparece, usa Añadir a pantalla de inicio.',
-        androidChromium: 'Abre el menú ⋮, elige Instalar aplicación o Añadir a pantalla de inicio y confirma.',
-        desktop: 'Elige Instalar 13 Calendar en el menú. En Safari para Mac: Archivo > Añadir al Dock.',
+        iosSafari:
+          'En Safari: Compartir > Añadir a pantalla de inicio > Abrir como app web > Añadir.',
+        iosOther:
+          'En iPhone o iPad, abre esta página en Safari y usa Compartir > Añadir a pantalla de inicio > Añadir.',
+        androidFirefox:
+          'En Firefox: menú ⋮ > Instalar. Si no aparece, usa Añadir a pantalla de inicio.',
+        androidChromium:
+          'Abre el menú ⋮, elige Instalar aplicación o Añadir a pantalla de inicio y confirma.',
+        desktop:
+          'Elige Instalar 13 Calendar en el menú. En Safari para Mac: Archivo > Añadir al Dock.',
       },
       close: 'Cerrar',
       update: 'Hay una versión nueva lista.',
@@ -150,10 +161,12 @@ export const localizedToolMessages = {
     editorial: {
       eyebrow: 'Tarjetas editoriales',
       title: 'Datos útiles, listos para compartir',
-      description: 'Descarga tarjetas cuadradas con el contexto científico e histórico del proyecto.',
+      description:
+        'Descarga tarjetas cuadradas con el contexto científico e histórico del proyecto.',
       moonEyebrow: 'Astronomía',
       moonTitle: 'Un mes de 28 días no es un ciclo lunar',
-      moonText: 'El ciclo medio entre dos Lunas nuevas dura 29,53 días; las fases recorren los meses fijos.',
+      moonText:
+        'El ciclo medio entre dos Lunas nuevas dura 29,53 días; las fases recorren los meses fijos.',
       kodakEyebrow: 'Historia',
       kodakTitle: 'Kodak usó un calendario fijo durante 61 años',
       kodakText:
@@ -165,7 +178,8 @@ export const localizedToolMessages = {
     },
     cta: {
       title: 'Herramientas gratuitas, sin cuenta',
-      description: 'Todo funciona en tu navegador. Vuelve a los calendarios o visita la comunidad voluntaria.',
+      description:
+        'Todo funciona en tu navegador. Vuelve a los calendarios o visita la comunidad voluntaria.',
     },
   },
   'fr-FR': {
@@ -182,7 +196,8 @@ export const localizedToolMessages = {
     share: {
       eyebrow: 'Date à partager',
       title: 'Aujourd’hui dans deux calendriers',
-      description: 'Téléchargez une image privée créée dans votre navigateur ou partagez le lien actuel.',
+      description:
+        'Téléchargez une image privée créée dans votre navigateur ou partagez le lien actuel.',
       date: 'Date de la carte',
       download: 'Télécharger l’image',
       native: 'Partager',
@@ -195,7 +210,8 @@ export const localizedToolMessages = {
       cardFooter: 'Gratuit, indépendant et respectueux de la vie privée',
       whatsapp: 'WhatsApp',
       facebook: 'Facebook',
-      x: 'X',
+      x: 'X/Twitter',
+      telegram: 'Telegram',
       networks: 'Partager sur les réseaux sociaux',
     },
     birthday: {
@@ -207,7 +223,8 @@ export const localizedToolMessages = {
       celebrationYear: 'Année de célébration',
       gregorian: 'Anniversaire grégorien',
       fixed: 'Anniversaire IFC',
-      weekdayFact: 'Les anniversaires IFC ordinaires reviennent toujours le même jour de la semaine IFC.',
+      weekdayFact:
+        'Les anniversaires IFC ordinaires reviennent toujours le même jour de la semaine IFC.',
       invalidLeap: 'Le 29 février n’existe pas dans l’année grégorienne choisie.',
       cardTitle: 'Mon anniversaire dans le calendrier de 13 mois',
       chooseDate: 'Choisissez votre date de naissance.',
@@ -262,7 +279,8 @@ export const localizedToolMessages = {
     favorites: {
       eyebrow: 'Favoris locaux',
       title: 'Conservez les dates importantes sur cet appareil',
-      description: 'Les favoris restent dans ce navigateur. Aucun compte, courriel ni serveur n’est utilisé.',
+      description:
+        'Les favoris restent dans ce navigateur. Aucun compte, courriel ni serveur n’est utilisé.',
       label: 'Libellé facultatif',
       date: 'Date grégorienne',
       add: 'Enregistrer le favori',
@@ -274,7 +292,8 @@ export const localizedToolMessages = {
     widget: {
       eyebrow: 'Widget gratuit',
       title: 'Affichez la date IFC du jour sur un autre site',
-      description: 'Copiez l’iframe. La vue compacte n’a aucun suivi propre et cite toujours la source.',
+      description:
+        'Copiez l’iframe. La vue compacte n’a aucun suivi propre et cite toujours la source.',
       copy: 'Copier le code d’intégration',
       copied: 'Code d’intégration copié.',
       preview: 'Aperçu du widget',
@@ -295,14 +314,20 @@ export const localizedToolMessages = {
       ready: 'L’installation est disponible dans le menu du navigateur.',
       available: 'L’application est prête à être installée.',
       installed: 'L’application est déjà installée.',
-      privacy: 'Les pages enregistrées restent sur cet appareil et partent avec les données du navigateur.',
+      privacy:
+        'Les pages enregistrées restent sur cet appareil et partent avec les données du navigateur.',
       helpTitle: 'Installer 13 Calendar',
       guides: {
-        iosSafari: 'Dans Safari : Partager > Sur l’écran d’accueil > Ouvrir comme app web > Ajouter.',
-        iosOther: 'Sur iPhone ou iPad, ouvrez cette page dans Safari, puis Partager > Sur l’écran d’accueil > Ajouter.',
-        androidFirefox: 'Dans Firefox : menu ⋮ > Installer. Sinon, utilisez Ajouter à l’écran d’accueil.',
-        androidChromium: 'Ouvrez le menu ⋮, choisissez Installer l’application ou Ajouter à l’écran d’accueil, puis confirmez.',
-        desktop: 'Choisissez Installer 13 Calendar dans le menu. Dans Safari sur Mac : Fichier > Ajouter au Dock.',
+        iosSafari:
+          'Dans Safari : Partager > Sur l’écran d’accueil > Ouvrir comme app web > Ajouter.',
+        iosOther:
+          'Sur iPhone ou iPad, ouvrez cette page dans Safari, puis Partager > Sur l’écran d’accueil > Ajouter.',
+        androidFirefox:
+          'Dans Firefox : menu ⋮ > Installer. Sinon, utilisez Ajouter à l’écran d’accueil.',
+        androidChromium:
+          'Ouvrez le menu ⋮, choisissez Installer l’application ou Ajouter à l’écran d’accueil, puis confirmez.',
+        desktop:
+          'Choisissez Installer 13 Calendar dans le menu. Dans Safari sur Mac : Fichier > Ajouter au Dock.',
       },
       close: 'Fermer',
       update: 'Une nouvelle version est prête.',
@@ -311,10 +336,12 @@ export const localizedToolMessages = {
     editorial: {
       eyebrow: 'Cartes éditoriales',
       title: 'Des faits utiles, prêts à partager',
-      description: 'Téléchargez des cartes carrées sur le contexte scientifique et historique du projet.',
+      description:
+        'Téléchargez des cartes carrées sur le contexte scientifique et historique du projet.',
       moonEyebrow: 'Astronomie',
       moonTitle: 'Un mois de 28 jours n’est pas un cycle lunaire',
-      moonText: 'Le cycle moyen entre deux Nouvelles Lunes dure 29,53 jours ; les phases traversent les mois fixes.',
+      moonText:
+        'Le cycle moyen entre deux Nouvelles Lunes dure 29,53 jours ; les phases traversent les mois fixes.',
       kodakEyebrow: 'Histoire',
       kodakTitle: 'Kodak a utilisé un calendrier fixe pendant 61 ans',
       kodakText:
@@ -326,7 +353,8 @@ export const localizedToolMessages = {
     },
     cta: {
       title: 'Des outils gratuits, sans compte',
-      description: 'Tout fonctionne dans votre navigateur. Revenez aux calendriers ou visitez la communauté volontaire.',
+      description:
+        'Tout fonctionne dans votre navigateur. Revenez aux calendriers ou visitez la communauté volontaire.',
     },
   },
   'de-DE': {
@@ -343,7 +371,8 @@ export const localizedToolMessages = {
     share: {
       eyebrow: 'Teilbares Datum',
       title: 'Heute in zwei Kalendern',
-      description: 'Laden Sie ein privat im Browser erstelltes Bild herunter oder teilen Sie den aktuellen Link.',
+      description:
+        'Laden Sie ein privat im Browser erstelltes Bild herunter oder teilen Sie den aktuellen Link.',
       date: 'Datum auf der Karte',
       download: 'Bild herunterladen',
       native: 'Teilen',
@@ -356,13 +385,15 @@ export const localizedToolMessages = {
       cardFooter: 'Kostenlos, unabhängig und datenschutzfreundlich',
       whatsapp: 'WhatsApp',
       facebook: 'Facebook',
-      x: 'X',
+      x: 'X/Twitter',
+      telegram: 'Telegram',
       networks: 'In sozialen Netzwerken teilen',
     },
     birthday: {
       eyebrow: 'Geburtstagsrechner',
       title: 'Wann ist Ihr Geburtstag im 13-Monats-Kalender?',
-      description: 'Wählen Sie zuerst das Feierjahr und danach Tag und Monat des Geburtstags. So zeigt der Kalender die Wochentage dieses Jahres. Die Berechnung bleibt im Browser.',
+      description:
+        'Wählen Sie zuerst das Feierjahr und danach Tag und Monat des Geburtstags. So zeigt der Kalender die Wochentage dieses Jahres. Die Berechnung bleibt im Browser.',
       original: 'Geburtstag und -monat',
       celebrationYear: 'Feierjahr',
       gregorian: 'Gregorianischer Geburtstag',
@@ -416,13 +447,15 @@ export const localizedToolMessages = {
       sunrise: 'Sonnenaufgang',
       sunset: 'Sonnenuntergang',
       locationDenied: 'Der Standort ist nicht verfügbar. Geben Sie Breiten- und Längengrad ein.',
-      invalidCoordinates: 'Breitengrad muss zwischen −90 und 90, Längengrad zwischen −180 und 180 liegen.',
+      invalidCoordinates:
+        'Breitengrad muss zwischen −90 und 90, Längengrad zwischen −180 und 180 liegen.',
       noSunEvent: 'Kein Ereignis an diesem Datum',
     },
     favorites: {
       eyebrow: 'Lokale Favoriten',
       title: 'Wichtige Daten auf diesem Gerät speichern',
-      description: 'Favoriten bleiben nur in diesem Browser. Konto, E-Mail und Server werden nicht verwendet.',
+      description:
+        'Favoriten bleiben nur in diesem Browser. Konto, E-Mail und Server werden nicht verwendet.',
       label: 'Optionale Bezeichnung',
       date: 'Gregorianisches Datum',
       add: 'Favorit speichern',
@@ -434,7 +467,8 @@ export const localizedToolMessages = {
     widget: {
       eyebrow: 'Kostenloses Widget',
       title: 'Das heutige IFC-Datum auf einer anderen Seite anzeigen',
-      description: 'Kopieren Sie den iframe-Code. Die kompakte Ansicht trackt nicht selbst und nennt stets die Quelle.',
+      description:
+        'Kopieren Sie den iframe-Code. Die kompakte Ansicht trackt nicht selbst und nennt stets die Quelle.',
       copy: 'Einbettungscode kopieren',
       copied: 'Einbettungscode kopiert.',
       preview: 'Widget-Vorschau',
@@ -455,14 +489,18 @@ export const localizedToolMessages = {
       ready: 'Die Installation ist im Browsermenü verfügbar.',
       available: 'Die App kann installiert werden.',
       installed: 'Die App ist bereits installiert.',
-      privacy: 'Gespeicherte Seiten bleiben auf diesem Gerät und können mit den Browserdaten entfernt werden.',
+      privacy:
+        'Gespeicherte Seiten bleiben auf diesem Gerät und können mit den Browserdaten entfernt werden.',
       helpTitle: '13 Calendar installieren',
       guides: {
         iosSafari: 'In Safari: Teilen > Zum Home-Bildschirm > Als Web-App öffnen > Hinzufügen.',
-        iosOther: 'Öffnen Sie diese Seite auf iPhone oder iPad in Safari: Teilen > Zum Home-Bildschirm > Hinzufügen.',
+        iosOther:
+          'Öffnen Sie diese Seite auf iPhone oder iPad in Safari: Teilen > Zum Home-Bildschirm > Hinzufügen.',
         androidFirefox: 'In Firefox: Menü ⋮ > Installieren. Sonst Zum Startbildschirm hinzufügen.',
-        androidChromium: 'Öffnen Sie Menü ⋮, wählen Sie App installieren oder Zum Startbildschirm hinzufügen und bestätigen Sie.',
-        desktop: 'Wählen Sie 13 Calendar installieren im Menü. In Safari auf dem Mac: Ablage > Zum Dock hinzufügen.',
+        androidChromium:
+          'Öffnen Sie Menü ⋮, wählen Sie App installieren oder Zum Startbildschirm hinzufügen und bestätigen Sie.',
+        desktop:
+          'Wählen Sie 13 Calendar installieren im Menü. In Safari auf dem Mac: Ablage > Zum Dock hinzufügen.',
       },
       close: 'Schließen',
       update: 'Eine neuere Version ist bereit.',
@@ -471,10 +509,12 @@ export const localizedToolMessages = {
     editorial: {
       eyebrow: 'Redaktionelle Karten',
       title: 'Nützliche Fakten zum Teilen',
-      description: 'Laden Sie quadratische Karten zum wissenschaftlichen und historischen Hintergrund herunter.',
+      description:
+        'Laden Sie quadratische Karten zum wissenschaftlichen und historischen Hintergrund herunter.',
       moonEyebrow: 'Astronomie',
       moonTitle: 'Ein 28-Tage-Monat ist kein Mondzyklus',
-      moonText: 'Der mittlere Zyklus zwischen zwei Neumonden dauert 29,53 Tage; die Phasen wandern durch die festen Monate.',
+      moonText:
+        'Der mittlere Zyklus zwischen zwei Neumonden dauert 29,53 Tage; die Phasen wandern durch die festen Monate.',
       kodakEyebrow: 'Geschichte',
       kodakTitle: 'Kodak nutzte 61 Jahre lang einen festen Kalender',
       kodakText:
@@ -486,7 +526,8 @@ export const localizedToolMessages = {
     },
     cta: {
       title: 'Kostenlose Werkzeuge, ohne Konto',
-      description: 'Alles läuft in Ihrem Browser. Kehren Sie zu den Kalendern zurück oder besuchen Sie die Gemeinschaft.',
+      description:
+        'Alles läuft in Ihrem Browser. Kehren Sie zu den Kalendern zurück oder besuchen Sie die Gemeinschaft.',
     },
   },
   'it-IT': {
@@ -516,18 +557,21 @@ export const localizedToolMessages = {
       cardFooter: 'Gratuito, indipendente e rispettoso della privacy',
       whatsapp: 'WhatsApp',
       facebook: 'Facebook',
-      x: 'X',
+      x: 'X/Twitter',
+      telegram: 'Telegram',
       networks: 'Condividi sui social network',
     },
     birthday: {
       eyebrow: 'Convertitore di compleanno',
       title: 'Quando cade il tuo compleanno nel calendario di 13 mesi?',
-      description: 'Scegli prima l’anno della festa e poi il giorno e il mese del compleanno. Il calendario mostrerà i giorni della settimana di quell’anno e il calcolo resterà nel browser.',
+      description:
+        'Scegli prima l’anno della festa e poi il giorno e il mese del compleanno. Il calendario mostrerà i giorni della settimana di quell’anno e il calcolo resterà nel browser.',
       original: 'Giorno e mese del compleanno',
       celebrationYear: 'Anno della festa',
       gregorian: 'Compleanno gregoriano',
       fixed: 'Compleanno IFC',
-      weekdayFact: 'I compleanni IFC regolari tornano sempre nello stesso giorno della settimana IFC.',
+      weekdayFact:
+        'I compleanni IFC regolari tornano sempre nello stesso giorno della settimana IFC.',
       invalidLeap: 'Il 29 febbraio non esiste nell’anno gregoriano selezionato.',
       cardTitle: 'Il mio compleanno nel calendario di 13 mesi',
       chooseDate: 'Scegli la tua data di nascita.',
@@ -567,7 +611,8 @@ export const localizedToolMessages = {
       aphelion: 'Afelio',
       distance: '{value} milioni di km',
       locationTitle: 'Alba e tramonto',
-      locationText: 'Le coordinate sono usate solo in questo browser per la data scelta e mai inviate al server.',
+      locationText:
+        'Le coordinate sono usate solo in questo browser per la data scelta e mai inviate al server.',
       useLocation: 'Usa la mia posizione',
       latitude: 'Latitudine',
       longitude: 'Longitudine',
@@ -607,19 +652,25 @@ export const localizedToolMessages = {
     pwa: {
       eyebrow: 'Accesso offline',
       title: 'Installa e usa offline le ultime pagine aperte',
-      description: 'L’app salva l’interfaccia sul dispositivo. Notizie e totali della comunità richiedono internet.',
+      description:
+        'L’app salva l’interfaccia sul dispositivo. Notizie e totali della comunità richiedono internet.',
       install: 'Installa app',
       instructions: 'Vedi come installare',
       ready: 'L’installazione è disponibile nel menu del browser.',
       available: 'L’app è pronta per l’installazione.',
       installed: 'L’app è già installata.',
-      privacy: 'Le pagine salvate restano su questo dispositivo e si eliminano con i dati del browser.',
+      privacy:
+        'Le pagine salvate restano su questo dispositivo e si eliminano con i dati del browser.',
       helpTitle: 'Installa 13 Calendar',
       guides: {
-        iosSafari: 'In Safari: Condividi > Aggiungi alla schermata Home > Apri come app web > Aggiungi.',
-        iosOther: 'Su iPhone o iPad, apri questa pagina in Safari e usa Condividi > Aggiungi alla schermata Home > Aggiungi.',
-        androidFirefox: 'In Firefox: menu ⋮ > Installa. Altrimenti usa Aggiungi alla schermata Home.',
-        androidChromium: 'Apri il menu ⋮, scegli Installa app o Aggiungi alla schermata Home e conferma.',
+        iosSafari:
+          'In Safari: Condividi > Aggiungi alla schermata Home > Apri come app web > Aggiungi.',
+        iosOther:
+          'Su iPhone o iPad, apri questa pagina in Safari e usa Condividi > Aggiungi alla schermata Home > Aggiungi.',
+        androidFirefox:
+          'In Firefox: menu ⋮ > Installa. Altrimenti usa Aggiungi alla schermata Home.',
+        androidChromium:
+          'Apri il menu ⋮, scegli Installa app o Aggiungi alla schermata Home e conferma.',
         desktop: 'Scegli Installa 13 Calendar nel menu. In Safari su Mac: File > Aggiungi al Dock.',
       },
       close: 'Chiudi',
@@ -632,7 +683,8 @@ export const localizedToolMessages = {
       description: 'Scarica schede quadrate con il contesto scientifico e storico del progetto.',
       moonEyebrow: 'Astronomia',
       moonTitle: 'Un mese di 28 giorni non è un ciclo lunare',
-      moonText: 'Il ciclo medio fra due Lune nuove dura 29,53 giorni, quindi le fasi attraversano i mesi fissi.',
+      moonText:
+        'Il ciclo medio fra due Lune nuove dura 29,53 giorni, quindi le fasi attraversano i mesi fissi.',
       kodakEyebrow: 'Storia',
       kodakTitle: 'Kodak ha usato un calendario fisso per 61 anni',
       kodakText:
@@ -644,7 +696,8 @@ export const localizedToolMessages = {
     },
     cta: {
       title: 'Strumenti gratuiti, senza account',
-      description: 'Tutto funziona nel browser. Torna ai calendari o visita la comunità volontaria.',
+      description:
+        'Tutto funziona nel browser. Torna ai calendari o visita la comunità volontaria.',
     },
   },
   'ru-RU': {
@@ -674,18 +727,21 @@ export const localizedToolMessages = {
       cardFooter: 'Бесплатно, независимо и с уважением к конфиденциальности',
       whatsapp: 'WhatsApp',
       facebook: 'Facebook',
-      x: 'X',
+      x: 'X/Twitter',
+      telegram: 'Telegram',
       networks: 'Поделиться в социальных сетях',
     },
     birthday: {
       eyebrow: 'Конвертер дней рождения',
       title: 'Когда ваш день рождения в 13-месячном календаре?',
-      description: 'Сначала выберите год празднования, затем день и месяц рождения. Календарь покажет дни недели для этого года, а расчёт останется в браузере.',
+      description:
+        'Сначала выберите год празднования, затем день и месяц рождения. Календарь покажет дни недели для этого года, а расчёт останется в браузере.',
       original: 'День и месяц рождения',
       celebrationYear: 'Год празднования',
       gregorian: 'Григорианский день рождения',
       fixed: 'День рождения по IFC',
-      weekdayFact: 'Обычные дни рождения по IFC всегда приходятся на один и тот же день недели IFC.',
+      weekdayFact:
+        'Обычные дни рождения по IFC всегда приходятся на один и тот же день недели IFC.',
       invalidLeap: '29 февраля отсутствует в выбранном григорианском году.',
       cardTitle: 'Мой день рождения в 13-месячном календаре',
       chooseDate: 'Выберите дату рождения.',
@@ -725,7 +781,8 @@ export const localizedToolMessages = {
       aphelion: 'Афелий',
       distance: '{value} млн км',
       locationTitle: 'Восход и закат',
-      locationText: 'Координаты используются только в этом браузере и никогда не отправляются на наш сервер.',
+      locationText:
+        'Координаты используются только в этом браузере и никогда не отправляются на наш сервер.',
       useLocation: 'Использовать моё местоположение',
       latitude: 'Широта',
       longitude: 'Долгота',
@@ -751,7 +808,8 @@ export const localizedToolMessages = {
     widget: {
       eyebrow: 'Бесплатный виджет',
       title: 'Покажите сегодняшнюю дату IFC на другом сайте',
-      description: 'Скопируйте iframe. Компактный вид не отслеживает посетителей и всегда указывает источник.',
+      description:
+        'Скопируйте iframe. Компактный вид не отслеживает посетителей и всегда указывает источник.',
       copy: 'Копировать код вставки',
       copied: 'Код вставки скопирован.',
       preview: 'Предпросмотр виджета',
@@ -765,7 +823,8 @@ export const localizedToolMessages = {
     pwa: {
       eyebrow: 'Офлайн-доступ',
       title: 'Установите приложение и открывайте последние страницы без сети',
-      description: 'Интерфейс хранится на устройстве. Новости и сводные данные сообщества требуют интернета.',
+      description:
+        'Интерфейс хранится на устройстве. Новости и сводные данные сообщества требуют интернета.',
       install: 'Установить приложение',
       instructions: 'Как установить',
       ready: 'Установка доступна в меню браузера.',
@@ -774,11 +833,16 @@ export const localizedToolMessages = {
       privacy: 'Сохранённые страницы остаются на устройстве и удаляются вместе с данными браузера.',
       helpTitle: 'Установить 13 Calendar',
       guides: {
-        iosSafari: 'В Safari: «Поделиться» > «На экран “Домой”» > «Открыть как веб-приложение» > «Добавить».',
-        iosOther: 'На iPhone или iPad откройте страницу в Safari: «Поделиться» > «На экран “Домой”» > «Добавить».',
-        androidFirefox: 'В Firefox: меню ⋮ > «Установить». Иначе выберите «Добавить на главный экран».',
-        androidChromium: 'Откройте меню ⋮, выберите «Установить приложение» или «Добавить на главный экран» и подтвердите.',
-        desktop: 'В меню выберите «Установить 13 Calendar». В Safari на Mac: «Файл» > «Добавить в Dock».',
+        iosSafari:
+          'В Safari: «Поделиться» > «На экран “Домой”» > «Открыть как веб-приложение» > «Добавить».',
+        iosOther:
+          'На iPhone или iPad откройте страницу в Safari: «Поделиться» > «На экран “Домой”» > «Добавить».',
+        androidFirefox:
+          'В Firefox: меню ⋮ > «Установить». Иначе выберите «Добавить на главный экран».',
+        androidChromium:
+          'Откройте меню ⋮, выберите «Установить приложение» или «Добавить на главный экран» и подтвердите.',
+        desktop:
+          'В меню выберите «Установить 13 Calendar». В Safari на Mac: «Файл» > «Добавить в Dock».',
       },
       close: 'Закрыть',
       update: 'Готова новая версия.',
@@ -790,7 +854,8 @@ export const localizedToolMessages = {
       description: 'Скачайте квадратные карточки о научном и историческом контексте проекта.',
       moonEyebrow: 'Астрономия',
       moonTitle: '28-дневный месяц — не лунный цикл',
-      moonText: 'Средний цикл между новолуниями длится 29,53 дня, поэтому фазы смещаются по фиксированным месяцам.',
+      moonText:
+        'Средний цикл между новолуниями длится 29,53 дня, поэтому фазы смещаются по фиксированным месяцам.',
       kodakEyebrow: 'История',
       kodakTitle: 'Kodak использовала фиксированный календарь 61 год',
       kodakText:
@@ -802,7 +867,8 @@ export const localizedToolMessages = {
     },
     cta: {
       title: 'Бесплатные инструменты без аккаунта',
-      description: 'Всё работает в браузере. Вернитесь к календарям или посетите добровольное сообщество.',
+      description:
+        'Всё работает в браузере. Вернитесь к календарям или посетите добровольное сообщество.',
     },
   },
   'zh-CN': {
@@ -831,13 +897,15 @@ export const localizedToolMessages = {
       cardFooter: '免费、独立并尊重隐私',
       whatsapp: 'WhatsApp',
       facebook: 'Facebook',
-      x: 'X',
+      x: 'X/Twitter',
+      telegram: 'Telegram',
       networks: '分享到社交网络',
     },
     birthday: {
       eyebrow: '生日转换器',
       title: '你的生日在13个月历中是哪一天？',
-      description: '请先选择庆祝年份，再选择生日的月和日。这样日历会显示该年份对应的星期，计算只在浏览器中进行。',
+      description:
+        '请先选择庆祝年份，再选择生日的月和日。这样日历会显示该年份对应的星期，计算只在浏览器中进行。',
       original: '生日月日',
       celebrationYear: '庆祝年份',
       gregorian: '公历生日',
@@ -965,7 +1033,8 @@ export const localizedToolMessages = {
     hero: {
       eyebrow: 'アイデアを使う',
       title: 'カレンダーの理論を実用的な形に',
-      description: '日付カードの作成、誕生日の比較、年間計画、予定の書き出し、天文情報の確認を、登録も支払いもせずに行えます。',
+      description:
+        '日付カードの作成、誕生日の比較、年間計画、予定の書き出し、天文情報の確認を、登録も支払いもせずに行えます。',
       start: 'ツールを開く',
       map: 'ツール一覧',
     },
@@ -985,13 +1054,15 @@ export const localizedToolMessages = {
       cardFooter: '無料・独立・プライバシー重視',
       whatsapp: 'WhatsApp',
       facebook: 'Facebook',
-      x: 'X',
+      x: 'X/Twitter',
+      telegram: 'Telegram',
       networks: 'SNSで共有',
     },
     birthday: {
       eyebrow: '誕生日変換',
       title: '13か月暦であなたの誕生日はいつ？',
-      description: '最初に祝う年を選び、次に誕生日の月日を選びます。その年の曜日がカレンダーに表示され、計算はブラウザー内だけで行われます。',
+      description:
+        '最初に祝う年を選び、次に誕生日の月日を選びます。その年の曜日がカレンダーに表示され、計算はブラウザー内だけで行われます。',
       original: '誕生日の月日',
       celebrationYear: '祝う年',
       gregorian: 'グレゴリオ暦の誕生日',
@@ -1008,7 +1079,8 @@ export const localizedToolMessages = {
     planner: {
       eyebrow: '年間プランナー',
       title: '1年全体を比較',
-      description: '各IFC月に対応するグレゴリオ暦の開始日と終了日を表示します。月初予定の書き出しやPDF保存もできます。',
+      description:
+        '各IFC月に対応するグレゴリオ暦の開始日と終了日を表示します。月初予定の書き出しやPDF保存もできます。',
       year: '計画する年',
       fixedMonth: 'IFCの月',
       gregorianRange: 'グレゴリオ暦の期間',
@@ -1023,7 +1095,8 @@ export const localizedToolMessages = {
     astronomy: {
       eyebrow: '天文レイヤー',
       title: '暦の上で見る太陽年',
-      description: '選んだ年の分点、至点、近日点、遠日点を計算します。日の出と日の入りは任意で、位置情報が必要です。',
+      description:
+        '選んだ年の分点、至点、近日点、遠日点を計算します。日の出と日の入りは任意で、位置情報が必要です。',
       year: '天文年',
       localTime: '時刻は現在のタイムゾーンで表示',
       marchEquinox: '3月の分点',
@@ -1048,7 +1121,8 @@ export const localizedToolMessages = {
     favorites: {
       eyebrow: '端末内のお気に入り',
       title: '大切な日付をこの端末に保存',
-      description: 'お気に入りはこのブラウザーだけに残ります。アカウント、メール、サーバーは使いません。',
+      description:
+        'お気に入りはこのブラウザーだけに残ります。アカウント、メール、サーバーは使いません。',
       label: '任意のラベル',
       date: 'グレゴリオ暦の日付',
       add: 'お気に入りに保存',
@@ -1060,7 +1134,8 @@ export const localizedToolMessages = {
     widget: {
       eyebrow: '無料ウィジェット',
       title: '別のサイトに今日のIFC日付を表示',
-      description: 'iframeコードをコピーします。コンパクト表示には独自の追跡がなく、常に出典を示します。',
+      description:
+        'iframeコードをコピーします。コンパクト表示には独自の追跡がなく、常に出典を示します。',
       copy: '埋め込みコードをコピー',
       copied: '埋め込みコードをコピーしました。',
       preview: 'ウィジェットのプレビュー',
@@ -1074,7 +1149,8 @@ export const localizedToolMessages = {
     pwa: {
       eyebrow: 'オフライン利用',
       title: 'インストールして最近開いたページをオフラインで利用',
-      description: 'アプリの画面を端末に保存します。最新ニュースとコミュニティ集計には通信が必要です。',
+      description:
+        'アプリの画面を端末に保存します。最新ニュースとコミュニティ集計には通信が必要です。',
       install: 'アプリをインストール',
       instructions: 'インストール方法を見る',
       ready: 'ブラウザーのメニューからインストールできます。',
@@ -1083,11 +1159,16 @@ export const localizedToolMessages = {
       privacy: '保存したページはこの端末に残り、ブラウザーのデータとともに削除できます。',
       helpTitle: '13 Calendarをインストール',
       guides: {
-        iosSafari: 'Safariで、共有 >「ホーム画面に追加」>「Webアプリとして開く」>「追加」の順に選びます。',
-        iosOther: 'iPhoneまたはiPadではSafariで開き、共有 >「ホーム画面に追加」>「追加」を選びます。',
-        androidFirefox: 'Firefoxで、メニュー ⋮ >「インストール」。なければ「ホーム画面に追加」を選びます。',
-        androidChromium: 'メニュー ⋮ を開き、「アプリをインストール」または「ホーム画面に追加」を選んで確認します。',
-        desktop: 'メニューから「13 Calendarをインストール」。MacのSafariでは「ファイル」>「Dockに追加」。',
+        iosSafari:
+          'Safariで、共有 >「ホーム画面に追加」>「Webアプリとして開く」>「追加」の順に選びます。',
+        iosOther:
+          'iPhoneまたはiPadではSafariで開き、共有 >「ホーム画面に追加」>「追加」を選びます。',
+        androidFirefox:
+          'Firefoxで、メニュー ⋮ >「インストール」。なければ「ホーム画面に追加」を選びます。',
+        androidChromium:
+          'メニュー ⋮ を開き、「アプリをインストール」または「ホーム画面に追加」を選んで確認します。',
+        desktop:
+          'メニューから「13 Calendarをインストール」。MacのSafariでは「ファイル」>「Dockに追加」。',
       },
       close: '閉じる',
       update: '新しいバージョンを利用できます。',
@@ -1102,7 +1183,8 @@ export const localizedToolMessages = {
       moonText: '新月から次の新月までの平均は29.53日なので、月相は固定月の中を移動します。',
       kodakEyebrow: '歴史',
       kodakTitle: 'Kodakは固定暦を61年間使用しました',
-      kodakText: '1928年から1989年まで、Kodakは社内の会計と計画に使い、社外ではグレゴリオ暦を維持しました。',
+      kodakText:
+        '1928年から1989年まで、Kodakは社内の会計と計画に使い、社外ではグレゴリオ暦を維持しました。',
       download: 'カードをダウンロード',
       downloaded: '解説カードをダウンロードしました。',
       previousCard: '前のカード',
@@ -1110,7 +1192,8 @@ export const localizedToolMessages = {
     },
     cta: {
       title: '登録不要の無料ツール',
-      description: 'すべてブラウザー内で動きます。完全版カレンダーまたは任意参加のコミュニティへ戻れます。',
+      description:
+        'すべてブラウザー内で動きます。完全版カレンダーまたは任意参加のコミュニティへ戻れます。',
     },
   },
   'ar-SA': {
@@ -1140,13 +1223,15 @@ export const localizedToolMessages = {
       cardFooter: 'مجاني ومستقل ويحترم الخصوصية',
       whatsapp: 'واتساب',
       facebook: 'فيسبوك',
-      x: 'إكس',
+      x: 'إكس/تويتر',
+      telegram: 'تيليجرام',
       networks: 'المشاركة على الشبكات الاجتماعية',
     },
     birthday: {
       eyebrow: 'محوّل عيد الميلاد',
       title: 'متى يحل عيد ميلادك في تقويم الأشهر الثلاثة عشر؟',
-      description: 'اختر سنة الاحتفال أولاً، ثم يوم وشهر الميلاد. سيعرض التقويم أيام الأسبوع لتلك السنة، وتبقى العملية الحسابية داخل متصفحك.',
+      description:
+        'اختر سنة الاحتفال أولاً، ثم يوم وشهر الميلاد. سيعرض التقويم أيام الأسبوع لتلك السنة، وتبقى العملية الحسابية داخل متصفحك.',
       original: 'يوم وشهر الميلاد',
       celebrationYear: 'سنة الاحتفال',
       gregorian: 'عيد الميلاد بالتقويم الميلادي',
@@ -1191,7 +1276,8 @@ export const localizedToolMessages = {
       aphelion: 'الأوج',
       distance: '{value} مليون كم',
       locationTitle: 'الشروق والغروب',
-      locationText: 'تُستخدم الإحداثيات في هذا المتصفح فقط للتاريخ المختار ولا تُرسل أبدًا إلى خادمنا.',
+      locationText:
+        'تُستخدم الإحداثيات في هذا المتصفح فقط للتاريخ المختار ولا تُرسل أبدًا إلى خادمنا.',
       useLocation: 'استخدام موقعي',
       latitude: 'خط العرض',
       longitude: 'خط الطول',
@@ -1231,7 +1317,8 @@ export const localizedToolMessages = {
     pwa: {
       eyebrow: 'وصول بلا اتصال',
       title: 'ثبّت التطبيق واستخدم آخر الصفحات المفتوحة بلا اتصال',
-      description: 'يحفظ التطبيق واجهته على الجهاز. الأخبار المباشرة وإجماليات المجتمع تحتاج إلى الإنترنت.',
+      description:
+        'يحفظ التطبيق واجهته على الجهاز. الأخبار المباشرة وإجماليات المجتمع تحتاج إلى الإنترنت.',
       install: 'تثبيت التطبيق',
       instructions: 'عرض طريقة التثبيت',
       ready: 'التثبيت متاح في قائمة المتصفح.',
@@ -1241,7 +1328,8 @@ export const localizedToolMessages = {
       helpTitle: 'تثبيت 13 Calendar',
       guides: {
         iosSafari: 'في Safari: مشاركة > إضافة إلى الشاشة الرئيسية > فتح كتطبيق ويب > إضافة.',
-        iosOther: 'على iPhone أو iPad افتح الصفحة في Safari: مشاركة > إضافة إلى الشاشة الرئيسية > إضافة.',
+        iosOther:
+          'على iPhone أو iPad افتح الصفحة في Safari: مشاركة > إضافة إلى الشاشة الرئيسية > إضافة.',
         androidFirefox: 'في Firefox: القائمة ⋮ > تثبيت. أو اختر إضافة إلى الشاشة الرئيسية.',
         androidChromium: 'افتح القائمة ⋮ واختر تثبيت التطبيق أو إضافة إلى الشاشة الرئيسية ثم أكّد.',
         desktop: 'اختر تثبيت 13 Calendar من القائمة. في Safari على Mac: ملف > إضافة إلى Dock.',
@@ -1259,7 +1347,8 @@ export const localizedToolMessages = {
       moonText: 'متوسط الدورة بين محاقين هو 29.53 يومًا، لذلك تنتقل الأطوار عبر الأشهر الثابتة.',
       kodakEyebrow: 'التاريخ',
       kodakTitle: 'استخدمت كوداك تقويمًا ثابتًا لمدة 61 عامًا',
-      kodakText: 'بين 1928 و1989 استخدمته كوداك داخليًا للمحاسبة والتخطيط مع إبقاء التواريخ الميلادية خارجيًا.',
+      kodakText:
+        'بين 1928 و1989 استخدمته كوداك داخليًا للمحاسبة والتخطيط مع إبقاء التواريخ الميلادية خارجيًا.',
       download: 'تنزيل البطاقة',
       downloaded: 'تم تنزيل البطاقة التحريرية.',
       previousCard: 'البطاقة السابقة',
@@ -1297,13 +1386,15 @@ export const localizedToolMessages = {
       cardFooter: 'निःशुल्क, स्वतंत्र और निजता का सम्मान करने वाला',
       whatsapp: 'WhatsApp',
       facebook: 'Facebook',
-      x: 'X',
+      x: 'X/Twitter',
+      telegram: 'Telegram',
       networks: 'सोशल नेटवर्क पर साझा करें',
     },
     birthday: {
       eyebrow: 'जन्मदिन परिवर्तक',
       title: '13 महीने के कैलेंडर में आपका जन्मदिन कब है?',
-      description: 'पहले उत्सव का वर्ष चुनें, फिर जन्मदिन का दिन और महीना। कैलेंडर उस वर्ष के सप्ताह के दिन दिखाएगा और गणना आपके ब्राउज़र में ही रहेगी।',
+      description:
+        'पहले उत्सव का वर्ष चुनें, फिर जन्मदिन का दिन और महीना। कैलेंडर उस वर्ष के सप्ताह के दिन दिखाएगा और गणना आपके ब्राउज़र में ही रहेगी।',
       original: 'जन्मदिन का दिन और महीना',
       celebrationYear: 'उत्सव का वर्ष',
       gregorian: 'ग्रेगोरियन जन्मदिन',
@@ -1320,7 +1411,8 @@ export const localizedToolMessages = {
     planner: {
       eyebrow: 'वार्षिक योजनाकार',
       title: 'पूरे वर्ष की तुलना करें',
-      description: 'हर IFC महीने की ग्रेगोरियन शुरुआत और अंत देखें। महीने की शुरुआत निर्यात करें या PDF में सहेजें।',
+      description:
+        'हर IFC महीने की ग्रेगोरियन शुरुआत और अंत देखें। महीने की शुरुआत निर्यात करें या PDF में सहेजें।',
       year: 'योजना वर्ष',
       fixedMonth: 'IFC महीना',
       gregorianRange: 'ग्रेगोरियन अवधि',
@@ -1335,7 +1427,8 @@ export const localizedToolMessages = {
     astronomy: {
       eyebrow: 'खगोलीय परतें',
       title: 'कैलेंडर के साथ सौर वर्ष',
-      description: 'चुने हुए वर्ष के विषुव, अयनांत, उपसौर और अपसौर की गणना होती है। सूर्योदय और सूर्यास्त वैकल्पिक हैं और स्थान माँगते हैं।',
+      description:
+        'चुने हुए वर्ष के विषुव, अयनांत, उपसौर और अपसौर की गणना होती है। सूर्योदय और सूर्यास्त वैकल्पिक हैं और स्थान माँगते हैं।',
       year: 'खगोलीय वर्ष',
       localTime: 'समय आपके समय क्षेत्र में दिखाया गया है',
       marchEquinox: 'मार्च विषुव',
@@ -1346,7 +1439,8 @@ export const localizedToolMessages = {
       aphelion: 'अपसौर',
       distance: '{value} मिलियन किमी',
       locationTitle: 'सूर्योदय और सूर्यास्त',
-      locationText: 'निर्देशांक केवल चुनी तारीख के लिए इस ब्राउज़र में उपयोग होते हैं और हमारे सर्वर पर नहीं भेजे जाते।',
+      locationText:
+        'निर्देशांक केवल चुनी तारीख के लिए इस ब्राउज़र में उपयोग होते हैं और हमारे सर्वर पर नहीं भेजे जाते।',
       useLocation: 'मेरा स्थान उपयोग करें',
       latitude: 'अक्षांश',
       longitude: 'देशांतर',
@@ -1372,7 +1466,8 @@ export const localizedToolMessages = {
     widget: {
       eyebrow: 'निःशुल्क विजेट',
       title: 'दूसरी साइट पर आज की IFC तारीख दिखाएँ',
-      description: 'iframe कोड कॉपी करें। छोटा दृश्य स्वयं ट्रैकिंग नहीं करता और स्रोत का श्रेय देता है।',
+      description:
+        'iframe कोड कॉपी करें। छोटा दृश्य स्वयं ट्रैकिंग नहीं करता और स्रोत का श्रेय देता है।',
       copy: 'एम्बेड कोड कॉपी करें',
       copied: 'एम्बेड कोड कॉपी हो गया।',
       preview: 'विजेट पूर्वावलोकन',
@@ -1386,7 +1481,8 @@ export const localizedToolMessages = {
     pwa: {
       eyebrow: 'ऑफ़लाइन उपयोग',
       title: 'इंस्टॉल करें और हाल में खोले पृष्ठ ऑफ़लाइन उपयोग करें',
-      description: 'ऐप का इंटरफ़ेस उपकरण पर सहेजता है। ताज़ा समाचार और समुदाय के कुल आँकड़ों के लिए इंटरनेट चाहिए।',
+      description:
+        'ऐप का इंटरफ़ेस उपकरण पर सहेजता है। ताज़ा समाचार और समुदाय के कुल आँकड़ों के लिए इंटरनेट चाहिए।',
       install: 'ऐप इंस्टॉल करें',
       instructions: 'इंस्टॉल करने का तरीका देखें',
       ready: 'इंस्टॉल का विकल्प ब्राउज़र मेनू में है।',
@@ -1395,11 +1491,14 @@ export const localizedToolMessages = {
       privacy: 'सहेजे पृष्ठ इसी उपकरण पर रहते हैं और ब्राउज़र डेटा के साथ हटाए जा सकते हैं।',
       helpTitle: '13 Calendar इंस्टॉल करें',
       guides: {
-        iosSafari: 'Safari में: साझा करें > होम स्क्रीन पर जोड़ें > वेब ऐप के रूप में खोलें > जोड़ें।',
+        iosSafari:
+          'Safari में: साझा करें > होम स्क्रीन पर जोड़ें > वेब ऐप के रूप में खोलें > जोड़ें।',
         iosOther: 'iPhone या iPad पर Safari में खोलें: साझा करें > होम स्क्रीन पर जोड़ें > जोड़ें।',
         androidFirefox: 'Firefox में: मेनू ⋮ > इंस्टॉल। न मिले तो होम स्क्रीन पर जोड़ें।',
-        androidChromium: 'मेनू ⋮ खोलें, ऐप इंस्टॉल करें या होम स्क्रीन पर जोड़ें चुनकर पुष्टि करें।',
-        desktop: 'मेनू में 13 Calendar इंस्टॉल करें चुनें। Mac के Safari में: फ़ाइल > Dock में जोड़ें।',
+        androidChromium:
+          'मेनू ⋮ खोलें, ऐप इंस्टॉल करें या होम स्क्रीन पर जोड़ें चुनकर पुष्टि करें।',
+        desktop:
+          'मेनू में 13 Calendar इंस्टॉल करें चुनें। Mac के Safari में: फ़ाइल > Dock में जोड़ें।',
       },
       close: 'बंद करें',
       update: 'नया संस्करण तैयार है।',
@@ -1411,10 +1510,12 @@ export const localizedToolMessages = {
       description: 'परियोजना के वैज्ञानिक और ऐतिहासिक संदर्भ वाले वर्गाकार कार्ड डाउनलोड करें।',
       moonEyebrow: 'खगोल विज्ञान',
       moonTitle: '28 दिन का महीना चंद्र चक्र नहीं है',
-      moonText: 'दो अमावस्याओं के बीच औसत चक्र 29.53 दिन है, इसलिए कलाएँ निश्चित महीनों में खिसकती रहती हैं।',
+      moonText:
+        'दो अमावस्याओं के बीच औसत चक्र 29.53 दिन है, इसलिए कलाएँ निश्चित महीनों में खिसकती रहती हैं।',
       kodakEyebrow: 'इतिहास',
       kodakTitle: 'Kodak ने 61 वर्ष तक निश्चित कैलेंडर उपयोग किया',
-      kodakText: '1928 से 1989 तक Kodak ने इसे लेखांकन और योजना में भीतर उपयोग किया, बाहर ग्रेगोरियन तारीखें रखीं।',
+      kodakText:
+        '1928 से 1989 तक Kodak ने इसे लेखांकन और योजना में भीतर उपयोग किया, बाहर ग्रेगोरियन तारीखें रखीं।',
       download: 'कार्ड डाउनलोड करें',
       downloaded: 'संपादकीय कार्ड डाउनलोड हो गया।',
       previousCard: 'पिछला कार्ड',
@@ -1431,7 +1532,8 @@ export const localizedToolMessages = {
     hero: {
       eyebrow: '아이디어 활용하기',
       title: '달력 이론을 유용한 도구로',
-      description: '날짜 카드 만들기, 생일 비교, 연간 계획, 일정 내보내기, 천문 정보 탐색을 계정이나 결제 없이 이용하세요.',
+      description:
+        '날짜 카드 만들기, 생일 비교, 연간 계획, 일정 내보내기, 천문 정보 탐색을 계정이나 결제 없이 이용하세요.',
       start: '도구 열기',
       map: '도구 바로가기',
     },
@@ -1451,13 +1553,15 @@ export const localizedToolMessages = {
       cardFooter: '무료, 독립적, 개인정보 보호',
       whatsapp: 'WhatsApp',
       facebook: 'Facebook',
-      x: 'X',
+      x: 'X/Twitter',
+      telegram: 'Telegram',
       networks: '소셜 네트워크에 공유',
     },
     birthday: {
       eyebrow: '생일 변환기',
       title: '13개월 달력에서 내 생일은 언제일까요?',
-      description: '먼저 기념할 연도를 고른 다음 생일의 월과 일을 선택하세요. 달력에는 그해의 요일이 표시되며 계산은 브라우저 안에서만 이루어집니다.',
+      description:
+        '먼저 기념할 연도를 고른 다음 생일의 월과 일을 선택하세요. 달력에는 그해의 요일이 표시되며 계산은 브라우저 안에서만 이루어집니다.',
       original: '생일 월과 일',
       celebrationYear: '기념 연도',
       gregorian: '그레고리력 생일',
@@ -1474,7 +1578,8 @@ export const localizedToolMessages = {
     planner: {
       eyebrow: '연간 계획표',
       title: '한 해 전체 비교하기',
-      description: '각 IFC 달에 대응하는 그레고리력 시작일과 종료일을 표시합니다. 월 시작 일정을 내보내거나 PDF로 저장하세요.',
+      description:
+        '각 IFC 달에 대응하는 그레고리력 시작일과 종료일을 표시합니다. 월 시작 일정을 내보내거나 PDF로 저장하세요.',
       year: '계획 연도',
       fixedMonth: 'IFC 월',
       gregorianRange: '그레고리력 기간',
@@ -1489,7 +1594,8 @@ export const localizedToolMessages = {
     astronomy: {
       eyebrow: '천문 레이어',
       title: '달력 위의 태양년',
-      description: '선택한 해의 분점, 지점, 근일점, 원일점을 계산합니다. 일출과 일몰은 선택 사항이며 위치가 필요합니다.',
+      description:
+        '선택한 해의 분점, 지점, 근일점, 원일점을 계산합니다. 일출과 일몰은 선택 사항이며 위치가 필요합니다.',
       year: '천문 연도',
       localTime: '현재 시간대로 표시',
       marchEquinox: '3월 분점',
@@ -1500,7 +1606,8 @@ export const localizedToolMessages = {
       aphelion: '원일점',
       distance: '{value}백만 km',
       locationTitle: '일출과 일몰',
-      locationText: '좌표는 선택한 날짜 계산을 위해 이 브라우저에서만 사용하며 서버로 보내지 않습니다.',
+      locationText:
+        '좌표는 선택한 날짜 계산을 위해 이 브라우저에서만 사용하며 서버로 보내지 않습니다.',
       useLocation: '내 위치 사용',
       latitude: '위도',
       longitude: '경도',
@@ -1526,7 +1633,8 @@ export const localizedToolMessages = {
     widget: {
       eyebrow: '무료 위젯',
       title: '다른 사이트에 오늘의 IFC 날짜 표시',
-      description: 'iframe 코드를 복사하세요. 간단 보기에는 자체 추적이 없으며 항상 출처를 밝힙니다.',
+      description:
+        'iframe 코드를 복사하세요. 간단 보기에는 자체 추적이 없으며 항상 출처를 밝힙니다.',
       copy: '임베드 코드 복사',
       copied: '임베드 코드를 복사했습니다.',
       preview: '위젯 미리보기',
@@ -1540,7 +1648,8 @@ export const localizedToolMessages = {
     pwa: {
       eyebrow: '오프라인 이용',
       title: '설치하고 최근에 연 페이지를 오프라인으로 사용',
-      description: '앱 인터페이스를 기기에 저장합니다. 최신 뉴스와 커뮤니티 합계에는 인터넷이 필요합니다.',
+      description:
+        '앱 인터페이스를 기기에 저장합니다. 최신 뉴스와 커뮤니티 합계에는 인터넷이 필요합니다.',
       install: '앱 설치',
       instructions: '설치 방법 보기',
       ready: '브라우저 메뉴에서 설치할 수 있습니다.',
@@ -1568,7 +1677,8 @@ export const localizedToolMessages = {
       moonText: '초승달에서 다음 초승달까지 평균 29.53일이므로 위상은 고정된 달을 따라 이동합니다.',
       kodakEyebrow: '역사',
       kodakTitle: 'Kodak은 61년 동안 고정 달력을 사용했습니다',
-      kodakText: '1928년부터 1989년까지 Kodak은 내부 회계와 계획에 이를 쓰고 외부에는 그레고리력 날짜를 유지했습니다.',
+      kodakText:
+        '1928년부터 1989년까지 Kodak은 내부 회계와 계획에 이를 쓰고 외부에는 그레고리력 날짜를 유지했습니다.',
       download: '카드 다운로드',
       downloaded: '편집 카드를 다운로드했습니다.',
       previousCard: '이전 카드',
@@ -1576,7 +1686,8 @@ export const localizedToolMessages = {
     },
     cta: {
       title: '계정 없는 무료 도구',
-      description: '모든 기능은 브라우저에서 작동합니다. 전체 달력이나 자발적 커뮤니티로 돌아가세요.',
+      description:
+        '모든 기능은 브라우저에서 작동합니다. 전체 달력이나 자발적 커뮤니티로 돌아가세요.',
     },
   },
 };

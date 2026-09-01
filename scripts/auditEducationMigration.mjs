@@ -13,7 +13,11 @@ import {
 } from '../src/i18n/educationResourceTranslations.js';
 import { localizedToolMessages } from '../src/i18n/educationToolsTranslations.js';
 import { educationSabbathTranslations } from '../src/i18n/educationSabbathTranslations.js';
+import { educationPlanningTranslations } from '../src/i18n/educationPlanningTranslations.js';
+import { educationYearMapTranslations } from '../src/i18n/educationYearMapTranslations.js';
+import { educationHolidayTranslations } from '../src/i18n/educationHolidayTranslations.js';
 import { productNavigationMessages } from '../src/i18n/productNavigation.js';
+import { plannerExtensionMessages } from '../src/i18n/plannerTranslations.js';
 
 /* ===========================================================
    AUDITORIA DA EXPERIÊNCIA EDUCACIONAL NATIVA
@@ -87,10 +91,13 @@ const [
   productNavigationSource,
   historySectionSource,
   sabbathSectionSource,
+  fiscalAcademicSectionSource,
+  holidayRhythmSectionSource,
   implementationSectionSource,
   feedbackStoreSource,
   moonPageSource,
   contextSectionSource,
+  plannerPdfSource,
 ] = await Promise.all([
   read('../package.json'),
   read('../src/router/routes.ts'),
@@ -126,13 +133,19 @@ const [
   read('../src/i18n/productNavigation.js'),
   read('../src/components/EducationHistorySection.vue'),
   read('../src/components/EducationSabbathSection.vue'),
+  read('../src/components/EducationFiscalAcademicSection.vue'),
+  read('../src/components/EducationHolidayRhythmSection.vue'),
   read('../src/components/EducationImplementationSection.vue'),
   read('../src/composables/useEducationFeedbackStore.js'),
   read('../src/pages/MoonPage.vue'),
   read('../src/components/CalendarContextSection.vue'),
+  read('../src/utils/plannerPdf.js'),
 ]);
 
 const packageJson = JSON.parse(packageSource);
+
+assert.ok(packageJson.dependencies.html2canvas);
+assert.equal(packageJson.dependencies.jspdf, undefined);
 
 assert.match(
   routesSource,
@@ -140,9 +153,24 @@ assert.match(
   'A raiz do site deve abrir a página dos calendários sem alterar a ordem da navegação.',
 );
 assert.match(routesSource, /path: 'learn'[\s\S]*name: 'education'/);
+assert.match(quasarSource, /buttonLayout/);
 assert.match(routesSource, /path: 'moon'[\s\S]*name: 'moon'/);
 assert.match(pageSource, /<EducationDateConverter\s*\/>/);
 assert.doesNotMatch(pageSource, /<EducationMoonSection\s*\/>/);
+assert.match(pageSource, /<EducationFiscalAcademicSection\s*\/>/);
+assert.match(pageSource, /<EducationYearBoundarySection\s*\/>/);
+assert.match(pageSource, /<EducationHolidayRhythmSection\s*\/>/);
+assert.ok(
+  pageSource.indexOf('<EducationSabbathSection') <
+    pageSource.indexOf('<EducationFiscalAcademicSection') &&
+    pageSource.indexOf('<EducationFiscalAcademicSection') <
+      pageSource.indexOf('<EducationYearBoundarySection') &&
+    pageSource.indexOf('<EducationYearBoundarySection') <
+      pageSource.indexOf('<EducationHolidayRhythmSection') &&
+    pageSource.indexOf('<EducationHolidayRhythmSection') <
+      pageSource.indexOf('<EducationImplementationSection'),
+  'As soluções fiscal, acadêmica, anual e de feriados devem ficar entre o Sabá e a contribuição pública.',
+);
 assert.match(pageSource, /<EducationFeedback\s*\/>/);
 assert.match(pageSource, /<EducationHistorySection\s*\/>/);
 assert.match(pageSource, /<EducationSabbathSection\s*\/>/);
@@ -179,6 +207,41 @@ assert.match(sabbathSectionSource, /educationSabbathTranslations/);
 assert.match(sabbathSectionSource, /id="education-sabbath"/);
 assert.match(sabbathSectionSource, /jta\.org/);
 assert.match(sabbathSectionSource, /un\.org/);
+assert.match(fiscalAcademicSectionSource, /v-model="planningMode"/);
+assert.match(fiscalAcademicSectionSource, /v-model="academicPeriod"/);
+assert.match(fiscalAcademicSectionSource, /v-model="hemisphere"/);
+assert.match(fiscalAcademicSectionSource, /months13Long, months13Short/);
+assert.match(fiscalAcademicSectionSource, /seasonEvents/);
+assert.match(fiscalAcademicSectionSource, /penultimateQuarterWeeks = \[12, 25, 38, 51\]/);
+assert.match(
+  fiscalAcademicSectionSource,
+  /if \(planningMode\.value === 'fiscal'\) return activeSeasonLegend\.value\[period - 1\]\?\.tone/,
+  'O trimestre fiscal completo deve herdar a cor da estação ligada ao seu marco.',
+);
+assert.match(
+  fiscalAcademicSectionSource,
+  /\? \['autumn', 'blue', 'spring', 'summer'\][\s\S]{0,80}: \['spring', 'summer', 'autumn', 'blue'\]/,
+  'Bimestres e trimestres escolares devem seguir a sequência cromática de cada hemisfério.',
+);
+assert.match(fiscalAcademicSectionSource, /semester: \[sequence\[0\], sequence\[2\]\]/);
+assert.match(fiscalAcademicSectionSource, /education-year-map__week--season-blue/);
+assert.match(fiscalAcademicSectionSource, /education-year-map__week--season-autumn/);
+assert.match(fiscalAcademicSectionSource, /education-year-map__week--season-winter/);
+assert.match(fiscalAcademicSectionSource, /education-year-map__week--season-spring/);
+assert.match(fiscalAcademicSectionSource, /education-year-map__week--season-summer/);
+assert.doesNotMatch(
+  fiscalAcademicSectionSource,
+  /education-year-map__season-marker\s*\{[^}]*\bborder\s*:/,
+  'O emoji sazonal deve permanecer pequeno e sem cápsula ou contorno.',
+);
+assert.match(fiscalAcademicSectionSource, /teachingWeek <= 13/);
+assert.match(fiscalAcademicSectionSource, /teachingWeek <= 27/);
+assert.match(
+  fiscalAcademicSectionSource,
+  /monthNumber === 1 \|\| monthNumber === 7 \|\| monthNumber === 13/,
+);
+assert.match(holidayRhythmSectionSource, /day === 2/);
+assert.match(holidayRhythmSectionSource, /day === 27/);
 assert.match(implementationSectionSource, /id="education-implementation"/);
 assert.match(implementationSectionSource, /EducationAttributionDialog/);
 assert.match(implementationSectionSource, /kind: 'response'/);
@@ -275,12 +338,28 @@ assert.match(shareSource, /navigator\.share/);
 assert.match(shareSource, /https:\/\/wa\.me/);
 assert.match(shareSource, /facebook\.com\/sharer/);
 assert.match(shareSource, /twitter\.com\/intent\/tweet/);
+assert.match(shareSource, /t\.me\/share\/url/);
+assert.match(shareSource, /fabWhatsapp/);
+assert.match(shareSource, /fabFacebook/);
+assert.match(shareSource, /fabXTwitter/);
+assert.match(shareSource, /fabTelegram/);
+/* O grupo social não pode voltar a depender do encaixe flexível: ele mantém
+   duas colunas até chegar à faixa móvel realmente estreita. */
+assert.match(shareSource, /grid-template-columns:\s*repeat\(2, minmax\(0, 1fr\)\)/);
+assert.match(shareSource, /@media \(max-width:\s*340px\)/);
+assert.match(shareSource, /margin-top:\s*auto/);
 assert.match(shareSource, /route\.query\.date/);
 assert.match(birthdaySource, /route\.query\.birth/);
 assert.match(birthdaySource, /route\.query\.year/);
 assert.match(birthdaySource, /canvasToBlob/);
 assert.match(plannerSource, /createAnnualPlannerIcs/);
-assert.match(plannerSource, /window\.print\(\)/);
+assert.match(plannerSource, /createAnnualPlannerPdf/);
+assert.match(plannerSource, /pdfDialogOpen/);
+assert.doesNotMatch(plannerSource, /window\.print\(\)|printing-annual-planner/);
+assert.match(plannerPdfSource, /ANNUAL_PLANNER_PAGE_COUNT = 40/);
+assert.match(plannerPdfSource, /pageElements\.length !== ANNUAL_PLANNER_PAGE_COUNT/);
+assert.match(plannerPdfSource, /\/MediaBox \[0 0 595\.28 841\.89\]/);
+assert.match(plannerPdfSource, /\/Filter \/DCTDecode/);
 assert.match(astronomySource, /from 'astronomy-engine'/);
 assert.match(astronomySource, /navigator\.geolocation\.getCurrentPosition/);
 assert.match(astronomySource, /education\.tools\.astronomy\.locationText/);
@@ -335,7 +414,16 @@ const manifest = JSON.parse(manifestSource);
 assert.equal(manifest.display, 'standalone');
 assert.ok(['./', '/'].includes(manifest.start_url));
 
-for (const domain of ['13months.net', '13cal.net', 'fixedcalendar.org']) {
+for (const domain of [
+  '13months.net',
+  '13cal.net',
+  'fixedcalendar.org',
+  'cal.com',
+  'reddit.com',
+  'aventurasnahistoria.com.br',
+  'scribd.com',
+  'yearzerochange.org',
+]) {
   assert.match(resourcesSource, new RegExp(domain.replace('.', '\\.')));
 }
 
@@ -370,7 +458,7 @@ for (const item of curatedResources) {
 for (const locale of expectedLocales) {
   assert.deepEqual(
     Object.keys(localizedResourceLanguageLabels[locale]).sort(),
-    ['english', 'englishAndTranslations', 'multiple'].sort(),
+    ['english', 'englishAndTranslations', 'multiple', 'portuguese'].sort(),
   );
 }
 
@@ -379,8 +467,12 @@ assert.deepEqual(Object.keys(productNavigationMessages).sort(), expectedLocales.
 assert.deepEqual(Object.keys(educationReferenceCopyTranslations).sort(), expectedLocales.sort());
 assert.deepEqual(Object.keys(educationHistoryReferenceTranslations).sort(), expectedLocales.sort());
 assert.deepEqual(Object.keys(educationSabbathTranslations).sort(), expectedLocales.sort());
+assert.deepEqual(Object.keys(educationPlanningTranslations).sort(), expectedLocales.sort());
+assert.deepEqual(Object.keys(educationYearMapTranslations).sort(), expectedLocales.sort());
+assert.deepEqual(Object.keys(educationHolidayTranslations).sort(), expectedLocales.sort());
 assert.deepEqual(Object.keys(educationFeedbackTranslations).sort(), expectedLocales.sort());
 assert.deepEqual(Object.keys(educationMoonMethodologyTranslations).sort(), expectedLocales.sort());
+assert.deepEqual(Object.keys(plannerExtensionMessages).sort(), expectedLocales.sort());
 
 for (const locale of expectedLocales) {
   assertSameShape(educationMessages['en-US'], educationMessages[locale], locale);
@@ -397,11 +489,35 @@ for (const locale of expectedLocales) {
   assert.ok(productNavigationMessages[locale].moon);
   assert.ok(educationSabbathTranslations[locale].solutionTitle);
   assert.ok(educationSabbathTranslations[locale].limitationText);
+  assertSameShape(
+    educationPlanningTranslations['en-US'],
+    educationPlanningTranslations[locale],
+    locale,
+    'education.planning',
+  );
+  assertSameShape(
+    educationYearMapTranslations['en-US'],
+    educationYearMapTranslations[locale],
+    locale,
+    'education.yearMap',
+  );
+  assertSameShape(
+    educationHolidayTranslations['en-US'],
+    educationHolidayTranslations[locale],
+    locale,
+    'education.holidays',
+  );
   assert.equal(educationFeedbackTranslations[locale].barriers.length, 4);
   assert.ok(educationFeedbackTranslations[locale].communityCodeInvalid);
   assert.deepEqual(
     Object.keys(educationMoonMethodologyTranslations[locale]).sort(),
     ['calendarMethodText', 'nasaMethodText', 'productMethodText'].sort(),
+  );
+  assertSameShape(
+    plannerExtensionMessages['en-US'],
+    plannerExtensionMessages[locale],
+    locale,
+    'education.tools.planner',
   );
 }
 
@@ -441,10 +557,7 @@ for (const locale of expectedLocales.filter((item) => item !== 'en-US')) {
   const localizedStrings = collectStrings(localizedEditorial);
 
   for (const [path, englishText] of englishEditorialStrings) {
-    if (
-      !allowedExactEnglishPaths.has(path) &&
-      localizedStrings.get(path) === englishText
-    ) {
+    if (!allowedExactEnglishPaths.has(path) && localizedStrings.get(path) === englishText) {
       assert.fail(`${locale}: fallback editorial em inglês detectado em education.${path}.`);
     }
   }

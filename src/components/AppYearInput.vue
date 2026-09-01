@@ -30,7 +30,7 @@
           transition-hide="scale"
           @before-show="prepareYearPage"
         >
-          <q-card class="app-year-input__popup">
+          <q-card class="app-year-input__popup app-no-double-tap" @dblclick.prevent>
             <header class="app-year-input__header">
               <q-btn
                 flat
@@ -200,7 +200,7 @@ function selectYear(year) {
   gap: 6px;
 }
 
-.app-year-input__grid .q-btn {
+.app-year-input__grid .q-btn:not(.app-action) {
   min-height: 42px;
   border-radius: 8px;
   color: var(--app-text);

@@ -186,8 +186,33 @@
 - A página Aprenda conserva cinco fatos estruturais, mês modelo com título
   externo e domingos rosados, linha do tempo histórica alternada, seis perguntas
   com hover uniforme, destaque Kodak e a seção integral do Sabá com duas
-  alternativas, ciclos comparados, limitações e fontes.
-- A resolução dos obstáculos é uma seção própria imediatamente depois do Sabá.
+  alternativas, ciclos comparados, limitações e fontes. A alternativa de ciclos
+  paralelos é descrita como um calendário religioso de uso comunitário, análogo
+  ao convívio de calendários lunares ou lunissolares com o calendário civil, e
+  explicita os conflitos causados quando o sétimo dia deixa de coincidir com o
+  sábado ou domingo civil.
+- Entre o Sabá e a contribuição pública existem três seções de solução prática.
+  A primeira divide os 364 dias regulares em quatro trimestres fiscais iguais de
+  13 semanas e traz um mapa interativo que alterna a camada fiscal com a
+  escolar/acadêmica. Na camada escolar, os meses 1, 7 e 13 formam 12 semanas de
+  férias; as 40 semanas letivas restantes podem aparecer como quatro bimestres de
+  10, três trimestres de 13 + 14 + 13 ou dois semestres de 20. Equinócios e
+  solstícios são aproximados sempre na penúltima semana de cada trimestre fiscal,
+  as semanas 12, 25, 38 e 51. O seletor Norte/Sul inverte as estações e reutiliza
+  os emojis do calendário: outono rosa, inverno roxo, primavera verde e verão
+  âmbar. No modo fiscal, cada bloco completo de 13 semanas assume a cor da
+  estação ligada ao seu marco. Na camada escolar, bimestres usam rosa, azul,
+  verde e amarelo no Sul ou verde, amarelo, rosa e azul no Norte; trimestres
+  usam as três primeiras cores da sequência; semestres usam rosa/verde no Sul
+  ou verde/rosa no Norte. Os mini meses usam as abreviações do catálogo sem
+  reticências. Um card
+  editorial sugere substituir gradualmente os nomes baseados em meses por termos
+  baseados em semanas. A segunda seção compara usos para o Dia do Ano e o Dia
+  Bissexto. A terceira separa a data original de um feriado da eventual folga
+  observada: a primeira segunda-feira é sempre o dia 2 e a última sexta-feira
+  sempre o dia 27, mas essas janelas acomodam feriados existentes e não criam
+  automaticamente 26 novas folgas anuais. A resolução geral dos obstáculos vem
+  imediatamente depois.
   A Lua e a Metodologia vivem juntas na rota pública `/moon`, acessível pela
   barra principal. Em tela larga, os quatro cards 2 × 2 da resolução igualam, em conjunto,
   a altura do formulário; empilhados, retomam altura natural. A votação permanece
@@ -268,7 +293,7 @@
 
 ## Estado atual
 
-- **Última atividade:** 2026-08-29.
+- **Última atividade:** 2026-08-31.
 - Em 2026-08-11, a pasta `Programas de Programador` foi transferida do Desktop
   sincronizado pelo OneDrive para `/Users/jean7rafael/Downloads`. O repositório
   ativo deste aplicativo passou a ficar em
@@ -994,11 +1019,9 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   auditorias de produção.
 - A propriedade de Prefixo do URL `https://13calendar.pages.dev/` foi criada e
   verificada no Google Search Console pela tag HTML já publicada. O sitemap foi
-  enviado; a página principal já está indexada. A página educacional consta no
-  sitemap, mas a solicitação manual encontrou a cota diária do Google. A
-  primeira leitura do sitemap registrou uma falha transitória mesmo com HTTP
-  200, XML válido e resposta idêntica ao Googlebot; o Google fará novas leituras
-  automaticamente.
+  reenviado com sucesso em 31 de agosto e permanece em processamento; a página
+  principal já está indexada e a página educacional consta no XML. O e-mail do
+  Google confirmou que impressões começaram a ser coletadas em 28 de agosto.
 - A migração D1 original dos votos foi aplicada pela sessão Cloudflare
   autenticada e o
   Worker `a33a409b-bee5-4a80-82b9-26729dddd0fa` foi publicado. Um voto real foi
@@ -1029,10 +1052,11 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   científica.
 - A página independente `/news`, `Notícias`, apresenta uma
   curadoria editorial com publicação original, tipo, idioma, data e resumo. A
-  lista inicial inclui reportagens históricas e atuais e projetos como
-  `13months.net`, `13cal.net` e `fixedcalendar.org`; presença na lista não
+  lista contém dez publicações e seis projetos, incluindo `13months.net`,
+  `13cal.net`, `fixedcalendar.org` e Year Zero Change; presença na lista não
   representa endosso. Google e Google Notícias servem apenas à descoberta,
-  nunca como a fonte citada.
+  nunca como a fonte citada. Peças satíricas, discussões comunitárias e
+  documentos enviados por usuários recebem tipo e aviso editorial próprios.
 - O menu superior agora leva sempre, nesta ordem, a Aprenda, Ferramentas,
   Calendários, Lua, Notícias e Comunidade com componentes nativos. A
   rota ativa mantém o realce; os textos somem quando necessário e, na menor
@@ -1329,10 +1353,11 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   do segredo. A execução pública `33212407098` confirmou a correção: validação
   do pacote, migrações remotas do D1 e publicação do Worker terminaram com
   sucesso. A automação das próximas migrações está restaurada.
-- O Search Console ainda exibe o relatório de indexação em processamento, sem
-  apontar um erro do site. O painel EU.org continua sem listar o pedido e a
-  consulta DNS confirma que `13calendar.eu.org` ainda não foi delegado. Ambos
-  permanecem em espera pelos respectivos processamentos externos.
+- O Search Console confirmou por e-mail que começou a coletar impressões em 28
+  de agosto de 2026 e que páginas do site já aparecem em resultados associados
+  a algumas consultas. Isso comprova indexação e descoberta, mas não posição
+  alta em buscas genéricas. O painel EU.org continua sem listar o pedido e a
+  consulta DNS confirma que `13calendar.eu.org` ainda não foi delegado.
 - A verificação integral posterior ao refinamento do vínculo passou em 28 de
   agosto: continuidade, lint, interface, educação, comunidade, conversões,
   build, pacote de 693,7 KiB gzip, feriados e auditorias de produção sem
@@ -1385,16 +1410,170 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   implantação Cloudflare é `3973ac5c.13calendar.pages.dev`; o alias principal
   respondeu 200 em `/learn` e `/tools`, o GitHub Pages respondeu 200 e a inspeção
   visual da produção não encontrou avisos ou erros no console.
+- Ainda em 29 de agosto, o carrossel editorial de Ferramentas ganhou navegação
+  direta por arraste horizontal com Pointer Events. O limiar diferencia o gesto
+  horizontal da rolagem vertical, acompanha o dedo sem transição e avança ou
+  recua uma posição ao soltar; as setas e o teclado permanecem disponíveis.
+  Três, dois ou um card continuam inteiramente visíveis conforme a largura,
+  enquanto pequenos trechos dos vizinhos aparecem em cada lado sob o fade. As
+  setas agora ocupam faixas próprias, com 14 px de separação física do viewport,
+  e não se sobrepõem mais a esses trechos. As descrições deixaram de usar corte
+  por quantidade de linhas: o maior conteúdo do idioma define a altura e todos
+  os cards do carrossel são esticados para esse mesmo valor, preservando os
+  botões na base sem reticências. A medição nos 12 idiomas confirmou títulos e
+  descrições integrais, altura única por idioma — 419 px em português e até
+  439 px em alemão no desktop — e nenhum erro no console. Uma volta completa de
+  12 gestos passou nos dois sentidos sem salto nem travamento; `lint`, `build`
+  e `git diff --check` também passaram. A revisão permanece somente no
+  localhost, sem commit nem publicação, porque o mantenedor ainda enviará
+  outras alterações.
+- Em 30 de agosto, o planejador anual passou a produzir um caderno A4 de
+  exatamente 40 páginas. As páginas 4–29 formam 13 pares fixos: calendário do
+  mês na página par e 28 espaços numerados de anotações na página seguinte, de
+  modo que permaneçam lado a lado na impressão frente e verso. A sequência de
+  destaque é roxo, verde, âmbar e rosa; o Dia do Ano é verde. O Dia Bissexto
+  ocupa sempre a página 31: aparece âmbar quando existe e âmbar pálido, com
+  aviso explícito, em ano comum. As sete páginas finais de anotações são
+  divididas em duas áreas iguais: treze áreas identificam os meses e a décima
+  quarta identifica os Dias Especiais.
+- O botão preserva o rótulo “Imprimir / salvar PDF”, mas não chama mais a
+  impressão do navegador. Ele abre um diálogo próprio com seletor de ano e
+  identifica automaticamente um dos dois modelos estruturais, ano comum ou
+  bissexto. Cada folha visual de 210 × 297 mm é capturada separadamente e um
+  gravador PDF mínimo insere exatamente uma imagem JPEG por página; assim a
+  paginação não varia entre Safari, iPhone, iPad, Android e desktop. O capturador
+  entra em chunk assíncrono somente após o clique e o gravador específico evita
+  o peso de uma biblioteca genérica. Os modelos de 2026 e 2028 foram baixados,
+  renderizados e inspecionados: ambos têm 40 páginas A4, cerca de 3,7 MB, sem
+  página vazia, corte, duplicação ou perda dos pares mês/anotações. A página 31
+  de 2028 mostra o Dia Bissexto ativo; em 2026, conserva o modelo pálido e o
+  aviso de indisponibilidade.
+- O ICS do planejador passou a oferecer três usos separados: marcos do ano,
+  favoritos locais e sobreposição diária completa. As linhas seguem o limite
+  de 75 bytes do formato, e as auditorias confirmam 14 eventos nos marcos de
+  2026, 365/366 no modo diário e preservação das equivalências IFC. Os textos
+  novos permanecem completos nos 12 idiomas, reaproveitando o catálogo comum
+  para não duplicar conteúdo no carregamento.
+- A autoexclusão comunitária passou a reservar a área do Turnstile antes do
+  carregamento. A verificação ocupa uma faixa própria, independente do grupo
+  de botões; os dois botões dividem largura e altura na mesma linha ou mudam
+  juntos para a pilha móvel. Assim, a chegada assíncrona do widget não empurra
+  nem comprime nenhuma ação. O Turnstile usa o tamanho `flexible` também no
+  cadastro comunitário.
+- O pente-fino de 30 de agosto criou `app-action-group`: ações textuais vizinhas
+  dividem largura e altura, e uma tradução com duas linhas aumenta toda a linha
+  do grupo. Aprenda centraliza as duas ações abaixo do título; Ferramentas usa
+  dois botões compactos lado a lado; buscas, CTAs, compartilhamento, planner,
+  votação e diálogos seguem a mesma regra. O diálogo ICS substituiu o glifo
+  incompatível por `event_available` e, quando não há favoritos, centraliza as
+  três ações com o mesmo tamanho. A proteção `app-no-double-tap` usa
+  `touch-action: manipulation` somente nos carrosséis, resumos anuais,
+  calendários e seletores laterais: evita zoom por dois toques no iPhone/iPad,
+  sem desabilitar o zoom por pinça no restante do site.
+- A revisão seguinte removeu uma regra ampla da página Ferramentas que forçava
+  seus botões internos a 40 px e também eliminou `height: 100%` dos itens de uma
+  linha automática, combinação que criava uma dependência circular de tamanho
+  e só se corrigia depois de uma repintura ou hover. O contrato definitivo usa
+  altura intrínseca e coloca a ausência de quebra como primeira prioridade.
+  `src/boot/buttonLayout.js` mede, antes da pintura, a maior tradução de cada
+  grupo e atribui a mesma largura a todos os irmãos. O flex reorganiza botões
+  inteiros antes de reduzir o rótulo; somente abaixo de 430 px a quebra é
+  liberada, e então a maior altura volta a ser compartilhada pela linha. A
+  medição se repete após fontes, troca de idioma e inserção de diálogos, nunca
+  por hover. Português e japonês foram conferidos no estado inicial com uma
+  linha por ação, alturas de 44 px e zero transbordamento.
+- Em 31 de agosto, a separação entre texto e ícone também entrou no contrato:
+  são sempre 12 px, sem depender das margens internas do Quasar, e a medição
+  reserva 8 px contra arredondamento, zoom e variação de fonte. O cálculo usa
+  somente as larguras intrínsecas dos filhos; medir o contêiner já ampliado
+  criaria uma realimentação crescente. O observador agora reage apenas a
+  mudanças dentro de grupos de ações ou à inserção de um grupo novo, evitando
+  recalcular por causa do relógio da página. No hero de Aprenda, os dois botões
+  ficaram com 263 px por 44 px, 12 px livres entre rótulo e ícone e nenhum
+  transbordamento na largura inspecionada.
+- O contrato está documentado em `docs/UI_BUTTON_SYSTEM.md`. A auditoria de UI
+  exige as três famílias, grupos compartilhados, a medição única e a exclusão
+  explícita de `.app-action` em qualquer geometria de controle funcional. Os
+  trechos estruturais e suas exceções continuam comentados em português; linhas
+  triviais não recebem comentários redundantes.
+- O carrossel editorial deixou a fila de passos unitários. Gestos podem avançar
+  vários cards conforme distância e velocidade, enquanto cliques rápidos
+  redirecionam a transição em curso. Sete cópias internas do conjunto e a
+  recentralização invisível preservam o loop contínuo nos dois sentidos, sem
+  salto visual. O calendário e seus cálculos não foram alterados. Esta revisão
+  permanece somente no localhost, sem commit nem publicação.
+- O compartilhamento de data usa quatro redes com suas marcas oficiais:
+  WhatsApp, Facebook, X/Twitter e Telegram. O card de controles tem largura
+  máxima de 400 px e encolhe com a tela; o seletor e as três ações principais
+  ocupam toda a largura interna. As redes permanecem numa grade compacta 2 × 2
+  explícita por padrão, independente da largura automática calculada para os
+  rótulos. Somente até 340 px ela passa para uma coluna compacta. Quando
+  controles e imagem ficam lado a lado, a grade iguala suas alturas, reserva o
+  espaço livre no centro e ancora as redes na base; abaixo de 820 px eles voltam
+  a ter alturas independentes em duas linhas. No empilhamento sem espaço livre,
+  a separação mínima entre o link e as redes é de 32 px. Esta frente continua
+  somente no localhost, sem commit nem publicação.
+- O capturador assíncrono do PDF acrescenta cerca de 157,5 KiB brutos e 40,4
+  KiB em gzip ao pacote total, mas não ao carregamento inicial de quem não abre
+  o gerador. Depois das explicações fiscal, escolar e de feriados nos 12 idiomas,
+  o orçamento passou para 3,35 MB brutos e 840 kB compactados. A margem reconhece
+  recursos carregados somente em suas rotas e a variação entre o zlib local e o
+  do runner Linux; os tetos por arquivo permanecem inalterados.
+- A verificação integral desta revisão passou: lint, build, auditorias de UI,
+  educação, calendário, feriados, pacote de produção e segurança. O pacote
+  final mediu 3.087,2 KiB brutos e 758,2 KiB gzip, abaixo dos novos limites, e
+  as duas árvores de dependências de produção permaneceram sem vulnerabilidades
+  conhecidas. `git diff --check` também passou sem erro.
+- Após o refinamento do compartilhamento, `lint`, `ui:audit`,
+  `education:audit`, `build` e `git diff --check` passaram novamente. O servidor
+  local responde 200 em `/tools` na porta 9102.
+- A curadoria externa revisada em 31 de agosto passou a ter dez publicações e
+  seis projetos. Foram adicionados Cal.com, identificado explicitamente como
+  peça fictícia de primeiro de abril; a discussão do Reddit em
+  `r/worldbuilding`; a reportagem em português de Aventuras na História; o
+  documento de usuário do Scribd, com ressalva de autoria e procedência; e o
+  projeto multilíngue Year Zero Change, cuja convenção de Dia Zero difere da
+  adotada aqui. O tipo `Discussão comunitária`, o idioma original português e
+  os cinco resumos existem nos 12 idiomas. Os títulos preservam o idioma da
+  publicação e informam esse idioma semanticamente ao navegador.
+- A seção do Sabá passou a usar a sequência cromática roxo/verde na primeira
+  alternativa e rosa/âmbar na segunda. O primeiro texto esclarece que o ciclo
+  religioso paralelo teria circulação sobretudo nas comunidades observantes e
+  que, depois dos Dias Especiais, sua contagem não coincidiria com os rótulos
+  civis de sábado ou domingo, exigindo agendas paralelas de igrejas, escolas,
+  famílias e empregadores. Antes da contribuição pública foram adicionadas as
+  seções fiscais/acadêmicas, de passagem entre anos e de feriados previsíveis,
+  todas completas nos 12 idiomas. O mapa das 52 semanas alterna Fiscal e
+  Escolar/acadêmico; no segundo modo, Bimestre, Trimestre e Semestre aplicam
+  respectivamente 4 × 10, 13 + 14 + 13 e 2 × 20 semanas letivas, com os meses
+  1, 7 e 13 reservados às 12 semanas de férias. Os mini meses agora usam nomes
+  curtos sem reticências. Os quatro marcos sazonais ficam nas semanas 12, 25, 38
+  e 51 e reutilizam a fonte comum de emojis; um novo toggle Norte/Sul troca entre
+  outono rosa, inverno roxo, primavera verde e verão âmbar. O trimestre fiscal
+  inteiro segue a cor de seu marco. Na visualização escolar, bimestres e
+  trimestres seguem a sequência rosa/azul/verde/amarelo no Sul ou
+  verde/amarelo/rosa/azul no Norte, enquanto os semestres usam a primeira e a
+  terceira cores. Um card anterior à
+  explicação sazonal propõe nomes baseados em semanas para os períodos letivos.
+  A seção seguinte distingue a data comemorativa da folga observada e visualiza
+  o dia 2 e o dia 27 como janelas possíveis, não automáticas. Os dias
+  fora dos meses continuam recebendo opções explícitas de festa, descanso,
+  serviço essencial ou trabalho regulamentado. A publicação integral foi
+  autorizada pelo mantenedor em 31 de agosto. Antes do envio, `npm run verify`,
+  o dry-run do Worker e `git diff --check` passaram; o pacote mediu 3.249,9 KiB
+  brutos e 811,0 KiB gzip, o Worker mediu 148,72 KiB gzip e `/learn` respondeu
+  200 na porta 9102.
 
 ## Pendências atuais
 
 - Aguardar a aprovação humana de `13calendar.eu.org`; depois associá-lo ao
   Cloudflare Pages e executar a troca coordenada descrita em
   `docs/OWNER_ACTIONS.md`.
-- Acompanhar no Google Search Console a leitura do sitemap 2.0, a indexação das
-  novas rotas, a substituição do nome de site `Cloudflare` por `13 Calendar` e
-  o desempenho em consultas genéricas. O domínio EU.org, quando aprovado,
-  reforçará a identidade, mas não é requisito técnico para o nome próprio.
+- Acompanhar no Google Search Console quais páginas e consultas começaram a
+  receber impressões, a indexação das rotas novas, a substituição do nome de
+  site `Cloudflare` por `13 Calendar` e a evolução em consultas genéricas. O
+  domínio EU.org, quando aprovado, reforçará a identidade, mas não é requisito
+  técnico para o nome próprio.
 
 ## Protocolo de manutenção deste arquivo
 

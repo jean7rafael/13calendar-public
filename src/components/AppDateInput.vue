@@ -31,7 +31,7 @@
           transition-hide="scale"
           @before-show="preparePicker"
         >
-          <q-card class="app-date-input__popup">
+          <q-card class="app-date-input__popup app-no-double-tap" @dblclick.prevent>
             <q-date
               v-model="pickerValue"
               minimal

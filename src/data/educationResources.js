@@ -85,6 +85,61 @@ export const educationNews = Object.freeze([
       pt: 'Explicação extensa e recente sobre disposição fixa, Kodak e barreiras à adoção; os detalhes históricos ainda devem ser conferidos em fontes primárias.',
     },
   },
+  {
+    id: 'calcom-april-fools',
+    title:
+      'A ONU Abraça uma Nova Era com um Calendário de 13 Meses: O Futuro da Gestão do Tempo Começa com a Cal.com',
+    titleLanguage: 'pt-BR',
+    publisher: 'Cal.com',
+    published: '2023-04-01',
+    url: 'https://cal.com/pt/blog/the-un-embraces-a-new-era-with-a-13-month-calendar-the-future-of-time-management',
+    type: 'explainer',
+    languageKey: 'multiple',
+    summary: {
+      en: 'An April Fools’ marketing article that imagines the United Nations adopting a 13-month calendar. Its central claim is fictional, not a UN announcement.',
+      pt: 'Artigo de marketing de primeiro de abril que imagina a ONU adotando um calendário de 13 meses. A alegação central é fictícia, não um anúncio das Nações Unidas.',
+    },
+  },
+  {
+    id: 'reddit-worldbuilding-13-months',
+    title:
+      "Would a calender with 13 months, all of them having 28 days, work? Also every year there is one day that isn't part of any month and is solely there to help with the lunar cycle.",
+    publisher: 'Reddit · r/worldbuilding',
+    published: '2025-07-22',
+    url: 'https://www.reddit.com/r/worldbuilding/comments/1m6a821/would_a_calender_with_13_months_all_of_them/?tl=pt-br',
+    type: 'discussion',
+    languageKey: 'englishAndTranslations',
+    summary: {
+      en: 'A community discussion about 13 equal months and days outside the week, with comments on the International Fixed Calendar, lunar alignment, seasons and worldbuilding.',
+      pt: 'Discussão comunitária sobre 13 meses iguais e dias fora da semana, com comentários sobre o Calendário Fixo Internacional, alinhamento lunar, estações e criação de mundos.',
+    },
+  },
+  {
+    id: 'aventuras-historia-ifc',
+    title: '13 meses de 28 dias: Conheça o inusitado Calendário Fixo Internacional',
+    titleLanguage: 'pt-BR',
+    publisher: 'Aventuras na História',
+    published: '2023-12-04',
+    url: 'https://aventurasnahistoria.com.br/noticias/almanaque/13-meses-de-28-dias-conheca-o-inusitado-calendario-fixo-internacional.phtml',
+    type: 'reporting',
+    languageKey: 'portuguese',
+    summary: {
+      en: 'A Portuguese-language historical overview of Cotsworth’s proposal, Kodak and twentieth-century opposition. Its contextual claims should still be checked against primary sources.',
+      pt: 'Panorama histórico em português sobre a proposta de Cotsworth, a Kodak e a oposição no século XX. As afirmações de contexto ainda devem ser conferidas em fontes primárias.',
+    },
+  },
+  {
+    id: 'scribd-13-month-concept',
+    title: 'The 13-Month Calendar Concept',
+    publisher: 'Scribd',
+    url: 'https://pt.scribd.com/document/814432795/13-month-calendar',
+    type: 'reference',
+    languageKey: 'english',
+    summary: {
+      en: 'A user-uploaded English document about 13-month proposals, Kodak and adoption barriers. Authorship, provenance and automated enhancements require independent verification.',
+      pt: 'Documento em inglês enviado por usuário sobre propostas de 13 meses, Kodak e barreiras à adoção. Autoria, procedência e complementos automatizados exigem verificação independente.',
+    },
+  },
 ]);
 
 export const educationSites = Object.freeze([
@@ -146,6 +201,19 @@ export const educationSites = Object.freeze([
     summary: {
       en: 'A long-running collection of manual conversion tables, printable calendars and programming resources.',
       pt: 'Coleção antiga de tabelas manuais de conversão, calendários imprimíveis e recursos de programação.',
+    },
+  },
+  {
+    id: 'year-zero-change',
+    title: 'Descubra o calendário de 13 meses',
+    titleLanguage: 'pt-BR',
+    publisher: 'Year Zero Change',
+    url: 'https://yearzerochange.org/pt/descubra-o-calendario-de-13-meses/',
+    type: 'project',
+    languageKey: 'multiple',
+    summary: {
+      en: 'An independent multilingual project proposing 13 months of 28 days and a Zero Day at the December solstice, linked to a broader social and economic program. Its convention differs from ours.',
+      pt: 'Projeto independente multilíngue que propõe 13 meses de 28 dias e um Dia Zero no solstício de dezembro, ligado a um programa social e econômico mais amplo. Sua convenção difere da nossa.',
     },
   },
 ]);

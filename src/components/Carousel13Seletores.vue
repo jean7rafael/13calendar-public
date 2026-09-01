@@ -1,5 +1,5 @@
 <template>
-  <div class="calendar-header row items-center justify-between">
+  <div class="calendar-header app-no-double-tap row items-center justify-between" @dblclick.prevent>
     <!-- ================================
          MODO COMBINADO (Mês/Ano juntos)
          ================================ -->

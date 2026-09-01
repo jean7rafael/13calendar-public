@@ -78,7 +78,7 @@
         </p>
       </q-card-section>
 
-      <q-card-actions align="right">
+      <q-card-actions align="right" class="app-action-group">
         <q-btn
           no-caps
           unelevated
@@ -146,6 +146,19 @@ function confirm() {
   width: min(580px, calc(100vw - 28px));
   border: 1px solid var(--app-accent-purple-border);
   border-radius: 22px;
+}
+
+.education-attribution-dialog .app-action-group {
+  --app-action-group-max: 100%;
+  --app-action-min-width: 210px;
+
+  margin-inline-start: auto;
+}
+
+@media (max-width: 520px) {
+  .education-attribution-dialog .app-action-group {
+    --app-action-min-width: 100%;
+  }
 }
 
 .education-attribution-dialog .q-card__section {

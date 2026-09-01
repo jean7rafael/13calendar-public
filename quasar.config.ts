@@ -5,7 +5,7 @@ export default defineConfig(() => ({
      INICIALIZAÇÃO E ESTILOS GLOBAIS
   ========================================================= */
 
-  boot: ['theme', 'i18n', 'pwa', 'cloudflareAnalytics'],
+  boot: ['theme', 'i18n', 'buttonLayout', 'pwa', 'cloudflareAnalytics'],
 
   css: ['app.scss'],
 

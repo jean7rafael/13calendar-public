@@ -48,7 +48,7 @@
 
       <q-card-section v-if="celebrationParts && fixedPresentation" class="birthday-tool__footer">
         <p>{{ t('education.tools.birthday.weekdayFact') }}</p>
-        <div>
+        <div class="app-action-group">
           <q-btn
             no-caps
             unelevated
@@ -323,10 +323,8 @@ async function copyBirthdayLink() {
 }
 
 .birthday-tool__footer > div {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
+  --app-action-group-max: 520px;
+  --app-action-min-width: 230px;
 }
 
 .birthday-tool__footer > span {

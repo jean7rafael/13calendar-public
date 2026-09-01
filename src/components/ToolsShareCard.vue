@@ -11,10 +11,11 @@
         <q-card-section>
           <AppDateInput
             v-model="selectedDate"
+            class="share-tool__date"
             :label="t('education.tools.share.date')"
           />
 
-          <div class="share-tool__actions">
+          <div class="share-tool__actions app-action-group">
             <q-btn
               no-caps
               unelevated
@@ -41,12 +42,15 @@
             />
           </div>
 
-          <div class="share-tool__networks" :aria-label="t('education.tools.share.networks')">
+          <div
+            class="share-tool__networks app-action-group"
+            :aria-label="t('education.tools.share.networks')"
+          >
             <q-btn
               no-caps
               unelevated
               class="app-action app-action--tertiary"
-              icon="chat"
+              :icon="fabWhatsapp"
               :label="t('education.tools.share.whatsapp')"
               @click="openWhatsapp"
             />
@@ -54,7 +58,7 @@
               no-caps
               unelevated
               class="app-action app-action--tertiary"
-              icon="public"
+              :icon="fabFacebook"
               :label="t('education.tools.share.facebook')"
               @click="openFacebook"
             />
@@ -62,9 +66,17 @@
               no-caps
               unelevated
               class="app-action app-action--tertiary"
-              icon="alternate_email"
+              :icon="fabXTwitter"
               :label="t('education.tools.share.x')"
               @click="openX"
+            />
+            <q-btn
+              no-caps
+              unelevated
+              class="app-action app-action--tertiary"
+              :icon="fabTelegram"
+              :label="t('education.tools.share.telegram')"
+              @click="openTelegram"
             />
           </div>
 
@@ -98,6 +110,7 @@
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
+import { fabFacebook, fabTelegram, fabWhatsapp, fabXTwitter } from '@quasar/extras/fontawesome-v6';
 import AppComparisonDateTitle from 'src/components/AppComparisonDateTitle.vue';
 import AppDateInput from 'src/components/AppDateInput.vue';
 import { useCalendarTranslations } from 'src/composables/useCalendarTranslations';
@@ -138,9 +151,7 @@ const comparison = computed(() =>
 const gregorianTitle = computed(
   () => comparison.value?.gregorianTitle || t('education.converter.invalid'),
 );
-const fixedTitle = computed(
-  () => comparison.value?.fixedTitle || t('education.converter.invalid'),
-);
+const fixedTitle = computed(() => comparison.value?.fixedTitle || t('education.converter.invalid'));
 const fixedCaption = computed(() => comparison.value?.fixedCaption || '');
 const comparisonYear = computed(() => comparison.value?.year || '');
 const currentUrl = computed(() => createAbsoluteRouteUrl('/tools', { date: selectedDate.value }));
@@ -290,12 +301,18 @@ function openX() {
     `https://twitter.com/intent/tweet?text=${encodeURIComponent(sharingText.value)}&url=${encodeURIComponent(currentUrl.value)}`,
   );
 }
+
+function openTelegram() {
+  openSharingUrl(
+    `https://t.me/share/url?url=${encodeURIComponent(currentUrl.value)}&text=${encodeURIComponent(sharingText.value)}`,
+  );
+}
 </script>
 
 <style scoped>
 .share-tool {
   display: grid;
-  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  grid-template-columns: 400px minmax(0, 1fr);
   align-items: stretch;
   gap: 24px;
   max-width: 1120px;
@@ -309,19 +326,51 @@ function openX() {
   box-shadow: var(--app-card-shadow);
 }
 
+.share-tool__controls {
+  width: min(100%, 400px);
+  justify-self: center;
+}
+
 .share-tool__controls .q-card__section {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
   height: 100%;
-  align-content: center;
   padding: 28px;
+}
+
+.share-tool__date {
+  width: 100%;
+  justify-self: center;
 }
 
 .share-tool__actions,
 .share-tool__networks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  --app-action-group-max: 100%;
+}
+
+.share-tool__actions {
+  /* O card é dimensionado pela grade social 2 × 2; as três ações principais
+     e o seletor então ocupam toda a largura interna disponível. */
+  --app-action-min-width: 100%;
+}
+
+.share-tool__networks {
+  /* A grade explícita evita que poucos pixels acrescentados pela medição das
+     traduções desmontem o arranjo 2 × 2. A margem automática consome o espaço
+     livre do card e mantém as redes junto à base quando a prévia é mais alta. */
+  width: 100%;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.share-tool__networks > .app-action {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  flex: none;
 }
 
 .share-tool__status {
@@ -391,16 +440,32 @@ function openX() {
   .share-tool {
     grid-template-columns: 1fr;
   }
+
+  .date-share-card {
+    width: 100%;
+  }
 }
 
 @media (max-width: 460px) {
-  .share-tool__controls .q-card__section,
+  .share-tool__controls .q-card__section {
+    padding: 22px 19px;
+  }
+
   .date-share-card {
     padding: 22px;
   }
+}
 
-  .share-tool__actions > * {
-    width: 100%;
+@media (max-width: 340px) {
+  /* Somente a menor faixa móvel abandona a grade 2 × 2. Os botões continuam
+     compactos e centralizados, sem herdar a largura das ações principais. */
+  .share-tool__networks {
+    grid-template-columns: 1fr;
+  }
+
+  .share-tool__networks > .app-action {
+    width: min(100%, max(var(--app-action-min-width), var(--app-action-content-width)));
+    justify-self: center;
   }
 }
 </style>

@@ -1,5 +1,8 @@
 <template>
-  <q-card class="q-pa-md calendar-card calendar-card--gregorian">
+  <q-card
+    class="q-pa-md calendar-card calendar-card--gregorian app-no-double-tap"
+    @dblclick.prevent
+  >
     <div class="calendar-card-title">
       {{ $t('calendar.gregorianTitle') }}
     </div>

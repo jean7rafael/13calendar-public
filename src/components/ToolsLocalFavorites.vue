@@ -183,8 +183,10 @@ onMounted(() => {
   padding: 24px;
 }
 
-.favorites-tool__form > .q-btn {
-  min-height: 56px;
+.favorites-tool__form > .app-action {
+  /* O formulário usa a exceção prevista pelo contrato para acompanhar a
+     altura dos campos, sem substituir a regra universal de crescimento. */
+  --app-action-min-height: 56px;
 }
 
 .favorites-tool__status {

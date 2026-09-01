@@ -7,7 +7,7 @@
           <h1 id="education-title">{{ t('education.hero.title') }}</h1>
           <p>{{ t('education.hero.description') }}</p>
 
-          <div class="education-hero__actions">
+          <div class="education-hero__actions app-action-group">
             <q-btn
               no-caps
               unelevated
@@ -126,7 +126,7 @@
           </div>
 
           <div class="education-year__controls">
-            <div class="education-year__navigation">
+            <div class="education-year__navigation app-no-double-tap" @dblclick.prevent>
               <q-btn
                 round
                 flat
@@ -246,6 +246,12 @@
 
       <EducationSabbathSection />
 
+      <EducationFiscalAcademicSection />
+
+      <EducationYearBoundarySection />
+
+      <EducationHolidayRhythmSection />
+
       <EducationImplementationSection />
 
       <EducationFeedback />
@@ -253,7 +259,7 @@
       <section class="education-cta" aria-labelledby="education-cta-title">
         <h2 id="education-cta-title">{{ t('education.cta.title') }}</h2>
         <p>{{ t('education.cta.description') }}</p>
-        <div>
+        <div class="app-action-group">
           <q-btn
             no-caps
             unelevated
@@ -281,7 +287,6 @@
         </div>
       </section>
     </main>
-
   </q-page>
 </template>
 
@@ -292,9 +297,12 @@ import { useMeta } from 'quasar';
 import AppComparisonDateTitle from 'src/components/AppComparisonDateTitle.vue';
 import EducationDateConverter from 'src/components/EducationDateConverter.vue';
 import EducationFeedback from 'src/components/EducationFeedback.vue';
+import EducationFiscalAcademicSection from 'src/components/EducationFiscalAcademicSection.vue';
 import EducationHistorySection from 'src/components/EducationHistorySection.vue';
+import EducationHolidayRhythmSection from 'src/components/EducationHolidayRhythmSection.vue';
 import EducationImplementationSection from 'src/components/EducationImplementationSection.vue';
 import EducationSabbathSection from 'src/components/EducationSabbathSection.vue';
+import EducationYearBoundarySection from 'src/components/EducationYearBoundarySection.vue';
 import { useCalendarTranslations } from 'src/composables/useCalendarTranslations';
 import { buildDateComparisonPresentation, splitComparisonTitle } from 'src/utils/calendarTools';
 import { isGregorianLeapYear } from '../../shared/internationalFixedCalendar.js';
@@ -367,9 +375,7 @@ const todayYear = computed(() => todayComparison.value?.year || '');
 const todayGregorianTitle = computed(
   () => todayComparison.value?.gregorianTitle || t('calendar.noDate'),
 );
-const todayFixedTitle = computed(
-  () => todayComparison.value?.fixedTitle || t('calendar.noDate'),
-);
+const todayFixedTitle = computed(() => todayComparison.value?.fixedTitle || t('calendar.noDate'));
 const todayComparisonFitClasses = computed(() => {
   const titleParts = [todayGregorianTitle.value, todayFixedTitle.value]
     .map((title) => splitComparisonTitle(title))
@@ -379,17 +385,11 @@ const todayComparisonFitClasses = computed(() => {
     `education-today__calendars--weekday-${comparisonFitTier(
       titleParts.map(({ weekday }) => weekday),
     )}`,
-    `education-today__calendars--date-${comparisonFitTier(
-      titleParts.map(({ date }) => date),
-    )}`,
+    `education-today__calendars--date-${comparisonFitTier(titleParts.map(({ date }) => date))}`,
   ];
 });
 const gregorianMonthLength = computed(() =>
-  new Date(
-    currentTime.value.getFullYear(),
-    currentTime.value.getMonth() + 1,
-    0,
-  ).getDate(),
+  new Date(currentTime.value.getFullYear(), currentTime.value.getMonth() + 1, 0).getDate(),
 );
 
 const currentTimeLabel = computed(() =>
@@ -472,21 +472,12 @@ function isCurrentFixedDay(month, day) {
 }
 
 .education-hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 18px;
+  /* A largura acomoda as duas ações traduzidas com ícone e a folga universal,
+     sem comprimir o último caractere antes do ícone. */
+  --app-action-group-max: 560px;
+  --app-action-min-width: 220px;
+
   margin-top: 30px;
-}
-
-.education-hero__actions .q-btn {
-  max-width: 100%;
-  flex: 0 0 auto;
-  white-space: nowrap;
-}
-
-.education-hero__actions :deep(.q-btn__content) {
-  flex-wrap: nowrap;
 }
 
 .education-today-block {
@@ -937,8 +928,7 @@ function isCurrentFixedDay(month, day) {
   font-weight: 800;
 }
 
-.education-year__days
-  .education-year__day--today.education-month-grid__day--sunday {
+.education-year__days .education-year__day--today.education-month-grid__day--sunday {
   background: var(--calendar-current-sunday-cell) !important;
 }
 
@@ -1058,9 +1048,10 @@ function isCurrentFixedDay(month, day) {
 }
 
 .education-cta > div {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
+  --app-action-group-max: 760px;
+  --app-action-min-width: 220px;
+
+  margin-inline: auto;
 }
 
 .education-cta :deep(.q-btn--outline) {
@@ -1084,7 +1075,7 @@ function isCurrentFixedDay(month, day) {
   }
 
   .education-hero__actions {
-    justify-content: center;
+    margin-inline: auto;
   }
 
   .education-idea__facts {
@@ -1099,7 +1090,6 @@ function isCurrentFixedDay(month, day) {
   .education-idea__facts article:last-child {
     grid-column: 1 / -1;
   }
-
 }
 
 @media (max-width: 1579px) {
@@ -1134,9 +1124,8 @@ function isCurrentFixedDay(month, day) {
     font-size: clamp(40px, 14vw, 58px);
   }
 
-  .education-hero__actions,
-  .education-cta > div {
-    flex-direction: column;
+  .education-hero__actions {
+    margin-inline: auto;
   }
 
   .education-today .q-card__section {

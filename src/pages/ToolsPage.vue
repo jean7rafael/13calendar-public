@@ -6,7 +6,7 @@
           <p class="education-eyebrow">{{ t('education.tools.hero.eyebrow') }}</p>
           <h1 id="tools-title">{{ t('education.tools.hero.title') }}</h1>
           <p>{{ t('education.tools.hero.description') }}</p>
-          <div class="tools-hero__actions">
+          <div class="tools-hero__actions app-action-group">
             <q-btn
               no-caps
               unelevated
@@ -46,7 +46,7 @@
       <section class="tools-cta" aria-labelledby="tools-cta-title">
         <h2 id="tools-cta-title">{{ t('education.tools.cta.title') }}</h2>
         <p>{{ t('education.tools.cta.description') }}</p>
-        <div>
+        <div class="app-action-group">
           <q-btn
             no-caps
             unelevated
@@ -137,10 +137,6 @@ useMeta(() => {
   overflow: hidden;
 }
 
-.tools-page :deep(.education-section .q-btn) {
-  min-height: 40px;
-}
-
 .tools-hero {
   min-height: min(720px, calc(100vh - 58px));
   display: grid;
@@ -170,9 +166,9 @@ useMeta(() => {
 }
 
 .tools-hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  --app-action-group-max: 520px;
+  --app-action-min-width: 240px;
+
   margin-top: 28px;
 }
 
@@ -239,10 +235,10 @@ useMeta(() => {
 }
 
 .tools-cta > div {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
+  --app-action-group-max: 520px;
+  --app-action-min-width: 230px;
+
+  margin-inline: auto;
 }
 
 .tools-cta :deep(.q-btn--outline) {
@@ -262,7 +258,7 @@ useMeta(() => {
   }
 
   .tools-hero__actions {
-    justify-content: center;
+    margin-inline: auto;
   }
 }
 

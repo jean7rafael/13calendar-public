@@ -30,7 +30,7 @@
           transition-hide="scale"
           @before-show="preparePicker"
         >
-          <q-card class="app-fixed-date-input__popup">
+          <q-card class="app-fixed-date-input__popup app-no-double-tap" @dblclick.prevent>
             <header class="app-fixed-date-input__header">
               <q-btn
                 flat
@@ -279,7 +279,7 @@ function formatAccessibleDate(month, day) {
   padding: 4px 0 10px;
 }
 
-.app-fixed-date-input__days .q-btn {
+.app-fixed-date-input__days .q-btn:not(.app-action) {
   width: 36px;
   min-width: 36px;
   min-height: 36px;

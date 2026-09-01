@@ -74,7 +74,7 @@
                 <time>{{ formatDate(registration.createdAt) }}</time>
               </div>
             </div>
-            <div class="community-admin-actions">
+            <div class="community-admin-actions community-admin-actions--decision app-action-group">
               <q-btn
                 unelevated
                 no-caps
@@ -213,7 +213,7 @@
           >
             <template #prepend><q-icon name="photo_camera" /></template>
           </q-file>
-          <div class="community-management-dialog__row-actions">
+          <div class="community-management-dialog__row-actions app-action-group">
             <q-btn
               unelevated
               no-caps
@@ -348,7 +348,7 @@
             {{ message }}
           </p>
         </q-card-section>
-        <q-card-actions align="right">
+        <q-card-actions align="right" class="app-action-group">
           <q-btn
             unelevated
             no-caps
@@ -387,7 +387,7 @@
             {{ message }}
           </p>
         </q-card-section>
-        <q-card-actions align="right">
+        <q-card-actions align="right" class="app-action-group">
           <q-btn
             unelevated
             no-caps
@@ -971,6 +971,10 @@ function formatDate(value) {
   align-items: center;
   gap: 8px;
 }
+.community-admin-actions--decision {
+  --app-action-group-max: 360px;
+  --app-action-min-width: 150px;
+}
 .community-admin-empty {
   margin: 32px 0 0;
   color: var(--app-text-muted);
@@ -1028,9 +1032,16 @@ function formatDate(value) {
   color: var(--app-text-muted);
 }
 .community-management-dialog__row-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  --app-action-group-max: 100%;
+  --app-action-min-width: 180px;
+}
+
+.community-code-dialog > .app-action-group,
+.community-confirm-dialog > .app-action-group {
+  --app-action-group-max: 100%;
+  --app-action-min-width: 210px;
+
+  margin-inline-start: auto;
 }
 .community-management-dialog__fields {
   display: grid;
@@ -1065,6 +1076,12 @@ function formatDate(value) {
   .community-admin-actions {
     justify-content: flex-end;
     flex-wrap: wrap;
+  }
+  .community-admin-actions--decision,
+  .community-management-dialog__row-actions,
+  .community-code-dialog > .app-action-group,
+  .community-confirm-dialog > .app-action-group {
+    --app-action-min-width: 100%;
   }
   .community-management-dialog__fields {
     grid-template-columns: 1fr;

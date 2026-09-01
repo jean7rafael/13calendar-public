@@ -1,5 +1,5 @@
 <template>
-  <div class="calendar-carousel-content">
+  <div class="calendar-carousel-content app-no-double-tap" @dblclick.prevent>
     <!-- Carrossel para anos -->
     <q-carousel
       class="calendar-year-carousel"
@@ -511,7 +511,7 @@ body.body--dark .special-day-card--inactive .special-day-description {
   color: var(--app-text-faint);
 }
 
-.calendar-day.q-btn,
+.calendar-day.q-btn:not(.app-action),
 .calendar-empty {
   width: 100%;
   min-width: 0;

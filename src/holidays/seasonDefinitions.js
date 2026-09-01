@@ -15,7 +15,9 @@ const astronomySource = Object.freeze({
    O hemisfério determina qual estação começa naquele instante.
 =========================================================== */
 
-const seasonEvents = Object.freeze([
+/* Exportado também para visualizações educativas: isso garante que calendário
+   e explicações usem os mesmos emojis e a mesma inversão entre hemisférios. */
+export const seasonEvents = Object.freeze([
   {
     id: 'MARCH_EQUINOX',
     event: 'mar_equinox',

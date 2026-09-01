@@ -417,7 +417,7 @@ watch(
     width: 100%;
   }
 
-  .education-converter__mode :deep(.q-btn) {
+.education-converter__mode :deep(.q-btn:not(.app-action)) {
     min-height: 48px;
     padding-inline: 10px;
     font-size: 12px;

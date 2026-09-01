@@ -19,6 +19,7 @@ import { privacyMessages } from './privacy';
 import { educationMessages } from './education';
 import { productNavigationMessages } from './productNavigation';
 import { datePickerMessages } from './datePicker';
+import { plannerExtensionMessages } from './plannerTranslations';
 
 /* ===========================================================
    REGISTRO DOS CATÁLOGOS DE TRADUÇÃO DA INTERFACE
@@ -52,7 +53,16 @@ Object.entries(messages).forEach(([locale, catalog]) => {
     ...communityFeedbackTranslations[locale],
   };
   catalog.privacy = privacyMessages[locale];
-  catalog.education = educationMessages[locale];
+  catalog.education = {
+    ...educationMessages[locale],
+    tools: {
+      ...educationMessages[locale].tools,
+      planner: {
+        ...educationMessages[locale].tools.planner,
+        ...plannerExtensionMessages[locale],
+      },
+    },
+  };
   catalog.productNavigation = productNavigationMessages[locale];
   catalog.datePicker = datePickerMessages[locale];
 });

@@ -11,9 +11,14 @@ import { gzipSync } from 'node:zlib';
 =========================================================== */
 
 const limits = {
-  totalRaw: 3_000_000,
-  // Reserva a variação observada entre as versões do zlib do macOS e do runner Linux.
-  totalGzip: 725_000,
+  /* O capturador do planner vive em um chunk assíncrono: só é baixado quando
+     alguém pede o PDF. O teto total inclui esse recurso sem transformar seu
+     custo opcional em regressão silenciosa para os demais pacotes. */
+  /* As explicações fiscal, escolar e de feriados vivem no chunk assíncrono
+     de Aprenda. A margem cobre os 12 idiomas sem afrouxar os tetos por arquivo. */
+  totalRaw: 3_350_000,
+  // Reserva também a variação observada entre o zlib do macOS e do runner Linux.
+  totalGzip: 840_000,
   largestRaw: 1_900_000,
   largestGzip: 360_000,
 };

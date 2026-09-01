@@ -7,10 +7,11 @@
     </div>
 
     <div
-      class="editorial-carousel"
+      class="editorial-carousel app-no-double-tap"
       role="region"
       :aria-label="t('education.tools.editorial.title')"
       tabindex="0"
+      @dblclick.prevent
       @keydown.left.prevent="showPrevious"
       @keydown.right.prevent="showNext"
     >
@@ -23,13 +24,25 @@
         @click="showPrevious"
       />
 
-      <div ref="carouselViewport" class="editorial-carousel__viewport">
+      <div
+        ref="carouselViewport"
+        class="editorial-carousel__viewport"
+        :class="{ 'editorial-carousel__viewport--dragging': dragging }"
+        :style="viewportStyle"
+        @click.capture="suppressClickAfterDrag"
+        @dragstart.prevent
+        @pointerdown="beginPointerNavigation"
+        @pointermove="movePointerNavigation"
+        @pointerup="endPointerNavigation"
+        @pointercancel="cancelPointerNavigation"
+      >
         <div
           ref="carouselTrack"
           class="editorial-cards"
           :class="{
             'editorial-cards--without-motion': !motionEnabled,
-            'editorial-cards--rapid': pendingSteps !== 0,
+            'editorial-cards--rapid': rapidMovement,
+            'editorial-cards--dragging': dragging,
           }"
           :style="trackStyle"
           @transitionend="finishMovement"
@@ -112,14 +125,26 @@ const carouselViewport = ref(null);
 const carouselTrack = ref(null);
 const cardWidth = ref(300);
 const visibleCount = ref(3);
-const physicalIndex = ref(3);
+const peekWidth = ref(32);
+const factCount = 12;
+const loopCopies = 7;
+const middleCopy = Math.floor(loopCopies / 2);
+const physicalIndex = ref(factCount * middleCopy);
 const motionEnabled = ref(true);
 const moving = ref(false);
-const pendingSteps = ref(0);
-const cloneCount = 3;
+const rapidMovement = ref(false);
+const dragOffset = ref(0);
+const dragging = ref(false);
 const cardGap = 14;
 let resizeObserver;
 let movementFallback;
+let lastMovementAt = 0;
+let activePointerId = null;
+let pointerStartX = 0;
+let pointerStartY = 0;
+let pointerStartTime = 0;
+let pointerAxis = null;
+let suppressClickUntil = 0;
 
 const facts = computed(() => {
   const ideaFacts = tm('education.idea.facts') || [];
@@ -252,22 +277,27 @@ const facts = computed(() => {
   ];
 });
 
-const carouselFacts = computed(() => [
-  ...facts.value.slice(-cloneCount).map((fact) => ({
-    ...fact,
-    renderKey: `before-${fact.key}`,
-  })),
-  ...facts.value.map((fact) => ({ ...fact, renderKey: `main-${fact.key}` })),
-  ...facts.value.slice(0, cloneCount).map((fact) => ({
-    ...fact,
-    renderKey: `after-${fact.key}`,
-  })),
-]);
+const carouselFacts = computed(() =>
+  Array.from({ length: loopCopies }, (_, copyIndex) =>
+    facts.value.map((fact) => ({
+      ...fact,
+      renderKey: `${copyIndex}-${fact.key}`,
+    })),
+  ).flat(),
+);
 
-const trackStyle = computed(() => ({
-  '--editorial-card-width': `${cardWidth.value}px`,
-  transform: `translate3d(-${physicalIndex.value * (cardWidth.value + cardGap)}px, 0, 0)`,
+const viewportStyle = computed(() => ({
+  '--editorial-peek': `${peekWidth.value}px`,
 }));
+
+const trackStyle = computed(() => {
+  const baseOffset = physicalIndex.value * (cardWidth.value + cardGap);
+
+  return {
+    '--editorial-card-width': `${cardWidth.value}px`,
+    transform: `translate3d(${dragOffset.value - baseOffset}px, 0, 0)`,
+  };
+});
 
 function showPrevious() {
   enqueueMovement(-1);
@@ -277,22 +307,111 @@ function showNext() {
   enqueueMovement(1);
 }
 
-function enqueueMovement(step) {
-  const requestedSteps = pendingSteps.value + step;
-  const direction = Math.sign(requestedSteps);
-  pendingSteps.value = direction * (Math.abs(requestedSteps) % facts.value.length);
-  processNextMovement();
+function beginPointerNavigation(event) {
+  if (
+    !event.isPrimary ||
+    event.button > 0 ||
+    moving.value ||
+    !motionEnabled.value ||
+    event.target.closest('.q-btn')
+  ) {
+    return;
+  }
+
+  activePointerId = event.pointerId;
+  pointerStartX = event.clientX;
+  pointerStartY = event.clientY;
+  pointerStartTime = performance.now();
+  pointerAxis = null;
 }
 
-function processNextMovement() {
-  if (moving.value || !motionEnabled.value || pendingSteps.value === 0) return;
+function movePointerNavigation(event) {
+  if (activePointerId !== event.pointerId) return;
 
-  const step = Math.sign(pendingSteps.value);
-  pendingSteps.value -= step;
+  const horizontalDistance = event.clientX - pointerStartX;
+  const verticalDistance = event.clientY - pointerStartY;
+
+  if (!pointerAxis) {
+    if (Math.max(Math.abs(horizontalDistance), Math.abs(verticalDistance)) < 8) return;
+
+    pointerAxis =
+      Math.abs(horizontalDistance) > Math.abs(verticalDistance) * 1.1 ? 'horizontal' : 'vertical';
+
+    if (pointerAxis === 'vertical') {
+      activePointerId = null;
+      return;
+    }
+
+    dragging.value = true;
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  }
+
+  if (pointerAxis !== 'horizontal') return;
+
+  const maximumDrag = (cardWidth.value + cardGap) * maximumGestureSteps();
+  dragOffset.value = Math.max(-maximumDrag, Math.min(maximumDrag, horizontalDistance));
+  event.preventDefault();
+}
+
+function endPointerNavigation(event) {
+  if (activePointerId !== event.pointerId) return;
+
+  const horizontalDistance = dragOffset.value;
+  const elapsed = Math.max(performance.now() - pointerStartTime, 1);
+  const velocity = horizontalDistance / elapsed;
+  const distanceThreshold = Math.min(84, Math.max(44, cardWidth.value * 0.16));
+  const shouldMove =
+    pointerAxis === 'horizontal' &&
+    (Math.abs(horizontalDistance) >= distanceThreshold || Math.abs(velocity) >= 0.42);
+
+  if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+    event.currentTarget.releasePointerCapture(event.pointerId);
+  }
+  activePointerId = null;
+  pointerAxis = null;
+  dragging.value = false;
+  dragOffset.value = 0;
+
+  if (shouldMove) {
+    suppressClickUntil = performance.now() + 450;
+    const stepSize = cardWidth.value + cardGap;
+    const distanceSteps = Math.max(1, Math.round(Math.abs(horizontalDistance) / stepSize));
+    const velocityBoost = Math.abs(velocity) >= 1.1 ? 2 : Math.abs(velocity) >= 0.52 ? 1 : 0;
+    const steps = Math.min(maximumGestureSteps(), distanceSteps + velocityBoost);
+    enqueueMovement((horizontalDistance < 0 ? 1 : -1) * steps);
+  }
+}
+
+function maximumGestureSteps() {
+  return Math.min(facts.value.length - 1, Math.max(3, visibleCount.value + 2));
+}
+
+function cancelPointerNavigation(event) {
+  if (event && activePointerId !== event.pointerId) return;
+
+  activePointerId = null;
+  pointerAxis = null;
+  dragging.value = false;
+  dragOffset.value = 0;
+}
+
+function suppressClickAfterDrag(event) {
+  if (performance.now() >= suppressClickUntil) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+}
+
+function enqueueMovement(step) {
+  if (!step || dragging.value || !motionEnabled.value) return;
+
+  const now = performance.now();
+  rapidMovement.value = moving.value || now - lastMovementAt < 260 || Math.abs(step) > 1;
+  lastMovementAt = now;
   moving.value = true;
   physicalIndex.value += step;
   window.clearTimeout(movementFallback);
-  movementFallback = window.setTimeout(completeMovement, 850);
+  movementFallback = window.setTimeout(completeMovement, rapidMovement.value ? 620 : 820);
 }
 
 function finishMovement(event) {
@@ -306,18 +425,17 @@ function completeMovement() {
 
   window.clearTimeout(movementFallback);
 
-  if (physicalIndex.value < cloneCount) {
-    jumpWithoutMotion(cloneCount + facts.value.length - 1);
-    return;
-  }
+  const normalizedIndex =
+    facts.value.length * middleCopy +
+    ((physicalIndex.value % facts.value.length) + facts.value.length) % facts.value.length;
 
-  if (physicalIndex.value >= cloneCount + facts.value.length) {
-    jumpWithoutMotion(cloneCount);
+  if (normalizedIndex !== physicalIndex.value) {
+    jumpWithoutMotion(normalizedIndex);
     return;
   }
 
   moving.value = false;
-  window.requestAnimationFrame(processNextMovement);
+  rapidMovement.value = false;
 }
 
 function jumpWithoutMotion(index) {
@@ -329,7 +447,7 @@ function jumpWithoutMotion(index) {
       window.requestAnimationFrame(() => {
         motionEnabled.value = true;
         moving.value = false;
-        processNextMovement();
+        rapidMovement.value = false;
       });
     });
   });
@@ -343,8 +461,11 @@ function measureCarousel() {
   if (!carouselViewport.value) return;
 
   visibleCount.value = window.innerWidth <= 620 ? 1 : window.innerWidth <= 900 ? 2 : 3;
+  peekWidth.value = window.innerWidth <= 620 ? 28 : window.innerWidth <= 900 ? 30 : 32;
   cardWidth.value =
-    (carouselViewport.value.clientWidth - cardGap * (visibleCount.value - 1)) /
+    (carouselViewport.value.clientWidth -
+      peekWidth.value * 2 -
+      cardGap * (visibleCount.value - 1)) /
     visibleCount.value;
 }
 
@@ -357,6 +478,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.clearTimeout(movementFallback);
+  cancelPointerNavigation();
   resizeObserver?.disconnect();
   window.removeEventListener('resize', measureCarousel);
 });
@@ -455,7 +577,7 @@ function downloadPalette(fact) {
   grid-template-columns: 44px minmax(0, 1fr) 44px;
   align-items: center;
   gap: 14px;
-  max-width: 1180px;
+  max-width: 1244px;
   margin: 0 auto;
   outline: none;
 }
@@ -482,17 +604,32 @@ function downloadPalette(fact) {
 
 .editorial-carousel__viewport {
   min-width: 0;
+  box-sizing: border-box;
   overflow: hidden;
   margin-block: -18px;
-  padding-block: 18px;
-  mask-image: linear-gradient(90deg, transparent 0, black 2%, black 98%, transparent 100%);
+  padding: 18px var(--editorial-peek);
+  cursor: grab;
+  touch-action: pan-y;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    black var(--editorial-peek),
+    black calc(100% - var(--editorial-peek)),
+    transparent 100%
+  );
+}
+
+.editorial-carousel__viewport--dragging {
+  cursor: grabbing;
+  user-select: none;
 }
 
 .editorial-cards {
   display: flex;
+  align-items: stretch;
   gap: 14px;
   width: max-content;
-  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 
@@ -500,13 +637,18 @@ function downloadPalette(fact) {
   transition: none;
 }
 
+.editorial-cards--dragging {
+  transition: none;
+}
+
 .editorial-cards--rapid:not(.editorial-cards--without-motion) {
-  transition-duration: 320ms;
+  transition-duration: 400ms;
+  transition-timing-function: cubic-bezier(0.2, 0.72, 0.22, 1);
 }
 
 .editorial-cards article {
   width: var(--editorial-card-width);
-  height: 390px;
+  min-height: 414px;
   display: flex;
   flex: 0 0 var(--editorial-card-width);
   flex-direction: column;
@@ -595,17 +737,15 @@ function downloadPalette(fact) {
 
 .editorial-cards p {
   width: 100%;
-  height: calc(4 * 1.6em + 2px);
-  display: -webkit-box;
+  min-height: calc(5 * 1.6em + 2px);
+  display: block;
   flex: 0 0 auto;
-  overflow: hidden;
+  overflow: visible;
   margin: 0 0 16px;
   padding-bottom: 2px;
   color: rgb(255 255 255 / 72%);
   font-size: 13px;
   line-height: 1.6;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
 }
 
 .editorial-card--light > p {
@@ -665,8 +805,5 @@ function downloadPalette(fact) {
     min-height: 38px;
   }
 
-  .editorial-cards article {
-    height: 390px;
-  }
 }
 </style>
