@@ -1,5 +1,13 @@
 import { defineConfig } from '#q-app/wrappers';
 
+/* Cada publicação recebe a revisão do próprio commit. O identificador muda a
+   URL do service worker sem depender de limpezas manuais no navegador. */
+const appReleaseId =
+  process.env.GITHUB_SHA?.slice(0, 12) ||
+  process.env.CF_PAGES_COMMIT_SHA?.slice(0, 12) ||
+  process.env.APP_RELEASE_ID ||
+  'local';
+
 export default defineConfig(() => ({
   /* =========================================================
      INICIALIZAÇÃO E ESTILOS GLOBAIS
@@ -21,6 +29,9 @@ export default defineConfig(() => ({
 
   build: {
     publicPath: process.env.PUBLIC_PATH || '/',
+    env: {
+      APP_RELEASE_ID: appReleaseId,
+    },
 
     /* O catálogo internacional forma um chunk assíncrono conhecido. O limite
        evita o aviso genérico do Vite; o orçamento real continua sendo validado

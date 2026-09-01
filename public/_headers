@@ -15,6 +15,11 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# O navegador deve conferir o service worker em toda abertura; os demais
+# recursos continuam usando o cache controlado pelo próprio aplicativo.
+/sw.js
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
 /holiday-data/*
   Cache-Control: public, max-age=86400
 

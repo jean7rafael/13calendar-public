@@ -451,8 +451,12 @@ assert.match(headersSource, /X-Robots-Tag: noindex/);
 assert.match(analyticsSource, /currentPath\.endsWith\('\/widget'\)/);
 
 assert.match(quasarSource, /['"]pwa['"]/);
+assert.match(quasarSource, /APP_RELEASE_ID/);
 assert.match(pwaBootSource, /navigator\.serviceWorker\.register/);
 assert.match(pwaBootSource, /process\.env\.PROD/);
+assert.match(pwaBootSource, /searchParams\.set\('release'/);
+assert.match(pwaBootSource, /updateViaCache: 'none'/);
+assert.match(pwaBootSource, /registration\.update\(\)/);
 assert.match(pwaBootSource, /beforeinstallprompt/);
 assert.match(pwaCardSource, /calendar-install-available/);
 assert.doesNotMatch(
@@ -467,6 +471,10 @@ assert.match(pwaCardSource, /iosSafari/);
 assert.match(pageSource, /grid-template-rows: repeat\(4, minmax\(18px, 1fr\)\)/);
 assert.match(serviceWorkerSource, /CACHE_NAME/);
 assert.match(serviceWorkerSource, /request\.mode === 'navigate'/);
+assert.match(serviceWorkerSource, /networkFirst/);
+assert.match(serviceWorkerSource, /\['script', 'style', 'worker'\]/);
+assert.match(headersSource, /^\/sw\.js$/m);
+assert.match(headersSource, /no-store, no-cache, must-revalidate/);
 assert.match(indexSource, /rel="manifest" href="manifest\.webmanifest"/);
 assert.doesNotMatch(indexSource, /<link rel="canonical"/);
 assert.doesNotMatch(indexSource, /<meta name="description"/);

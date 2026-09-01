@@ -23,19 +23,36 @@ export default defineBoot(async () => {
   });
 
   try {
-    const registration = await navigator.serviceWorker.register(
-      new URL('sw.js', `${window.location.origin}${process.env.VUE_ROUTER_BASE}`).toString(),
-      { scope: process.env.VUE_ROUTER_BASE },
+    const serviceWorkerUrl = new URL(
+      'sw.js',
+      `${window.location.origin}${process.env.VUE_ROUTER_BASE}`,
     );
+    serviceWorkerUrl.searchParams.set('release', process.env.APP_RELEASE_ID || 'local');
 
-    registration.addEventListener('updatefound', () => {
-      const worker = registration.installing;
+    /* A revisão na URL e updateViaCache garantem que uma nova publicação seja
+       comparada com a instalada, mesmo quando o aplicativo ficou muito tempo
+       aberto ou foi iniciado pelo ícone salvo no sistema. */
+    const registration = await navigator.serviceWorker.register(serviceWorkerUrl.toString(), {
+      scope: process.env.VUE_ROUTER_BASE,
+      updateViaCache: 'none',
+    });
+
+    function watchInstallingWorker(worker) {
       worker?.addEventListener('statechange', () => {
         if (worker.state === 'installed' && navigator.serviceWorker.controller) {
           window.dispatchEvent(new CustomEvent('calendar-update-available'));
         }
       });
+    }
+
+    registration.addEventListener('updatefound', () => {
+      watchInstallingWorker(registration.installing);
     });
+
+    /* O evento pode ocorrer durante o próprio register, antes de o listener
+       acima ser anexado. Nesse caso, acompanha o worker já em instalação. */
+    watchInstallingWorker(registration.installing);
+    await registration.update();
   } catch {
     // O aplicativo online continua funcionando se o modo offline for bloqueado.
   }

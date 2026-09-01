@@ -1661,6 +1661,31 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   `Agenda 13 Calendar`. A primeira frente está limitada à criação de
   `docs/AGENDA_PRODUCT_GUIDE.md`: nenhuma rota, armazenamento, manifesto,
   service worker ou scaffold da Agenda será incorporado a este aplicativo.
+- A ação da Agenda pertence ao próprio cabeçalho do planejador anual, depois de
+  ICS e PDF; não existe uma segunda localização. Uma captura da PWA instalada
+  em 1º de setembro ainda mostrou o pacote anterior: o card conservava o limite
+  antigo de 980 px, apenas três redes sociais e somente as duas ações antigas.
+  O fonte privado, o espelho público e a implantação de produção registrada no
+  GitHub já contêm a terceira ação. A SPA aberta não troca seu JavaScript durante
+  a execução; é necessário encerrar totalmente essa instância e abri-la outra
+  vez para carregar o pacote publicado. As recargas comum, direta da origem e
+  com consulta inédita continuaram no pacote antigo porque a conexão com os
+  endereços `pages.dev` estava indisponível e o modo offline respondeu com sua
+  reserva local; a implantação `ec0dfe3c` permanece classificada como produção
+  no Cloudflare. O diagnóstico não encontrou regressão estrutural nem justificou
+  mover ou duplicar o botão.
+- O mecanismo offline foi fortalecido para não congelar uma publicação antiga.
+  Cada build recebe `APP_RELEASE_ID` do commit do GitHub ou do Cloudflare e usa
+  esse valor na URL do service worker; `updateViaCache: none` e uma chamada
+  explícita a `registration.update()` obrigam a comparação em toda abertura. O
+  cache passou de `13calendar-runtime-v1` para `v2`, eliminando a cópia anterior
+  na ativação. Navegações, scripts, estilos e workers consultam a rede primeiro
+  e só recorrem ao cache quando ela falha; os outros recursos mantêm a resposta
+  rápida e a atualização em segundo plano. `/sw.js` recebe cabeçalho `no-store`.
+  O aviso localizado de versão nova já existente continua oferecendo a recarga,
+  sem apagar favoritos ou outras preferências locais. `npm run verify`, as
+  verificações sintáticas, `git diff --check` e as duas auditorias de segurança
+  passaram; o pacote mediu 3.255,1 KiB brutos e 813,7 KiB gzip.
 
 ## Pendências atuais
 
