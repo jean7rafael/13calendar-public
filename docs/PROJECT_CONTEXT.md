@@ -1686,6 +1686,16 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   sem apagar favoritos ou outras preferências locais. `npm run verify`, as
   verificações sintáticas, `git diff --check` e as duas auditorias de segurança
   passaram; o pacote mediu 3.255,1 KiB brutos e 813,7 KiB gzip.
+- A correção de atualização foi publicada no commit privado `a59218c` e
+  espelhada no público `3c4922b`. Verificação privada (`33524409207`),
+  sincronização (`33524409314`), publicação Cloudflare privada de redundância
+  (`33524409142`), verificação pública (`33524533074`), GitHub Pages
+  (`33524530607`) e Cloudflare Pages público (`33524534145`) concluíram com
+  sucesso. A implantação imutável de produção é
+  `e1d201e7.13calendar.pages.dev`. Ela contém 48 arquivos novos e o cache `v2`.
+  A recarga final do Safari ainda usou a reserva offline porque a conexão TCP
+  deste Mac com `13calendar.pages.dev` continuava recusada; por isso a ausência
+  temporária do botão nessa janela não representa falha da nova implantação.
 
 ## Pendências atuais
 
