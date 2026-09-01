@@ -1580,7 +1580,14 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   escolares que antes usavam o azul auxiliar das células de fim de semana. Elas
   agora reutilizam exatamente os tokens da estação Inverno nos cards e nas
   legendas de bimestres e trimestres dos dois hemisférios. Os semestres mantêm a
-  combinação rosa/verde definida pelo modelo, sem introduzir uma cor extra.
+  combinação rosa/verde definida pelo modelo, sem introduzir uma cor extra. A
+  correção foi publicada nos commits privado `c59d95a` e público `c029b4c`.
+  Verificação privada (`33461044644`), sincronização (`33461044601`), verificação
+  pública (`33461120131`), GitHub Pages (`33461119446`) e Cloudflare Pages
+  (`33461120150`) concluíram com sucesso; a implantação imutável é
+  `86fb811a.13calendar.pages.dev`. Na produção, o azul antigo não aparece em
+  nenhum bloco escolar, e texto, fundo e borda do roxo escolar coincidem
+  exatamente com os valores do trimestre fiscal de Inverno.
 
 ## Pendências atuais
 
