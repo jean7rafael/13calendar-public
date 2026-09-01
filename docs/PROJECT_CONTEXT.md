@@ -201,8 +201,8 @@
   as semanas 12, 25, 38 e 51. O seletor Norte/Sul inverte as estações e reutiliza
   os emojis do calendário: outono rosa, inverno roxo, primavera verde e verão
   âmbar. No modo fiscal, cada bloco completo de 13 semanas assume a cor da
-  estação ligada ao seu marco. Na camada escolar, bimestres usam rosa, azul,
-  verde e amarelo no Sul ou verde, amarelo, rosa e azul no Norte; trimestres
+  estação ligada ao seu marco. Na camada escolar, bimestres usam rosa, roxo,
+  verde e amarelo no Sul ou verde, amarelo, rosa e roxo no Norte; trimestres
   usam as três primeiras cores da sequência; semestres usam rosa/verde no Sul
   ou verde/rosa no Norte. Os mini meses usam as abreviações do catálogo sem
   reticências. Um card
@@ -1550,8 +1550,8 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   e 51 e reutilizam a fonte comum de emojis; um novo toggle Norte/Sul troca entre
   outono rosa, inverno roxo, primavera verde e verão âmbar. O trimestre fiscal
   inteiro segue a cor de seu marco. Na visualização escolar, bimestres e
-  trimestres seguem a sequência rosa/azul/verde/amarelo no Sul ou
-  verde/amarelo/rosa/azul no Norte, enquanto os semestres usam a primeira e a
+  trimestres seguem a sequência rosa/roxo/verde/amarelo no Sul ou
+  verde/amarelo/rosa/roxo no Norte, enquanto os semestres usam a primeira e a
   terceira cores. Um card anterior à
   explicação sazonal propõe nomes baseados em semanas para os períodos letivos.
   A seção seguinte distingue a data comemorativa da folga observada e visualiza
@@ -1576,6 +1576,11 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   comunitário, ele foi validado por dry-run, mas não recebeu uma publicação
   redundante. O PDF de teste permanece somente no diretório local ignorado
   `output/` e não foi enviado aos repositórios.
+- O refinamento posterior unificou ao roxo oficial da paleta todas as etapas
+  escolares que antes usavam o azul auxiliar das células de fim de semana. Elas
+  agora reutilizam exatamente os tokens da estação Inverno nos cards e nas
+  legendas de bimestres e trimestres dos dois hemisférios. Os semestres mantêm a
+  combinação rosa/verde definida pelo modelo, sem introduzir uma cor extra.
 
 ## Pendências atuais
 

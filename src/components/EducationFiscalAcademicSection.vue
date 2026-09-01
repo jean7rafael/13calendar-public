@@ -315,8 +315,8 @@ const activeSeasonLegend = computed(() => [...seasonByWeek.value.values()]);
 const schoolPeriodTones = computed(() => {
   const sequence =
     hemisphere.value === 'south'
-      ? ['autumn', 'blue', 'spring', 'summer']
-      : ['spring', 'summer', 'autumn', 'blue'];
+      ? ['autumn', 'winter', 'spring', 'summer']
+      : ['spring', 'summer', 'autumn', 'winter'];
 
   return {
     bimester: sequence,
@@ -755,12 +755,6 @@ const activeLegend = computed(() => {
   --week-border: var(--app-accent-purple-border);
 }
 
-.education-year-map__week--season-blue {
-  --week-color: var(--calendar-weekend-text);
-  --week-soft: var(--calendar-weekend-cell);
-  --week-border: var(--calendar-selection-border);
-}
-
 .education-year-map__week--season-spring {
   --week-color: var(--app-accent-green-text);
   --week-soft: var(--app-accent-green-soft);
@@ -835,11 +829,6 @@ const activeLegend = computed(() => {
 .education-year-map__legend .education-year-map__legend-color--winter {
   background: var(--app-accent-purple-soft);
   border-color: var(--app-accent-purple-border);
-}
-
-.education-year-map__legend .education-year-map__legend-color--blue {
-  background: var(--calendar-weekend-cell);
-  border-color: var(--calendar-selection-border);
 }
 
 .education-year-map__legend .education-year-map__legend-color--spring {

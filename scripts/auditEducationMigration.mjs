@@ -220,11 +220,15 @@ assert.match(
 );
 assert.match(
   fiscalAcademicSectionSource,
-  /\? \['autumn', 'blue', 'spring', 'summer'\][\s\S]{0,80}: \['spring', 'summer', 'autumn', 'blue'\]/,
+  /\? \['autumn', 'winter', 'spring', 'summer'\][\s\S]{0,90}: \['spring', 'summer', 'autumn', 'winter'\]/,
   'Bimestres e trimestres escolares devem seguir a sequência cromática de cada hemisfério.',
 );
 assert.match(fiscalAcademicSectionSource, /semester: \[sequence\[0\], sequence\[2\]\]/);
-assert.match(fiscalAcademicSectionSource, /education-year-map__week--season-blue/);
+assert.doesNotMatch(
+  fiscalAcademicSectionSource,
+  /education-year-map__(?:__week--season|__legend-color)--blue/,
+  'A camada escolar deve reutilizar o roxo oficial, não o azul do calendário.',
+);
 assert.match(fiscalAcademicSectionSource, /education-year-map__week--season-autumn/);
 assert.match(fiscalAcademicSectionSource, /education-year-map__week--season-winter/);
 assert.match(fiscalAcademicSectionSource, /education-year-map__week--season-spring/);
