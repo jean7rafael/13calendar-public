@@ -1612,6 +1612,18 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   mediu 3.253,2 KiB brutos e 812,6 KiB gzip, e as auditorias de UI, educação,
   calendário, feriados, segurança e dependências de produção concluíram sem
   erro.
+- Essa revisão saiu no commit privado `f4d3296` e foi espelhada no público
+  `279c798`. A verificação privada (`33493042952`), a sincronização pública
+  (`33493042751`), a publicação privada de redundância no Cloudflare
+  (`33493042827`), a verificação pública (`33493154907`), o GitHub Pages
+  (`33493156519`) e o Cloudflare Pages público (`33493154906`) concluíram com
+  sucesso. A implantação imutável é `f559d33b.13calendar.pages.dev`. Tanto ela
+  quanto o alias principal responderam HTTP 200 na raiz, em `/learn`, `/tools`,
+  `/moon`, `/news`, `/community`, `/privacy`, `/widget`, `robots.txt` e
+  `sitemap.xml`. Os chunks publicados contêm o componente editorial comum, as
+  quatro novas linhas de destaque por idioma e os três grupos corrigidos do
+  popup. As APIs `/members`, `/analytics/stats` e `/feedback/votes` continuaram
+  respondendo JSON com HTTP 200.
 
 ## Pendências atuais
 
