@@ -1707,6 +1707,14 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   rolagem horizontal. `npm run verify` e `git diff --check` passaram; o pacote
   mediu 3.255,0 KiB brutos e 813,6 KiB gzip, com zero vulnerabilidades nas duas
   árvores de produção.
+- A correção final saiu no commit privado `968d49d` e foi espelhada no público
+  `df0ae84`. A sincronização privada (`33526764528`), a verificação pública
+  (`33526875928`), o GitHub Pages (`33526876245`) e o Cloudflare Pages
+  (`33526875968`) concluíram com sucesso. A implantação imutável é
+  `88ba8be0.13calendar.pages.dev`; os pacotes publicados contêm os rótulos
+  curtos e a nova medição `loadingdone`. O alias principal respondeu HTTP 200
+  na raiz, nas sete rotas públicas, em `robots.txt` e `sitemap.xml`; o legado
+  redirecionou para `/learn`, e as três APIs comunitárias responderam HTTP 200.
 
 ## Pendências atuais
 
