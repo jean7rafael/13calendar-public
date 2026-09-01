@@ -55,6 +55,20 @@ const expectedPositions = {
   'hi-IN': '13 में से महीना {month} · 4 में से सप्ताह {week}',
   'ko-KR': '월 {month}/13 · 주 {week}/4',
 };
+const expectedPlannerPrintPdfLabels = {
+  'en-US': 'Print PDF',
+  'pt-BR': 'Imprimir PDF',
+  'es-ES': 'Imprimir PDF',
+  'fr-FR': 'Imprimer le PDF',
+  'de-DE': 'PDF drucken',
+  'it-IT': 'Stampa PDF',
+  'ru-RU': 'Печать PDF',
+  'zh-CN': '打印 PDF',
+  'ja-JP': 'PDFを印刷',
+  'ar-SA': 'طباعة PDF',
+  'hi-IN': 'PDF प्रिंट करें',
+  'ko-KR': 'PDF 인쇄',
+};
 
 const [
   packageSource,
@@ -552,6 +566,11 @@ for (const locale of expectedLocales) {
     educationMessages[locale].converter.position,
     expectedPositions[locale],
     `${locale}: a posição precisa usar números cardinais em uma única frase.`,
+  );
+  assert.equal(
+    educationMessages[locale].tools.planner.printPdf,
+    expectedPlannerPrintPdfLabels[locale],
+    `${locale}: a ação do planejador deve manter o rótulo curto de impressão em PDF.`,
   );
   assert.ok(productNavigationMessages[locale].news);
   assert.ok(productNavigationMessages[locale].moon);

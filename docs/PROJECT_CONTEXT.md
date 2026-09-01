@@ -1435,7 +1435,8 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   aviso explícito, em ano comum. As sete páginas finais de anotações são
   divididas em duas áreas iguais: treze áreas identificam os meses e a décima
   quarta identifica os Dias Especiais.
-- O botão preserva o rótulo “Imprimir / salvar PDF”, mas não chama mais a
+- O botão usa o rótulo curto “Imprimir PDF”, localizado de forma equivalente
+  nos 12 idiomas, mas não chama mais a
   impressão do navegador. Ele abre um diálogo próprio com seletor de ano e
   identifica automaticamente um dos dois modelos estruturais, ano comum ou
   bissexto. Cada folha visual de 210 × 297 mm é capturada separadamente e um
@@ -1696,6 +1697,16 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   A recarga final do Safari ainda usou a reserva offline porque a conexão TCP
   deste Mac com `13calendar.pages.dev` continuava recusada; por isso a ausência
   temporária do botão nessa janela não representa falha da nova implantação.
+- Em 1º de setembro, a ação de PDF do planejador foi abreviada para “Imprimir
+  PDF”, com equivalentes curtos e auditados nos 12 idiomas, sem alterar o
+  gerador determinístico de 40 páginas. O sistema universal de botões também
+  passou a recalcular as larguras quando uma fonte tardia termina de carregar;
+  isso elimina a medida provisória do texto do ícone sem depender de hover. Na
+  inspeção local, as três ações ficaram em uma linha com 190 × 44 px a 1280 px,
+  em 2 + 1 a 520 px e empilhadas a 360 px, sempre sem vazamento de rótulo nem
+  rolagem horizontal. `npm run verify` e `git diff --check` passaram; o pacote
+  mediu 3.255,0 KiB brutos e 813,6 KiB gzip, com zero vulnerabilidades nas duas
+  árvores de produção.
 
 ## Pendências atuais
 

@@ -28,6 +28,8 @@ define a largura de todos os botões do grupo. O layout flexível centraliza as
 ações e coloca uma delas na linha seguinte antes de reduzir essa largura. A
 medição roda na primeira pintura, depois do carregamento das fontes e após uma
 troca de idioma; não depende de hover nem de correções específicas por língua.
+O término de um carregamento tipográfico tardio, inclusive da fonte de ícones,
+também dispara a mesma medição e substitui qualquer largura provisória do glifo.
 O cálculo soma somente as larguras intrínsecas de texto, ícone e distância —
 nunca o espaço vazio do botão já ampliado — e reserva 8 px para arredondamento
 subpixel, zoom e variações da fonte carregada.

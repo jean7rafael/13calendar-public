@@ -96,4 +96,9 @@ export default boot(() => {
 
   scheduleMeasurement();
   document.fonts?.ready.then(scheduleMeasurement);
+
+  /* Fontes usadas por ícones podem começar a carregar depois que o aplicativo
+     insere os botões. Recalcular ao fim desse carregamento remove a largura
+     provisória do texto do glifo sem depender de hover ou outra interação. */
+  document.fonts?.addEventListener('loadingdone', scheduleMeasurement);
 });

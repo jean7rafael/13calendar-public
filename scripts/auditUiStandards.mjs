@@ -323,7 +323,8 @@ if (
   !buttonLayout.includes('childrenWidth + gap') ||
   !buttonLayout.includes("closest('.app-action-group')") ||
   !buttonLayout.includes('MutationObserver') ||
-  !buttonLayout.includes('document.fonts?.ready')
+  !buttonLayout.includes('document.fonts?.ready') ||
+  !buttonLayout.includes("document.fonts?.addEventListener('loadingdone'")
 ) {
   failures.push(
     'src/boot/buttonLayout.js: a maior tradução deve definir a largura do grupo antes da interação.',
