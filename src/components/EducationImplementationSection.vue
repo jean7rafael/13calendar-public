@@ -11,15 +11,15 @@
     </div>
 
     <div class="education-implementation__content">
-      <div class="education-implementation__barriers">
-        <article
+      <div class="education-implementation__barriers education-content-card-grid">
+        <EducationContentCard
           v-for="(barrier, index) in feedbackBarriers"
           :key="barrier"
-          :class="`education-implementation__barrier--${barrierStyles[index].tone}`"
-        >
-          <q-icon :name="barrierStyles[index].icon" aria-hidden="true" />
-          <p>{{ barrier }}</p>
-        </article>
+          variant="compact"
+          :tone="barrierStyles[index].tone"
+          :icon="barrierStyles[index].icon"
+          :text="barrier"
+        />
       </div>
 
       <div class="education-implementation__response">
@@ -97,6 +97,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import EducationAttributionDialog from 'src/components/EducationAttributionDialog.vue';
 import EducationAttributionStatus from 'src/components/EducationAttributionStatus.vue';
+import EducationContentCard from 'src/components/EducationContentCard.vue';
 import { useEducationFeedbackStore } from 'src/composables/useEducationFeedbackStore';
 
 const { t, tm, locale } = useI18n({ useScope: 'global' });
@@ -202,53 +203,13 @@ onMounted(loadFeedback);
 }
 
 .education-implementation__barriers {
+  --content-card-min-height: 178px;
+
   height: 100%;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(max-content, 1fr));
   gap: 14px;
-}
-
-.education-implementation__barriers article {
-  --barrier-color: var(--app-accent-purple-text);
-  --barrier-soft: var(--app-accent-purple-soft);
-  --barrier-border: var(--app-accent-purple-border);
-
-  min-height: 178px;
-  padding: 22px;
-  background: color-mix(in srgb, var(--barrier-soft) 72%, var(--app-surface));
-  border: 1px solid var(--barrier-border);
-  border-radius: 20px;
-}
-
-.education-implementation__barrier--green {
-  --barrier-color: var(--app-accent-green-text) !important;
-  --barrier-soft: var(--app-accent-green-soft) !important;
-  --barrier-border: var(--app-accent-green-border) !important;
-}
-
-.education-implementation__barrier--amber {
-  --barrier-color: var(--app-accent-amber-text) !important;
-  --barrier-soft: var(--app-accent-amber-soft) !important;
-  --barrier-border: var(--app-accent-amber-border) !important;
-}
-
-.education-implementation__barrier--pink {
-  --barrier-color: var(--calendar-sunday-text) !important;
-  --barrier-soft: var(--calendar-sunday-cell) !important;
-  --barrier-border: color-mix(in srgb, var(--calendar-sunday-text) 34%, transparent) !important;
-}
-
-.education-implementation__barriers .q-icon {
-  color: var(--barrier-color);
-  font-size: 28px;
-}
-
-.education-implementation__barriers p {
-  margin: 16px 0 0;
-  color: var(--app-text-muted);
-  font-size: 13px;
-  line-height: 1.6;
 }
 
 .education-implementation__response {
@@ -323,8 +284,11 @@ onMounted(loadFeedback);
   }
 
   .education-implementation__barriers {
+    --content-card-min-height: 0px;
+
     height: auto;
-    grid-template-rows: auto;
+    grid-template-rows: none;
+    grid-auto-rows: max-content;
   }
 
   .education-implementation__response {
@@ -335,10 +299,6 @@ onMounted(loadFeedback);
 @media (max-width: 620px) {
   .education-implementation__barriers {
     grid-template-columns: 1fr;
-  }
-
-  .education-implementation__barriers article {
-    min-height: 0;
   }
 
   .education-implementation__response {

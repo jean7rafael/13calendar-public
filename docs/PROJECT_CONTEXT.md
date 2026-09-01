@@ -1624,6 +1624,31 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   quatro novas linhas de destaque por idioma e os três grupos corrigidos do
   popup. As APIs `/members`, `/analytics/stats` e `/feedback/votes` continuaram
   respondendo JSON com HTTP 200.
+- Os cards coloridos de conteúdo das seções de implantação, planejamento
+  fiscal/acadêmico e passagem entre anos passaram a usar o componente comum
+  `EducationContentCard`. Sua altura sempre nasce do texto e da largura real do
+  próprio card; a grade usa linhas `max-content`, um mínimo visual opcional e
+  uma consulta de contêiner para reorganizar a composição sem depender apenas
+  do viewport informado pelo WebKit. Isso corrige o recorte observado somente
+  na PWA instalada em larguras extremas. Avisos finais continuam separados em
+  `EducationClosingNotice`, com geometria editorial própria. Os dois contratos
+  estão documentados em `docs/UI_CARD_SYSTEM.md` e protegidos por
+  `npm run ui:audit`. A revisão local passou em português nas larguras 320,
+  335, 390, 620, 760 e 900 px e em russo a 335 px, sem vazamento vertical ou
+  lateral, sobreposição ou rolagem horizontal. `npm run verify` e
+  `git diff --check` também passaram; o pacote mediu 3.253,2 KiB brutos e
+  813,0 KiB gzip.
+- O planejador anual recebeu uma terceira ação ao lado de ICS e PDF para
+  anunciar a futura Agenda. Ela usa o contrato global de botões, tem
+  `aria-disabled`, não possui rota nem endereço e mostra o texto localizado
+  “Recurso disponível em breve” no hover, foco ou clique. Os dois textos novos
+  existem nos 12 idiomas. A auditoria educacional impede que o acesso ganhe uma
+  rota antes da criação do produto independente. Em 1280 px as três ações
+  permanecem na mesma linha; em 360 px o grupo e o seletor se reorganizam em
+  coluna, sem rolagem horizontal. A URL permaneceu inalterada após o clique.
+  Antes da publicação autorizada, `git diff --check` e `npm run verify`
+  passaram integralmente; o pacote mediu 3.255,0 KiB brutos e 813,6 KiB gzip,
+  sem vulnerabilidades nas dependências de produção.
 
 ## Pendências atuais
 

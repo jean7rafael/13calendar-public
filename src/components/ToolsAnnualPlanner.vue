@@ -36,6 +36,20 @@
             :label="t('education.tools.planner.printPdf')"
             @click="openPdfDialog"
           />
+          <q-btn
+            no-caps
+            unelevated
+            :ripple="false"
+            aria-disabled="true"
+            class="app-action app-action--tertiary annual-planner__agenda-button"
+            icon="calendar_view_week"
+            :label="t('education.tools.planner.openAgenda')"
+            @click="showAgendaAvailability"
+          >
+            <q-tooltip v-model="agendaTooltipOpen">
+              {{ t('education.tools.planner.agendaSoon') }}
+            </q-tooltip>
+          </q-btn>
         </div>
       </q-card-section>
 
@@ -236,7 +250,7 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, ref } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useCalendarTranslations } from 'src/composables/useCalendarTranslations';
 import AppYearInput from 'src/components/AppYearInput.vue';
@@ -258,6 +272,7 @@ const { months13Long, weekDaysComparison } = useCalendarTranslations();
 const year = ref(new Date().getFullYear());
 const statusMessage = ref('');
 const icsDialogOpen = ref(false);
+const agendaTooltipOpen = ref(false);
 const icsMode = ref('milestones');
 const savedFavorites = ref([]);
 const pdfDialogOpen = ref(false);
@@ -266,6 +281,21 @@ const pdfGenerating = ref(false);
 const pdfProgress = ref(0);
 const pdfError = ref('');
 const plannerPdfRef = ref(null);
+let agendaTooltipTimer;
+
+/* A Agenda será um produto independente. Enquanto ela não existe, este botão
+   permanece sem rota e usa a interação exclusivamente para explicar o estado. */
+function showAgendaAvailability() {
+  agendaTooltipOpen.value = true;
+  window.clearTimeout(agendaTooltipTimer);
+  agendaTooltipTimer = window.setTimeout(() => {
+    agendaTooltipOpen.value = false;
+  }, 2600);
+}
+
+onBeforeUnmount(() => {
+  window.clearTimeout(agendaTooltipTimer);
+});
 
 const plan = computed(() => buildInternationalFixedYear(Number(year.value)));
 const monthRows = computed(() =>
@@ -482,7 +512,7 @@ onMounted(() => {
 <style scoped>
 /* Superfície e tabela interativa exibidas normalmente na página Ferramentas. */
 .annual-planner {
-  max-width: 980px;
+  max-width: 1120px;
   margin: 0 auto;
   overflow: hidden;
   border-color: var(--app-border);
@@ -503,8 +533,21 @@ onMounted(() => {
 }
 
 .annual-planner__toolbar > div {
-  --app-action-group-max: 480px;
-  --app-action-min-width: 220px;
+  --app-action-group-max: 730px;
+  --app-action-min-width: 190px;
+}
+
+/* O acesso futuro parece indisponível, mas continua recebendo hover, foco e
+   clique para que o aviso seja acessível sem criar navegação prematura. */
+.annual-planner__agenda-button[aria-disabled='true'] {
+  opacity: 0.58;
+  cursor: not-allowed;
+  filter: saturate(0.55);
+}
+
+.annual-planner__agenda-button[aria-disabled='true']:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 .annual-planner__table-wrap {

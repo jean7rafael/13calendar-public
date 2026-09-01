@@ -178,6 +178,30 @@ const colorPaletteDocument = fs.readFileSync(
   path.join(root, 'docs', 'UI_COLOR_PALETTE.md'),
   'utf8',
 );
+const cardSystemDocument = fs.readFileSync(
+  path.join(root, 'docs', 'UI_CARD_SYSTEM.md'),
+  'utf8',
+);
+const educationContentCard = fs.readFileSync(
+  path.join(sourceDirectory, 'components', 'EducationContentCard.vue'),
+  'utf8',
+);
+const educationClosingNotice = fs.readFileSync(
+  path.join(sourceDirectory, 'components', 'EducationClosingNotice.vue'),
+  'utf8',
+);
+const educationImplementation = fs.readFileSync(
+  path.join(sourceDirectory, 'components', 'EducationImplementationSection.vue'),
+  'utf8',
+);
+const educationYearBoundary = fs.readFileSync(
+  path.join(sourceDirectory, 'components', 'EducationYearBoundarySection.vue'),
+  'utf8',
+);
+const educationFiscalAcademic = fs.readFileSync(
+  path.join(sourceDirectory, 'components', 'EducationFiscalAcademicSection.vue'),
+  'utf8',
+);
 const appDateInput = fs.readFileSync(
   path.join(sourceDirectory, 'components', 'AppDateInput.vue'),
   'utf8',
@@ -306,6 +330,61 @@ if (
   );
 }
 
+/* Cards de conteúdo e avisos finais têm contratos deliberadamente separados.
+   A auditoria impede que uma altura local volte a recortar traduções estreitas. */
+if (
+  !educationContentCard.includes('container: education-content-card / inline-size') ||
+  !educationContentCard.includes('min-height: var(--content-card-min-height, 0px)') ||
+  !educationContentCard.includes('height: auto !important;') ||
+  !educationContentCard.includes('max-height: none;') ||
+  !educationContentCard.includes('overflow: visible;') ||
+  !educationContentCard.includes('@container education-content-card (max-width: 330px)') ||
+  !educationContentCard.includes("['purple', 'green', 'pink', 'amber']")
+) {
+  failures.push(
+    'EducationContentCard.vue: o card deve medir a própria largura, crescer com o conteúdo e preservar os quatro tons oficiais.',
+  );
+}
+
+if (
+  !appStyles.includes('.education-content-card-grid') ||
+  !appStyles.includes('grid-auto-rows: max-content')
+) {
+  failures.push(
+    'src/css/app.scss: grades de cards educacionais não podem comprimir uma linha abaixo do conteúdo.',
+  );
+}
+
+for (const [sectionName, source] of [
+  ['EducationImplementationSection.vue', educationImplementation],
+  ['EducationYearBoundarySection.vue', educationYearBoundary],
+  ['EducationFiscalAcademicSection.vue', educationFiscalAcademic],
+]) {
+  if (!source.includes('<EducationContentCard') || !source.includes('education-content-card-grid')) {
+    failures.push(`${sectionName}: os cards coloridos devem usar o contrato compartilhado.`);
+  }
+}
+
+if (
+  !educationClosingNotice.includes('height: auto;') ||
+  !educationClosingNotice.includes('max-height: none;') ||
+  educationClosingNotice.includes('education-content-card-grid') ||
+  educationClosingNotice.includes('<EducationContentCard')
+) {
+  failures.push(
+    'EducationClosingNotice.vue: o aviso final deve manter altura natural e geometria independente dos cards de conteúdo.',
+  );
+}
+
+if (
+  !cardSystemDocument.includes('EducationContentCard') ||
+  !cardSystemDocument.includes('EducationClosingNotice') ||
+  !cardSystemDocument.includes('education-content-card-grid') ||
+  !cardSystemDocument.includes('max-content')
+) {
+  failures.push('docs/UI_CARD_SYSTEM.md: os dois contratos de card precisam permanecer documentados.');
+}
+
 if (
   !appStyles.includes('.app-no-double-tap') ||
   !appStyles.includes('touch-action: manipulation')
@@ -379,10 +458,13 @@ if (
   annualPlanner.includes('calendar_add_on') ||
   !annualPlanner.includes('event_available') ||
   !annualPlanner.includes('align="center"') ||
-  !annualPlanner.includes('--app-action-group-max: 520px')
+  !annualPlanner.includes('--app-action-group-max: 520px') ||
+  !annualPlanner.includes('annual-planner__agenda-button') ||
+  !annualPlanner.includes('aria-disabled="true"') ||
+  !annualPlanner.includes('<q-tooltip v-model="agendaTooltipOpen">')
 ) {
   failures.push(
-    'ToolsAnnualPlanner.vue: o diálogo ICS deve manter ícone compatível e três ações compactas.',
+    'ToolsAnnualPlanner.vue: o diálogo ICS e o acesso futuro à Agenda devem preservar seus contratos.',
   );
 }
 
@@ -796,11 +878,14 @@ if (
   (!agents.includes('app-action--secondary') ||
     !agents.includes('não usam o sufixo `-feira`') ||
     !agents.includes('docs/UI_COLOR_PALETTE.md') ||
+    !agents.includes('docs/UI_CARD_SYSTEM.md') ||
+    !agents.includes('EducationContentCard') ||
+    !agents.includes('EducationClosingNotice') ||
     !agents.includes('Nunca use o seletor nativo `type="date"`') ||
     !agents.includes('abreviatura `IFC`'))
 ) {
   failures.push(
-    'AGENTS.md: as regras de botões, dias comparativos e paleta precisam permanecer documentadas.',
+    'AGENTS.md: as regras de botões, cards, dias comparativos e paleta precisam permanecer documentadas.',
   );
 }
 
@@ -810,7 +895,7 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    'Padrões da interface auditados: formulários, avatares, datas e imagens, cores, avisos, botões, navegação e rodapé.',
+    'Padrões da interface auditados: formulários, avatares, datas e imagens, cores, cards, avisos, botões, navegação e rodapé.',
   );
 }
 

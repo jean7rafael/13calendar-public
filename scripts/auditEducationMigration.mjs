@@ -94,6 +94,7 @@ const [
   fiscalAcademicSectionSource,
   yearBoundarySectionSource,
   holidayRhythmSectionSource,
+  contentCardSource,
   closingNoticeSource,
   implementationSectionSource,
   feedbackStoreSource,
@@ -138,6 +139,7 @@ const [
   read('../src/components/EducationFiscalAcademicSection.vue'),
   read('../src/components/EducationYearBoundarySection.vue'),
   read('../src/components/EducationHolidayRhythmSection.vue'),
+  read('../src/components/EducationContentCard.vue'),
   read('../src/components/EducationClosingNotice.vue'),
   read('../src/components/EducationImplementationSection.vue'),
   read('../src/composables/useEducationFeedbackStore.js'),
@@ -233,6 +235,23 @@ for (const sectionSource of [
     'As quatro seções de solução devem terminar com o mesmo aviso editorial compacto.',
   );
 }
+for (const sectionSource of [
+  implementationSectionSource,
+  fiscalAcademicSectionSource,
+  yearBoundarySectionSource,
+]) {
+  assert.match(
+    sectionSource,
+    /<EducationContentCard/,
+    'As seções com cards coloridos devem reutilizar o componente de conteúdo responsivo.',
+  );
+  assert.match(sectionSource, /education-content-card-grid/);
+}
+assert.match(contentCardSource, /container: education-content-card \/ inline-size/);
+assert.match(contentCardSource, /min-height: var\(--content-card-min-height, 0px\)/);
+assert.match(contentCardSource, /height: auto !important/);
+assert.match(contentCardSource, /@container education-content-card \(max-width: 330px\)/);
+assert.doesNotMatch(closingNoticeSource, /EducationContentCard|education-content-card-grid/);
 assert.match(closingNoticeSource, /font-size: 12px/);
 assert.match(closingNoticeSource, /\['purple', 'green', 'pink', 'amber'\]/);
 assert.match(fiscalAcademicSectionSource, /v-model="planningMode"/);
@@ -387,6 +406,15 @@ assert.match(birthdaySource, /canvasToBlob/);
 assert.match(plannerSource, /createAnnualPlannerIcs/);
 assert.match(plannerSource, /createAnnualPlannerPdf/);
 assert.match(plannerSource, /pdfDialogOpen/);
+assert.match(plannerSource, /education\.tools\.planner\.openAgenda/);
+assert.match(plannerSource, /education\.tools\.planner\.agendaSoon/);
+assert.match(plannerSource, /aria-disabled="true"/);
+assert.match(plannerSource, /showAgendaAvailability/);
+assert.doesNotMatch(
+  plannerSource.match(/<q-btn[\s\S]*?education\.tools\.planner\.openAgenda[\s\S]*?<\/q-btn>/)?.[0] || '',
+  /\b(?:href|to)=/,
+  'A Agenda futura deve continuar sem rota ou endereço até o produto independente existir.',
+);
 assert.doesNotMatch(plannerSource, /window\.print\(\)|printing-annual-planner/);
 assert.match(plannerPdfSource, /ANNUAL_PLANNER_PAGE_COUNT = 40/);
 assert.match(plannerPdfSource, /pageElements\.length !== ANNUAL_PLANNER_PAGE_COUNT/);

@@ -421,6 +421,15 @@ body,
   line-height: 1.7;
 }
 
+/* Os cards editoriais medem a própria largura e crescem com o conteúdo.
+   A grade nunca comprime uma linha abaixo do conteúdo necessário, inclusive
+   no WebKit usado pela PWA instalada. Avisos finais têm contrato separado. */
+.education-content-card-grid {
+  grid-auto-rows: max-content;
+  align-items: stretch;
+  align-content: start;
+}
+
 .education-eyebrow {
   margin: 0;
   color: var(--app-accent-purple);

@@ -39,6 +39,9 @@ defineProps({
   --notice-border: var(--app-accent-amber-border);
 
   max-width: 1080px;
+  min-width: 0;
+  height: auto;
+  max-height: none;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: start;
@@ -49,6 +52,13 @@ defineProps({
   background: color-mix(in srgb, var(--notice-soft) 58%, var(--app-surface));
   border: 1px solid var(--notice-border);
   border-radius: 16px;
+  overflow: visible;
+}
+
+/* O aviso final mantém sua faixa editorial própria. Ele não herda mínimos,
+   variantes nem regras internas dos cards coloridos de conteúdo. */
+.education-closing-notice > div {
+  min-width: 0;
 }
 
 .education-closing-notice--purple {
@@ -81,6 +91,7 @@ defineProps({
   color: var(--notice-color);
   font-size: 12px;
   line-height: 1.45;
+  overflow-wrap: break-word;
 }
 
 .education-closing-notice p {
@@ -88,6 +99,7 @@ defineProps({
   color: var(--app-text-muted);
   font-size: 12px;
   line-height: 1.55;
+  overflow-wrap: break-word;
 }
 
 .education-closing-notice strong + p {

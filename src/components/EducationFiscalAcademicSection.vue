@@ -20,17 +20,17 @@
       <strong>{{ copy.formulaQuarters }}</strong>
     </div>
 
-    <div class="education-fiscal-academic__cards">
-      <article
+    <div class="education-fiscal-academic__cards education-content-card-grid">
+      <EducationContentCard
         v-for="(card, index) in copy.cards"
         :key="card.title"
-        :class="`education-fiscal-academic__card--${cardStyles[index].tone}`"
-      >
-        <q-icon :name="cardStyles[index].icon" aria-hidden="true" />
-        <h3>{{ card.title }}</h3>
-        <p>{{ card.text }}</p>
-        <strong>{{ card.detail }}</strong>
-      </article>
+        variant="stacked"
+        :tone="cardStyles[index].tone"
+        :icon="cardStyles[index].icon"
+        :title="card.title"
+        :text="card.text"
+        :detail="card.detail"
+      />
     </div>
 
     <!-- O mapa semanal permite comparar a camada fiscal com a escolar sem
@@ -233,6 +233,7 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useCalendarTranslations } from 'src/composables/useCalendarTranslations';
 import EducationClosingNotice from 'src/components/EducationClosingNotice.vue';
+import EducationContentCard from 'src/components/EducationContentCard.vue';
 import { seasonEvents } from 'src/holidays/seasonDefinitions.js';
 import { educationPlanningTranslations } from 'src/i18n/educationPlanningTranslations.js';
 import { educationYearMapTranslations } from 'src/i18n/educationYearMapTranslations.js';
@@ -464,67 +465,13 @@ const activeLegend = computed(() => {
 }
 
 .education-fiscal-academic__cards {
+  --content-card-min-height: 238px;
+
   max-width: 1080px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
   margin: 0 auto;
-}
-
-.education-fiscal-academic__cards article {
-  --card-color: var(--app-accent-purple-text);
-  --card-soft: var(--app-accent-purple-soft);
-  --card-border: var(--app-accent-purple-border);
-  min-height: 238px;
-  display: flex;
-  flex-direction: column;
-  padding: clamp(22px, 3vw, 30px);
-  color: var(--card-color);
-  background: color-mix(in srgb, var(--card-soft) 78%, var(--app-surface));
-  border: 1px solid var(--card-border);
-  border-radius: 20px;
-}
-
-.education-fiscal-academic__card--green {
-  --card-color: var(--app-accent-green-text) !important;
-  --card-soft: var(--app-accent-green-soft) !important;
-  --card-border: var(--app-accent-green-border) !important;
-}
-
-.education-fiscal-academic__card--pink {
-  --card-color: var(--calendar-sunday-text) !important;
-  --card-soft: var(--calendar-sunday-cell) !important;
-  --card-border: color-mix(in srgb, var(--calendar-sunday-text) 34%, transparent) !important;
-}
-
-.education-fiscal-academic__card--amber {
-  --card-color: var(--app-accent-amber-text) !important;
-  --card-soft: var(--app-accent-amber-soft) !important;
-  --card-border: var(--app-accent-amber-border) !important;
-}
-
-.education-fiscal-academic__cards .q-icon {
-  font-size: 28px;
-}
-
-.education-fiscal-academic__cards h3 {
-  margin: 18px 0 9px;
-  font-size: 22px;
-  line-height: 1.2;
-}
-
-.education-fiscal-academic__cards p {
-  margin: 0;
-  color: var(--app-text-muted);
-  font-size: 14px;
-  line-height: 1.65;
-}
-
-.education-fiscal-academic__cards strong {
-  margin-top: auto;
-  padding-top: 18px;
-  font-size: 12px;
-  line-height: 1.45;
 }
 
 /* ===========================================================
@@ -1021,8 +968,8 @@ const activeLegend = computed(() => {
     grid-template-columns: 1fr;
   }
 
-  .education-fiscal-academic__cards article {
-    min-height: 0;
+  .education-fiscal-academic__cards {
+    --content-card-min-height: 0px;
   }
 
   .education-year-map__mode {
