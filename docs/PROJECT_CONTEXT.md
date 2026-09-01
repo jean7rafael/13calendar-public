@@ -1424,9 +1424,8 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   descrições integrais, altura única por idioma — 419 px em português e até
   439 px em alemão no desktop — e nenhum erro no console. Uma volta completa de
   12 gestos passou nos dois sentidos sem salto nem travamento; `lint`, `build`
-  e `git diff --check` também passaram. A revisão permanece somente no
-  localhost, sem commit nem publicação, porque o mantenedor ainda enviará
-  outras alterações.
+  e `git diff --check` também passaram. A revisão foi incorporada à publicação
+  integral de 31 de agosto, depois das alterações complementares do mantenedor.
 - Em 30 de agosto, o planejador anual passou a produzir um caderno A4 de
   exatamente 40 páginas. As páginas 4–29 formam 13 pares fixos: calendário do
   mês na página par e 28 espaços numerados de anotações na página seguinte, de
@@ -1501,7 +1500,7 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   redirecionam a transição em curso. Sete cópias internas do conjunto e a
   recentralização invisível preservam o loop contínuo nos dois sentidos, sem
   salto visual. O calendário e seus cálculos não foram alterados. Esta revisão
-  permanece somente no localhost, sem commit nem publicação.
+  foi incorporada à publicação integral de 31 de agosto.
 - O compartilhamento de data usa quatro redes com suas marcas oficiais:
   WhatsApp, Facebook, X/Twitter e Telegram. O card de controles tem largura
   máxima de 400 px e encolhe com a tela; o seletor e as três ações principais
@@ -1511,8 +1510,8 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   controles e imagem ficam lado a lado, a grade iguala suas alturas, reserva o
   espaço livre no centro e ancora as redes na base; abaixo de 820 px eles voltam
   a ter alturas independentes em duas linhas. No empilhamento sem espaço livre,
-  a separação mínima entre o link e as redes é de 32 px. Esta frente continua
-  somente no localhost, sem commit nem publicação.
+  a separação mínima entre o link e as redes é de 32 px. Esta frente foi
+  incorporada à publicação integral de 31 de agosto.
 - O capturador assíncrono do PDF acrescenta cerca de 157,5 KiB brutos e 40,4
   KiB em gzip ao pacote total, mas não ao carregamento inicial de quem não abre
   o gerador. Depois das explicações fiscal, escolar e de feriados nos 12 idiomas,
@@ -1563,6 +1562,20 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   o dry-run do Worker e `git diff --check` passaram; o pacote mediu 3.249,9 KiB
   brutos e 811,0 KiB gzip, o Worker mediu 148,72 KiB gzip e `/learn` respondeu
   200 na porta 9102.
+- A publicação integral de 31 de agosto saiu da `main` no commit privado
+  `ef507f7` e foi espelhada no commit público `240bd5a`. A verificação privada
+  (`33460394532`), a sincronização pública (`33460394550`), a verificação
+  pública (`33460465601`), o GitHub Pages (`33460464780`) e o Cloudflare Pages
+  (`33460465645`) concluíram com sucesso. A implantação imutável é
+  `a086f83c.13calendar.pages.dev`; o alias principal respondeu HTTP 200 na raiz,
+  em `/learn`, `/tools`, `/moon`, `/news`, `/community`, `/privacy` e `/widget`.
+  `robots.txt` e `sitemap.xml` responderam 200, e `/reference-site/` redirecionou
+  para `/learn`. O chunk publicado de Aprenda contém a nova seção fiscal e
+  acadêmica. As APIs `/members`, `/analytics/stats` e `/feedback/votes`
+  continuaram respondendo JSON com HTTP 200. Como não houve alteração do Worker
+  comunitário, ele foi validado por dry-run, mas não recebeu uma publicação
+  redundante. O PDF de teste permanece somente no diretório local ignorado
+  `output/` e não foi enviado aos repositórios.
 
 ## Pendências atuais
 
