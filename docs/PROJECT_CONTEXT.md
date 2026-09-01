@@ -1649,6 +1649,18 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   Antes da publicação autorizada, `git diff --check` e `npm run verify`
   passaram integralmente; o pacote mediu 3.255,0 KiB brutos e 813,6 KiB gzip,
   sem vulnerabilidades nas dependências de produção.
+- O pacote foi publicado pelo commit privado `6840c88` e espelhado no público
+  `301fb0f`. A verificação privada (`33502976472`), a sincronização pública
+  (`33502976312`), a publicação privada de redundância no Cloudflare
+  (`33502976386`), a verificação pública (`33503074042`), o GitHub Pages
+  (`33503072822`) e o Cloudflare Pages público (`33503073990`) concluíram com
+  sucesso. A implantação imutável informada pela esteira é
+  `9ba20e65.13calendar.pages.dev`.
+- A futura Agenda foi aberta como projeto local independente em
+  `/Users/jean7rafael/Documents/Codex/2026-09-01/agenda-13-calendar`, na tarefa
+  `Agenda 13 Calendar`. A primeira frente está limitada à criação de
+  `docs/AGENDA_PRODUCT_GUIDE.md`: nenhuma rota, armazenamento, manifesto,
+  service worker ou scaffold da Agenda será incorporado a este aplicativo.
 
 ## Pendências atuais
 
