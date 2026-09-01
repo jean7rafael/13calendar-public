@@ -293,7 +293,7 @@
 
 ## Estado atual
 
-- **Última atividade:** 2026-08-31.
+- **Última atividade:** 2026-09-01.
 - Em 2026-08-11, a pasta `Programas de Programador` foi transferida do Desktop
   sincronizado pelo OneDrive para `/Users/jean7rafael/Downloads`. O repositório
   ativo deste aplicativo passou a ficar em
@@ -1588,6 +1588,30 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   `86fb811a.13calendar.pages.dev`. Na produção, o azul antigo não aparece em
   nenhum bloco escolar, e texto, fundo e borda do roxo escolar coincidem
   exatamente com os valores do trimestre fiscal de Inverno.
+- O popup `Gerenciar perfil publicado` passou a impedir qualquer rolagem
+  horizontal. A captura automática ocupa a primeira linha inteira; envio e
+  remoção de foto dividem igualmente a linha seguinte. A criação do link
+  privado e a exclusão também dividem a largura em telas amplas e são
+  empilhadas, com larguras iguais e nessa ordem, quando a tela é pequena. O
+  corpo só admite rolagem vertical quando a altura disponível realmente não
+  comporta o conteúdo. As regras reutilizam o contrato global de botões para
+  preservar o texto em uma linha sempre que houver espaço, inclusive após
+  traduções.
+- Os quatro cards da seção sobre o Sabá foram normalizados sem mudar suas
+  cores: os dois da esquerda pertencem à alternativa 1 e os dois da direita à
+  alternativa 2; todos agora têm número, título compacto, explicação e uma
+  linha curta de destaque. As novas linhas existem nos 12 idiomas. As
+  conclusões das seções do Sabá, planejamento fiscal/acadêmico, passagem entre
+  anos e feriados previsíveis compartilham a mesma faixa editorial compacta,
+  mantendo o tom cromático original de cada conteúdo. O componente e os
+  trechos estruturais alterados permanecem comentados em português.
+- A revisão visual foi inspecionada localmente em larguras de 1280, 760, 560 e
+  390 px. Não houve vazamento lateral; em 390 px os cards e avisos ocupam a
+  largura disponível e os botões do popup são empilhados sem texto fora da
+  área. `git diff --check` e `npm run verify` passaram integralmente. O pacote
+  mediu 3.253,2 KiB brutos e 812,6 KiB gzip, e as auditorias de UI, educação,
+  calendário, feriados, segurança e dependências de produção concluíram sem
+  erro.
 
 ## Pendências atuais
 

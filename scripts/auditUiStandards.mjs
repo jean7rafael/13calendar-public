@@ -253,6 +253,18 @@ if (!adminPage.includes('<AppProfileAvatar')) {
   failures.push('CommunityAdminPage.vue: a moderação deve usar AppProfileAvatar.');
 }
 
+if (
+  !adminPage.includes('community-management-dialog__photo-primary app-action-group') ||
+  !adminPage.includes('community-management-dialog__photo-secondary app-action-group') ||
+  !adminPage.includes('community-management-dialog__ownership-actions app-action-group') ||
+  !adminPage.includes('--app-action-min-width: calc((100% - 10px) / 2)') ||
+  !adminPage.includes('overflow-x: clip')
+) {
+  failures.push(
+    'CommunityAdminPage.vue: o diálogo deve manter captura em largura total, pares simétricos e nenhuma rolagem horizontal.',
+  );
+}
+
 for (const variant of buttonVariants) {
   if (!appStyles.includes(`.${variant}`)) {
     failures.push(`src/css/app.scss: falta o modelo compartilhado ${variant}.`);

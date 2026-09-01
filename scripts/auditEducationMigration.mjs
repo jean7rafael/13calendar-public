@@ -92,7 +92,9 @@ const [
   historySectionSource,
   sabbathSectionSource,
   fiscalAcademicSectionSource,
+  yearBoundarySectionSource,
   holidayRhythmSectionSource,
+  closingNoticeSource,
   implementationSectionSource,
   feedbackStoreSource,
   moonPageSource,
@@ -134,7 +136,9 @@ const [
   read('../src/components/EducationHistorySection.vue'),
   read('../src/components/EducationSabbathSection.vue'),
   read('../src/components/EducationFiscalAcademicSection.vue'),
+  read('../src/components/EducationYearBoundarySection.vue'),
   read('../src/components/EducationHolidayRhythmSection.vue'),
+  read('../src/components/EducationClosingNotice.vue'),
   read('../src/components/EducationImplementationSection.vue'),
   read('../src/composables/useEducationFeedbackStore.js'),
   read('../src/pages/MoonPage.vue'),
@@ -207,6 +211,30 @@ assert.match(sabbathSectionSource, /educationSabbathTranslations/);
 assert.match(sabbathSectionSource, /id="education-sabbath"/);
 assert.match(sabbathSectionSource, /jta\.org/);
 assert.match(sabbathSectionSource, /un\.org/);
+assert.equal(
+  (sabbathSectionSource.match(/number: 1/g) || []).length,
+  2,
+  'Os dois cards da coluna esquerda do Sabá devem pertencer à opção 1.',
+);
+assert.equal(
+  (sabbathSectionSource.match(/number: 2/g) || []).length,
+  2,
+  'Os dois cards da coluna direita do Sabá devem pertencer à opção 2.',
+);
+for (const sectionSource of [
+  sabbathSectionSource,
+  fiscalAcademicSectionSource,
+  yearBoundarySectionSource,
+  holidayRhythmSectionSource,
+]) {
+  assert.match(
+    sectionSource,
+    /<EducationClosingNotice/,
+    'As quatro seções de solução devem terminar com o mesmo aviso editorial compacto.',
+  );
+}
+assert.match(closingNoticeSource, /font-size: 12px/);
+assert.match(closingNoticeSource, /\['purple', 'green', 'pink', 'amber'\]/);
 assert.match(fiscalAcademicSectionSource, /v-model="planningMode"/);
 assert.match(fiscalAcademicSectionSource, /v-model="academicPeriod"/);
 assert.match(fiscalAcademicSectionSource, /v-model="hemisphere"/);
@@ -492,6 +520,9 @@ for (const locale of expectedLocales) {
   assert.ok(productNavigationMessages[locale].news);
   assert.ok(productNavigationMessages[locale].moon);
   assert.ok(educationSabbathTranslations[locale].solutionTitle);
+  assert.ok(educationSabbathTranslations[locale].solutionHighlight);
+  assert.ok(educationSabbathTranslations[locale].civilHighlight);
+  assert.ok(educationSabbathTranslations[locale].continuousHighlight);
   assert.ok(educationSabbathTranslations[locale].limitationText);
   assertSameShape(
     educationPlanningTranslations['en-US'],

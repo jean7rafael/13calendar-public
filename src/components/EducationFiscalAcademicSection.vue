@@ -200,10 +200,7 @@
       </aside>
     </section>
 
-    <aside class="education-fiscal-academic__note">
-      <q-icon name="gavel" aria-hidden="true" />
-      <p>{{ copy.note }}</p>
-    </aside>
+    <EducationClosingNotice icon="gavel" tone="amber" :text="copy.note" />
 
     <p class="education-fiscal-academic__sources">
       {{ copy.sources }}:
@@ -235,6 +232,7 @@
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useCalendarTranslations } from 'src/composables/useCalendarTranslations';
+import EducationClosingNotice from 'src/components/EducationClosingNotice.vue';
 import { seasonEvents } from 'src/holidays/seasonDefinitions.js';
 import { educationPlanningTranslations } from 'src/i18n/educationPlanningTranslations.js';
 import { educationYearMapTranslations } from 'src/i18n/educationYearMapTranslations.js';
@@ -976,32 +974,6 @@ const activeLegend = computed(() => {
   color: var(--app-text-muted);
   font-size: 11px;
   line-height: 1.55;
-}
-
-.education-fiscal-academic__note {
-  max-width: 1080px;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin: 22px auto 0;
-  padding: 18px 20px;
-  color: var(--app-accent-amber-text);
-  background: var(--app-accent-amber-soft);
-  border: 1px solid var(--app-accent-amber-border);
-  border-radius: 16px;
-}
-
-.education-fiscal-academic__note .q-icon {
-  flex: none;
-  margin-top: 2px;
-  font-size: 21px;
-}
-
-.education-fiscal-academic__note p {
-  margin: 0;
-  color: var(--app-text-muted);
-  font-size: 13px;
-  line-height: 1.6;
 }
 
 .education-fiscal-academic__sources {

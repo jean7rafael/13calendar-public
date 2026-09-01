@@ -213,37 +213,43 @@
           >
             <template #prepend><q-icon name="photo_camera" /></template>
           </q-file>
-          <div class="community-management-dialog__row-actions app-action-group">
-            <q-btn
-              unelevated
-              no-caps
-              class="app-action app-action--secondary"
-              icon="photo_camera"
-              :loading="actionName === 'avatar-capture'"
-              :label="t('community.adminPhotoCapture')"
-              @click="captureAvatar"
-            />
-            <q-btn
-              unelevated
-              no-caps
-              class="app-action app-action--tertiary"
-              icon="upload"
-              :disable="!selectedAvatarFile"
-              :loading="actionName === 'avatar'"
-              :label="t('community.adminPhotoUpload')"
-              @click="uploadAvatar"
-            />
-            <q-btn
-              v-if="managedRegistration?.avatarUrl"
-              unelevated
-              no-caps
-              color="negative"
-              class="app-action app-action--tertiary"
-              icon="hide_image"
-              :loading="actionName === 'avatar-remove'"
-              :label="t('community.adminPhotoRemove')"
-              @click="removeAvatar"
-            />
+          <!-- A captura ocupa a largura total; envio e remoção formam uma
+               segunda linha simétrica sem criar larguras por idioma. -->
+          <div class="community-management-dialog__photo-actions">
+            <div class="community-management-dialog__photo-primary app-action-group">
+              <q-btn
+                unelevated
+                no-caps
+                class="app-action app-action--secondary"
+                icon="photo_camera"
+                :loading="actionName === 'avatar-capture'"
+                :label="t('community.adminPhotoCapture')"
+                @click="captureAvatar"
+              />
+            </div>
+            <div class="community-management-dialog__photo-secondary app-action-group">
+              <q-btn
+                unelevated
+                no-caps
+                class="app-action app-action--tertiary"
+                icon="upload"
+                :disable="!selectedAvatarFile"
+                :loading="actionName === 'avatar'"
+                :label="t('community.adminPhotoUpload')"
+                @click="uploadAvatar"
+              />
+              <q-btn
+                v-if="managedRegistration?.avatarUrl"
+                unelevated
+                no-caps
+                color="negative"
+                class="app-action app-action--tertiary"
+                icon="hide_image"
+                :loading="actionName === 'avatar-remove'"
+                :label="t('community.adminPhotoRemove')"
+                @click="removeAvatar"
+              />
+            </div>
           </div>
 
           <q-separator />
@@ -294,31 +300,36 @@
               <strong>{{ t('community.adminDeletionTitle') }}</strong>
               <p>{{ t('community.adminDeletionDescription') }}</p>
             </div>
-          <q-btn
-            unelevated
-            no-caps
-            class="app-action app-action--tertiary"
-              icon="key"
-              :loading="actionName === 'deletion-code'"
-              :label="
-                t(
-                  managedRegistration?.hasDeletionCode
-                    ? 'community.adminDeletionRotate'
-                    : 'community.adminDeletionCreate',
-                )
-              "
-              @click="generateDeletionCode"
-            />
+            <!-- As duas decisões compartilham a mesma largura. Em telas que
+                 não comportam a linha, o contrato global empilha o link antes
+                 da exclusão e só então admite quebra de texto. -->
+            <div class="community-management-dialog__ownership-actions app-action-group">
+              <q-btn
+                unelevated
+                no-caps
+                class="app-action app-action--tertiary"
+                icon="key"
+                :loading="actionName === 'deletion-code'"
+                :label="
+                  t(
+                    managedRegistration?.hasDeletionCode
+                      ? 'community.adminDeletionRotate'
+                      : 'community.adminDeletionCreate',
+                  )
+                "
+                @click="generateDeletionCode"
+              />
+              <q-btn
+                unelevated
+                no-caps
+                color="negative"
+                class="app-action app-action--tertiary"
+                icon="delete_forever"
+                :label="t('community.adminDelete')"
+                @click="deleteConfirmationOpen = true"
+              />
+            </div>
           </section>
-          <q-btn
-            unelevated
-            no-caps
-            color="negative"
-            class="app-action app-action--tertiary"
-            icon="delete_forever"
-            :label="t('community.adminDelete')"
-            @click="deleteConfirmationOpen = true"
-          />
 
           <!-- O retorno das ações de gerenciamento pertence ao próprio popup,
                sem ficar oculto no fluxo da página que está atrás dele. -->
@@ -1002,27 +1013,45 @@ function formatDate(value) {
 .community-code-dialog,
 .community-confirm-dialog {
   width: min(680px, 94vw);
+  max-width: calc(100vw - 24px);
   color: var(--app-text);
   background: var(--app-surface);
   border: 1px solid var(--app-border);
   border-radius: 18px;
 }
+.community-management-dialog {
+  /* O limite padrão do QDialog é menor que a área útil. Esta composição usa a
+     altura disponível e deixa somente o corpo rolar quando for inevitável. */
+  max-height: calc(100dvh - 24px) !important;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
 .community-management-dialog__header {
+  flex: none;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
 }
 .community-management-dialog__body {
+  min-width: 0;
+  min-height: 0;
+  max-height: none;
+  flex: 1 1 auto;
   display: grid;
   gap: 18px;
-  max-height: 75vh;
   overflow-y: auto;
+  overflow-x: clip;
 }
 .community-management-dialog__avatar {
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 16px;
+}
+.community-management-dialog__avatar > div {
+  min-width: 0;
 }
 .community-management-dialog__avatar p,
 .community-management-dialog__ownership p,
@@ -1031,9 +1060,22 @@ function formatDate(value) {
   margin: 4px 0 0;
   color: var(--app-text-muted);
 }
-.community-management-dialog__row-actions {
+.community-management-dialog__photo-actions {
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+}
+.community-management-dialog__photo-primary,
+.community-management-dialog__photo-secondary,
+.community-management-dialog__ownership-actions {
   --app-action-group-max: 100%;
-  --app-action-min-width: 180px;
+}
+.community-management-dialog__photo-primary {
+  --app-action-min-width: 100%;
+}
+.community-management-dialog__photo-secondary,
+.community-management-dialog__ownership-actions {
+  --app-action-min-width: calc((100% - 10px) / 2);
 }
 
 .community-code-dialog > .app-action-group,
@@ -1044,15 +1086,15 @@ function formatDate(value) {
   margin-inline-start: auto;
 }
 .community-management-dialog__fields {
+  min-width: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 .community-management-dialog__ownership {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
+  min-width: 0;
+  display: grid;
+  gap: 14px;
 }
 
 @media (max-width: 680px) {
@@ -1078,17 +1120,12 @@ function formatDate(value) {
     flex-wrap: wrap;
   }
   .community-admin-actions--decision,
-  .community-management-dialog__row-actions,
   .community-code-dialog > .app-action-group,
   .community-confirm-dialog > .app-action-group {
     --app-action-min-width: 100%;
   }
   .community-management-dialog__fields {
     grid-template-columns: 1fr;
-  }
-  .community-management-dialog__ownership {
-    align-items: stretch;
-    flex-direction: column;
   }
 }
 </style>

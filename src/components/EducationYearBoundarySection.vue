@@ -39,19 +39,19 @@
       </article>
     </div>
 
-    <aside class="education-year-boundary__proposal">
-      <div>
-        <q-icon name="balance" aria-hidden="true" />
-        <h3>{{ copy.proposalTitle }}</h3>
-      </div>
-      <p>{{ copy.proposalText }}</p>
-    </aside>
+    <EducationClosingNotice
+      icon="balance"
+      tone="purple"
+      :title="copy.proposalTitle"
+      :text="copy.proposalText"
+    />
   </section>
 </template>
 
 <script setup>
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import EducationClosingNotice from 'src/components/EducationClosingNotice.vue';
 import { educationPlanningTranslations } from 'src/i18n/educationPlanningTranslations.js';
 
 const { locale } = useI18n({ useScope: 'global' });
@@ -195,49 +195,6 @@ const cardStyles = [
   line-height: 1.65;
 }
 
-.education-year-boundary__proposal {
-  max-width: 1080px;
-  display: grid;
-  grid-template-columns: minmax(220px, 0.65fr) minmax(0, 1.35fr);
-  align-items: center;
-  gap: 24px;
-  margin: 22px auto 0;
-  padding: clamp(22px, 3vw, 30px);
-  background:
-    radial-gradient(circle at 0 0, var(--app-accent-purple-soft), transparent 48%),
-    var(--app-surface-raised);
-  border: 1px solid var(--app-accent-purple-border);
-  border-radius: 20px;
-  box-shadow: var(--app-card-shadow);
-}
-
-.education-year-boundary__proposal > div {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--app-accent-purple-text);
-}
-
-.education-year-boundary__proposal .q-icon {
-  font-size: 28px;
-}
-
-.education-year-boundary__proposal h3,
-.education-year-boundary__proposal p {
-  margin: 0;
-}
-
-.education-year-boundary__proposal h3 {
-  font-size: 20px;
-  line-height: 1.25;
-}
-
-.education-year-boundary__proposal p {
-  color: var(--app-text-muted);
-  font-size: 14px;
-  line-height: 1.65;
-}
-
 @media (max-width: 850px) {
   .education-year-boundary__sequence {
     grid-template-columns: 1fr;
@@ -258,9 +215,6 @@ const cardStyles = [
     min-height: 0;
   }
 
-  .education-year-boundary__proposal {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 420px) {

@@ -77,13 +77,12 @@
       </div>
     </div>
 
-    <aside class="education-holiday-rhythm__caution">
-      <q-icon name="event_busy" aria-hidden="true" />
-      <div>
-        <strong>{{ copy.cautionTitle }}</strong>
-        <p>{{ copy.cautionText }}</p>
-      </div>
-    </aside>
+    <EducationClosingNotice
+      icon="event_busy"
+      tone="pink"
+      :title="copy.cautionTitle"
+      :text="copy.cautionText"
+    />
   </section>
 </template>
 
@@ -91,6 +90,7 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useCalendarTranslations } from 'src/composables/useCalendarTranslations';
+import EducationClosingNotice from 'src/components/EducationClosingNotice.vue';
 import { educationHolidayTranslations } from 'src/i18n/educationHolidayTranslations.js';
 
 const { locale } = useI18n({ useScope: 'global' });
@@ -297,37 +297,6 @@ const conceptIcons = ['history', 'event_available'];
   border: 1px solid var(--app-accent-amber-border);
   border-radius: 50%;
   font-size: 11px;
-}
-
-.education-holiday-rhythm__caution {
-  max-width: 1080px;
-  display: flex;
-  align-items: flex-start;
-  gap: 13px;
-  margin: 20px auto 0;
-  padding: 17px 19px;
-  background: color-mix(in srgb, var(--calendar-sunday-cell) 55%, var(--app-surface));
-  border: 1px solid color-mix(in srgb, var(--calendar-sunday-text) 30%, transparent);
-  border-radius: 16px;
-}
-
-.education-holiday-rhythm__caution .q-icon {
-  flex: none;
-  margin-top: 2px;
-  color: var(--calendar-sunday-text);
-  font-size: 21px;
-}
-
-.education-holiday-rhythm__caution strong {
-  color: var(--calendar-sunday-text);
-  font-size: 12px;
-}
-
-.education-holiday-rhythm__caution p {
-  margin: 4px 0 0;
-  color: var(--app-text-muted);
-  font-size: 12px;
-  line-height: 1.55;
 }
 
 @media (max-width: 760px) {

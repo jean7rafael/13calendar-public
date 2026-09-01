@@ -11,37 +11,18 @@
     </div>
 
     <div class="education-sabbath-reference__panel">
-      <div class="education-sabbath-reference__alternatives">
+      <!-- Os quatro cards usam uma anatomia única. A coluna esquerda descreve
+           a opção 1 e a direita a opção 2, inclusive nas consequências. -->
+      <div class="education-sabbath-reference__cards">
         <article
-          class="education-sabbath-reference__option education-sabbath-reference__option--purple"
+          v-for="card in sabbathCards"
+          :key="`${card.number}-${card.title}`"
+          :class="`education-sabbath-reference__card--${card.tone}`"
         >
-          <span aria-hidden="true">1</span>
-          <h3>{{ copy.solutionTitle }}</h3>
-          <p>{{ copy.solutionText }}</p>
-        </article>
-
-        <article
-          class="education-sabbath-reference__option education-sabbath-reference__option--pink"
-        >
-          <span aria-hidden="true">2</span>
-          <h3>{{ copy.alternativeTitle }}</h3>
-          <p>{{ copy.alternativeText }}</p>
-          <small>{{ copy.alternativeCost }}</small>
-        </article>
-      </div>
-
-      <div class="education-sabbath-reference__explanations">
-        <article
-          class="education-sabbath-reference__explanation education-sabbath-reference__explanation--green"
-        >
-          <h4>{{ copy.civilTitle }}</h4>
-          <p>{{ copy.civilText }}</p>
-        </article>
-        <article
-          class="education-sabbath-reference__explanation education-sabbath-reference__explanation--amber"
-        >
-          <h4>{{ copy.continuousTitle }}</h4>
-          <p>{{ copy.continuousText }}</p>
+          <span aria-hidden="true">{{ card.number }}</span>
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.text }}</p>
+          <small>{{ card.highlight }}</small>
         </article>
       </div>
 
@@ -83,10 +64,12 @@
         </div>
       </div>
 
-      <aside class="education-sabbath-reference__limitation">
-        <h4>{{ copy.limitationTitle }}</h4>
-        <p>{{ copy.limitationText }}</p>
-      </aside>
+      <EducationClosingNotice
+        icon="sync_problem"
+        tone="amber"
+        :title="copy.limitationTitle"
+        :text="copy.limitationText"
+      />
 
       <p class="education-sabbath-reference__sources">
         {{ copy.sources }}:
@@ -111,6 +94,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import EducationClosingNotice from 'src/components/EducationClosingNotice.vue';
 import { educationSabbathTranslations } from 'src/i18n/educationSabbathTranslations.js';
 
 const { locale } = useI18n({ useScope: 'global' });
@@ -118,6 +102,36 @@ const { locale } = useI18n({ useScope: 'global' });
 const copy = computed(
   () => educationSabbathTranslations[locale.value] || educationSabbathTranslations['en-US'],
 );
+const sabbathCards = computed(() => [
+  {
+    number: 1,
+    tone: 'purple',
+    title: copy.value.solutionTitle,
+    text: copy.value.solutionText,
+    highlight: copy.value.solutionHighlight,
+  },
+  {
+    number: 2,
+    tone: 'pink',
+    title: copy.value.alternativeTitle,
+    text: copy.value.alternativeText,
+    highlight: copy.value.alternativeCost,
+  },
+  {
+    number: 1,
+    tone: 'green',
+    title: copy.value.civilTitle,
+    text: copy.value.civilText,
+    highlight: copy.value.civilHighlight,
+  },
+  {
+    number: 2,
+    tone: 'amber',
+    title: copy.value.continuousTitle,
+    text: copy.value.continuousText,
+    highlight: copy.value.continuousHighlight,
+  },
+]);
 const civilSequence = computed(() => [copy.value.saturday, copy.value.yearDay, copy.value.sunday]);
 const continuousSequence = computed(() => [
   copy.value.seventhDay,
@@ -173,98 +187,78 @@ const continuousSequence = computed(() => [
   box-shadow: var(--app-card-shadow);
 }
 
-.education-sabbath-reference__alternatives,
-.education-sabbath-reference__explanations {
+.education-sabbath-reference__cards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
-}
-
-.education-sabbath-reference__alternatives {
-  margin-bottom: 20px;
-}
-
-.education-sabbath-reference__explanations {
   margin-bottom: 26px;
 }
 
-.education-sabbath-reference__option,
-.education-sabbath-reference__explanation,
-.education-sabbath-reference__limitation {
+.education-sabbath-reference__cards article {
+  --card-color: var(--app-accent-purple-text);
+  --card-soft: var(--app-accent-purple-soft);
+  --card-border: var(--app-accent-purple-border);
+
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  align-items: start;
   padding: 24px;
-  border: 1px solid var(--app-border);
+  color: var(--card-color);
+  background: var(--card-soft);
+  border: 1px solid var(--card-border);
   border-radius: 16px;
 }
 
-.education-sabbath-reference__option > span {
+.education-sabbath-reference__cards article > span {
   width: 27px;
   height: 27px;
   display: grid;
   place-items: center;
   margin-bottom: 10px;
+  background: color-mix(in srgb, var(--card-color) 18%, transparent);
   border-radius: 50%;
   font-size: 11px;
   font-weight: 800;
 }
 
-.education-sabbath-reference__option h3,
-.education-sabbath-reference__explanation h4,
-.education-sabbath-reference__limitation h4 {
+.education-sabbath-reference__cards h3 {
   margin: 0 0 8px;
-}
-
-.education-sabbath-reference__option h3 {
   font-size: 21px;
+  line-height: 1.3;
 }
 
-.education-sabbath-reference__option p,
-.education-sabbath-reference__explanation p,
-.education-sabbath-reference__limitation p {
+.education-sabbath-reference__cards p {
   margin: 0;
   color: var(--app-text-muted);
   font-size: 14px;
   line-height: 1.65;
 }
 
-.education-sabbath-reference__option small {
+.education-sabbath-reference__cards small {
   display: block;
   margin-top: 13px;
+  color: var(--card-color);
   font-size: 12px;
   font-weight: 700;
   line-height: 1.55;
 }
 
-.education-sabbath-reference__option--purple {
-  color: var(--app-accent-purple-text);
-  background: var(--app-accent-purple-soft);
-  border-color: var(--app-accent-purple-border);
+.education-sabbath-reference__card--pink {
+  --card-color: var(--calendar-sunday-text) !important;
+  --card-soft: var(--calendar-sunday-cell) !important;
+  --card-border: color-mix(in srgb, var(--calendar-sunday-text) 34%, transparent) !important;
 }
 
-.education-sabbath-reference__option--purple > span {
-  background: color-mix(in srgb, var(--app-accent-purple) 18%, transparent);
+.education-sabbath-reference__card--green {
+  --card-color: var(--app-accent-green-text) !important;
+  --card-soft: var(--app-accent-green-soft) !important;
+  --card-border: var(--app-accent-green-border) !important;
 }
 
-.education-sabbath-reference__option--pink {
-  color: var(--calendar-sunday-text);
-  background: var(--calendar-sunday-cell);
-  border-color: color-mix(in srgb, var(--calendar-sunday-text) 34%, transparent);
-}
-
-.education-sabbath-reference__option--pink > span {
-  background: color-mix(in srgb, var(--calendar-sunday-text) 18%, transparent);
-}
-
-.education-sabbath-reference__explanation--amber,
-.education-sabbath-reference__limitation {
-  color: var(--app-accent-amber-text);
-  background: var(--app-accent-amber-soft);
-  border-color: var(--app-accent-amber-border);
-}
-
-.education-sabbath-reference__explanation--green {
-  color: var(--app-accent-green-text);
-  background: var(--app-accent-green-soft);
-  border-color: var(--app-accent-green-border);
+.education-sabbath-reference__card--amber {
+  --card-color: var(--app-accent-amber-text) !important;
+  --card-soft: var(--app-accent-amber-soft) !important;
+  --card-border: var(--app-accent-amber-border) !important;
 }
 
 .education-sabbath-reference__sequences {
@@ -273,6 +267,19 @@ const continuousSequence = computed(() => [
   background: var(--app-surface);
   border: 1px solid var(--app-border);
   border-radius: 16px;
+}
+
+/* Mantém a superfície dos quatro cards uniforme; a faixa final compartilhada
+   abaixo concentra a conclusão editorial sem outro título ampliado. */
+.education-sabbath-reference__panel :deep(.education-closing-notice) {
+  max-width: none;
+}
+
+/* Regras preservadas da visualização sequencial. */
+.education-sabbath-reference__sequence-item {
+  min-width: 0;
+  flex: 1;
+  padding: 10px 7px;
 }
 
 .education-sabbath-reference__sequences > div {
@@ -309,9 +316,6 @@ const continuousSequence = computed(() => [
 }
 
 .education-sabbath-reference__sequence-item {
-  min-width: 0;
-  flex: 1;
-  padding: 10px 7px;
   border: 1px solid var(--app-border);
   border-radius: 10px;
   font-size: 12px;
@@ -353,8 +357,7 @@ const continuousSequence = computed(() => [
     padding-inline: 16px;
   }
 
-  .education-sabbath-reference__alternatives,
-  .education-sabbath-reference__explanations {
+  .education-sabbath-reference__cards {
     grid-template-columns: 1fr;
   }
 
@@ -368,9 +371,7 @@ const continuousSequence = computed(() => [
     padding: 14px;
   }
 
-  .education-sabbath-reference__option,
-  .education-sabbath-reference__explanation,
-  .education-sabbath-reference__limitation {
+  .education-sabbath-reference__cards article {
     padding: 19px;
   }
 
