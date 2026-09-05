@@ -293,7 +293,7 @@
 
 ## Estado atual
 
-- **Última atividade:** 2026-09-01.
+- **Última atividade:** 2026-09-04.
 - Em 2026-08-11, a pasta `Programas de Programador` foi transferida do Desktop
   sincronizado pelo OneDrive para `/Users/jean7rafael/Downloads`. O repositório
   ativo deste aplicativo passou a ficar em
@@ -1715,6 +1715,25 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   curtos e a nova medição `loadingdone`. O alias principal respondeu HTTP 200
   na raiz, nas sete rotas públicas, em `robots.txt` e `sitemap.xml`; o legado
   redirecionou para `/learn`, e as três APIs comunitárias responderam HTTP 200.
+- Em 4 de setembro, o ícone simples anterior foi substituído pela direção
+  aprovada “folha 13”: o próprio quadrado em gradiente azul-violeta forma a
+  página, com duas presilhas, linha superior, numeral 13 dominante e dobra
+  discreta no canto inferior direito. A arte é vetorial, opaca, full-bleed e sem
+  cantos pré-mascarados, sombras ou brilhos gravados. O pacote em
+  `branding/app-icon-calendar-page/` inclui fontes e provas das seis aparências
+  Apple atuais (Default, Dark, Clear claro/escuro e Tinted claro/escuro), além
+  de camadas separadas para futura montagem no Icon Composer. Como um site não
+  consome o arquivo nativo multicamadas, a aplicação recebeu o conjunto web
+  efetivo: Apple Touch Icons 120/152/167/180, ícones `any` 192/512/1024,
+  variantes `maskable` SVG e 192/512/1024, fonte `monochrome`, favicon escuro e
+  favicons 16/32/96/128. O manifesto e o `<head>` agora declaram esses recursos;
+  todos os PNGs destinados ao sistema são totalmente opacos. O gerador
+  comentado e determinístico está em `scripts/generateAppIconAssets.mjs` e pode
+  ser executado com `npm run icons:generate`. A matriz das seis aparências e um
+  ZIP de entrega também ficam em `branding/`. `npm run verify` passou por
+  completo; o pacote permaneceu em 3.255,0 KiB brutos e 813,6 KiB gzip, e as
+  duas árvores de produção continuaram sem vulnerabilidades. Esta alteração
+  ainda não foi publicada.
 
 ## Pendências atuais
 
