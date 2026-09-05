@@ -1732,8 +1732,17 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   ser executado com `npm run icons:generate`. A matriz das seis aparências e um
   ZIP de entrega também ficam em `branding/`. `npm run verify` passou por
   completo; o pacote permaneceu em 3.255,0 KiB brutos e 813,6 KiB gzip, e as
-  duas árvores de produção continuaram sem vulnerabilidades. Esta alteração
-  ainda não foi publicada.
+  duas árvores de produção continuaram sem vulnerabilidades. A versão funcional
+  foi publicada pelo commit privado `3696b63` e espelhada no público
+  `329edda`. A sincronização privada (`33937454714`), as verificações privada
+  (`33937454738`) e pública (`33937505617`), a publicação privada redundante no
+  Cloudflare (`33937454729`), o GitHub Pages de redirecionamento (`33937504872`)
+  e o Cloudflare Pages público (`33937505699`) concluíram com sucesso. A
+  implantação imutável é `0dd69ced.13calendar.pages.dev`; o manifesto e os
+  ícones de 180 e 1024 px servidos pelo alias principal foram comparados byte a
+  byte com os arquivos locais. O GitHub Pages continua deliberadamente como
+  redirecionamento legado para o endereço canônico, enquanto o fonte público
+  contém o novo pacote integral.
 
 ## Pendências atuais
 
