@@ -474,6 +474,9 @@ if (
   !annualPlannerPrint.includes('Array.from({ length: 7 }') ||
   !annualPlannerPrint.includes("key: 'special-days'") ||
   !annualPlannerPrint.includes('height: 297mm') ||
+  !annualPlannerPrint.includes('grid-template-rows: auto repeat(6, minmax(0, 1fr))') ||
+  !annualPlannerPrint.includes('v-for="line in 6"') ||
+  !annualPlannerPrint.includes('class="planner-print__companion-date"') ||
   !annualPlannerPrint.includes("'planner-print--export': exporting") ||
   !annualPlannerPrint.includes('getPageElements') ||
   !plannerPdf.includes('ANNUAL_PLANNER_PAGE_COUNT = 40') ||
@@ -483,6 +486,38 @@ if (
 ) {
   failures.push(
     'Planejador PDF: o download deve preservar 40 folhas A4, sete páginas de notas e paginação independente do navegador.',
+  );
+}
+
+if (
+  !moonSection.includes("t('education.converter.fixedDate')") ||
+  !moonSection.includes("t('education.converter.gregorianDate')") ||
+  !moonSection.includes('education-moon__position-dates')
+) {
+  failures.push(
+    'EducationMoonSection.vue: cada ocorrência lunar deve identificar explicitamente as datas IFC e gregoriana.',
+  );
+}
+
+if (
+  !resourcesSection.includes('right: 18px') ||
+  resourcesSection.includes('inset-inline-end: 18px') ||
+  !resourcesSection.includes("[dir='rtl'] .education-resources__meta")
+) {
+  failures.push(
+    'EducationResourcesSection.vue: a marca da fonte deve permanecer no canto físico direito sem cobrir o texto RTL.',
+  );
+}
+
+if (
+  !layout.includes('holidayCountryCoachmarkOpen') ||
+  !layout.includes("t('holidaySettings.countryMenuHint')") ||
+  !layout.includes('<q-tooltip') ||
+  !layout.includes('no-parent-event') ||
+  layout.includes('holidayCountryDialogOpen')
+) {
+  failures.push(
+    'MainLayout.vue: a primeira visita deve orientar pelo menu hambúrguer sem abrir o seletor de país.',
   );
 }
 

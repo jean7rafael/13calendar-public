@@ -89,6 +89,7 @@ export default {
     countryTitle: 'Holidays by country',
     chooseCountry: 'Choose the holiday country',
     countryHint: 'The interface language and the holiday country can be different.',
+    countryMenuHint: 'In the ☰ menu, you can choose the country used for holidays.',
     observedDateFor: 'Observed date for {holiday}',
     coverage: {
       title: 'Official holiday coverage',

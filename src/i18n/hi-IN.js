@@ -89,6 +89,7 @@ export default {
     countryTitle: 'देश के अनुसार छुट्टियाँ',
     chooseCountry: 'छुट्टियों का देश चुनें',
     countryHint: 'इंटरफ़ेस भाषा और छुट्टियों का देश अलग हो सकता है।',
+    countryMenuHint: '☰ मेनू में आप छुट्टियों के लिए देश चुन सकते हैं।',
     observedDateFor: '{holiday} के लिए मान्य अवकाश तिथि',
     coverage: {
       title: 'आधिकारिक छुट्टियों का कवरेज',

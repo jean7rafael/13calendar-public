@@ -76,6 +76,7 @@ export default {
     countryTitle: '국가별 공휴일',
     chooseCountry: '공휴일 국가 선택',
     countryHint: '인터페이스 언어와 공휴일 국가를 다르게 선택할 수 있습니다.',
+    countryMenuHint: '☰ 메뉴에서 공휴일을 표시할 국가를 선택할 수 있습니다.',
     observedDateFor: '{holiday} 대체 휴일',
     coverage: {
       title: '공식 공휴일 제공 범위',

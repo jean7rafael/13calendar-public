@@ -17,8 +17,9 @@ const limits = {
   /* As explicações fiscal, escolar e de feriados vivem no chunk assíncrono
      de Aprenda. A margem cobre os 12 idiomas sem afrouxar os tetos por arquivo. */
   totalRaw: 3_350_000,
-  // Reserva também a variação observada entre o zlib do macOS e do runner Linux.
-  totalGzip: 840_000,
+  // Reserva a variação observada entre o zlib do macOS e do runner Linux e o
+  // balão multilíngue aprovado, mantendo menos de 4 KiB livres no CI atual.
+  totalGzip: 845_000,
   largestRaw: 1_900_000,
   largestGzip: 360_000,
 };

@@ -89,6 +89,7 @@ export default {
     countryTitle: 'Feriados por país',
     chooseCountry: 'Escolha o país dos feriados',
     countryHint: 'O idioma da interface e o país dos feriados podem ser diferentes.',
+    countryMenuHint: 'No menu ☰, você pode escolher o país usado para os feriados.',
     observedDateFor: 'Data observada para {holiday}',
     coverage: {
       title: 'Cobertura de feriados oficiais',

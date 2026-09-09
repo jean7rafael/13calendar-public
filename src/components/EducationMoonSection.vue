@@ -86,9 +86,17 @@
         <div v-else-if="moonPhasePositions.length" class="education-moon__positions" role="list">
           <article v-for="position in moonPhasePositions" :key="position.instant" role="listitem">
             <span class="education-moon__phase" aria-hidden="true">{{ position.emoji }}</span>
-            <div>
-              <strong>{{ position.fixedTitle }}</strong>
-              <span>{{ position.gregorianTitle }}</span>
+            <div class="education-moon__position-dates">
+              <!-- Cada linha nomeia o calendário antes da data. A distinção
+                   continua inequívoca mesmo quando o card é lido isoladamente. -->
+              <div>
+                <small>{{ t('education.converter.fixedDate') }}</small>
+                <strong>{{ position.fixedTitle }}</strong>
+              </div>
+              <div>
+                <small>{{ t('education.converter.gregorianDate') }}</small>
+                <span>{{ position.gregorianTitle }}</span>
+              </div>
             </div>
             <time :datetime="position.instant">{{ position.localTime }}</time>
           </article>
@@ -423,8 +431,29 @@ watch(selectedYear, loadMoonPhases, { immediate: true });
   font-size: 24px;
 }
 
+.education-moon__position-dates > div {
+  min-width: 0;
+}
+
+.education-moon__position-dates > div + div {
+  margin-top: 6px;
+}
+
+.education-moon__position-dates small {
+  display: block;
+  margin-bottom: 2px;
+  overflow: hidden;
+  color: var(--app-primary-text);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .education-moon__positions strong,
-.education-moon__positions article > div > span {
+.education-moon__position-dates > div > span {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -436,7 +465,7 @@ watch(selectedYear, loadMoonPhases, { immediate: true });
   font-size: 13px;
 }
 
-.education-moon__positions article > div > span,
+.education-moon__position-dates > div > span,
 .education-moon__positions time {
   color: var(--app-text-muted);
   font-size: 10px;

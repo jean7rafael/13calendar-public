@@ -209,7 +209,7 @@ function publisherInitials(publisher) {
 .education-resources__brand {
   position: absolute;
   top: 18px;
-  inset-inline-end: 18px;
+  right: 18px;
   width: 40px;
   height: 40px;
   display: grid;
@@ -243,7 +243,7 @@ function publisherInitials(publisher) {
   gap: 8px;
   color: var(--app-text-faint);
   font-size: 10px;
-  padding-inline-end: 48px;
+  padding-right: 48px;
 }
 
 .education-resources__meta .q-chip {
@@ -253,9 +253,16 @@ function publisherInitials(publisher) {
 
 .education-resources__grid h3 {
   margin: 18px 0 9px;
-  padding-inline-end: 58px;
+  padding-right: 58px;
   font-size: 18px;
   line-height: 1.35;
+}
+
+/* A marca editorial conserva o canto superior direito também em RTL. O
+   espaço físico reservado evita que árabe e outros alfabetos a sobreponham. */
+[dir='rtl'] .education-resources__meta,
+[dir='rtl'] .education-resources__grid h3 {
+  padding-left: 0;
 }
 
 .education-resources__grid p {

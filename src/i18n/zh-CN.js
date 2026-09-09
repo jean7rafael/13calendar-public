@@ -75,6 +75,7 @@ export default {
     countryTitle: '按国家查看节假日',
     chooseCountry: '选择节假日所属国家',
     countryHint: '界面语言可以与节假日国家不同。',
+    countryMenuHint: '您可以在 ☰ 菜单中选择用于显示节假日的国家。',
     observedDateFor: '{holiday}的调休日期',
     coverage: {
       title: '官方节假日覆盖范围',

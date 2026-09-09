@@ -293,7 +293,7 @@
 
 ## Estado atual
 
-- **Última atividade:** 2026-09-04.
+- **Última atividade:** 2026-09-09.
 - Em 2026-08-11, a pasta `Programas de Programador` foi transferida do Desktop
   sincronizado pelo OneDrive para `/Users/jean7rafael/Downloads`. O repositório
   ativo deste aplicativo passou a ficar em
@@ -1743,6 +1743,35 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   byte com os arquivos locais. O GitHub Pages continua deliberadamente como
   redirecionamento legado para o endereço canônico, enquanto o fonte público
   contém o novo pacote integral.
+- Em 9 de setembro, as ocorrências da página lunar passaram a identificar
+  explicitamente a data principal como IFC e a equivalente menor como
+  gregoriana. Nas páginas de anotações do planejador PDF, as duas datas agora
+  ocupam a mesma linha, cada célula cresce até o fim da área útil e oferece seis
+  linhas de escrita. O usuário conferiu visualmente o novo PDF e as demais
+  alterações desta frente. Os cards de fontes mantêm a marca no canto físico
+  direito também em árabe, sem inverter a imagem com o fluxo RTL.
+- A página inicial não abre mais automaticamente o seletor completo de países.
+  Um balão ancorado ao menu hambúrguer informa, nos 12 idiomas, que o país dos
+  feriados pode ser escolhido ali; ele some após 12 segundos ou ao abrir o
+  menu, e reaparece ao atualizar ou retornar aos calendários. A alternativa de
+  memorizar o aviso por navegador foi preservada como código comentado e
+  claramente identificado em `MainLayout.vue`.
+- O `sitemap.xml` foi validado localmente e também requisitado publicamente com
+  identificação de Googlebot: respondeu HTTP 200, `application/xml`, sem
+  redirecionamento, passou no parser XML e continua liberado pelo `robots.txt`.
+  O Search Console ainda mostrava somente a tentativa de 31 de agosto, sem nova
+  leitura, com “Não foi possível buscar”; as datas `lastmod` foram atualizadas
+  para as páginas realmente revistas. O HTML já declara `13 Calendar` em
+  `og:site_name` e em `WebSite` estruturado. O nome “Cloudflare” exibido pelo
+  Google é uma escolha algorítmica ainda não reprocessada, não um campo ausente.
+  A limitação técnica mais relevante para consultas genéricas continua sendo a
+  SPA entregar inicialmente o mesmo shell quase vazio em todas as rotas; uma
+  futura frente de prerenderização/SSR deve fornecer títulos, descrições e
+  conteúdo principal antes do JavaScript. Não foi encontrada evidência de que
+  o domínio `pages.dev` sofra uma penalidade automática de ranking.
+- `npm run verify`, `git diff --check` e a validação XML passaram integralmente
+  nesta revisão. O pacote mediu 3.259,2 KiB brutos e 815,2 KiB gzip; as duas
+  árvores de produção permaneceram com zero vulnerabilidades.
 
 ## Pendências atuais
 
@@ -1754,6 +1783,12 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   site `Cloudflare` por `13 Calendar` e a evolução em consultas genéricas. O
   domínio EU.org, quando aprovado, reforçará a identidade, mas não é requisito
   técnico para o nome próprio.
+- Depois da publicação de 9 de setembro, reenviar `sitemap.xml` no Search
+  Console e executar a inspeção ao vivo da URL. A leitura anterior continua
+  datada de 31 de agosto e não representa a resposta pública atual.
+- Planejar prerenderização ou SSR das sete rotas públicas para que cada URL
+  entregue conteúdo e metadados próprios já no HTML inicial, sem depender da
+  etapa de renderização JavaScript do mecanismo de busca.
 
 ## Protocolo de manutenção deste arquivo
 

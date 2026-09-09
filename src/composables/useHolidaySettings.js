@@ -17,6 +17,8 @@ const DEFAULT_COUNTRY = 'US';
 
 const COUNTRY_STORAGE_KEY = 'calendar-app-holiday-country';
 
+const COUNTRY_PROMPT_STORAGE_KEY = 'calendar-app-holiday-country-prompt-seen';
+
 const FILTERS_STORAGE_KEY = 'calendar-app-holiday-filters';
 
 const REGION_STORAGE_KEY = 'calendar-app-holiday-region';
@@ -56,6 +58,21 @@ function writeStorage(storageKey, value) {
     // O aplicativo continua funcionando
     // mesmo sem acesso ao armazenamento.
   }
+}
+
+/* ===========================================================
+   MEMÓRIA OPCIONAL DO BALÃO DE PAÍS
+
+   As funções permanecem disponíveis para o modo alternativo documentado
+   em MainLayout.vue, no qual o balão aparece somente uma vez por navegador.
+=========================================================== */
+
+function hasSeenHolidayCountryPrompt() {
+  return readStorage(COUNTRY_PROMPT_STORAGE_KEY) === 'true';
+}
+
+function markHolidayCountryPromptSeen() {
+  writeStorage(COUNTRY_PROMPT_STORAGE_KEY, 'true');
 }
 
 /* ===========================================================
@@ -263,7 +280,6 @@ export function useHolidaySettings() {
     }
 
     holidayCountry.value = countryConfig.code;
-
     return true;
   }
 
@@ -287,6 +303,8 @@ export function useHolidaySettings() {
     holidayFilters,
     calendar13HolidayMode,
     setHolidayCountry,
+    hasSeenHolidayCountryPrompt,
+    markHolidayCountryPromptSeen,
     setCalendar13HolidayMode,
     resetHolidayFilters,
   };

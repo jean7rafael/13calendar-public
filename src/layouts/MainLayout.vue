@@ -11,7 +11,22 @@
           class="app-toolbar-button"
           :aria-label="t('navigation.menu')"
           @click="toggleLeftDrawer"
-        />
+        >
+          <!-- Dica contextual: orienta sem abrir o seletor nem interromper a página. -->
+          <q-tooltip
+            v-model="holidayCountryCoachmarkOpen"
+            no-parent-event
+            anchor="bottom start"
+            self="top start"
+            :offset="[0, 10]"
+            class="holiday-country-coachmark"
+          >
+            <div class="holiday-country-coachmark__content" role="status">
+              <q-icon name="public" aria-hidden="true" />
+              <span>{{ t('holidaySettings.countryMenuHint') }}</span>
+            </div>
+          </q-tooltip>
+        </q-btn>
 
         <div class="app-brand-mark" aria-hidden="true">13</div>
 
@@ -225,37 +240,6 @@
       </q-list>
     </q-drawer>
 
-    <!-- Confirmação do país após uma troca de idioma. -->
-    <q-dialog v-model="holidayCountryDialogOpen">
-      <q-card class="holiday-country-dialog">
-        <q-card-section>
-          <div class="text-h6">
-            {{ t('holidaySettings.chooseCountry') }}
-          </div>
-
-          <div class="text-body2 q-mt-sm" :class="isDarkMode ? 'text-grey-4' : 'text-grey-7'">
-            {{ t('holidaySettings.countryHint') }}
-          </div>
-        </q-card-section>
-
-        <q-separator />
-
-        <HolidayCountrySelector @select="closeHolidayCountryDialog" />
-
-        <q-separator />
-
-        <q-card-actions align="right">
-          <q-btn
-            unelevated
-            no-caps
-            class="app-action app-action--secondary"
-            :label="t('holidaySettings.cancel')"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-
     <!-- Conteúdo da rota atual. -->
     <q-page-container>
       <q-banner v-if="updateAvailable" class="app-update-banner" dense>
@@ -288,6 +272,8 @@ import { setAppLanguage } from 'src/boot/i18n';
 import { setAppDarkMode } from 'src/boot/theme';
 import HolidayCountrySelector from 'src/components/HolidayCountrySelector.vue';
 import AppFooter from 'src/components/AppFooter.vue';
+// Modo opcional "mostrar uma vez": descomente também os dois pontos indicados abaixo.
+// import { useHolidaySettings } from 'src/composables/useHolidaySettings';
 import { interfaceLanguages, type InterfaceLocale } from '../../shared/interfaceLanguages';
 
 /* ===========================================================
@@ -297,16 +283,17 @@ import { interfaceLanguages, type InterfaceLocale } from '../../shared/interface
 type AppLocale = InterfaceLocale;
 
 /* ===========================================================
-   ESTADO DO MENU E DO POPUP
+   ESTADO DO MENU E DA DICA INICIAL
 =========================================================== */
 
 const leftDrawerOpen = ref(false);
 const rightDrawerOpen = ref(false);
-const holidayCountryDialogOpen = ref(false);
+const holidayCountryCoachmarkOpen = ref(false);
 const drawerMenuList = ref(null);
 const drawerCountryListFits = ref(false);
 const drawerMenuAtEnd = ref(false);
 const updateAvailable = ref(false);
+let holidayCountryCoachmarkTimer: number | null = null;
 
 /* ===========================================================
    IDIOMAS EXIBIDOS NO MENU
@@ -337,6 +324,8 @@ const route = useRoute();
 const { t, locale } = useI18n({
   useScope: 'global',
 });
+// Modo opcional "mostrar uma vez": descomente junto com a importação acima.
+// const { hasSeenHolidayCountryPrompt, markHolidayCountryPromptSeen } = useHolidaySettings();
 
 const isCommunityPage = computed(() => route.name === 'community');
 const isCommunityAdminPage = computed(() => route.name === 'community-admin');
@@ -437,7 +426,45 @@ function reloadPage() {
   window.location.reload();
 }
 
-onMounted(() => window.addEventListener('calendar-update-available', markUpdateAvailable));
+async function showHolidayCountryCoachmark() {
+  if (usesLanguageOnlyDrawer.value) {
+    return;
+  }
+
+  // Modo opcional "mostrar uma vez": descomente esta proteção e a gravação ao fechar.
+  // if (hasSeenHolidayCountryPrompt()) return;
+
+  await nextTick();
+  holidayCountryCoachmarkOpen.value = true;
+
+  if (holidayCountryCoachmarkTimer !== null) {
+    window.clearTimeout(holidayCountryCoachmarkTimer);
+  }
+
+  holidayCountryCoachmarkTimer = window.setTimeout(() => {
+    dismissHolidayCountryCoachmark();
+  }, 12000);
+}
+
+onMounted(() => {
+  window.addEventListener('calendar-update-available', markUpdateAvailable);
+
+  /* A seleção inferida continua ativa. Cada entrada no conversor apenas
+     aponta onde a pessoa pode escolher outro país. */
+  void showHolidayCountryCoachmark();
+});
+
+watch(
+  () => route.name,
+  () => {
+    if (usesLanguageOnlyDrawer.value) {
+      dismissHolidayCountryCoachmark();
+      return;
+    }
+
+    void showHolidayCountryCoachmark();
+  },
+);
 
 /* ===========================================================
    METADADOS ÚNICOS POR ROTA
@@ -552,6 +579,7 @@ function toggleAppTheme() {
 =========================================================== */
 
 function toggleLeftDrawer() {
+  dismissHolidayCountryCoachmark();
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 
@@ -592,6 +620,10 @@ watch([leftDrawerOpen, rightDrawerOpen], async ([isLeftOpen, isRightOpen]) => {
 onBeforeUnmount(() => {
   setPageScrollLocked(false);
   window.removeEventListener('calendar-update-available', markUpdateAvailable);
+
+  if (holidayCountryCoachmarkTimer !== null) {
+    window.clearTimeout(holidayCountryCoachmarkTimer);
+  }
 });
 
 /* ===========================================================
@@ -605,18 +637,22 @@ function isCurrentLanguage(language: AppLocale) {
 function changeLanguage(language: AppLocale) {
   setAppLanguage(language);
   leftDrawerOpen.value = false;
-
-  if (!usesLanguageOnlyDrawer.value) {
-    holidayCountryDialogOpen.value = true;
-  }
 }
 
 /* ===========================================================
-   FECHAMENTO DO POPUP DE PAÍSES
+   FECHAMENTO DA DICA DO MENU DE PAÍSES
 =========================================================== */
 
-function closeHolidayCountryDialog() {
-  holidayCountryDialogOpen.value = false;
+function dismissHolidayCountryCoachmark() {
+  holidayCountryCoachmarkOpen.value = false;
+
+  // Modo opcional "mostrar uma vez": descomente junto com a proteção acima.
+  // markHolidayCountryPromptSeen();
+
+  if (holidayCountryCoachmarkTimer !== null) {
+    window.clearTimeout(holidayCountryCoachmarkTimer);
+    holidayCountryCoachmarkTimer = null;
+  }
 }
 
 /* ===========================================================
@@ -850,13 +886,51 @@ async function setDrawerCountryListFits(countryListFits) {
   box-shadow: 0 7px 10px -10px rgb(15 23 42 / 35%);
 }
 
-/* Limites do popup de seleção do país. */
-.holiday-country-dialog {
-  width: 360px;
-  max-width: 90vw;
-  border: 1px solid var(--app-border);
-  border-radius: 18px;
+/* O balão nasce visualmente do menu e permanece acima da página sem abrir
+   automaticamente a longa lista de países. */
+:global(.holiday-country-coachmark) {
+  width: min(340px, calc(100vw - 24px));
+  overflow: visible;
+  color: var(--app-text);
+  background: var(--app-surface-raised);
+  border: 1px solid var(--app-accent-purple-border);
+  border-radius: 15px;
   box-shadow: var(--app-card-shadow);
+}
+
+:global(.holiday-country-coachmark::before) {
+  position: absolute;
+  top: -6px;
+  inset-inline-start: 14px;
+  width: 11px;
+  height: 11px;
+  content: '';
+  background: var(--app-surface-raised);
+  border-top: 1px solid var(--app-accent-purple-border);
+  border-left: 1px solid var(--app-accent-purple-border);
+  transform: rotate(45deg);
+}
+
+:global(.holiday-country-coachmark__content) {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 8px 8px 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+:global([dir='rtl'] .holiday-country-coachmark__content) {
+  padding: 8px 14px 8px 8px;
+}
+
+:global(.holiday-country-coachmark__content > .q-icon) {
+  color: var(--app-primary-text);
+  font-size: 21px;
 }
 
 /* Em janelas baixas, o menu pode rolar até a seção de países.

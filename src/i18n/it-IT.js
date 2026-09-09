@@ -89,6 +89,7 @@ export default {
     countryTitle: 'Giorni festivi per paese',
     chooseCountry: 'Scegli il paese dei giorni festivi',
     countryHint: "La lingua dell'interfaccia e il paese dei giorni festivi possono essere diversi.",
+    countryMenuHint: 'Nel menu ☰ puoi scegliere il paese usato per i giorni festivi.',
     observedDateFor: 'Data osservata per {holiday}',
     coverage: {
       title: 'Copertura delle festività ufficiali',

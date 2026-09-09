@@ -89,6 +89,7 @@ export default {
     countryTitle: 'العطل حسب الدولة',
     chooseCountry: 'اختر دولة العطل',
     countryHint: 'يمكن أن تختلف لغة الواجهة عن دولة العطل.',
+    countryMenuHint: 'من قائمة ☰ يمكنك اختيار الدولة المستخدمة لعرض العطل.',
     observedDateFor: 'التاريخ المُعتمد للاحتفال بـ {holiday}',
     coverage: {
       title: 'تغطية العطل الرسمية',

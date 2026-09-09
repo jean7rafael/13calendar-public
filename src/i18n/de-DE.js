@@ -90,6 +90,7 @@ export default {
     chooseCountry: 'Land für die Feiertage auswählen',
     countryHint:
       'Die Sprache der Benutzeroberfläche und das Feiertagsland können unterschiedlich sein.',
+    countryMenuHint: 'Im Menü ☰ können Sie das Land für die Feiertage auswählen.',
     observedDateFor: 'Beobachtungstag für {holiday}',
     coverage: {
       title: 'Abdeckung amtlicher Feiertage',

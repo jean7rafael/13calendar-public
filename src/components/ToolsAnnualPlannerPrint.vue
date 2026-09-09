@@ -124,10 +124,13 @@
         </div>
         <div class="planner-print__companion-grid">
           <section v-for="day in month.days" :key="`companion-${day.day}`">
-            <strong>{{ day.day }}</strong>
-            <span>{{ day.gregorian }}</span>
-            <i />
-            <i />
+            <!-- O número IFC e a equivalência gregoriana compartilham a
+                 primeira linha, liberando a altura restante para anotações. -->
+            <div class="planner-print__companion-date">
+              <strong>{{ day.day }}</strong>
+              <span>{{ day.gregorian }}</span>
+            </div>
+            <i v-for="line in 6" :key="`companion-${day.day}-line-${line}`" />
           </section>
         </div>
         <PlannerPrintFooter />
@@ -835,7 +838,8 @@ const notePages = computed(() =>
 }
 
 .planner-print__companion-grid {
-  height: 188mm;
+  flex: 1;
+  min-height: 0;
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   grid-template-rows: repeat(4, 1fr);
@@ -844,30 +848,42 @@ const notePages = computed(() =>
 
 .planner-print__companion-grid section {
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2mm;
-  padding: 3mm;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto repeat(6, minmax(0, 1fr));
+  padding: 2.5mm;
   background: var(--planner-accent-soft);
   border: 0.35mm solid var(--planner-accent-border);
   border-radius: 2.5mm;
 }
 
-.planner-print__companion-grid strong {
+.planner-print__companion-date {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 1.5mm;
+  padding-bottom: 1mm;
+  white-space: nowrap;
+}
+
+.planner-print__companion-date strong {
+  flex: none;
   color: var(--planner-accent-ink);
   font-size: 12pt;
 }
 
-.planner-print__companion-grid span {
-  min-height: 6mm;
+.planner-print__companion-date span {
+  min-width: 0;
+  overflow: hidden;
   color: #667085;
   font-size: 6.4pt;
   line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .planner-print__companion-grid i {
   display: block;
-  height: 7mm;
   border-bottom: 0.3mm solid var(--planner-accent-border);
 }
 

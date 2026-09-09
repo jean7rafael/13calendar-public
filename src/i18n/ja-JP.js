@@ -76,6 +76,7 @@ export default {
     countryTitle: '国別の祝日',
     chooseCountry: '祝日の国を選択',
     countryHint: '表示言語と祝日の国は別々に選択できます。',
+    countryMenuHint: '☰ メニューで祝日の国を選択できます。',
     observedDateFor: '{holiday}の振替日',
     coverage: {
       title: '公式の祝日の収録範囲',
