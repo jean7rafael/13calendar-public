@@ -291,7 +291,8 @@
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, ref } from 'vue';
+/* global __APP_BUILD_TIMESTAMP__ */
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useMeta } from 'quasar';
 import AppComparisonDateTitle from 'src/components/AppComparisonDateTitle.vue';
@@ -311,14 +312,26 @@ const { t, tm, locale } = useI18n({ useScope: 'global' });
 const { months13Long, weekDaysShort, weekDaysComparison } = useCalendarTranslations();
 const canonicalUrl = 'https://13calendar.pages.dev/learn';
 
-const currentTime = ref(new Date());
-const currentYear = new Date().getFullYear();
+const buildTime = new Date(__APP_BUILD_TIMESTAMP__);
+const currentTime = ref(buildTime);
+const clientClockIsActive = ref(false);
+const currentYear = buildTime.getUTCFullYear();
 const educationYear = ref(currentYear);
-const clockInterval = window.setInterval(() => {
-  currentTime.value = new Date();
-}, 1_000);
+let clockInterval;
 
-onBeforeUnmount(() => window.clearInterval(clockInterval));
+onMounted(() => {
+  clientClockIsActive.value = true;
+  currentTime.value = new Date();
+  clockInterval = window.setInterval(() => {
+    currentTime.value = new Date();
+  }, 1_000);
+});
+
+onBeforeUnmount(() => {
+  if (clockInterval !== undefined) {
+    window.clearInterval(clockInterval);
+  }
+});
 
 useMeta(() => {
   const title = t('education.browserTitle');
@@ -363,9 +376,13 @@ const todayLabels = computed(() => ({
 const todayComparison = computed(() =>
   buildDateComparisonPresentation(
     {
-      year: currentTime.value.getFullYear(),
-      month: currentTime.value.getMonth() + 1,
-      day: currentTime.value.getDate(),
+      year: clientClockIsActive.value
+        ? currentTime.value.getFullYear()
+        : currentTime.value.getUTCFullYear(),
+      month:
+        (clientClockIsActive.value ? currentTime.value.getMonth() : currentTime.value.getUTCMonth()) +
+        1,
+      day: clientClockIsActive.value ? currentTime.value.getDate() : currentTime.value.getUTCDate(),
     },
     locale.value,
     todayLabels.value,
@@ -389,7 +406,11 @@ const todayComparisonFitClasses = computed(() => {
   ];
 });
 const gregorianMonthLength = computed(() =>
-  new Date(currentTime.value.getFullYear(), currentTime.value.getMonth() + 1, 0).getDate(),
+  clientClockIsActive.value
+    ? new Date(currentTime.value.getFullYear(), currentTime.value.getMonth() + 1, 0).getDate()
+    : new Date(
+        Date.UTC(currentTime.value.getUTCFullYear(), currentTime.value.getUTCMonth() + 1, 0),
+      ).getUTCDate(),
 );
 
 const currentTimeLabel = computed(() =>
@@ -398,6 +419,7 @@ const currentTimeLabel = computed(() =>
     minute: '2-digit',
     second: '2-digit',
     hourCycle: 'h23',
+    ...(clientClockIsActive.value ? {} : { timeZone: 'UTC' }),
   }).format(currentTime.value),
 );
 

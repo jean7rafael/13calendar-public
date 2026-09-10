@@ -192,6 +192,7 @@
           </q-item-label>
 
           <HolidayCountrySelector
+            v-if="browserPreferencesReady"
             drawer-mode
             class="drawer-country-selector"
             @select="closeLeftDrawer"
@@ -268,8 +269,9 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n';
 import { useMeta, useQuasar } from 'quasar';
 import { useRoute } from 'vue-router';
-import { setAppLanguage } from 'src/boot/i18n';
-import { setAppDarkMode } from 'src/boot/theme';
+import { applyPreferredAppLanguage, setAppLanguage } from 'src/boot/i18n';
+import { applyPreferredAppTheme, setAppDarkMode } from 'src/boot/theme';
+import { applyPreferredHolidaySettings } from 'src/composables/useHolidaySettings';
 import HolidayCountrySelector from 'src/components/HolidayCountrySelector.vue';
 import AppFooter from 'src/components/AppFooter.vue';
 // Modo opcional "mostrar uma vez": descomente também os dois pontos indicados abaixo.
@@ -293,7 +295,9 @@ const drawerMenuList = ref(null);
 const drawerCountryListFits = ref(false);
 const drawerMenuAtEnd = ref(false);
 const updateAvailable = ref(false);
+const browserPreferencesReady = ref(false);
 let holidayCountryCoachmarkTimer: number | null = null;
+let browserPreferencesTimer: number | null = null;
 
 /* ===========================================================
    IDIOMAS EXIBIDOS NO MENU
@@ -449,9 +453,18 @@ async function showHolidayCountryCoachmark() {
 onMounted(() => {
   window.addEventListener('calendar-update-available', markUpdateAvailable);
 
-  /* A seleção inferida continua ativa. Cada entrada no conversor apenas
-     aponta onde a pessoa pode escolher outro país. */
-  void showHolidayCountryCoachmark();
+  /* O próximo macrotask começa somente depois que Vue e Quasar concluíram a
+     hidratação, inclusive do conteúdo interno da gaveta e dos carrosséis. */
+  browserPreferencesTimer = window.setTimeout(() => {
+    applyPreferredAppLanguage();
+    applyPreferredAppTheme();
+    applyPreferredHolidaySettings();
+    browserPreferencesReady.value = true;
+
+    /* A seleção inferida continua ativa. Cada entrada no conversor apenas
+       aponta onde a pessoa pode escolher outro país. */
+    void showHolidayCountryCoachmark();
+  }, 0);
 });
 
 watch(
@@ -623,6 +636,10 @@ onBeforeUnmount(() => {
 
   if (holidayCountryCoachmarkTimer !== null) {
     window.clearTimeout(holidayCountryCoachmarkTimer);
+  }
+
+  if (browserPreferencesTimer !== null) {
+    window.clearTimeout(browserPreferencesTimer);
   }
 });
 

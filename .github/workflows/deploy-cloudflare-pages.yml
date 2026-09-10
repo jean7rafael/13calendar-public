@@ -48,7 +48,7 @@ jobs:
       - name: Preparar o Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 22.22.0
           cache: npm
 
       - name: Instalar dependências do aplicativo
@@ -63,5 +63,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           wranglerVersion: '4.125.0'
-          command: pages deploy dist/spa --project-name=13calendar --branch=main --commit-dirty=true
+          command: pages deploy dist/ssg --project-name=13calendar --branch=main --commit-dirty=true
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}

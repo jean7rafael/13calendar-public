@@ -1745,11 +1745,13 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   contém o novo pacote integral.
 - Em 9 de setembro, as ocorrências da página lunar passaram a identificar
   explicitamente a data principal como IFC e a equivalente menor como
-  gregoriana. Nas páginas de anotações do planejador PDF, as duas datas agora
-  ocupam a mesma linha, cada célula cresce até o fim da área útil e oferece seis
-  linhas de escrita. O usuário conferiu visualmente o novo PDF e as demais
-  alterações desta frente. Os cards de fontes mantêm a marca no canto físico
-  direito também em árabe, sem inverter a imagem com o fluxo RTL.
+  gregoriana; esses dois rótulos auxiliares usam corpo menor e peso regular para
+  não disputar atenção com as datas. Nas páginas de anotações do planejador
+  PDF, as duas datas agora ocupam a mesma linha, cada célula cresce até o fim da
+  área útil e oferece seis linhas de escrita. O usuário conferiu visualmente o
+  novo PDF e as demais alterações desta frente. Os cards de fontes mantêm a
+  marca no canto físico direito também em árabe, sem inverter a imagem com o
+  fluxo RTL.
 - A página inicial não abre mais automaticamente o seletor completo de países.
   Um balão ancorado ao menu hambúrguer informa, nos 12 idiomas, que o país dos
   feriados pode ser escolhido ali; ele some após 12 segundos ou ao abrir o
@@ -1759,18 +1761,48 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
 - O `sitemap.xml` foi validado localmente e também requisitado publicamente com
   identificação de Googlebot: respondeu HTTP 200, `application/xml`, sem
   redirecionamento, passou no parser XML e continua liberado pelo `robots.txt`.
-  O Search Console ainda mostrava somente a tentativa de 31 de agosto, sem nova
-  leitura, com “Não foi possível buscar”; as datas `lastmod` foram atualizadas
-  para as páginas realmente revistas. O HTML já declara `13 Calendar` em
-  `og:site_name` e em `WebSite` estruturado. O nome “Cloudflare” exibido pelo
-  Google é uma escolha algorítmica ainda não reprocessada, não um campo ausente.
-  A limitação técnica mais relevante para consultas genéricas continua sendo a
-  SPA entregar inicialmente o mesmo shell quase vazio em todas as rotas; uma
-  futura frente de prerenderização/SSR deve fornecer títulos, descrições e
-  conteúdo principal antes do JavaScript. Não foi encontrada evidência de que
-  o domínio `pages.dev` sofra uma penalidade automática de ranking.
+  Em 9 de setembro, o reenvio manual de `sitemap.xml` foi confirmado pelo
+  Search Console com “Sitemap enviado”; o processamento posterior ainda depende
+  do Google. As datas `lastmod` foram atualizadas para as páginas realmente
+  revistas. O HTML já declara `13 Calendar` em `og:site_name` e em `WebSite`
+  estruturado. O nome “Cloudflare” exibido pelo Google é uma escolha algorítmica
+  ainda não reprocessada, não um campo ausente. Não foi encontrada evidência de
+  que o domínio `pages.dev` sofra uma penalidade automática de ranking.
+- Em 9 de setembro, o build passou a usar o SSG nativo do Quasar: a atualização
+  para `@quasar/app-vite` 3.8.3 e Vue Router 5.3.1 renderiza a árvore Vue real
+  das sete URLs indexáveis do sitemap (`/`, `/learn`, `/tools`, `/moon`,
+  `/news`, `/community` e `/privacy`) em `dist/ssg`. `src-ssg/ssg-renderer.ts`
+  define a lista fechada de rotas; widget, administração, remoção e fallback
+  continuam client-side e não recebem arquivo indexável. A configuração não
+  gera `404.html`, preservando o fallback history do Cloudflare Pages para
+  essas rotas privadas. `seo:ssg:audit` confere a paridade com o sitemap, HTML
+  Vue renderizado, metadados e exclusões; o health check público valida o
+  conteúdo e o canonical antes do JavaScript. O service worker manual e a PWA
+  permanecem client-side e o deploy publica `dist/ssg`.
+- A revisão independente do SSG eliminou o `<title>` duplicado do molde base,
+  corrigiu a exclusão da rota privada `/community-remove`, adicionou dados
+  estruturados próprios às páginas Comunidade e Privacidade e tornou a
+  auditoria sensível a títulos e descrições duplicados, metadados sociais,
+  canonical, H1 e tipo de JSON-LD de cada rota. A versão exata do gerador foi
+  fixada em `@quasar/app-vite` 3.8.3 para evitar mudanças involuntárias da API
+  SSG ainda em evolução. Um teste de hidratação no navegador também identificou
+  a variável antiga do modo de rotas e a substituiu por
+  `import.meta.env.QUASAR_VUE_ROUTER_MODE`; assim, as URLs permanecem limpas e
+  não ganham `#/` depois que o JavaScript assume o HTML estático. O relógio do
+  hero educacional também parte do mesmo instante UTC embutido no servidor e
+  no cliente e só troca para o horário local depois da montagem, evitando
+  divergência de hidratação. O carregamento assíncrono dos feriados também só
+  começa depois da montagem, preservando primeiro a lista vazia renderizada no
+  servidor. País, região, filtros, idioma e tema agora partem de valores
+  determinísticos e restauram as preferências privadas no macrotask posterior
+  à hidratação; a lista oculta de 251 países só é montada no navegador, o que
+  reduziu o HTML da raiz de aproximadamente 289 para 93 KiB. O calendário IFC
+  foi migrado da Options API para estado reativo explícito, preservando a data
+  recebida já no primeiro VNode. A inspeção das sete rotas no navegador ficou
+  sem avisos de hidratação. Todas as páginas do sitemap passaram a registrar
+  `lastmod` de 9 de setembro após essa nova geração estática.
 - `npm run verify`, `git diff --check` e a validação XML passaram integralmente
-  nesta revisão. O pacote mediu 3.259,2 KiB brutos e 815,2 KiB gzip; as duas
+  nesta revisão. O pacote mediu 3.248,5 KiB brutos e 812,1 KiB gzip; as duas
   árvores de produção permaneceram com zero vulnerabilidades.
 
 ## Pendências atuais
@@ -1783,12 +1815,9 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   site `Cloudflare` por `13 Calendar` e a evolução em consultas genéricas. O
   domínio EU.org, quando aprovado, reforçará a identidade, mas não é requisito
   técnico para o nome próprio.
-- Depois da publicação de 9 de setembro, reenviar `sitemap.xml` no Search
-  Console e executar a inspeção ao vivo da URL. A leitura anterior continua
-  datada de 31 de agosto e não representa a resposta pública atual.
-- Planejar prerenderização ou SSR das sete rotas públicas para que cada URL
-  entregue conteúdo e metadados próprios já no HTML inicial, sem depender da
-  etapa de renderização JavaScript do mecanismo de busca.
+- Acompanhar o processamento do `sitemap.xml` reenviado manualmente em 9 de
+  setembro e executar a inspeção ao vivo das URLs prioritárias quando o Search
+  Console registrar a nova leitura.
 
 ## Protocolo de manutenção deste arquivo
 

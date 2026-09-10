@@ -1,6 +1,6 @@
 import { Dark } from 'quasar';
 
-import { defineBoot } from '#q-app/wrappers';
+import { defineBoot } from '#q-app';
 
 /* ===========================================================
    PREFERÊNCIA VISUAL E ARMAZENAMENTO
@@ -48,7 +48,10 @@ export function setAppDarkMode(isDarkMode, persist = true) {
 =========================================================== */
 
 export default defineBoot(() => {
-  const savedTheme = readSavedTheme();
-
-  setAppDarkMode(savedTheme ? savedTheme === 'dark' : prefersDarkMode(), false);
+  setAppDarkMode(false, false);
 });
+
+export function applyPreferredAppTheme() {
+  const savedTheme = readSavedTheme();
+  setAppDarkMode(savedTheme ? savedTheme === 'dark' : prefersDarkMode(), false);
+}

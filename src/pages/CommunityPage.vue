@@ -375,8 +375,24 @@ let activityScrollFrame = 0;
 
 const { t, locale } = useI18n({ useScope: 'global' });
 const preferredHolidayCountry = readPreferredHolidayCountry();
+const canonicalUrl = 'https://13calendar.pages.dev/community';
 
-useMeta(() => ({ title: t('community.browserTitle') }));
+useMeta(() => ({
+  title: t('community.browserTitle'),
+  script: {
+    structuredData: {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: t('community.browserTitle'),
+        description: t('community.description'),
+        url: canonicalUrl,
+        isAccessibleForFree: true,
+      }),
+    },
+  },
+}));
 
 /* ===========================================================
    CARREGAMENTO DO RETRATO PÚBLICO

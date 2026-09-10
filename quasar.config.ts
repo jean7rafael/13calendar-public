@@ -1,4 +1,5 @@
-import { defineConfig } from '#q-app/wrappers';
+import { defineConfig } from '@quasar/app-vite';
+import { fileURLToPath } from 'node:url';
 
 /* Cada publicação recebe a revisão do próprio commit. O identificador muda a
    URL do service worker sem depender de limpezas manuais no navegador. */
@@ -8,12 +9,23 @@ const appReleaseId =
   process.env.APP_RELEASE_ID ||
   'local';
 
+/* O mesmo instante inicial é compilado no HTML e no cliente para que o card
+   dinâmico da página educacional hidrate sem divergência. Depois da montagem,
+   ele passa imediatamente a usar o relógio local do visitante. */
+const appBuildTimestamp = process.env.APP_BUILD_TIMESTAMP || new Date().toISOString();
+
 export default defineConfig(() => ({
   /* =========================================================
      INICIALIZAÇÃO E ESTILOS GLOBAIS
   ========================================================= */
 
-  boot: ['theme', 'i18n', 'buttonLayout', 'pwa', 'cloudflareAnalytics'],
+  boot: [
+    'theme',
+    'i18n',
+    { path: 'buttonLayout', server: false },
+    { path: 'pwa', server: false },
+    { path: 'cloudflareAnalytics', server: false },
+  ],
 
   css: ['app.scss'],
 
@@ -28,6 +40,11 @@ export default defineConfig(() => ({
   ========================================================= */
 
   build: {
+    alias: {
+      src: fileURLToPath(new URL('./src', import.meta.url)),
+      pages: fileURLToPath(new URL('./src/pages', import.meta.url)),
+      layouts: fileURLToPath(new URL('./src/layouts', import.meta.url)),
+    },
     publicPath: process.env.PUBLIC_PATH || '/',
     env: {
       APP_RELEASE_ID: appReleaseId,
@@ -39,6 +56,8 @@ export default defineConfig(() => ({
     extendViteConf(viteConf) {
       viteConf.build ??= {};
       viteConf.build.chunkSizeWarningLimit = 1800;
+      viteConf.define ??= {};
+      viteConf.define.__APP_BUILD_TIMESTAMP__ = JSON.stringify(appBuildTimestamp);
     },
 
     target: {
@@ -52,6 +71,18 @@ export default defineConfig(() => ({
     },
 
     vueRouterMode: 'history',
+  },
+
+  /* =========================================================
+     GERAÇÃO ESTÁTICA E HIDRATAÇÃO
+
+     O host entrega as sete páginas indexáveis já renderizadas. O
+     404 é desabilitado para que o fallback history do Cloudflare
+     Pages continue atendendo widget e rotas privadas no cliente.
+  ========================================================= */
+
+  ssg: {
+    error404HtmlFilename: false,
   },
 
   /* =========================================================
@@ -69,7 +100,7 @@ export default defineConfig(() => ({
   framework: {
     config: {},
     lang: 'pt-BR',
-    plugins: [],
+    plugins: ['Meta'],
   },
 
   animations: [],

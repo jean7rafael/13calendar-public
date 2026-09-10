@@ -221,13 +221,23 @@ function getInitialCalendar13HolidayMode() {
    todos os componentes utilizam a mesma seleção.
 =========================================================== */
 
-const holidayCountry = ref(getInitialCountry());
+/* O HTML SSG e a primeira árvore do navegador começam sempre com os mesmos
+   valores. As preferências privadas são restauradas somente depois que a
+   hidratação termina, evitando diferenças em gavetas e cards ocultos. */
+const holidayCountry = ref(DEFAULT_COUNTRY);
 
-const holidayRegion = ref(getInitialRegion());
+const holidayRegion = ref(DEFAULT_REGION);
 
-const holidayFilters = reactive(getInitialFilters());
+const holidayFilters = reactive({ ...DEFAULT_HOLIDAY_FILTERS });
 
-const calendar13HolidayMode = ref(getInitialCalendar13HolidayMode());
+const calendar13HolidayMode = ref(DEFAULT_CALENDAR_13_HOLIDAY_MODE);
+
+function applyPreferredHolidaySettings() {
+  holidayCountry.value = getInitialCountry();
+  holidayRegion.value = getInitialRegion();
+  Object.assign(holidayFilters, getInitialFilters());
+  calendar13HolidayMode.value = getInitialCalendar13HolidayMode();
+}
 
 /* ===========================================================
    PERSISTÊNCIA AUTOMÁTICA DO PAÍS
@@ -309,3 +319,5 @@ export function useHolidaySettings() {
     resetHolidayFilters,
   };
 }
+
+export { applyPreferredHolidaySettings };

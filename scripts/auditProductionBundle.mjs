@@ -24,11 +24,11 @@ const limits = {
   largestGzip: 360_000,
 };
 
-const assetsDirectory = resolve('dist/spa/assets');
+const assetsDirectory = resolve('dist/ssg/assets');
 const assetNames = (await readdir(assetsDirectory)).filter((name) => /\.(?:css|js)$/i.test(name));
 
 if (assetNames.length === 0) {
-  throw new Error('Nenhum JavaScript ou CSS foi encontrado em dist/spa/assets.');
+  throw new Error('Nenhum JavaScript ou CSS foi encontrado em dist/ssg/assets.');
 }
 
 /* ===========================================================

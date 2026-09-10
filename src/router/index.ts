@@ -1,4 +1,4 @@
-import { defineRouter } from '#q-app/wrappers';
+import { defineRouter } from '#q-app';
 import {
   createMemoryHistory,
   createRouter,
@@ -15,13 +15,16 @@ import routes from './routes';
 =========================================================== */
 
 export default defineRouter(function () {
+  const isServer = import.meta.env.QUASAR_SERVER;
+  const isHistoryMode = import.meta.env.QUASAR_VUE_ROUTER_MODE === 'history';
+
   /* Links publicados antes da migração usavam `/#/rota`. O
      fragmento é convertido uma única vez no endereço real antes
      que o Vue Router leia a página, preservando códigos privados
      e favoritos antigos sem manter dois modos de roteamento. */
   if (
-    !process.env.SERVER &&
-    process.env.VUE_ROUTER_MODE === 'history' &&
+    !isServer &&
+    isHistoryMode &&
     window.location.hash.startsWith('#/')
   ) {
     const legacyRoute = window.location.hash.slice(1);
@@ -34,9 +37,9 @@ export default defineRouter(function () {
     );
   }
 
-  const createHistory = process.env.SERVER
+  const createHistory = isServer
     ? createMemoryHistory
-    : process.env.VUE_ROUTER_MODE === 'history'
+    : isHistoryMode
       ? createWebHistory
       : createWebHashHistory;
 

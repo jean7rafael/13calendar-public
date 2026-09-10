@@ -1,4 +1,4 @@
-import { defineBoot } from '#q-app/wrappers';
+import { defineBoot } from '#q-app';
 
 /* ===========================================================
    COLETA PRIVADA E OPCIONAL DA CLOUDFLARE

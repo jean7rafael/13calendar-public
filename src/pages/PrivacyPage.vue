@@ -45,8 +45,24 @@ import { useMeta } from 'quasar';
 
 const { t, tm } = useI18n({ useScope: 'global' });
 const sections = computed(() => tm('privacy.sections'));
+const canonicalUrl = 'https://13calendar.pages.dev/privacy';
 
-useMeta(() => ({ title: t('privacy.browserTitle') }));
+useMeta(() => ({
+  title: t('privacy.browserTitle'),
+  script: {
+    structuredData: {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: t('privacy.browserTitle'),
+        description: t('privacy.intro'),
+        url: canonicalUrl,
+        isAccessibleForFree: true,
+      }),
+    },
+  },
+}));
 </script>
 
 <style scoped>

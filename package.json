@@ -41,10 +41,11 @@
     "predev": "npm run holidays:runtime",
     "dev": "quasar dev",
     "prebuild": "npm run holidays:runtime",
-    "build": "quasar build",
+    "seo:ssg:audit": "node scripts/auditSsgPublicPages.mjs",
+    "build": "quasar build -m ssg",
     "audit:bundle": "node scripts/auditProductionBundle.mjs",
     "audit:production": "npm audit --omit=dev && npm --prefix cloudflare/community-registration-worker audit --omit=dev",
-    "verify": "npm run continuity:audit && npm run lint && npm run ui:audit && npm run education:audit && npm run community:profile:audit && npm run community:feedback:audit && npm run calendar:conversion:audit && npm run build && npm run audit:bundle && npm run holidays:runtime:audit && npm run holidays:audit && npm run holidays:weekday:audit && npm run holidays:calendar13:audit && npm run holidays:merge:audit && npm run holidays:emoji:audit && npm run holidays:translation:audit && npm run holidays:official:audit && npm run audit:production",
+    "verify": "npm run continuity:audit && npm run lint && npm run ui:audit && npm run education:audit && npm run community:profile:audit && npm run community:feedback:audit && npm run calendar:conversion:audit && npm run build && npm run seo:ssg:audit && npm run audit:bundle && npm run holidays:runtime:audit && npm run holidays:audit && npm run holidays:weekday:audit && npm run holidays:calendar13:audit && npm run holidays:merge:audit && npm run holidays:emoji:audit && npm run holidays:translation:audit && npm run holidays:official:audit && npm run audit:production",
     "postinstall": "quasar prepare"
   },
   "dependencies": {
@@ -55,11 +56,11 @@
     "quasar": "^2.16.0",
     "vue": "^3.4.18",
     "vue-i18n": "^11.4.8",
-    "vue-router": "^4.0.12"
+    "vue-router": "^5.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
-    "@quasar/app-vite": "2.5.4",
+    "@quasar/app-vite": "3.8.3",
     "@vue/eslint-config-prettier": "^10.1.0",
     "autoprefixer": "^10.4.2",
     "date-holidays": "^3.33.0",
@@ -75,7 +76,7 @@
     "esbuild": "^0.28.1"
   },
   "engines": {
-    "node": "^28 || ^26 || ^24 || ^22 || ^20 || ^18",
+    "node": "^28 || ^26 || ^24 || ^22.22.0",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   }

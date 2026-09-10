@@ -458,7 +458,9 @@ export async function copyText(value) {
 }
 
 export function createAbsoluteRouteUrl(path, query = {}) {
-  const url = new URL(path, window.location.origin);
+  const origin =
+    typeof window === 'undefined' ? 'https://13calendar.pages.dev' : window.location.origin;
+  const url = new URL(path, origin);
   for (const [key, value] of Object.entries(query)) {
     if (value !== undefined && value !== null && String(value) !== '') {
       url.searchParams.set(key, String(value));

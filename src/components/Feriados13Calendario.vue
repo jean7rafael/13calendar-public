@@ -129,7 +129,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, toRef } from 'vue';
+import { ref, computed, onMounted, watch, toRef } from 'vue';
 
 import { useCarouselTransition } from 'src/utils/carouselMecanism';
 
@@ -225,12 +225,29 @@ const { transition: monthTransition, internalValue: carouselMonth } = useCarouse
 =========================================================== */
 
 const feriados = ref([]);
+const clientHolidayLoadingEnabled = ref(false);
 let holidayRequestId = 0;
+
+onMounted(() => {
+  clientHolidayLoadingEnabled.value = true;
+});
 
 /* Recalcula a lista ao navegar ou alterar país e filtros. */
 watch(
-  [carouselMonth, carouselYear, holidayCountry, holidayFilters, locale, calendar13HolidayMode],
-  async ([month, year, country]) => {
+  [
+    carouselMonth,
+    carouselYear,
+    holidayCountry,
+    holidayFilters,
+    locale,
+    calendar13HolidayMode,
+    clientHolidayLoadingEnabled,
+  ],
+  async ([month, year, country, , , , loadingEnabled]) => {
+    if (import.meta.env.QUASAR_SERVER || !loadingEnabled) {
+      return;
+    }
+
     const requestId = ++holidayRequestId;
 
     try {

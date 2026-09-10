@@ -121,7 +121,9 @@
   </q-card>
 </template>
 
-<script>
+<script setup>
+import { computed, nextTick, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import CarouselCalendario from 'src/components/CarouselCalendario.vue';
 import CarouselSeletores from 'src/components/Carousel13Seletores.vue';
 import CalendarTodayButton from 'src/components/CalendarTodayButton.vue';
@@ -138,172 +140,190 @@ function getYearPageStart(year, minYear = 1) {
   return Math.max(minYear, alignedStart);
 }
 
+function parseSelectedDate(modelValue) {
+  const [year, month, day] = String(modelValue || '')
+    .split('-')
+    .map(Number);
+
+  if (!Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day)) {
+    return null;
+  }
+
+  return {
+    year,
+    month: month - 1,
+    day,
+  };
+}
+
 /* ===========================================================
    CALENDÁRIO DE 13 MESES
 =========================================================== */
 
-export default {
-  components: { CalendarTodayButton, CarouselCalendario, CarouselSeletores },
+const props = defineProps({
+  modelValue: String,
+});
 
-  /* Data selecionada, sincronizada por v-model. */
-  props: {
-    modelValue: String,
-  },
+const emit = defineEmits(['update:modelValue', 'update:mes13', 'update:ano13']);
+const { t } = useI18n({ useScope: 'global' });
 
-  /* Estado de navegação, seleção e paginação dos anos. */
-  data() {
-    return {
-      currentYear: new Date().getFullYear(),
-      currentMonth: 0,
-      selectedDay: null,
-      selectedMonth: 0,
-      selectorMode: null,
-      minYear: 1,
-      yearsPerPage: YEARS_PER_PAGE,
-      yearPageStart: getYearPageStart(new Date().getFullYear()),
-      selectedYear: new Date().getFullYear(),
-    };
-  },
+const parsedInitialDate = parseSelectedDate(props.modelValue);
+const initialYear = parsedInitialDate?.year || new Date().getFullYear();
+const initialMonth = parsedInitialDate?.month || 0;
 
-  /* Textos traduzidos e valores derivados para a interface. */
-  computed: {
-    monthLabelsShort() {
-      return Array.from({ length: 14 }, (_, index) => this.$t(`calendar.months13Short.${index}`));
-    },
+const currentYear = ref(initialYear);
+const currentMonth = ref(initialMonth);
+const selectedDay = ref(parsedInitialDate?.day ?? null);
+const selectedMonth = ref(initialMonth);
+const selectedYear = ref(initialYear);
+const selectorMode = ref(null);
+const minYear = 1;
+const yearPageStart = ref(getYearPageStart(initialYear));
+let syncingModelValue = true;
 
-    weekDays() {
-      return Array.from({ length: 7 }, (_, index) => this.$t(`calendar.weekDaysShort.${index}`));
-    },
+const monthLabelsShort = computed(() =>
+  Array.from({ length: 14 }, (_, index) => t(`calendar.months13Short.${index}`)),
+);
 
-    formattedDate() {
-      if (this.selectedDay === null) {
-        return this.$t('calendar.noDate');
-      }
+const weekDays = computed(() =>
+  Array.from({ length: 7 }, (_, index) => t(`calendar.weekDaysShort.${index}`)),
+);
 
-      const monthFormatted =
-        this.selectedMonth === 13 ? 'XX' : String(this.selectedMonth + 1).padStart(2, '0');
-      return `${this.selectedYear}/${monthFormatted}/${String(this.selectedDay).padStart(2, '0')}`;
-    },
-    visibleYears() {
-      return Array.from({ length: this.yearsPerPage }, (_, index) => this.yearPageStart + index);
-    },
-  },
+const formattedDate = computed(() => {
+  if (selectedDay.value === null) {
+    return t('calendar.noDate');
+  }
 
-  /* Sincronização entre o v-model e a seleção interna. */
-  watch: {
-    modelValue: {
-      immediate: true,
-      handler(val) {
-        if (val) {
-          const [ano, mes, dia] = val.split('-').map(Number);
-          this.selectedYear = ano;
-          this.currentYear = ano;
-          this.selectedMonth = mes - 1;
-          this.currentMonth = mes - 1;
-          this.selectedDay = dia;
-        }
-      },
-    },
-    selectedDay() {
-      this.emitirData();
-    },
-    selectedMonth() {
-      this.emitirData();
-    },
-    selectedYear() {
-      this.emitirData();
-    },
-  },
+  const monthFormatted =
+    selectedMonth.value === 13 ? 'XX' : String(selectedMonth.value + 1).padStart(2, '0');
+  return `${selectedYear.value}/${monthFormatted}/${String(selectedDay.value).padStart(2, '0')}`;
+});
 
-  methods: {
-    /* Abertura e fechamento dos seletores. */
-    toggleMonthSelector() {
-      this.selectorMode = this.selectorMode === 'month' ? null : 'month';
-    },
+const visibleYears = computed(() =>
+  Array.from({ length: YEARS_PER_PAGE }, (_, index) => yearPageStart.value + index),
+);
 
-    toggleYearSelector() {
-      const abrir = this.selectorMode !== 'year';
+function syncModelValue(modelValue) {
+  const selectedDate = parseSelectedDate(modelValue);
 
-      this.selectorMode = abrir ? 'year' : null;
+  if (!selectedDate) {
+    return;
+  }
 
-      if (abrir) {
-        this.alignYearPage(this.currentYear);
-      }
-    },
+  syncingModelValue = true;
+  selectedYear.value = selectedDate.year;
+  currentYear.value = selectedDate.year;
+  selectedMonth.value = selectedDate.month;
+  currentMonth.value = selectedDate.month;
+  selectedDay.value = selectedDate.day;
 
-    alignYearPage(year) {
-      this.yearPageStart = getYearPageStart(year, this.minYear);
-    },
+  nextTick(() => {
+    syncingModelValue = false;
+  });
+}
 
-    /* Paginação do conjunto de anos visíveis. */
-    previousYearPage() {
-      this.yearPageStart = Math.max(this.minYear, this.yearPageStart - YEAR_PAGE_INTERVAL);
-    },
+function emitirData() {
+  if (selectedDay.value === null) {
+    return;
+  }
 
-    nextYearPage() {
-      this.yearPageStart += YEAR_PAGE_INTERVAL;
-    },
+  const month = String(selectedMonth.value + 1).padStart(2, '0');
+  const day = String(selectedDay.value).padStart(2, '0');
+  emit('update:modelValue', `${selectedYear.value}-${month}-${day}`);
+}
 
-    /* Escolhas feitas nas grades de mês e ano. */
-    selectMonthFromGrid(monthIndex) {
-      this.currentMonth = monthIndex;
-      this.$emit('update:mes13', monthIndex + 1);
-      this.selectorMode = null;
-    },
+watch(
+  () => props.modelValue,
+  syncModelValue,
+  { immediate: true },
+);
 
-    selectYearFromGrid(year) {
-      this.currentYear = year;
-      this.$emit('update:ano13', year);
-      this.selectorMode = null;
-    },
+watch([selectedDay, selectedMonth, selectedYear], () => {
+  if (!syncingModelValue) {
+    emitirData();
+  }
+});
 
-    /* Emissão e atualização da data selecionada. */
-    emitirData() {
-      const mesFormatado = String(this.selectedMonth + 1).padStart(2, '0');
-      const diaFormatado = String(this.selectedDay).padStart(2, '0');
-      const dataFormatada = `${this.selectedYear}-${mesFormatado}-${diaFormatado}`;
-      this.$emit('update:modelValue', dataFormatada);
-    },
+nextTick(() => {
+  syncingModelValue = false;
+});
 
-    updateSelectedDate({ day, month, year }) {
-      this.selectedDay = day;
-      this.selectedMonth = month;
-      this.selectedYear = year;
-      this.currentMonth = month;
-      this.currentYear = year;
-    },
+function toggleMonthSelector() {
+  selectorMode.value = selectorMode.value === 'month' ? null : 'month';
+}
 
-    /* Navegação pelas setas do cabeçalho. */
-    nextMonth() {
-      if (this.currentMonth === 13) {
-        this.currentMonth = 0;
-        this.$emit('update:mes13', 1); // Janeiro
-        this.nextYear();
-      } else {
-        this.currentMonth++;
-        this.$emit('update:mes13', this.currentMonth + 1);
-      }
-    },
-    previousMonth() {
-      if (this.currentMonth === 0) {
-        this.currentMonth = 13;
-        this.$emit('update:mes13', 14); // Dias Especiais
-        this.previousYear();
-      } else {
-        this.currentMonth--;
-        this.$emit('update:mes13', this.currentMonth + 1);
-      }
-    },
-    nextYear() {
-      this.currentYear++;
-      this.$emit('update:ano13', this.currentYear);
-    },
-    previousYear() {
-      this.currentYear--;
-      this.$emit('update:ano13', this.currentYear);
-    },
-  },
-};
+function toggleYearSelector() {
+  const shouldOpen = selectorMode.value !== 'year';
+  selectorMode.value = shouldOpen ? 'year' : null;
+
+  if (shouldOpen) {
+    alignYearPage(currentYear.value);
+  }
+}
+
+function alignYearPage(year) {
+  yearPageStart.value = getYearPageStart(year, minYear);
+}
+
+function previousYearPage() {
+  yearPageStart.value = Math.max(minYear, yearPageStart.value - YEAR_PAGE_INTERVAL);
+}
+
+function nextYearPage() {
+  yearPageStart.value += YEAR_PAGE_INTERVAL;
+}
+
+function selectMonthFromGrid(monthIndex) {
+  currentMonth.value = monthIndex;
+  emit('update:mes13', monthIndex + 1);
+  selectorMode.value = null;
+}
+
+function selectYearFromGrid(year) {
+  currentYear.value = year;
+  emit('update:ano13', year);
+  selectorMode.value = null;
+}
+
+function updateSelectedDate({ day, month, year }) {
+  selectedDay.value = day;
+  selectedMonth.value = month;
+  selectedYear.value = year;
+  currentMonth.value = month;
+  currentYear.value = year;
+}
+
+function nextYear() {
+  currentYear.value += 1;
+  emit('update:ano13', currentYear.value);
+}
+
+function previousYear() {
+  currentYear.value -= 1;
+  emit('update:ano13', currentYear.value);
+}
+
+function nextMonth() {
+  if (currentMonth.value === 13) {
+    currentMonth.value = 0;
+    emit('update:mes13', 1);
+    nextYear();
+  } else {
+    currentMonth.value += 1;
+    emit('update:mes13', currentMonth.value + 1);
+  }
+}
+
+function previousMonth() {
+  if (currentMonth.value === 0) {
+    currentMonth.value = 13;
+    emit('update:mes13', 14);
+    previousYear();
+  } else {
+    currentMonth.value -= 1;
+    emit('update:mes13', currentMonth.value + 1);
+  }
+}
 </script>
 
 <style>

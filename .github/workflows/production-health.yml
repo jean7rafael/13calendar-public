@@ -25,11 +25,16 @@ jobs:
           set -euo pipefail
           curl --fail --silent --show-error --location --retry 3 \
             https://13calendar.pages.dev/ --output main.html
-          for site_route in learn tools moon news community privacy widget; do
+          for site_route in learn tools moon news community privacy; do
             curl --fail --silent --show-error --location --retry 3 \
               "https://13calendar.pages.dev/$site_route" --output "$site_route.html"
             grep -Eq '<div id=("q-app"|q-app)>' "$site_route.html"
+            grep -Eq '<h1[ >]' "$site_route.html"
+            grep -q "<link rel=\"canonical\" href=\"https://13calendar.pages.dev/$site_route\"" "$site_route.html"
           done
+          curl --fail --silent --show-error --location --retry 3 \
+            https://13calendar.pages.dev/widget --output widget.html
+          grep -Eq '<div id=("q-app"|q-app)>' widget.html
           curl --fail --silent --show-error --location --retry 3 \
             https://13calendar.pages.dev/robots.txt --output robots.txt
           curl --fail --silent --show-error --location --retry 3 \
@@ -37,6 +42,8 @@ jobs:
 
           grep -q 'https://13calendar.pages.dev/' main.html
           grep -Eq '<div id=("q-app"|q-app)>' main.html
+          grep -Eq '<h1[ >]' main.html
+          grep -q '<link rel="canonical" href="https://13calendar.pages.dev/"' main.html
           grep -q '"@type": "WebSite"' main.html
           grep -q '13calendar.pages.dev/sitemap.xml' robots.txt
           grep -q '<urlset' sitemap.xml

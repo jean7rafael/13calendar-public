@@ -1,19 +1,19 @@
-import { defineBoot } from '#q-app/wrappers';
+import { defineBoot } from '#q-app';
 import { createI18n } from 'vue-i18n';
 import { Lang } from 'quasar';
 
-import langPtBR from 'quasar/lang/pt-BR';
-import langEnUS from 'quasar/lang/en-US';
-import langFr from 'quasar/lang/fr';
-import langEs from 'quasar/lang/es';
-import langDeDE from 'quasar/lang/de-DE';
-import langRu from 'quasar/lang/ru';
-import langIt from 'quasar/lang/it';
-import langZhCN from 'quasar/lang/zh-CN';
-import langJa from 'quasar/lang/ja';
-import langAr from 'quasar/lang/ar';
-import langHi from 'quasar/lang/hi';
-import langKoKR from 'quasar/lang/ko-KR';
+import langPtBR from 'quasar/lang/pt-BR.js';
+import langEnUS from 'quasar/lang/en-US.js';
+import langFr from 'quasar/lang/fr.js';
+import langEs from 'quasar/lang/es.js';
+import langDeDE from 'quasar/lang/de-DE.js';
+import langRu from 'quasar/lang/ru.js';
+import langIt from 'quasar/lang/it.js';
+import langZhCN from 'quasar/lang/zh-CN.js';
+import langJa from 'quasar/lang/ja.js';
+import langAr from 'quasar/lang/ar.js';
+import langHi from 'quasar/lang/hi.js';
+import langKoKR from 'quasar/lang/ko-KR.js';
 
 import messages from 'src/i18n';
 
@@ -92,7 +92,7 @@ function normalizeLocale(locale) {
    por último, inglês dos Estados Unidos.
 =========================================================== */
 
-function getInitialLocale() {
+function getPreferredLocale() {
   try {
     const savedLocale = localStorage.getItem(STORAGE_KEY);
 
@@ -110,7 +110,9 @@ function getInitialLocale() {
   return DEFAULT_LOCALE;
 }
 
-const initialLocale = getInitialLocale();
+/* A primeira árvore do navegador precisa coincidir com o HTML SSG. A
+   preferência local é aplicada depois da hidratação pelo layout público. */
+const initialLocale = DEFAULT_LOCALE;
 
 /* ===========================================================
    INSTÂNCIA GLOBAL DO VUE I18N
@@ -128,17 +130,19 @@ const i18n = createI18n({
    APLICAÇÃO E PERSISTÊNCIA DO IDIOMA
 =========================================================== */
 
-function setAppLanguage(locale) {
+function setAppLanguage(locale, persist = true, ssrContext) {
   const normalizedLocale = normalizeLocale(locale);
 
   i18n.global.locale.value = normalizedLocale;
 
-  Lang.set(languagePacks[normalizedLocale]);
+  Lang.set(languagePacks[normalizedLocale], ssrContext);
 
-  try {
-    localStorage.setItem(STORAGE_KEY, normalizedLocale);
-  } catch {
-    // A troca funciona mesmo sem salvar a preferência.
+  if (persist) {
+    try {
+      localStorage.setItem(STORAGE_KEY, normalizedLocale);
+    } catch {
+      // A troca funciona mesmo sem salvar a preferência.
+    }
   }
 
   if (typeof document !== 'undefined') {
@@ -151,9 +155,13 @@ function setAppLanguage(locale) {
    INICIALIZAÇÃO DO PLUGIN NO QUASAR
 =========================================================== */
 
-export default defineBoot(({ app }) => {
-  setAppLanguage(initialLocale);
+export default defineBoot(({ app, ssrContext }) => {
+  setAppLanguage(initialLocale, false, ssrContext);
   app.use(i18n);
 });
 
-export { i18n, setAppLanguage };
+function applyPreferredAppLanguage() {
+  setAppLanguage(getPreferredLocale(), false);
+}
+
+export { applyPreferredAppLanguage, i18n, setAppLanguage };
