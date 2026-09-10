@@ -1822,7 +1822,19 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   tema escuro: voltou ao cartão horizontal compacto, sem erros ou avisos no
   console. `npm run verify` passou integralmente; o pacote mediu 3.248,5 KiB
   brutos e 812,1 KiB gzip, com zero vulnerabilidades nas duas árvores de
-  produção.
+  produção. A correção foi publicada pelo commit privado `99a9e21` e
+  sincronizada no repositório público como `f78c5d7`. As verificações privada
+  (`34512426617`) e pública (`34512552855`), a sincronização
+  (`34512426562`), o GitHub Pages de redirecionamento (`34512551998`) e o
+  Cloudflare Pages público (`34512552721`) concluíram com sucesso; a publicação
+  redundante privada (`34512426674`) confirmou a ausência deliberada dos
+  secrets nesse repositório e deixou a implantação para o fluxo público. A
+  implantação funcional imutável é `a7b18566.13calendar.pages.dev`. No alias e
+  nessa implantação, `/widget` respondeu com 6.766 bytes, `widget-page`, meta e
+  cabeçalho `noindex`, autorização `frame-ancestors *` e sem H1 da raiz. O
+  widget isolado e a prévia incorporada foram conferidos visualmente na versão
+  imutável: ambos preservam o cartão horizontal compacto e o widget não emite
+  erros ou avisos no console.
 - A entrega SSG foi publicada pelo commit privado `d0ea4da` e sincronizada no
   repositório público como `9cdfc50`. As verificações privada (`34429811443`) e
   pública (`34429898421`), a sincronização pública (`34429811445`), o GitHub
