@@ -293,7 +293,7 @@
 
 ## Estado atual
 
-- **Última atividade:** 2026-09-09.
+- **Última atividade:** 2026-09-10.
 - Em 2026-08-11, a pasta `Programas de Programador` foi transferida do Desktop
   sincronizado pelo OneDrive para `/Users/jean7rafael/Downloads`. O repositório
   ativo deste aplicativo passou a ficar em
@@ -1761,13 +1761,17 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
 - O `sitemap.xml` foi validado localmente e também requisitado publicamente com
   identificação de Googlebot: respondeu HTTP 200, `application/xml`, sem
   redirecionamento, passou no parser XML e continua liberado pelo `robots.txt`.
-  Em 9 de setembro, o reenvio manual de `sitemap.xml` foi confirmado pelo
-  Search Console com “Sitemap enviado”; o processamento posterior ainda depende
-  do Google. As datas `lastmod` foram atualizadas para as páginas realmente
-  revistas. O HTML já declara `13 Calendar` em `og:site_name` e em `WebSite`
-  estruturado. O nome “Cloudflare” exibido pelo Google é uma escolha algorítmica
-  ainda não reprocessada, não um campo ausente. Não foi encontrada evidência de
-  que o domínio `pages.dev` sofra uma penalidade automática de ranking.
+  Em 10 de setembro, o reenvio manual de `sitemap.xml` foi confirmado pelo
+  Search Console com “Sitemap enviado”. Na consulta imediatamente posterior, a
+  linha ainda conservava o diagnóstico genérico “Não foi possível ler o
+  sitemap”, sem detalhe técnico e com zero URLs reconhecidas; isso deve ser
+  revisto após o próximo processamento do Google, pois o arquivo público passou
+  em todas as verificações independentes. As datas `lastmod` foram atualizadas
+  para as páginas realmente revistas. O HTML já declara `13 Calendar` em
+  `og:site_name` e em `WebSite` estruturado. O nome “Cloudflare” exibido pelo
+  Google é uma escolha algorítmica ainda não reprocessada, não um campo ausente.
+  Não foi encontrada evidência de que o domínio `pages.dev` sofra uma penalidade
+  automática de ranking.
 - Em 9 de setembro, o build passou a usar o SSG nativo do Quasar: a atualização
   para `@quasar/app-vite` 3.8.3 e Vue Router 5.3.1 renderiza a árvore Vue real
   das sete URLs indexáveis do sitemap (`/`, `/learn`, `/tools`, `/moon`,
@@ -1804,6 +1808,21 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
 - `npm run verify`, `git diff --check` e a validação XML passaram integralmente
   nesta revisão. O pacote mediu 3.248,5 KiB brutos e 812,1 KiB gzip; as duas
   árvores de produção permaneceram com zero vulnerabilidades.
+- A entrega SSG foi publicada pelo commit privado `d0ea4da` e sincronizada no
+  repositório público como `9cdfc50`. As verificações privada (`34429811443`) e
+  pública (`34429898421`), a sincronização pública (`34429811445`), o GitHub
+  Pages de redirecionamento (`34429897670`) e as duas publicações no Cloudflare
+  Pages (`34429811446` e `34429898416`) concluíram com sucesso. A implantação
+  imutável funcional é `5ae94476.13calendar.pages.dev`. O alias principal e a
+  implantação imutável responderam HTTP 200 com HTML próprio, título, H1,
+  descrição e canonical nas sete rotas públicas, inclusive sob identificação
+  de Googlebot; `robots.txt` e `sitemap.xml` também responderam corretamente.
+  Os três endpoints públicos do Worker usados pelo aplicativo responderam 200
+  com JSON. A inspeção ao vivo da raiz no Search Console confirmou “O URL está
+  disponível para o Google” e “É possível indexar a página”. A raiz já consta
+  no índice, mas uma nova solicitação manual não foi aceita porque a cota diária
+  do Search Console foi excedida; as demais URLs não foram repetidas para não
+  desperdiçar tentativas.
 
 ## Pendências atuais
 
@@ -1815,9 +1834,12 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   site `Cloudflare` por `13 Calendar` e a evolução em consultas genéricas. O
   domínio EU.org, quando aprovado, reforçará a identidade, mas não é requisito
   técnico para o nome próprio.
-- Acompanhar o processamento do `sitemap.xml` reenviado manualmente em 9 de
-  setembro e executar a inspeção ao vivo das URLs prioritárias quando o Search
-  Console registrar a nova leitura.
+- Acompanhar o processamento do `sitemap.xml` reenviado manualmente em 10 de
+  setembro; se o erro genérico persistir depois de 24–48 horas, repetir o
+  diagnóstico no Search Console. A partir de 11 de setembro, quando a cota
+  diária reiniciar, solicitar indexação individual de `/learn`, `/tools`,
+  `/moon`, `/news`, `/community` e `/privacy`; a raiz já está indexada e passou
+  na inspeção ao vivo.
 
 ## Protocolo de manutenção deste arquivo
 
