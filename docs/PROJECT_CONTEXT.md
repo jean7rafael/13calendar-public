@@ -1776,13 +1776,14 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   para `@quasar/app-vite` 3.8.3 e Vue Router 5.3.1 renderiza a árvore Vue real
   das sete URLs indexáveis do sitemap (`/`, `/learn`, `/tools`, `/moon`,
   `/news`, `/community` e `/privacy`) em `dist/ssg`. `src-ssg/ssg-renderer.ts`
-  define a lista fechada de rotas; widget, administração, remoção e fallback
-  continuam client-side e não recebem arquivo indexável. A configuração não
-  gera `404.html`, preservando o fallback history do Cloudflare Pages para
-  essas rotas privadas. `seo:ssg:audit` confere a paridade com o sitemap, HTML
-  Vue renderizado, metadados e exclusões; o health check público valida o
-  conteúdo e o canonical antes do JavaScript. O service worker manual e a PWA
-  permanecem client-side e o deploy publica `dist/ssg`.
+  define a lista fechada de rotas. O widget recebe HTML estático próprio, mas
+  permanece fora do sitemap e protegido por `noindex`; administração, remoção
+  e fallback continuam somente client-side e não recebem arquivo indexável. A
+  configuração não gera `404.html`, preservando o fallback history do
+  Cloudflare Pages para essas rotas privadas. `seo:ssg:audit` confere a paridade
+  com o sitemap, HTML Vue renderizado, metadados e exclusões; o health check
+  público valida o conteúdo e o canonical antes do JavaScript. O service worker
+  manual e a PWA permanecem client-side e o deploy publica `dist/ssg`.
 - A revisão independente do SSG eliminou o `<title>` duplicado do molde base,
   corrigiu a exclusão da rota privada `/community-remove`, adicionou dados
   estruturados próprios às páginas Comunidade e Privacidade e tornou a
@@ -1808,6 +1809,20 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
 - `npm run verify`, `git diff --check` e a validação XML passaram integralmente
   nesta revisão. O pacote mediu 3.248,5 KiB brutos e 812,1 KiB gzip; as duas
   árvores de produção permaneceram com zero vulnerabilidades.
+- Em 10 de setembro, foi corrigida uma regressão introduzida pela migração SSG:
+  como `/widget` não tinha um HTML próprio, o fallback do Cloudflare entregava
+  primeiro o HTML estático da raiz e o Vue só depois trocava para o widget. Isso
+  provocava o clarão da página principal e uma hidratação incompatível, deixando
+  a composição incorporada alta, cortada e diferente do desenho original. A
+  rota auxiliar agora também é renderizada no build, com apenas 6,61 KiB de
+  HTML, conteúdo `widget-page` e `noindex, follow`, sem entrar no sitemap nem
+  receber rastreamento próprio. A auditoria SSG e o health check de produção
+  passaram a impedir tanto a ausência do widget quanto o vazamento de um H1 da
+  página pública. A prévia de `/tools` foi conferida localmente em português e
+  tema escuro: voltou ao cartão horizontal compacto, sem erros ou avisos no
+  console. `npm run verify` passou integralmente; o pacote mediu 3.248,5 KiB
+  brutos e 812,1 KiB gzip, com zero vulnerabilidades nas duas árvores de
+  produção.
 - A entrega SSG foi publicada pelo commit privado `d0ea4da` e sincronizada no
   repositório público como `9cdfc50`. As verificações privada (`34429811443`) e
   pública (`34429898421`), a sincronização pública (`34429811445`), o GitHub

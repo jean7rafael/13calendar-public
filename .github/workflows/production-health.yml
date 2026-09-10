@@ -35,6 +35,8 @@ jobs:
           curl --fail --silent --show-error --location --retry 3 \
             https://13calendar.pages.dev/widget --output widget.html
           grep -Eq '<div id=("q-app"|q-app)>' widget.html
+          grep -q 'widget-page' widget.html
+          grep -q '<meta name="robots" content="noindex, follow"' widget.html
           curl --fail --silent --show-error --location --retry 3 \
             https://13calendar.pages.dev/robots.txt --output robots.txt
           curl --fail --silent --show-error --location --retry 3 \

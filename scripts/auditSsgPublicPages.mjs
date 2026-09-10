@@ -2,7 +2,8 @@ import { access, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const publicRoutes = ['/', '/learn', '/tools', '/moon', '/news', '/community', '/privacy'];
-const excludedRoutes = ['/widget', '/community-admin', '/community-remove', '/404'];
+const renderedNonIndexableRoutes = ['/widget'];
+const excludedRoutes = ['/community-admin', '/community-remove', '/404'];
 const outputDirectory = resolve('dist/ssg');
 const canonicalOrigin = 'https://13calendar.pages.dev';
 const routeStructuredDataTypes = {
@@ -74,6 +75,18 @@ assert(
   'Cada rota SSG precisa ter uma descrição exclusiva.',
 );
 
+for (const route of renderedNonIndexableRoutes) {
+  const html = await readFile(routeFile(route), 'utf8');
+
+  assert(/<div id=(?:"q-app"|q-app)[ >]/u.test(html), `${route}: HTML Vue renderizado não encontrado.`);
+  assert(html.includes('widget-page'), `${route}: conteúdo próprio do widget não encontrado.`);
+  assert(
+    /<meta name="robots" content="noindex, follow"[^>]*>/u.test(html),
+    `${route}: a rota auxiliar precisa permanecer fora do índice.`,
+  );
+  assert(!/<h1[\s>]/u.test(html), `${route}: a página pública principal vazou para o widget.`);
+}
+
 for (const route of excludedRoutes) {
   try {
     await access(routeFile(route));
@@ -83,4 +96,6 @@ for (const route of excludedRoutes) {
   }
 }
 
-console.log(`SSG auditado: ${publicRoutes.length} páginas públicas renderizadas com metadados.`);
+console.log(
+  `SSG auditado: ${publicRoutes.length} páginas públicas e ${renderedNonIndexableRoutes.length} rota auxiliar renderizadas.`,
+);
