@@ -1850,6 +1850,27 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   no índice, mas uma nova solicitação manual não foi aceita porque a cota diária
   do Search Console foi excedida; as demais URLs não foram repetidas para não
   desperdiçar tentativas.
+- Em 10 de setembro, uma segunda regressão comum da migração para
+  `@quasar/app-vite` 3.8.3 foi diagnosticada antes de nova publicação. O
+  frontend de produção não carregava `.env.production` nem expunha variáveis
+  `VITE_`, pois a versão 3 usa somente o prefixo `QCLI_` por padrão e não lê
+  automaticamente arquivos dotenv específicos do modo. Assim, o pacote
+  publicado ficou sem a URL pública do Worker, a chave pública do Turnstile e
+  o token público do Web Analytics, o que desativou em conjunto votação,
+  relatos, dados e perfis da comunidade, cadastro e login administrativo. O
+  Worker, o D1, o CORS e os dados permaneceram íntegros: os endpoints públicos
+  responderam 200, a área administrativa respondeu 401 sem credencial e o
+  token local existente autenticou as leituras administrativas. A configuração
+  agora carrega `.env.production` somente em builds de produção, permite ao
+  cliente apenas os prefixos públicos `QCLI_` e `VITE_` e mantém
+  `APP_RELEASE_ID` em `defineEnv`. A auditoria do pacote exige as quatro
+  configurações públicas no JavaScript final sem imprimir seus valores. Na
+  build corrigida, métricas, perfil publicado, comentários anônimos e
+  Turnstile carregaram ao vivo; a leitura dos votos e as leituras
+  administrativas também responderam corretamente. `npm run verify` e
+  `git diff --check` passaram, com 83 arquivos, 3.251,6 KiB brutos, 813,4 KiB
+  gzip e zero vulnerabilidades nas duas árvores de produção. Esta correção
+  permanece local, aguardando autorização para commit e publicação.
 
 ## Pendências atuais
 

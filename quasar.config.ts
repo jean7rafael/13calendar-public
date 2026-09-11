@@ -14,7 +14,7 @@ const appReleaseId =
    ele passa imediatamente a usar o relógio local do visitante. */
 const appBuildTimestamp = process.env.APP_BUILD_TIMESTAMP || new Date().toISOString();
 
-export default defineConfig(() => ({
+export default defineConfig((ctx) => ({
   /* =========================================================
      INICIALIZAÇÃO E ESTILOS GLOBAIS
   ========================================================= */
@@ -47,6 +47,15 @@ export default defineConfig(() => ({
     },
     publicPath: process.env.PUBLIC_PATH || '/',
     env: {
+      /* O @quasar/app-vite v3 expõe ao navegador somente QCLI_ por padrão e
+         não carrega arquivos específicos do modo automaticamente. As três
+         integrações VITE_ abaixo são valores públicos deliberados; o arquivo
+         de produção precisa entrar no build para que API, Turnstile e Web
+         Analytics não desapareçam do pacote publicado. */
+      clientPrefix: ['QCLI_', 'VITE_'],
+      file: ctx.prod ? ['.env.production'] : [],
+    },
+    defineEnv: {
       APP_RELEASE_ID: appReleaseId,
     },
 
