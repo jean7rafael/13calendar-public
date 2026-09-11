@@ -1869,8 +1869,17 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   Turnstile carregaram ao vivo; a leitura dos votos e as leituras
   administrativas também responderam corretamente. `npm run verify` e
   `git diff --check` passaram, com 83 arquivos, 3.251,6 KiB brutos, 813,4 KiB
-  gzip e zero vulnerabilidades nas duas árvores de produção. Esta correção
-  permanece local, aguardando autorização para commit e publicação.
+  gzip e zero vulnerabilidades nas duas árvores de produção. A correção foi
+  publicada pelo commit privado `6b795d3` e espelhada no público como
+  `b8ea1ca`. A sincronização privada (`34545361297`), as verificações privada
+  (`34545361361`) e pública (`34545449617`), o GitHub Pages de redirecionamento
+  (`34545448879`) e o Cloudflare Pages público (`34545449567`) concluíram com
+  sucesso. A implantação imutável é `86524ca8.13calendar.pages.dev`. O pacote
+  entregue pelo alias principal foi percorrido em 124 módulos e contém as
+  quatro integrações públicas esperadas. Métricas, membros e votos responderam
+  HTTP 200 com CORS e formato válidos; a leitura administrativa autenticada
+  respondeu 200 e preservou o registro existente. A verificação manual de
+  produção (`34545782145`) também passou.
 
 ## Pendências atuais
 
