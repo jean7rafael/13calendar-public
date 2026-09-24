@@ -105,7 +105,8 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+/* global __APP_BUILD_TIMESTAMP__ */
+import { onMounted, ref, watch } from 'vue';
 import Calendario12Meses from 'src/components/Calendario12Meses.vue';
 import Calendario13Meses from 'src/components/Calendario13Meses.vue';
 import Feriados12Calendario from 'src/components/Feriados12Calendario.vue';
@@ -136,15 +137,17 @@ function formatarDataLocal(data) {
    ESTADO INICIAL DOS DOIS CALENDÁRIOS
 =========================================================== */
 
-const dataInicial = new Date();
+/* O HTML estático e o primeiro render do navegador precisam partir da
+   mesma data. Depois da hidratação, a seleção passa ao dia local real. */
+const dataInicial = __APP_BUILD_TIMESTAMP__.slice(0, 10);
 
-const dataSelecionada = ref(formatarDataLocal(dataInicial));
+const dataSelecionada = ref(dataInicial);
 
 const dataConvertida = ref(converterPara13Meses(dataSelecionada.value));
 
-const mes12Fases = ref(dataInicial.getMonth() + 1);
+const mes12Fases = ref(Number(dataInicial.slice(5, 7)));
 
-const ano12Fases = ref(dataInicial.getFullYear());
+const ano12Fases = ref(Number(dataInicial.slice(0, 4)));
 
 const mes13Fases = ref(Number(dataConvertida.value.split('-')[1]));
 const ano13Fases = ref(Number(dataConvertida.value.split('-')[0]));
@@ -270,6 +273,8 @@ function irParaHoje() {
 watch(todayRequest, () => {
   irParaHoje();
 });
+
+onMounted(irParaHoje);
 </script>
 
 <style scoped>

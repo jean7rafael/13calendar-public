@@ -53,27 +53,35 @@ O repositório privado possui o secret `PUBLIC_REPO_TOKEN`. O workflow
 Worker, espelha a mesma fonte no repositório público e deixa que esses dois
 workflows façam as publicações. Esse é o fluxo padrão para toda nova versão.
 
-## 2. Ativar `13calendar.eu.org` — aguardando aprovação
+## 2. Ativar `13calendar.eu.org` — readicionar a zona
 
-Estado confirmado novamente em 28 de agosto de 2026:
+Estado confirmado em 22 de setembro de 2026:
 
-- a zona `13calendar.eu.org` foi criada no plano gratuito do Cloudflare;
-- os dois nameservers atribuídos foram informados ao EU.org;
-- o EU.org validou corretamente as respostas SOA e NS, sem erros, e salvou a
-  solicitação para análise humana;
-- o Cloudflare está verificando periodicamente a delegação e permanece em
-  **Waiting for your registrar to propagate your new nameservers**.
-- `13calendar.eu.org` ainda não possui delegação pública, portanto a análise
-  humana continua pendente;
-- a zona principal `eu.org` recebeu atualizações DNS no próprio dia 28. Isso
-  confirma operação técnica ativa, mas não permite inferir o ritmo da fila de
-  moderadores;
-- a documentação oficial informa apenas que a intervenção humana pode levar
-  alguns dias. O pedido tem três dias e ainda não ultrapassou essa orientação.
+- o EU.org ainda não publicou NS, SOA, A ou AAAA para
+  `13calendar.eu.org`;
+- a zona gratuita permaneceu pendente por 28 dias e foi removida
+  automaticamente da conta Cloudflare por falta de delegação;
+- `13calendar.pages.dev` continua ativo e respondeu HTTP 200, portanto o site
+  publicado não foi afetado;
+- a conta EU.org foi conferida diretamente no painel autenticado. O identificador
+  atribuído ao titular é `JRM50-FREE`, a lista **Domains** está vazia e o pedido
+  anterior não oferece mais acompanhamento ou edição;
+- ao readicionar o domínio, a Cloudflare atribuirá um novo par de nameservers.
+  O par anterior não deve ser reutilizado.
+
+Próxima sequência segura:
+
+1. readicionar `13calendar.eu.org` à mesma conta Cloudflare no plano gratuito;
+2. copiar os dois novos nameservers atribuídos;
+3. na conta EU.org `JRM50-FREE`, abrir **New Domain** e preencher um novo pedido
+   para `13calendar.eu.org` com o novo par em `Name1` e `Name2`, mantendo vazios
+   os campos de IP;
+4. conferir novamente a resposta SOA e NS mostrada pelo EU.org e deixar a nova
+   zona pendente até a delegação pública aparecer.
 
 Não criar registros A, AAAA, CNAME ou MX enquanto a delegação estiver
-pendente. Não é necessário repetir a solicitação nem usar **Create Worker**.
-Quando o EU.org aprovar o pedido por e-mail, avise `domínio aprovado`.
+pendente e não usar **Create Worker**. Quando o EU.org aprovar o pedido por
+e-mail, avise `domínio aprovado`.
 
 O lançamento não depende desse domínio: `13calendar.pages.dev` continua
 canônico e funcional. Se não houver resposta após 30 dias, reavaliar o pedido

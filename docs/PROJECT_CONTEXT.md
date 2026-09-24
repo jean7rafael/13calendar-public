@@ -293,7 +293,7 @@
 
 ## Estado atual
 
-- **Última atividade:** 2026-09-10.
+- **Última atividade:** 2026-09-24.
 - Em 2026-08-11, a pasta `Programas de Programador` foi transferida do Desktop
   sincronizado pelo OneDrive para `/Users/jean7rafael/Downloads`. O repositório
   ativo deste aplicativo passou a ficar em
@@ -323,6 +323,13 @@
 - A capitalização editorial das regiões latinas foi revisada.
 - `npm run lint` e `npm run build` passaram em 2026-08-09 após a instalação do
   mecanismo de continuidade e a medição do modelo local.
+- Em 2026-09-22, a pasta principal dos aplicativos foi transferida novamente,
+  agora para o SSD externo em `/Volumes/Arquivos/Programas de Programador`.
+  O repositório canônico deste projeto está em
+  `/Volumes/Arquivos/Programas de Programador/13calendarApp/13calendar`. O
+  caminho anterior em `/Users/jean7rafael/Downloads` é histórico e não deve
+  receber novas alterações. Se o volume `Arquivos` não estiver montado, o
+  trabalho deve aguardar sua conexão em vez de recriar a árvore antiga.
 - A identidade inspirada em `13months.net` foi aplicada à interface principal:
   fonte Inter, neutros stone/slate, cartões arredondados, bordas de baixo
   contraste e acentos violeta/índigo. O aplicativo preserva o seletor manual de
@@ -1880,12 +1887,51 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   HTTP 200 com CORS e formato válidos; a leitura administrativa autenticada
   respondeu 200 e preservou o registro existente. A verificação manual de
   produção (`34545782145`) também passou.
+- Em 22 de setembro, a Cloudflare removeu automaticamente a zona gratuita
+  `13calendar.eu.org` depois de 28 dias sem a delegação pública dos
+  nameservers. A consulta DNS confirmou ausência de NS, SOA, A e AAAA para o
+  subdomínio, enquanto `13calendar.pages.dev` continuou respondendo HTTP 200.
+  O painel autenticado do EU.org também foi conferido: o handle atribuído ao
+  titular é `JRM50-FREE`, a lista **Domains** está vazia e o pedido anterior não
+  está mais disponível para acompanhamento ou edição. A zona precisa ser
+  readicionada à mesma conta Cloudflare; depois de receber o novo par de
+  nameservers, deve ser aberto um novo pedido para `13calendar.eu.org` na conta
+  `JRM50-FREE`, preenchendo somente `Name1` e `Name2`. Nenhum registro de
+  conteúdo deve ser criado antes da delegação.
+- Em 22 de setembro, os registros do perfil NextDNS `b84775` mostraram que
+  `13calendar.pages.dev` foi bloqueado no Mac e no iPhone pela regra de controle
+  parental “Bloquear métodos de evasão de bloqueio”; não era uma demora para
+  reconhecer domínio novo. A regra e o bloqueio de pornografia permaneceram
+  ativos. Foi adicionada uma exceção apenas para `13calendar.pages.dev` na
+  lista branca, que também cobre subdomínios de implantação. A consulta direta
+  ao resolvedor desse perfil passou a devolver os IPs do site, do subdomínio
+  de implantação e da API comunitária; `pornhub.com` continuou retornando
+  `0.0.0.0`. O perfil estava desativado no Mac durante a verificação, portanto
+  ainda falta confirmar a atualização da PWA com o perfil reativado nos
+  dispositivos.
+- Em 24 de setembro, o destaque duplicado da data selecionada na página dos
+  calendários foi reproduzido na PWA: a seleção antiga de 11/09 (IFC 02/10)
+  permanecia marcada quando o resumo e a nova seleção já mostravam 24/09
+  (IFC 15/10). A causa era a hidratação do HTML estático, gerado com a data do
+  dia da publicação, contra uma primeira renderização do navegador baseada em
+  `new Date()`. O Vue preservava os atributos antigos e as seleções seguintes
+  acrescentavam novos destaques. `IndexPage.vue` agora inicia servidor e
+  cliente com a data UTC fixa de `__APP_BUILD_TIMESTAMP__` e, após a montagem,
+  atualiza ambos os calendários para a data local real. Uma compilação simulada
+  de 11/09, aberta em 24/09, mostrou só 24/09 e IFC 15/10 destacados; ao
+  selecionar 15/09, os destaques passaram exclusivamente para 15/09 e IFC
+  06/10. `npm run lint` e a compilação normal passaram. A correção está apenas
+  no código local e ainda requer publicação para alcançar a PWA instalada.
 
 ## Pendências atuais
 
-- Aguardar a aprovação humana de `13calendar.eu.org`; depois associá-lo ao
-  Cloudflare Pages e executar a troca coordenada descrita em
-  `docs/OWNER_ACTIONS.md`.
+- Reativar o perfil NextDNS no Mac e no iPhone e confirmar que a PWA instalada
+  do 13 Calendar consegue buscar a versão atual; se ainda falhar, verificar nos
+  registros o domínio exato bloqueado antes de ampliar a lista branca.
+- Readicionar `13calendar.eu.org` à Cloudflare, copiar o novo par de
+  nameservers e abrir um novo pedido na conta EU.org `JRM50-FREE` conforme
+  `docs/OWNER_ACTIONS.md`. Depois da delegação e aprovação humana, associar o
+  domínio ao Cloudflare Pages e executar a troca coordenada documentada.
 - Acompanhar no Google Search Console quais páginas e consultas começaram a
   receber impressões, a indexação das rotas novas, a substituição do nome de
   site `Cloudflare` por `13 Calendar` e a evolução em consultas genéricas. O
