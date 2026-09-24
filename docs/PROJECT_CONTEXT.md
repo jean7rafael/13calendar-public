@@ -1920,8 +1920,15 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   atualiza ambos os calendários para a data local real. Uma compilação simulada
   de 11/09, aberta em 24/09, mostrou só 24/09 e IFC 15/10 destacados; ao
   selecionar 15/09, os destaques passaram exclusivamente para 15/09 e IFC
-  06/10. `npm run lint` e a compilação normal passaram. A correção está apenas
-  no código local e ainda requer publicação para alcançar a PWA instalada.
+  06/10. `npm run verify` passou integralmente, incluindo as auditorias do
+  calendário, SSG e dependências de produção. A correção foi enviada à `main`
+  privada no commit `f2dc662`, espelhada na fonte pública em `aa56d31`, e os
+  workflows de sincronização, verificação, GitHub Pages e Cloudflare Pages
+  concluíram com sucesso. Na URL pública `https://13calendar.pages.dev/`, a
+  seleção inicial mostrou somente 24/09 e IFC 15/10; após clicar 15/09,
+  somente 15/09 e IFC 06/10 ficaram destacados. A PWA instalada ainda precisa
+  receber a atualização em cada dispositivo, condicionada à conectividade
+  do perfil NextDNS indicada nas pendências.
 
 ## Pendências atuais
 
