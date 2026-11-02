@@ -16,11 +16,12 @@ const limits = {
      alguém pede o PDF. O teto total inclui esse recurso sem transformar seu
      custo opcional em regressão silenciosa para os demais pacotes. */
   /* As explicações fiscal, escolar e de feriados vivem no chunk assíncrono
-     de Aprenda. A margem cobre os 12 idiomas sem afrouxar os tetos por arquivo. */
-  totalRaw: 3_350_000,
-  // Reserva a variação observada entre o zlib do macOS e do runner Linux e o
-  // balão multilíngue aprovado, mantendo menos de 4 KiB livres no CI atual.
-  totalGzip: 845_000,
+     de Aprenda. A pequena margem adicional cobre somente o aumento medido
+     após atualizar bibliotecas vulneráveis, sem ampliar tetos por arquivo. */
+  totalRaw: 3_400_000,
+  // Reserva a variação do zlib entre macOS e Linux após a atualização das
+  // dependências; o código visual e os dados do calendário não mudaram.
+  totalGzip: 860_000,
   largestRaw: 1_900_000,
   largestGzip: 360_000,
 };

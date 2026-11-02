@@ -44,7 +44,7 @@
     "seo:ssg:audit": "node scripts/auditSsgPublicPages.mjs",
     "build": "quasar build -m ssg",
     "audit:bundle": "node scripts/auditProductionBundle.mjs",
-    "audit:production": "npm audit --omit=dev && npm --prefix cloudflare/community-registration-worker audit --omit=dev",
+    "audit:production": "node scripts/auditProductionDependencies.mjs && npm --prefix cloudflare/community-registration-worker audit --omit=dev",
     "verify": "npm run continuity:audit && npm run lint && npm run ui:audit && npm run education:audit && npm run community:profile:audit && npm run community:feedback:audit && npm run calendar:conversion:audit && npm run build && npm run seo:ssg:audit && npm run audit:bundle && npm run holidays:runtime:audit && npm run holidays:audit && npm run holidays:weekday:audit && npm run holidays:calendar13:audit && npm run holidays:merge:audit && npm run holidays:emoji:audit && npm run holidays:translation:audit && npm run holidays:official:audit && npm run audit:production",
     "postinstall": "quasar prepare"
   },
@@ -69,7 +69,7 @@
     "globals": "^15.12.0",
     "prettier": "^3.3.3",
     "typescript-eslint": "^8.66.0",
-    "vite": "8.2.1",
+    "vite": "8.3.5",
     "world-countries": "^5.1.0"
   },
   "overrides": {

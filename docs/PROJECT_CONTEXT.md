@@ -293,7 +293,7 @@
 
 ## Estado atual
 
-- **Última atividade:** 2026-09-24.
+- **Última atividade:** 2026-11-02.
 - Em 2026-08-11, a pasta `Programas de Programador` foi transferida do Desktop
   sincronizado pelo OneDrive para `/Users/jean7rafael/Downloads`. O repositório
   ativo deste aplicativo passou a ficar em
@@ -1929,6 +1929,19 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   somente 15/09 e IFC 06/10 ficaram destacados. A PWA instalada ainda precisa
   receber a atualização em cada dispositivo, condicionada à conectividade
   do perfil NextDNS indicada nas pendências.
+
+- Em 2 de novembro, a fonte voltou à base de 24 de setembro antes de uma
+  manutenção restrita às dependências e à verificação da release. Nenhum
+  componente de interface, catálogo, dado de feriado ou motor calendárico foi
+  editado. Vue, Vue I18n, Quasar e transitivas compatíveis foram atualizados;
+  Vite ficou fixado em 8.3.5. O orçamento do pacote foi ajustado ao aumento
+  medido das bibliotecas, sem ampliar limites por arquivo. A auditoria de
+  produção aceita somente o aviso baixo específico de `deepmerge` herdado por
+  `date-holidays-parser` e falha para qualquer outro; a correção automática
+  disponível exigiria regredir o parser para uma versão incompatível. A
+  verificação integral e o dry-run do Worker passaram. A auditoria completa
+  do npm ainda lista avisos de ferramentas de desenvolvimento, sem alertas
+  altos, que não entram no pacote público.
 
 ## Pendências atuais
 
