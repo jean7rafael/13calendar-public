@@ -1957,9 +1957,14 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   7 alertas altos, todos na cadeia de desenvolvimento de
   `@cloudflare/puppeteer` sem versão corrigida compatível; não forçar a antiga
   0.0.11, que mudaria a captura de fotos. Na árvore principal, o `npm audit`
-  completo apontou 16 avisos moderados de ferramentas de lint e três baixos
-  ligados ao parser de feriados; o `npm audit fix --dry-run` não encontrou
-  atualização compatível. A política local de retenção foi incorporada ao
+  completo apontou inicialmente 16 avisos moderados de ferramentas de lint e
+  três baixos ligados ao parser de feriados; o `npm audit fix --dry-run` não
+  encontrou atualização compatível. Em nova consulta no mesmo dia, após a base
+  de alertas delimitar `minimatch` a partir da versão 7, restaram sete avisos
+  moderados e três baixos na árvore principal. Uma inspeção do bundle do Worker
+  gerado em dry-run não encontrou `basic-ftp`, `extract-zip` nem a cadeia de
+  download do navegador; a auditoria `--omit=dev` do Worker permaneceu zerada.
+  A política local de retenção foi incorporada ao
   `AGENTS.md` e ao roteiro de `docs/OPERATIONS.md`, incluindo a responsabilidade
   da própria conversa pela limpeza. Depois de conferir a publicação, foram
   removidos somente `dist/spa` (14.309.557 bytes),
@@ -1970,14 +1975,30 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   livres após a revisão; variações de espaço concorrentes não foram atribuídas
   a esta tarefa. A exclusão local ocorreu antes do esclarecimento adicional
   que tornou obrigatório o uso de `limpar.py` nas próximas entregas.
+- Em 4 de novembro, a frente seguinte eliminou os alertas conhecidos das duas
+  árvores completas de dependências, sem alterar componentes, regras do
+  calendário ou dados comunitários. O parser de lint recebeu `minimatch`
+  11.0.4 por override direcionado. Como `deepmerge` 4.3.1 não possui correção
+  oficial, `packages/deepmerge-safe` mantém uma cópia MIT local da API 4.3.1,
+  versão 4.3.2, com bloqueio de chaves de protótipo e escrita segura; o teste
+  `security:merge:audit` cobre a exploração e a API usada por feriados. O
+  Worker recebeu override somente de `@puppeteer/browsers` para 3.2.6, que
+  remove `extract-zip` e `basic-ftp` da instalação. O bundle Wrangler em
+  dry-run foi idêntico antes e depois (SHA-256
+  `aa744c10a86bba88e85aa1fb9fc716997cc1cff650e4d675e8b51d276b3e7ce1`).
+  `npm ci` nas duas árvores, auditorias npm completas (zero alertas em ambas)
+  e `npm run verify` passaram; a verificação integral agora exige essas
+  auditorias. A validação cobriu as regras de 206 países, 12 idiomas, SSG e
+  pacote de produção. O override do Worker deve ser reavaliado se a API de
+  captura passar a usar os utilitários Node de `@puppeteer/browsers`.
 
 ## Pendências atuais
 
-- Acompanhar versões corrigidas e compatíveis das ferramentas de lint e de
-  `@cloudflare/puppeteer`; não usar `npm audit fix --force` para regredir
-  dependências ou alterar a captura de fotos. Os alertas restantes do audit
-  completo são de desenvolvimento; as auditorias de produção continuam no
-  critério documentado.
+- Acompanhar uma versão oficial corrigida de `deepmerge` e uma versão de
+  `@cloudflare/puppeteer` que já utilize `@puppeteer/browsers` sem a cadeia
+  vulnerável. Substituir os ajustes locais somente após conferir as auditorias
+  completas, os feriados e o bundle do Worker; não usar `npm audit fix --force`
+  para regredir dependências.
 - Reativar o perfil NextDNS no Mac e no iPhone e confirmar que a PWA instalada
   do 13 Calendar consegue buscar a versão atual; se ainda falhar, verificar nos
   registros o domínio exato bloqueado antes de ampliar a lista branca.

@@ -7,7 +7,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "lint": "eslint -c ./eslint.config.js \"./src*/**/*.{ts,js,cjs,mjs,vue}\" \"./scripts/**/*.{js,cjs,mjs}\"",
+    "lint": "eslint -c ./eslint.config.js \"./src*/**/*.{ts,js,cjs,mjs,vue}\" \"./scripts/**/*.{js,cjs,mjs}\" \"./packages/**/*.{js,cjs,mjs}\"",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "conversation:export": "node scripts/exportCodexConversation.mjs",
     "icons:generate": "node scripts/generateAppIconAssets.mjs",
@@ -17,6 +17,8 @@
     "continuity:audit": "node scripts/manageWorkCheckpoint.mjs --audit",
     "community:profile:audit": "node scripts/auditCommunityProfileTools.mjs",
     "community:feedback:audit": "node scripts/auditReferenceFeedbackVotes.mjs",
+    "security:merge:audit": "node scripts/auditSafeDeepmerge.mjs",
+    "security:dependencies:audit": "npm audit && npm --prefix cloudflare/community-registration-worker audit",
     "calendar:conversion:audit": "node scripts/auditCalendarConversions.mjs",
     "ui:audit": "node scripts/auditUiStandards.mjs",
     "education:audit": "node scripts/auditEducationMigration.mjs",
@@ -45,13 +47,14 @@
     "build": "quasar build -m ssg",
     "audit:bundle": "node scripts/auditProductionBundle.mjs",
     "audit:production": "node scripts/auditProductionDependencies.mjs && npm --prefix cloudflare/community-registration-worker audit --omit=dev",
-    "verify": "npm run continuity:audit && npm run lint && npm run ui:audit && npm run education:audit && npm run community:profile:audit && npm run community:feedback:audit && npm run calendar:conversion:audit && npm run build && npm run seo:ssg:audit && npm run audit:bundle && npm run holidays:runtime:audit && npm run holidays:audit && npm run holidays:weekday:audit && npm run holidays:calendar13:audit && npm run holidays:merge:audit && npm run holidays:emoji:audit && npm run holidays:translation:audit && npm run holidays:official:audit && npm run audit:production",
+    "verify": "npm run continuity:audit && npm run lint && npm run security:merge:audit && npm run ui:audit && npm run education:audit && npm run community:profile:audit && npm run community:feedback:audit && npm run calendar:conversion:audit && npm run build && npm run seo:ssg:audit && npm run audit:bundle && npm run holidays:runtime:audit && npm run holidays:audit && npm run holidays:weekday:audit && npm run holidays:calendar13:audit && npm run holidays:merge:audit && npm run holidays:emoji:audit && npm run holidays:translation:audit && npm run holidays:official:audit && npm run audit:production && npm run security:dependencies:audit",
     "postinstall": "quasar prepare"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
     "astronomy-engine": "^2.1.19",
     "date-holidays-parser": "^3.4.7",
+    "deepmerge": "file:./packages/deepmerge-safe",
     "html2canvas": "^1.4.1",
     "quasar": "^2.16.0",
     "vue": "^3.4.18",
@@ -73,7 +76,10 @@
     "world-countries": "^5.1.0"
   },
   "overrides": {
-    "esbuild": "^0.28.1"
+    "esbuild": "^0.28.1",
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.4"
+    }
   },
   "engines": {
     "node": "^28 || ^26 || ^24 || ^22.22.0",
