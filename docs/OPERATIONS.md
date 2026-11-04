@@ -12,18 +12,54 @@ Os endereços alternativos e o procedimento de troca ficam em
 
 ## Publicação
 
-O build principal gera primeiro os dados de execução e depois uma única
-aplicação Vue/Quasar em `dist/spa`. Aprenda, Ferramentas, Calendários, Lua,
-Notícias e Comunidade são rotas do mesmo produto.
+O build principal gera primeiro os dados de execução e depois a aplicação
+Vue/Quasar com HTML estático por rota em `dist/ssg`. Aprenda, Ferramentas,
+Calendários, Lua, Notícias e Comunidade são áreas do mesmo produto; `/widget`
+tem HTML próprio, mas não entra no sitemap. `dist/spa` é uma saída antiga e
+não integra a publicação atual.
 
 Os segredos `CLOUDFLARE_ACCOUNT_ID` e `CLOUDFLARE_API_TOKEN` estão configurados
 no repositório público. O workflow `Publicar no Cloudflare Pages` publica cada
 alteração aprovada na `main`. A publicação manual de emergência continua
 possível com Wrangler.
 
+O fluxo normal parte da `main` privada: `Sincronizar versão pública` executa
+`npm run verify` e o dry-run do Worker antes de espelhar a fonte aprovada.
+Depois, confira os workflows públicos e a versão servida pelo endereço canônico;
+um build local ou um workflow verde, isoladamente, não comprovam a entrega.
+
 Enquanto algum secret estiver ausente, o workflow conclui a conferência sem
 expor valores e ignora somente a etapa de publicação. As ações que exigem login
 do mantenedor ficam centralizadas em [`OWNER_ACTIONS.md`](OWNER_ACTIONS.md).
+
+## Roteiro de conferência e retenção
+
+Aplica-se a regra permanente local em
+`/Volumes/Arquivos/Programas de Programador/PADRAO_RETENCAO_E_LIMPEZA.md`.
+Execute esta revisão ao final de **cada** entrega, não como efeito automático do
+build nem antes de uma publicação e verificação bem-sucedidas:
+
+1. Confirme os commits privado e público, o deploy ativo da Cloudflare e as
+   páginas e APIs afetadas. Preserve a recuperação mínima se houver falha ou
+   conferência pendente; registre o motivo e a condição para retirá-la.
+2. Identifique o pacote local atual (`dist/ssg`, quando necessário) e os
+   candidatos exatos a limpeza. Preserve fontes, recursos, documentação,
+   `package.json`, lockfiles, preferências, dados do D1 e credenciais nos locais
+   protegidos. Não trate `node_modules` ou `.wrangler/state` como lixo só pelo
+   nome da pasta.
+3. Meça cada candidato, confira links simbólicos e processos em uso, e coordene
+   qualquer caminho compartilhado com outra tarefa. Só exclua saídas antigas,
+   prévias, capturas e caches comprovadamente regeneráveis e dispensáveis.
+4. Confirme novamente a permanência do pacote atual e das fontes. Registre os
+   caminhos e bytes realmente removidos, o espaço livre observado no volume e
+   tudo que ficou pendente de conferência. Se nada for descartável, registre
+   isso. Não atribua à tarefa toda a variação de espaço causada por trabalhos
+   concorrentes.
+
+Esta é somente limpeza **local**. Histórico de branches, releases, deploys
+remotos e dados da Comunidade seguem a política própria de seus serviços; não
+os apague por causa deste roteiro. Não esvazie o Lixo global nem substitua as
+etapas acima por um `rm -rf` ao final de um script.
 
 ## Monitoramento automatizado
 

@@ -293,7 +293,7 @@
 
 ## Estado atual
 
-- **Última atividade:** 2026-11-02.
+- **Última atividade:** 2026-11-04.
 - Em 2026-08-11, a pasta `Programas de Programador` foi transferida do Desktop
   sincronizado pelo OneDrive para `/Users/jean7rafael/Downloads`. O repositório
   ativo deste aplicativo passou a ficar em
@@ -1942,6 +1942,22 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   verificação integral e o dry-run do Worker passaram. A auditoria completa
   do npm ainda lista avisos de ferramentas de desenvolvimento, sem alertas
   altos, que não entram no pacote público.
+- Em 4 de novembro, a manutenção técnica atualizou apenas o Wrangler do Worker
+  de 4.125.0 para 4.157.0 e o pin do workflow Pages para a mesma versão; nenhum
+  componente, regra, tradução ou dado do produto foi editado. O dry-run do
+  Worker manteve 754,01 KiB brutos e 148,72 KiB gzip, e a auditoria das suas
+  dependências de produção continuou sem vulnerabilidades. O `npm run verify`
+  passou novamente depois da atualização, cobrindo SSG, 12 idiomas, conversões,
+  feriados, pacote e dependências; a publicação ainda precisa ser confirmada.
+  A auditoria completa do Worker caiu de 11 para
+  7 alertas altos, todos na cadeia de desenvolvimento de
+  `@cloudflare/puppeteer` sem versão corrigida compatível; não forçar a antiga
+  0.0.11, que mudaria a captura de fotos. Na árvore principal, o `npm audit`
+  completo apontou 16 avisos moderados de ferramentas de lint e três baixos
+  ligados ao parser de feriados; o `npm audit fix --dry-run` não encontrou
+  atualização compatível. A política local de retenção foi incorporada ao
+  `AGENTS.md` e ao roteiro de `docs/OPERATIONS.md`; a revisão de artefatos
+  regeneráveis fica para depois da conferência da versão publicada.
 
 ## Pendências atuais
 
