@@ -1948,7 +1948,11 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   Worker manteve 754,01 KiB brutos e 148,72 KiB gzip, e a auditoria das suas
   dependências de produção continuou sem vulnerabilidades. O `npm run verify`
   passou novamente depois da atualização, cobrindo SSG, 12 idiomas, conversões,
-  feriados, pacote e dependências; a publicação ainda precisa ser confirmada.
+  feriados, pacote e dependências. A sincronização da `main` privada com o
+  repositório público, a publicação Pages e Worker, as verificações de CI e a
+  checagem manual de produção concluíram sem erro. O alias principal entregou
+  o mesmo HTML da implantação imutável na raiz e em `/widget`; raiz, seis rotas
+  públicas adicionais, widget, `robots.txt` e `sitemap.xml` responderam 200.
   A auditoria completa do Worker caiu de 11 para
   7 alertas altos, todos na cadeia de desenvolvimento de
   `@cloudflare/puppeteer` sem versão corrigida compatível; não forçar a antiga
@@ -1956,11 +1960,24 @@ meses`. As traduções têm curadoria explícita para não virarem uma média co
   completo apontou 16 avisos moderados de ferramentas de lint e três baixos
   ligados ao parser de feriados; o `npm audit fix --dry-run` não encontrou
   atualização compatível. A política local de retenção foi incorporada ao
-  `AGENTS.md` e ao roteiro de `docs/OPERATIONS.md`; a revisão de artefatos
-  regeneráveis fica para depois da conferência da versão publicada.
+  `AGENTS.md` e ao roteiro de `docs/OPERATIONS.md`, incluindo a responsabilidade
+  da própria conversa pela limpeza. Depois de conferir a publicação, foram
+  removidos somente `dist/spa` (14.309.557 bytes),
+  `dist/.prerender-spa-shell.html` (3.672 bytes), `.quasar` (50.974 bytes),
+  `output/pdf` (885.736 bytes) e a pasta vazia `.wrangler`: 15.249.939 bytes
+  lógicos no total. O pacote `dist/ssg`, as dependências, fontes e o estado local
+  do Worker foram preservados. O volume `Arquivos` mostrou 22.288.200 KiB
+  livres após a revisão; variações de espaço concorrentes não foram atribuídas
+  a esta tarefa. A exclusão local ocorreu antes do esclarecimento adicional
+  que tornou obrigatório o uso de `limpar.py` nas próximas entregas.
 
 ## Pendências atuais
 
+- Acompanhar versões corrigidas e compatíveis das ferramentas de lint e de
+  `@cloudflare/puppeteer`; não usar `npm audit fix --force` para regredir
+  dependências ou alterar a captura de fotos. Os alertas restantes do audit
+  completo são de desenvolvimento; as auditorias de produção continuam no
+  critério documentado.
 - Reativar o perfil NextDNS no Mac e no iPhone e confirmar que a PWA instalada
   do 13 Calendar consegue buscar a versão atual; se ainda falhar, verificar nos
   registros o domínio exato bloqueado antes de ampliar a lista branca.

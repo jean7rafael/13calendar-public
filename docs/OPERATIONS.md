@@ -37,7 +37,12 @@ do mantenedor ficam centralizadas em [`OWNER_ACTIONS.md`](OWNER_ACTIONS.md).
 Aplica-se a regra permanente local em
 `/Volumes/Arquivos/Programas de Programador/PADRAO_RETENCAO_E_LIMPEZA.md`.
 Execute esta revisão ao final de **cada** entrega, não como efeito automático do
-build nem antes de uma publicação e verificação bem-sucedidas:
+build nem antes de uma publicação e verificação bem-sucedidas. A mesma conversa
+que publicou e conferiu a versão executa a limpeza do próprio escopo: não envie
+o plano para uma conversa central nem espere outra pessoa aplicar a exclusão.
+Use `Ferramentas Compartilhadas/Retencao de Entregas/limpar.py` com manifesto
+explícito, `--planejar`, revisão do plano e `--aplicar`, conforme o README da
+ferramenta:
 
 1. Confirme os commits privado e público, o deploy ativo da Cloudflare e as
    páginas e APIs afetadas. Preserve a recuperação mínima se houver falha ou
